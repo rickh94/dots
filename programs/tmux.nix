@@ -2,7 +2,6 @@
 {
   programs.tmux = {
     enable = true;
-    mouse = true;
     keyMode = "vi";
     historyLimit = 10000;
     shell = "${pkgs.nushell}/bin/nu";

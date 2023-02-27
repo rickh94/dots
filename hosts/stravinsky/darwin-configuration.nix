@@ -1,9 +1,8 @@
-{ pkgs, nix, nixpkgs, config, lib, ... }:
-let 
+{ pkgs, nix, config, lib, ... }:
+let
   me = "rick";
 in
 {
-  imports = [<home-manager/nix-darwin>];
   environment.systemPackages = with pkgs; [
     neovim
     zsh
@@ -21,7 +20,6 @@ in
   ];
 
   services.nix-daemon.enable = true;
-  #nixpkgs.config.allowUnfree = true;
 
   programs.zsh.enable = true;
   programs.fish.enable = true;
@@ -46,7 +44,7 @@ in
   fonts = {
     fontDir.enable = true;
     fonts = [
-      (pkgs.nerdfonts.override { fonts = ["FiraCode" "Hack" "CascadiaCode"];})
+      (pkgs.nerdfonts.override { fonts = [ "FiraCode" "Hack" "CascadiaCode" ]; })
     ];
   };
 
@@ -92,22 +90,21 @@ in
   };
 
   system.activationScripts.applications.text = pkgs.lib.mkForce ''
-  echo "setting up ~/Applications/NixApps.."
-  mkdir -p ~/Applications
-  rm -rf ~/Applications/NixApps
-  mkdir -p ~/Applications/NixApps
-  chown ${me} ~/Applications/NixApps
-  find ${config.system.build.applications}/Applications -maxdepth 1 -type l | while read f; do
-    echo "Linking $f"
-    src=$(/usr/bin/stat -f%Y "$f")
-    appname="$(basename "$f")"
-    /usr/bin/osascript -e "tell app \"Finder\" to make alias file at POSIX file \"/Users/${me}/Applications/NixApps/\" to POSIX file \"$src\" with properties {name: \"$appname\"}";
-  done
+    echo "setting up ~/Applications/NixApps.."
+    mkdir -p ~/Applications
+    rm -rf ~/Applications/NixApps
+    mkdir -p ~/Applications/NixApps
+    chown ${me} ~/Applications/NixApps
+    find ${config.system.build.applications}/Applications -maxdepth 1 -type l | while read f; do
+      echo "Linking $f"
+      src=$(/usr/bin/stat -f%Y "$f")
+      appname="$(basename "$f")"
+      /usr/bin/osascript -e "tell app \"Finder\" to make alias file at POSIX file \"/Users/${me}/Applications/NixApps/\" to POSIX file \"$src\" with properties {name: \"$appname\"}";
+    done
   '';
 
-  home-manager.users.rick = import ./home.nix;
 
   home-manager.useUserPackages = true;
   home-manager.useGlobalPkgs = true;
-   
+
 }

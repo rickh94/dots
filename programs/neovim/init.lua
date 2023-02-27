@@ -56,12 +56,19 @@ require('lazy').setup({
 
   { -- Autocompletion
     'hrsh7th/nvim-cmp',
-    dependencies = { 'hrsh7th/cmp-nvim-lsp', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip' },
+    dependencies = {
+      'hrsh7th/cmp-nvim-lsp',
+      'L3MON4D3/LuaSnip',
+      'saadparwaiz1/cmp_luasnip',
+      'hrsh7th/cpm-buffer',
+      'hrsh7th/cpm-path',
+      'hrsh7th/cpm-cmdline',
+    },
   },
 
   -- Useful plugin to show you pending keybinds.
-  { 'folke/which-key.nvim', opts = {}, 
-    config = function() 
+  { 'folke/which-key.nvim', opts = {},
+    config = function()
       require('which-key').register({
         w = {
           name = "+Window",
@@ -121,7 +128,7 @@ require('lazy').setup({
   },
 
   -- "gc" to comment visual regions/lines
-  { 'numToStr/Comment.nvim', opts = {} },
+  { 'numToStr/Comment.nvim',         opts = {} },
 
   -- Fuzzy Finder (files, lsp, etc)
   { 'nvim-telescope/telescope.nvim', version = '*', dependencies = { 'nvim-lua/plenary.nvim' } },
@@ -148,43 +155,43 @@ require('lazy').setup({
       pcall(require('nvim-treesitter.install').update { with_sync = true })
     end,
   },
-	'edgedb/edgedb-vim',
-	'tpope/vim-repeat',
-	{
-	  'simrat39/rust-tools.nvim',
-	  priority = 90,
-	  config = function() 
-		  require('rust-tools').setup()
-		  require('rust-tools').inlay_hints.set()
-	  end
-	},
-	{
-	  'saecki/crates.nvim',
-	  config = function()
-		  require('crates').setup()
-	  end
-	},
-	{
-    'simrat39/inlay-hints.nvim',
-	   priority = 80,
-	   config = function()
-		   require('inlay-hints').setup()
-	   end
-	},
-	{
-	   'ggandor/leap.nvim',
-	   config = function()
-		   require('leap').add_default_mappings()
-	   end
-	},
+  'edgedb/edgedb-vim',
+  'tpope/vim-repeat',
   {
-  'glepnir/dashboard-nvim',
+    'simrat39/rust-tools.nvim',
+    priority = 90,
+    config = function()
+      require('rust-tools').setup()
+      require('rust-tools').inlay_hints.set()
+    end
+  },
+  {
+    'saecki/crates.nvim',
+    config = function()
+      require('crates').setup()
+    end
+  },
+  {
+    'simrat39/inlay-hints.nvim',
+    priority = 80,
+    config = function()
+      require('inlay-hints').setup()
+    end
+  },
+  {
+    'ggandor/leap.nvim',
+    config = function()
+      require('leap').add_default_mappings()
+    end
+  },
+  {
+    'glepnir/dashboard-nvim',
     event = 'VimEnter',
     config = function()
       require('dashboard').setup { -- config
       }
     end,
-    dependencies = { {'nvim-tree/nvim-web-devicons'}}
+    dependencies = { { 'nvim-tree/nvim-web-devicons' } }
   },
   {
     'folke/todo-comments.nvim',
@@ -202,7 +209,7 @@ require('lazy').setup({
   'lukas-reineke/indent-blankline.nvim',
   {
     'folke/noice.nvim',
-    dependencies = { { 'MunifTanjim/nui.nvim'} }
+    dependencies = { { 'MunifTanjim/nui.nvim' } }
   },
   {
     'echasnovski/mini.indentscope',
@@ -214,7 +221,7 @@ require('lazy').setup({
   {
     'Pocco81/auto-save.nvim',
     config = function()
-      require('auto-save').setup{
+      require('auto-save').setup {
         enabled = true,
         debounce_delay = 2000,
       }
@@ -244,12 +251,10 @@ require('lazy').setup({
     end
   },
   {
-    'nvim-neo-tree/neo-tree.nvim',
-    dependencies = {
-      {'nvim-lua/plenary.nvim'},
-      {'nvim-tree/nvim-web-devicons'},
-      {'MunifTanjim/nui.nvim'},
-    },
+    'nvim-tree/nvim-tree.lua',
+    config = function()
+      require('nvim-tree').config()
+    end
   },
   { import = 'custom.plugins' },
 }, {})
@@ -296,7 +301,7 @@ vim.o.completeopt = 'menuone,noselect'
 -- NOTE: You should make sure your terminal supports this
 vim.o.termguicolors = true
 
-vim.o.guifont="CascadiaCode Nerd Font"
+vim.o.guifont = "CascadiaCode Nerd Font"
 
 -- [[ Basic Keymaps ]]
 
@@ -552,7 +557,7 @@ cmp.setup {
     end,
   },
   mapping = cmp.mapping.preset.insert {
-    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-d>'] = cmp.mapping.scroll_docs( -4),
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
     ['<C-Space>'] = cmp.mapping.complete {},
     ['<CR>'] = cmp.mapping.confirm {
@@ -571,8 +576,8 @@ cmp.setup {
     ['<S-Tab>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_prev_item()
-      elseif luasnip.jumpable(-1) then
-        luasnip.jump(-1)
+      elseif luasnip.jumpable( -1) then
+        luasnip.jump( -1)
       else
         fallback()
       end

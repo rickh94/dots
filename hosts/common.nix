@@ -12,11 +12,10 @@
     ../programs/zellij.nix
   ];
 
-  programs.home-manager.enable = true;
 
   home = {
     stateVersion = "22.11";
-# TODO: this only works sometimes, just do it manually in shell configs
+    # TODO: this only works sometimes, just do it manually in shell configs
     sessionPath = [
       "${config.home.homeDirectory}/.cargo/bin"
       "${config.home.homeDirectory}/.local/bin"
@@ -44,7 +43,7 @@
       zellij
       tmux
       carapace
-      (python310Full.withPackages (ps: with ps; [ pip flake8 black requests django]))
+      (python310Full.withPackages (ps: with ps; [ pip flake8 black requests django ]))
       mosh
       gibo
       elixir
