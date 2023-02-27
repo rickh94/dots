@@ -13,6 +13,16 @@
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
+  ######## ZFS DATASET LAYOUT FOR ROOT DRIVE #######
+  #  name          options          
+  #  rpool         compression=on   mountpoint=none       
+  #  rpool/local   compression=on   mountpoint=none     # no snapshots or backups
+  #  rpool/local/root compression=on mountpoint=legacy acltype=posixacl xattr=sa # this one gets wiped every boot
+  #  rpool/local/nix  compression=on mounpoint=legacy atime=off
+  #  rpool/safe       compression=on  mounpoint=none    # snapshots/backups
+  #  rpool/safe/persist compression=on mountpoint=legacy 
+  #  rpool/safe/home    compression=on  mountpoint=legacy
+
   fileSystems."/" =
     { device = "rpool/local/root";
       fsType = "zfs";
