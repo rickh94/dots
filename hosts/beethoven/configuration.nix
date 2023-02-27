@@ -39,7 +39,7 @@
   services.xserver = { 
     enable = true;
     displayManager = {
-      defaultSession = "xfce";
+      defaultSession = "note+bspwm";
       lightdm = {
         enable = true;
         greeters.slick.enable = true;
