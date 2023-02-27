@@ -89,13 +89,13 @@ require('lazy').setup({
     },
   },
 
-  { -- Theme inspired by Atom
+  --[[ { -- Theme inspired by Atom
     'navarasu/onedark.nvim',
     priority = 1000,
     config = function()
       vim.cmd.colorscheme 'onedark'
     end,
-  },
+  }, ]]
 
   { -- Set lualine as statusline
     'nvim-lualine/lualine.nvim',
@@ -181,11 +181,75 @@ require('lazy').setup({
   'glepnir/dashboard-nvim',
     event = 'VimEnter',
     config = function()
-      require('dashboard').setup {
-        -- config
+      require('dashboard').setup { -- config
       }
     end,
     dependencies = { {'nvim-tree/nvim-web-devicons'}}
+  },
+  {
+    'folke/todo-comments.nvim',
+    config = function()
+      require('todo-comments').setup()
+    end
+  },
+  -- something went wrong with this one on nix
+  {
+    'rcarriga/nvim-notify',
+    --[[ config = function()
+      vim.notify = require('nvim-notify')
+    end ]]
+  },
+  'lukas-reineke/indent-blankline.nvim',
+  {
+    'folke/noice.nvim',
+    dependencies = { { 'MunifTanjim/nui.nvim'} }
+  },
+  {
+    'echasnovski/mini.indentscope',
+    versio = '*',
+    config = function()
+      require('mini.indentscope').setup()
+    end,
+  },
+  {
+    'Pocco81/auto-save.nvim',
+    config = function()
+      require('auto-save').setup{
+        enabled = true,
+        debounce_delay = 2000,
+      }
+    end
+  },
+  {
+    'echasnovski/mini.pairs',
+    version = '*',
+    config = function()
+      require('mini.pairs').setup()
+    end
+  },
+  {
+    'folke/noice.nvim',
+    config = function()
+      require('noice').setup()
+    end,
+    dependencies = {
+      { 'MunifTanjim/nui.nvim' },
+      { 'rcarriga/nvim-notify' }
+    }
+  },
+  {
+    'folke/tokyonight.nvim',
+    config = function()
+      vim.cmd.colorscheme 'tokyonight-storm'
+    end
+  },
+  {
+    'nvim-neo-tree/neo-tree.nvim',
+    dependencies = {
+      {'nvim-lua/plenary.nvim'},
+      {'nvim-tree/nvim-web-devicons'},
+      {'MunifTanjim/nui.nvim'},
+    },
   },
   { import = 'custom.plugins' },
 }, {})
@@ -306,6 +370,10 @@ vim.keymap.set('n', '<leader>bc', ':bd<CR>', { desc = 'Close Buffer' })
 vim.keymap.set('n', '<leader>bn', ':bNext<CR>', { desc = 'Next Buffer' })
 vim.keymap.set('n', '<leader>bp', ':bPrev<CR>', { desc = 'Previous Buffer' })
 
+-- better indent, unindent
+vim.keymap.set('v', '<', '<gv', { desc = 'unindent once without deselecting' })
+vim.keymap.set('v', '>', '>gv', { desc = 'indent onces without deselecting' })
+
 
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
@@ -414,9 +482,9 @@ local on_attach = function(_, bufnr)
   nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
   -- nmap('<leader>wa', vim.lsp.buf.add_workspace_folder, '[W]orkspace [A]dd Folder')
   -- nmap('<leader>wr', vim.lsp.buf.remove_workspace_folder, '[W]orkspace [R]emove Folder')
-  nmap('<leader>wl', function()
+  nmap('<leader>wf', function()
     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-  end, '[W]orkspace [L]ist Folders')
+  end, 'Workspace List Folders')
 
   -- Create a command `:Format` local to the LSP buffer
   vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
@@ -516,10 +584,10 @@ cmp.setup {
   },
 }
 
-vim.cmd [[autocmd! CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]]
+-- vim.cmd [[autocmd! CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]]
 
 -- autoformat on save
-vim.cmd [[autocmd! BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()]]
+vim.cmd [[autocmd! BufWritePre <buffer> lua vim.lsp.buf.format()]]
 
 
 -- The line beneath this is called `modeline`. See `:help modeline`

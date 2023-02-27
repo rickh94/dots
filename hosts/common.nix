@@ -16,14 +16,15 @@
 
   home = {
     stateVersion = "22.11";
+# TODO: this only works sometimes, just do it manually in shell configs
     sessionPath = [
       "${config.home.homeDirectory}/.cargo/bin"
       "${config.home.homeDirectory}/.local/bin"
     ];
 
     shellAliases = {
-        hm = "home-manager";
-        g = "git";
+      hm = "home-manager";
+      g = "git";
     };
 
     sessionVariables = {
@@ -32,26 +33,25 @@
     };
 
     packages = with pkgs; [
-      firefox
+      ffmpeg
+      audacity
       alacritty
+      zoom-us
       neovim
-      neovide
-      nerdfonts
       nushell
       fish
       starship
       zellij
       tmux
       carapace
-      python310Full
-      thunderbird
+      (python310Full.withPackages (ps: with ps; [ pip flake8 black requests django]))
+      mosh
       gibo
       elixir
       go
       zip
       unzip
       nil
-      glibc
       gnumake
       gcc12
       fzf
@@ -61,26 +61,19 @@
       bottom
       nodejs
       rustup
-      gimp
-      krita
-      vlc
       ranger
       zstd
       direnv
       nix-direnv
       redis
-      vscode
-      kitty
-      brave
-      ungoogled-chromium
+      vscodium
       fd
       exa
       ngrok
       zoxide
       gh
       helix
-      prismlauncher
-      spotify
+      pass
       rust-analyzer
       bash
       zsh
@@ -96,15 +89,16 @@
       sccache
       cargo-expand
       wiki-tui
+      obsidian
+      colima
+      rancher
+      docker
     ];
   };
 
   nixpkgs.config.allowUnfree = true;
 
-  nix = {
-      package = pkgs.nix;
-      settings.experimental-features = ["nix-command" "flakes"];
-  };
-
   programs.fish.enable = true;
+  programs.bash.enable = true;
+  programs.zsh.enable = true;
 }

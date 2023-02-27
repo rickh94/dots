@@ -4,6 +4,7 @@
   imports =
     [ 
       ./hardware-configuration.nix
+      ./wipe-root.nix
     ];
 
   boot.loader.systemd-boot.enable = true;
@@ -12,7 +13,8 @@
   boot.zfs.devNodes = "/dev/disk/by-partuuid";
   boot.tmpOnTmpfsSize = "8G";
 
-  networking.hostName = "nixos"; 
+
+  networking.hostName = "beethoven"; 
   networking.hostId = "06a8bf46";
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  
@@ -72,6 +74,26 @@
     pulse.enable = true;
   };
 
+
+  # local network peer dns resolution
+  services.avahi = {
+    enable = true;
+    nssmdns = true;
+    publish = {
+      enable = true;
+      workstation = true;
+      hinfo = true;
+    };
+  };
+
+  virtualisation.libvirtd = {
+    enable = true;
+    qemu = {
+      ovmf.enable = true;
+      swtpm.enable = true;
+    };
+  };
+
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
@@ -93,7 +115,8 @@
     xorg.xwininfo
     home-manager
     lightdm-slick-greeter
-    tree
+    nushell
+    wireguard-tools
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -143,31 +166,7 @@
 
   nix.settings.experimental-features = ["nix-command" "flakes" ];
 
-  environment.etc = {
-    "nixos/configuration.nix" = {
-      source = "/persist/etc/nixos/configuration.nix";
-    };
-    "nixos/hardware-configuration.nix" = {
-      source = "/persist/etc/nixos/hardware-configuration.nix";
-    };
-
-    passwd = {
-      source = "/persist/etc/passwd";
-    };
-
-    shadow = {
-      source = "/persist/etc/shadow";
-    };
-
-    group = {
-      source = "/persist/etc/group";
-    };
-
-    "machine-id" = {
-      source = "/persist/etc/machine-id";
-    };
-  };
-
+  nixpkgs.config.allowUnfree = true;
 
 }
 

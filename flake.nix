@@ -42,14 +42,21 @@
       system = "x86_64-linux";
       modules = [
         ./hosts/beethoven/configuration.nix
-        home-manager.nixosModules.home-manager
-        {
-          home-manager.useUserPackages = true;
-          home-manager.users.rick = homeManagerConfFor ./hosts/beethoven/home.nix;
-        }
       ];
       specialArgs = { inherit nixpkgs; };
     };
+
+    darwinConfigurations.stravinsky = darwin.lib.darwinSystem {
+      system = "aarch64-darwin";
+      modules = [ 
+        ./hosts/stravinsky/darwin-configuration.nix 
+        home-manager.darwinModules.home-manager
+        {
+          home-manager.users.rick = import ./hosts/stravinsky/home.nix;
+        }
+      ];
+    };
+
     homeConfigurations.beethoven = home-manager.lib.homeManagerConfiguration {
       pkgs = nixpkgs.legacyPackages.x86_64-linux;
       modules = [ ./hosts/beethoven/home.nix ];
@@ -57,9 +64,10 @@
 
     homeConfigurations.stravinsky = home-manager.lib.homeManagerConfiguration {
       pkgs = nixpkgs.legacyPackages.aarch64-darwin;
+      modules = [ ./hosts/stravinksy/home.nix ];
     };
     
-    defaultPackage.x86_64-linux = home-manager.defaultPackage.x86_64-linux;
-    defaultPackage.aarch64-darwin = home-manager.defaultPackage.aarch64-darwin;
+   defaultPackage.x86_64-linux = home-manager.defaultPackage.x86_64-linux;
+   defaultPackage.aarch64-darwin = home-manager.defaultPackage.aarch64-darwin;
   };
 }
