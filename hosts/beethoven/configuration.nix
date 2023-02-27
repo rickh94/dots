@@ -12,6 +12,7 @@
   boot.supportedFilesystems = [ "zfs" ];
   boot.zfs.devNodes = "/dev/disk/by-partuuid";
   boot.tmpOnTmpfsSize = "8G";
+  boot.kernelParams = [ "nohibernate" ];
 
 
   networking.hostName = "beethoven"; 
@@ -39,7 +40,7 @@
   services.xserver = { 
     enable = true;
     displayManager = {
-      defaultSession = "note+bspwm";
+      defaultSession = "none+bspwm";
       lightdm = {
         enable = true;
         greeters.slick.enable = true;
@@ -132,17 +133,6 @@
   # Enable the OpenSSH daemon.
   services.openssh = {
     enable = true;
-    hostKeys = [
-      {
-        path = "/persist/ssh/ssh_host_ed25519_key";
-	type = "ed25519";
-      }
-      {
-        path = "/persist/ssh/ssh_host_rsa_key";
-	type = "rsa";
-	bits = 4096;
-      }
-    ];
   };
 
   # Open ports in the firewall.
@@ -167,6 +157,8 @@
   nix.settings.experimental-features = ["nix-command" "flakes" ];
 
   nixpkgs.config.allowUnfree = true;
+
+  services.zfs.trim.enable = true;
 
 }
 

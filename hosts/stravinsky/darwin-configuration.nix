@@ -21,18 +21,14 @@ in
   ];
 
   services.nix-daemon.enable = true;
-  nixpkgs.config.allwUnfree = true;
+  #nixpkgs.config.allowUnfree = true;
 
   programs.zsh.enable = true;
-  programs.nushell.enable = true;
   programs.fish.enable = true;
 
   system.stateVersion = 4;
 
   nix = {
-    nixPath = lib.mkForce [
-      "nixpkgs=${nixpkgs}"
-    ];
     package = pkgs.nix;
     extraOptions = ''
       experimental-features = nix-command flakes

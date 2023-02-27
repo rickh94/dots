@@ -5,7 +5,7 @@
 
 {
   imports =
-    [ (modulesPath + "/profiles/qemu-guest.nix")
+    [ 
     ];
 
   boot.initrd.availableKernelModules = [ "ahci" "xhci_pci" "virtio_pci" "sr_mod" "virtio_blk" ];
@@ -22,6 +22,7 @@
   #  rpool/safe       compression=on  mounpoint=none    # snapshots/backups
   #  rpool/safe/persist compression=on mountpoint=legacy 
   #  rpool/safe/home    compression=on  mountpoint=legacy
+  # DON'T FORGET TO SNAPSHOT
 
   fileSystems."/" =
     { device = "rpool/local/root";
@@ -29,7 +30,7 @@
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/C412-A754";
+    { device = "/dev/disk/by-label/BOOT";
       fsType = "vfat";
     };
 

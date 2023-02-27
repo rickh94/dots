@@ -2,7 +2,6 @@
 {
     programs.starship = {
       enable = true;
-      enableNushellIntegration = false;
       settings = {
         format = lib.concatStrings [
             "$username"

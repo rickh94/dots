@@ -5,7 +5,7 @@
     text = ''
     !/usr/bin/env sh
     #  Quickly reload yabai
-    ctrl + alt + cmd - r : launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"
+    ctrl + alt + cmd - r : launchctl kickstart -k "gui/$UID/homebrew.mxcl.yabai"
 
     # switch to space
     ctrl - 1 : yabai -m space --focus www
