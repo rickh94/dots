@@ -40,6 +40,7 @@
     extraConfig = ''
       xrandr --output DP-4 --mode 3440x1440
       setxkbmap -layout us -option "shift:both_capslock_cancel,caps:hyper"
+      ${pkgs.feh}/bin/feh --bg-fill --randomize $HOME/Wallpapers/*.png
     '';
   };
 }
