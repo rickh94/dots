@@ -4,6 +4,8 @@ let
 in
 {
   environment.systemPackages = with pkgs; [
+    colima
+    docker
     home-manager
     neovim
     zsh

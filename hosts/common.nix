@@ -93,9 +93,7 @@
       cargo-expand
       wiki-tui
       obsidian
-      colima
       rancher
-      docker
     ];
   };
 
