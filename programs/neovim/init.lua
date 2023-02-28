@@ -218,10 +218,11 @@ require('lazy').setup({
     end ]]
   },
   'lukas-reineke/indent-blankline.nvim',
-  {
-    'folke/noice.nvim',
-    dependencies = { { 'MunifTanjim/nui.nvim' } }
-  },
+  -- fancy ui stuff that doesn't yet work in neovide
+  -- {
+  --   'folke/noice.nvim',
+  --   dependencies = { { 'MunifTanjim/nui.nvim' } }
+  -- },
   {
     'echasnovski/mini.indentscope',
     versio = '*',
