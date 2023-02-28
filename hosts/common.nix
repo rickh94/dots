@@ -22,6 +22,9 @@
     shellAliases = {
       hm = "home-manager";
       g = "git";
+      cat = "bat";
+      diff = "difftastic";
+      du = "dust";
     };
 
     sessionVariables = {
@@ -31,70 +34,80 @@
     };
 
     packages = with pkgs; [
+    # basics
+      alacritty
+      ffmpeg
       wget
       tree
-      ffmpeg
-      audacity
-      alacritty
-      zoom-us
-      neovide
       kitty
       neovim
       nushell
       fish
-      starship
-      zellij
       tmux
-      carapace
-      (python310Full.withPackages (ps: with ps; [ pip flake8 black requests django ]))
       mosh
-      gibo
-      elixir
-      go
       zip
       unzip
-      nil
-      gnumake
-      gcc12
-      fzf
       htop
       killall
-      ripgrep-all
-      ripgrep
-      bottom
-      nodejs
-      rustup
-      ranger
       zstd
+      zoxide
+      pass
+      bash
+      zsh
+      pv
+      netcat
+
+    # dev tools
+      neovide
+      gibo
       direnv
       nix-direnv
       redis
       vscodium
-      fd
-      exa
       ngrok
-      zoxide
       gh
-      helix
-      pass
-      rust-analyzer
-      bash
-      zsh
-      uutils-coreutils
-      pv
-      du-dust
-      bat
       bacon
       gitui
-      ncspot
-      openssl
-      netcat
-      sccache
       cargo-expand
+
+    # languages
+      (python310Full.withPackages (ps: with ps; [ pip flake8 black requests django ]))
+      elixir
+      go
+      nodejs
+      rustup
+
+    # music
+      audacity
+
+    # rust replacements
+      difftastic
+      tldr
+      dog
+      lfs
+      starship
+      zellij
+      carapace
+      fzf
+      ripgrep-all
+      ripgrep
+      bottom
+      fd
+      exa
+      helix
+      uutils-coreutils
+      du-dust
+      bat
+      tokei
+
+    # communication
+      zoom-us
+
+    # misc
+      ncspot
+      sccache
       wiki-tui
       obsidian
-      rancher
-      sqlite
     ];
   };
 

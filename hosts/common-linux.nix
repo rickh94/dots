@@ -1,27 +1,36 @@
 { config, lib, pkgs, ... }:
 {
   home.packages = with pkgs; [
-    podman
+    # utilities
     tigervnc
     firefox
     handbrake
-    inkscape
-    musescore
-    steam
     (nerdfonts.override { fonts = [ "FiraCode" "Hack" "CascadiaCode" ]; })
     thunderbird
-    glibc
-    gimp
-    krita
     vlc
     brave
     ungoogled-chromium
-    prismlauncher
     spotify
-    obs-studio
-    davinci-resolve
     syncthing
     wireguard-tools
+
+    # virtualization
+    podman
+    virt-manager
+    virt-viewer
+
+    # creative
+    musescore
+    inkscape
+    gimp
+    krita
+    obs-studio
+    davinci-resolve
+
+    # gaming
+    steam
+    prismlauncher
+
   ];
   programs.home-manager.enable = true;
 
