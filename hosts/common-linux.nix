@@ -7,14 +7,12 @@
     inkscape
     musescore
     steam
-    neovide
     (nerdfonts.override { fonts = [ "FiraCode" "Hack" "CascadiaCode" ]; })
     thunderbird
     glibc
     gimp
     krita
     vlc
-    kitty
     brave
     ungoogled-chromium
     prismlauncher

@@ -1,6 +1,6 @@
 { pkgs, ... }:
 {
-  xdg.configFile.nvim = {
-    source = ./neovim;
+  xdg.configFile."nvim/init.lua" = {
+    source = ./neovim/init.lua;
   };
 }

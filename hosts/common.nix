@@ -35,6 +35,8 @@
       audacity
       alacritty
       zoom-us
+      neovide
+      kitty
       neovim
       nushell
       fish
@@ -56,6 +58,7 @@
       htop
       killall
       ripgrep-all
+      ripgrep
       bottom
       nodejs
       rustup

@@ -60,11 +60,15 @@ require('lazy').setup({
       'hrsh7th/cmp-nvim-lsp',
       'L3MON4D3/LuaSnip',
       'saadparwaiz1/cmp_luasnip',
-      'hrsh7th/cpm-buffer',
-      'hrsh7th/cpm-path',
-      'hrsh7th/cpm-cmdline',
+      'hrsh7th/cmp-buffer',
+      'hrsh7th/cmp-path',
+      'hrsh7th/cmp-cmdline',
+      'ray-x/cmp-treesitter',
+      'lukas-reineke/cmp-rg',
     },
   },
+  -- icons in completions
+  'onsails/lspkind.nvim',
 
   -- Useful plugin to show you pending keybinds.
   { 'folke/which-key.nvim', opts = {},
@@ -155,7 +159,9 @@ require('lazy').setup({
       pcall(require('nvim-treesitter.install').update { with_sync = true })
     end,
   },
+  -- add edgedb support
   'edgedb/edgedb-vim',
+  -- fix repeat using . for some plugins
   'tpope/vim-repeat',
   {
     'simrat39/rust-tools.nvim',
@@ -165,12 +171,14 @@ require('lazy').setup({
       require('rust-tools').inlay_hints.set()
     end
   },
+  -- cargo crates resolution
   {
     'saecki/crates.nvim',
     config = function()
       require('crates').setup()
     end
   },
+  -- inlay type hints for rust
   {
     'simrat39/inlay-hints.nvim',
     priority = 80,
@@ -178,12 +186,14 @@ require('lazy').setup({
       require('inlay-hints').setup()
     end
   },
+  -- big movements
   {
     'ggandor/leap.nvim',
     config = function()
       require('leap').add_default_mappings()
     end
   },
+  -- nice drop in dashboard for bare launches
   {
     'glepnir/dashboard-nvim',
     event = 'VimEnter',
@@ -193,6 +203,7 @@ require('lazy').setup({
     end,
     dependencies = { { 'nvim-tree/nvim-web-devicons' } }
   },
+  -- highlight todo comments
   {
     'folke/todo-comments.nvim',
     config = function()
@@ -218,15 +229,7 @@ require('lazy').setup({
       require('mini.indentscope').setup()
     end,
   },
-  {
-    'Pocco81/auto-save.nvim',
-    config = function()
-      require('auto-save').setup {
-        enabled = true,
-        debounce_delay = 2000,
-      }
-    end
-  },
+  -- automatic pairs, might switch for autopairs
   {
     'echasnovski/mini.pairs',
     version = '*',
@@ -234,6 +237,7 @@ require('lazy').setup({
       require('mini.pairs').setup()
     end
   },
+  -- fancy ui changes
   {
     'folke/noice.nvim',
     config = function()
@@ -244,19 +248,71 @@ require('lazy').setup({
       { 'rcarriga/nvim-notify' }
     }
   },
+  -- pretty purple color scheme
   {
     'folke/tokyonight.nvim',
     config = function()
       vim.cmd.colorscheme 'tokyonight-storm'
     end
   },
+  -- show file tree
   {
     'nvim-tree/nvim-tree.lua',
     config = function()
-      require('nvim-tree').config()
+      require('nvim-tree').setup()
     end
   },
-  { import = 'custom.plugins' },
+  -- random useful snippets
+  'rafamadriz/friendly-snippets',
+  -- auto fixing html tags
+  {
+    'windwp/nvim-ts-autotag',
+    config = function()
+      require('nvim-ts-autotag').setup()
+    end
+  },
+  -- run database commands from vim
+  'tpope/vim-dadbod',
+  -- colorful window separators
+  {
+    'nvim-zh/colorful-winsep.nvim',
+    config = function()
+      require('colorful-winsep').setup()
+    end
+  },
+  -- add brackets and things around stuff
+  'machakann/vim-sandwich',
+  -- dim inactive areas of code
+  {
+    'folke/twilight.nvim',
+    config = function()
+      require('twilight').setup()
+    end
+  },
+  -- auto mkdir -p on save
+  'jghauser/mkdir.nvim',
+  {
+    'sudormrfbin/cheatsheet.nvim',
+    dependencies = {
+      'nvim-telescope/telescope.nvim',
+      'nvim-lua/popup.nvim',
+      'nvim-lua/plenary.nvim'
+    }
+  },
+  {
+    'tmillr/sos.nvim',
+    config = function()
+      require('sos').setup({
+        enabled = true,
+        timeout = 10000,
+        autowrite = true,
+        save_on_cmd = "some",
+        save_on_bufleave = true,
+        save_on_focuslost = true,
+      })
+    end
+  },
+  'ThePrimeagen/vim-be-good',
 }, {})
 
 -- [[ Setting options ]]
@@ -370,14 +426,24 @@ vim.keymap.set('n', '<leader>wv', '<C-w>v', { desc = '[W]indow [V]ertical Split'
 vim.keymap.set('n', '<leader>wq', '<C-w>q', { desc = '[W]indow Close' })
 vim.keymap.set('n', '<leader>wt', '<C-w>T', { desc = '[W]indow split to new tab' })
 
--- buffer commands
-vim.keymap.set('n', '<leader>bc', ':bd<CR>', { desc = 'Close Buffer' })
-vim.keymap.set('n', '<leader>bn', ':bNext<CR>', { desc = 'Next Buffer' })
-vim.keymap.set('n', '<leader>bp', ':bPrev<CR>', { desc = 'Previous Buffer' })
+-- buffer command
+vim.keymap.set('n', '<leader>bc', '<cmd>bd<CR>', { desc = 'Close Buffer' })
+vim.keymap.set('n', '<leader>bn', '<cmd>bNext<CR>', { desc = 'Next Buffer' })
+vim.keymap.set('n', '<leader>bp', '<cmd>bPrev<CR>', { desc = 'Previous Buffer' })
 
 -- better indent, unindent
 vim.keymap.set('v', '<', '<gv', { desc = 'unindent once without deselecting' })
 vim.keymap.set('v', '>', '>gv', { desc = 'indent onces without deselecting' })
+
+-- open and use nvim tree
+vim.keymap.set('n', '<leader>e', '<cmd>NvimTreeToggle<cr>', { desc = "Open or close file tree" })
+vim.keymap.set('n', '<leader>o', '<cmd>NvimTreeFocus<cr>', { desc = "Focus file tree" })
+
+-- search todos in project
+vim.keymap.set('n', '<leader>t', '<cmd>TodoTelescope<cr>', { desc = "Search Project Todos" })
+
+-- twilight dimming
+vim.keymap.set('n', '<leader>T', '<cmd>Twilight<cr>', { desc = "Toggle Twilght dimming" })
 
 
 -- [[ Configure Treesitter ]]
@@ -586,8 +652,38 @@ cmp.setup {
   sources = {
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
+    { name = 'buffer' },
+    { name = 'treesitter' },
+    { name = 'path' },
+    { name = 'rg' },
   },
+  formatting = {
+    format = require('lspkind').cmp_format({
+      mode = 'symbol',
+      maxwidth = 50,
+      ellipsis_char = '...',
+      before = function(entry, vim_item)
+        return vim_item
+      end
+    })
+  }
 }
+
+cmp.setup.cmdline({ '/', '?' }, {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = {
+    { name = 'buffer' }
+  }
+})
+
+cmp.setup.cmdline(':', {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = cmp.config.sources({
+    { name = 'path' }
+  }, {
+    { name = 'cmdline' }
+  })
+})
 
 -- vim.cmd [[autocmd! CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]]
 

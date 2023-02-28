@@ -57,6 +57,7 @@ in
       cleanup = "zap";
     };
     brews = [
+      "macos-trash"
       "yabai"
       "skhd"
       "handbrake"
@@ -70,12 +71,11 @@ in
       "handbrake"
       "musescore"
       "steam"
-      "neovide"
       "thunderbird"
+      "iterm2"
       "krita"
       "gimp"
       "vlc"
-      "kitty"
       "brave-browser"
       "eloston-chromium"
       "prismlauncher"
