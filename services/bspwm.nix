@@ -2,6 +2,7 @@
 {
   xsession.windowManager.bspwm = {
     enable = true;
+    monitors = {"DP-4" = ["www" "dev" "ent" "mus" "vnc" "six" "VI" "VII" "VIII"];};
     settings = {
       "border_width" = 2;
       "window_gap" = 4;
@@ -11,7 +12,6 @@
       "top_padding" = 30;
       "normal_border_color" = "#949494";
       "active_border_color" = "#949494";
-      "focused" =  ["www" "dev" "ent" "mus" "vnc" "six" "VI" "VII" "VIII"];
     };
 
     rules = {
@@ -33,12 +33,12 @@
       };
     };
 
-    startupPrograms = [
+    /* startupPrograms = [
       "${pkgs.polybar}/bin/polybar"
-    ];
+    ]; */
 
-      /* xrandr --output Virtual-1 --mode 1680x1050 */
     extraConfig = ''
+      xrandr --output DP-4 --mode 3440x1440
       setxkbmap -layout us -option "shift:both_capslock_cancel,caps:hyper"
     '';
   };

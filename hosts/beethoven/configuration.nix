@@ -118,6 +118,8 @@
     lightdm-slick-greeter
     nushell
     wireguard-tools
+    tree
+    curl
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

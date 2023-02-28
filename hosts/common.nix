@@ -31,6 +31,8 @@
     };
 
     packages = with pkgs; [
+      wget
+      tree
       ffmpeg
       audacity
       alacritty

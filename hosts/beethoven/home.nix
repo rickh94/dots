@@ -17,10 +17,20 @@
       tdrop
       xdotool
       feh
-      picom
     ];
 
 
     programs.rofi.enable = true;
-    services.picom.enable = true;
+    systemd.user.startServices = true;
+
+  home.file."Wallpapers/wallpapers.txt" = {
+    enable = true;
+    source = ../../wallpapers/wallpapers.txt;
+    onChange = ''
+      #!/usr/bin/env bash
+      cd $HOME/Wallpapers
+      ${pkgs.wget}/bin/wget -v -i wallpapers.txt
+    '';
+
+  };
 }
