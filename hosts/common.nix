@@ -99,7 +99,14 @@
 
   nixpkgs.config.allowUnfree = true;
 
-  programs.fish.enable = true;
+  programs.fish = {
+    enable = true
+    interactiveShellInit = ''
+      fish_add_path $HOME/.cargo/bin
+      fish_add_path $HOME/.local/bin
+      set -gx EDITOR nvim
+    '';
+  };
   programs.bash.enable = true;
   programs.zsh.enable = true;
 }

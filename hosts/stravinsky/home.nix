@@ -36,4 +36,11 @@
       '';
   };
 
+  programs.nushell.extraEnv = ''
+    let-env PATH = ($env.PATH | append "/opt/homebrew/bin")
+  '';
+
+  programs.fish.interactiveShellInit = ''
+    fish_add_path "/opt/homebrew/bin"
+  '';
 }
