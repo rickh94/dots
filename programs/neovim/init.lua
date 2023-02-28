@@ -308,7 +308,14 @@ require('lazy').setup({
       })
     end
   },
+  {
+    'mrjones2014/legendary.nvim',
+    dependencies = {
+      'kkharji/sqlite.lua'
+    }
+  },
   'ThePrimeagen/vim-be-good',
+  'stevearc/dressing.nvim',
 }, {})
 
 -- [[ Setting options ]]
@@ -393,53 +400,280 @@ require('telescope').setup {
 pcall(require('telescope').load_extension, 'fzf')
 
 -- See `:help telescope.builtin`
-vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
-vim.keymap.set('n', '<leader><space>', require('telescope.builtin').buffers, { desc = '[ ] Find existing buffers' })
-vim.keymap.set('n', '<leader>/', function()
-  -- You can pass additional configuration to telescope to change theme, layout, etc.
-  require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
-    winblend = 10,
-    previewer = false,
-  })
-end, { desc = '[/] Fuzzily search in current buffer' })
+-- vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
+-- vim.keymap.set('n', '<leader><space>', require('telescope.builtin').buffers, { desc = '[ ] Find existing buffers' })
+-- vim.keymap.set('n', '<leader>/', function()
+--   -- You can pass additional configuration to telescope to change theme, layout, etc.
+--   require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
+--     winblend = 10,
+--     previewer = false,
+--   })
+-- end, { desc = '[/] Fuzzily search in current buffer' })
 
 
-vim.keymap.set('n', '<leader>s', '<Nop>', { desc = "[S]earch with telescope" })
-vim.keymap.set('n', '<leader>sf', require('telescope.builtin').find_files, { desc = '[S]earch [F]iles' })
-vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc = '[S]earch [H]elp' })
-vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
-vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
-vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
-
+-- vim.keymap.set('n', '<leader>s', '<Nop>', { desc = "[S]earch with telescope" })
+-- vim.keymap.set('n', '<leader>sf', require('telescope.builtin').find_files, { desc = '[S]earch [F]iles' })
+-- vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc = '[S]earch [H]elp' })
+-- vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
+-- vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
+-- vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
+--
 -- window manipulation
-vim.keymap.set('n', '<leader>w', '<Nop>')
-vim.keymap.set('n', '<leader>wk', '<C-w>k', { desc = '[W]indow Up' })
-vim.keymap.set('n', '<leader>wj', '<C-w>j', { desc = '[W]indow Down' })
-vim.keymap.set('n', '<leader>wh', '<C-w>h', { desc = '[W]indow Left' })
-vim.keymap.set('n', '<leader>wl', '<C-w>l', { desc = '[W]indow Right' })
-vim.keymap.set('n', '<leader>ws', '<C-w>s', { desc = '[W]indow [S]plit' })
-vim.keymap.set('n', '<leader>wv', '<C-w>v', { desc = '[W]indow [V]ertical Split' })
-vim.keymap.set('n', '<leader>wq', '<C-w>q', { desc = '[W]indow Close' })
-vim.keymap.set('n', '<leader>wt', '<C-w>T', { desc = '[W]indow split to new tab' })
-
+-- vim.keymap.set('n', '<leader>w', '<Nop>')
+-- vim.keymap.set('n', '<leader>wk', '<C-w>k', { desc = '[W]indow Up' })
+-- vim.keymap.set('n', '<leader>wj', '<C-w>j', { desc = '[W]indow Down' })
+-- vim.keymap.set('n', '<leader>wh', '<C-w>h', { desc = '[W]indow Left' })
+-- vim.keymap.set('n', '<leader>wl', '<C-w>l', { desc = '[W]indow Right' })
+-- vim.keymap.set('n', '<leader>ws', '<C-w>s', { desc = '[W]indow [S]plit' })
+-- vim.keymap.set('n', '<leader>wv', '<C-w>v', { desc = '[W]indow [V]ertical Split' })
+-- vim.keymap.set('n', '<leader>wq', '<C-w>q', { desc = '[W]indow Close' })
+-- vim.keymap.set('n', '<leader>wt', '<C-w>T', { desc = '[W]indow split to new tab' })
+--
 -- buffer command
-vim.keymap.set('n', '<leader>bc', '<cmd>bd<CR>', { desc = 'Close Buffer' })
-vim.keymap.set('n', '<leader>bn', '<cmd>bNext<CR>', { desc = 'Next Buffer' })
-vim.keymap.set('n', '<leader>bp', '<cmd>bPrev<CR>', { desc = 'Previous Buffer' })
-
+-- vim.keymap.set('n', '<leader>bc', '<cmd>bd<CR>', { desc = 'Close Buffer' })
+-- vim.keymap.set('n', '<leader>bn', '<cmd>bNext<CR>', { desc = 'Next Buffer' })
+-- vim.keymap.set('n', '<leader>bp', '<cmd>bPrev<CR>', { desc = 'Previous Buffer' })
+--
 -- better indent, unindent
-vim.keymap.set('v', '<', '<gv', { desc = 'unindent once without deselecting' })
-vim.keymap.set('v', '>', '>gv', { desc = 'indent onces without deselecting' })
-
+-- vim.keymap.set('v', '<', '<gv', { desc = 'unindent once without deselecting' })
+-- vim.keymap.set('v', '>', '>gv', { desc = 'indent onces without deselecting' })
+--
+--
 -- open and use nvim tree
-vim.keymap.set('n', '<leader>e', '<cmd>NvimTreeToggle<cr>', { desc = "Open or close file tree" })
-vim.keymap.set('n', '<leader>o', '<cmd>NvimTreeFocus<cr>', { desc = "Focus file tree" })
-
+-- vim.keymap.set('n', '<leader>e', '<cmd>NvimTreeToggle<cr>', { desc = "Open or close file tree" })
+-- vim.keymap.set('n', '<leader>o', '<cmd>NvimTreeFocus<cr>', { desc = "Focus file tree" })
 -- search todos in project
-vim.keymap.set('n', '<leader>t', '<cmd>TodoTelescope<cr>', { desc = "Search Project Todos" })
-
+-- vim.keymap.set('n', '<leader>t', '<cmd>TodoTelescope<cr>', { desc = "Search Project Todos" })
 -- twilight dimming
-vim.keymap.set('n', '<leader>T', '<cmd>Twilight<cr>', { desc = "Toggle Twilght dimming" })
+-- vim.keymap.set('n', '<leader>T', '<cmd>Twilight<cr>', { desc = "Toggle Twilght dimming" })
+-- Diagnostic keymaps
+-- vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
+-- vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
+-- vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float, { desc = "Open Diagnostic Float" })
+
+require('legendary').setup({
+  keymaps = {
+    { '<leader>?',
+      { n = require('telescope.builtin').oldfiles },
+      description = 'Find recently opened files'
+    },
+    {
+      '<leader><space>',
+      { n = require('telescope.builtin').buffers }
+      description = 'Find open buffers'
+    },
+    {
+      '<leader>/',
+      { n = function()
+        require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
+          winblend = 10,
+          previewer = false,
+        })
+      end
+      },
+      description = "Fuzzily search in current buffer"
+    },
+    {
+      itemgroup = 'search',
+      description = '+Search',
+      icon = 'S',
+      keymaps = {
+        {
+          '<leader>sf',
+          {
+            n = require('telescope.builtin').find_files(require('telescope.themes').get_dropdown { previewer = true })
+          },
+          description = "Telescope Search Files"
+        },
+        {
+          '<leader>sh',
+          {
+            n = require('telescope.builtin').help_tags
+          },
+          description = "Telescope Search Help Tags"
+        },
+        {
+          '<leader>sw',
+          {
+            n = require('telescope.builtin').grep_string
+          },
+          description = 'Search Current Word'
+        },
+        {
+          '<leader>sg',
+          {
+            n = require('telescope.builtin').live_grep
+          },
+          description = 'Search by Grep'
+        },
+        {
+          '<leader>sd',
+          {
+            n = require('telescope.builtin').diagnostics
+          },
+          description = 'Search Diagnostics'
+        }
+      }
+    },
+    {
+      itemgroup = 'window',
+      description = '+Window',
+      icon = 'W',
+      keymaps = {
+        {
+          '<leader>wk',
+          {
+            n = '<C-w>k',
+          },
+          description = 'Window Up'
+        },
+        {
+          '<leader>wj',
+          {
+            n = '<C-w>j',
+          },
+          description = 'Window Down'
+        },
+        {
+          '<leader>wh',
+          {
+            n = '<C-w>h',
+          },
+          description = 'Window Left'
+        },
+        {
+          '<leader>wl',
+          {
+            n = '<C-w>l',
+          },
+          description = 'Window Right'
+        },
+        {
+          '<leader>ws',
+          {
+            n = '<C-w>s',
+          },
+          description = 'Window Split'
+        },
+        {
+          '<leader>wv',
+          {
+            n = '<C-w>v',
+          },
+          description = 'Window Vertical Split'
+        },
+        {
+          '<leader>wq',
+          {
+            n = '<C-w>q',
+          },
+          description = 'Close Window'
+        },
+        {
+          '<leader>wt',
+          {
+            n = '<C-w>T',
+          },
+          description = 'Window split to new tab'
+        },
+      }
+    },
+    {
+      itemgroup = 'buffer',
+      description = '+Buffer',
+      icon = 'B',
+      keymaps = {
+        {
+          '<leader>bc',
+          {
+            n = '<cmd>bd<CR>'
+          },
+          description = 'Close Current Buffer'
+        },
+        {
+          '<leader>bn',
+          {
+            n = '<cmd>bNext<CR>'
+          },
+          description = 'Next Buffer'
+        },
+        {
+          '<leader>bp',
+          {
+            n = '<cmd>bPrev<CR>'
+          },
+          description = 'Previous Buffer'
+        },
+      }
+    },
+    {
+      itemgroup = 'visindent',
+      description = 'Visual Mode Indent/Unindent',
+      icon = '>',
+      keymaps = {
+        {
+          '>',
+          { v = '>gv' },
+          description = "Indent once without deselecting"
+        },
+        {
+          '<',
+          { v = '<gv' },
+          description = "Unindent once without deselecting"
+        },
+      }
+    },
+    {
+      '<leader>e',
+      {
+        n = '<cmd>NvimTreeToggle<cr>'
+      },
+      description = 'Open or close file tree'
+    },
+    {
+      '<leader>o',
+      {
+        n = '<cmd>NvimTreeFocus<cr>'
+      },
+      description = 'Focus File tree'
+    },
+    {
+      '<leader>t',
+      { n = '<cmd>TodoTelescope<cr>' },
+      description = 'Search Project Todos'
+    },
+    {
+      '<leader>T',
+      { n = '<cmd>Twilight<cr>' },
+      description = 'Toggle Twilight dimming'
+    },
+    {
+      itemgroup = 'diag',
+      description = 'Diagnostic Keymaps'
+      icon = 'D',
+      keymaps = {
+        {
+          '[d',
+          { n = vim.diagnostic.goto_prev },
+          description = "Go to previous diagnostic"
+        },
+        {
+          ']d',
+          { n = vim.diagnostic.goto_next },
+          description = "Go to next diagnostic"
+        },
+        {
+          '<leader>d',
+          { n = vim.diagnostic.open_float },
+          description = 'Open Diagnostic Float'
+        }
+      }
+    }
+  },
+  which_key = {
+    auto_register = true,
+  }
+})
 
 
 -- [[ Configure Treesitter ]]
@@ -508,10 +742,6 @@ require('nvim-treesitter.configs').setup {
   },
 }
 
--- Diagnostic keymaps
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
-vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float, { desc = "Open Diagnostic Float" })
 -- vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist)
 
 -- LSP settings.
@@ -531,7 +761,18 @@ local on_attach = function(_, bufnr)
     vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
   end
 
-  nmap('<leader>r', vim.lsp.buf.rename, 'Rename')
+  require('legendary').setup({
+    keymaps = {
+      {
+        '<leader>r',
+        {
+          n = vim.lsp.buf.rename,
+        },
+        description = 'LSP rename symbol'
+      }
+    }
+  })
+  -- nmap('<leader>r', vim.lsp.buf.rename, 'Rename')
   nmap('<leader>a', vim.lsp.buf.code_action, 'Action')
 
   nmap('gd', vim.lsp.buf.definition, 'Goto Definition')
