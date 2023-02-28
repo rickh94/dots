@@ -218,11 +218,6 @@ require('lazy').setup({
     end ]]
   },
   'lukas-reineke/indent-blankline.nvim',
-  -- fancy ui stuff that doesn't yet work in neovide
-  -- {
-  --   'folke/noice.nvim',
-  --   dependencies = { { 'MunifTanjim/nui.nvim' } }
-  -- },
   {
     'echasnovski/mini.indentscope',
     versio = '*',
@@ -238,8 +233,8 @@ require('lazy').setup({
       require('mini.pairs').setup()
     end
   },
-  -- fancy ui changes
-  {
+  -- fancy ui changes, not neovide compatible currently
+  --[[ {
     'folke/noice.nvim',
     config = function()
       require('noice').setup()
@@ -248,7 +243,7 @@ require('lazy').setup({
       { 'MunifTanjim/nui.nvim' },
       { 'rcarriga/nvim-notify' }
     }
-  },
+  }, ]]
   -- pretty purple color scheme
   {
     'folke/tokyonight.nvim',
