@@ -14,7 +14,6 @@
 
   home = {
     stateVersion = "22.11";
-    # TODO: this only works sometimes, just do it manually in shell configs
     sessionPath = [
       "${config.home.homeDirectory}/.cargo/bin"
       "${config.home.homeDirectory}/.local/bin"
@@ -28,6 +27,7 @@
     sessionVariables = {
       EDITOR = "nvim";
       MAKEFLAGS = "-j4";
+      NIXPKGS_ALLOW_UNFREE = 1;
     };
 
     packages = with pkgs; [
@@ -97,15 +97,15 @@
     ];
   };
 
-  nixpkgs.config.allowUnfree = true;
+  #nixpkgs.config.allowUnfree = true;
 
   programs.fish = {
-    enable = true
-    interactiveShellInit = ''
+    enable = true;
+    /* interactiveShellInit = ''
       fish_add_path $HOME/.cargo/bin
       fish_add_path $HOME/.local/bin
       set -gx EDITOR nvim
-    '';
+    ''; */
   };
   programs.bash.enable = true;
   programs.zsh.enable = true;

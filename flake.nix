@@ -20,6 +20,7 @@
 
   outputs = { self, nixpkgs, darwin, home-manager }:
     {
+      nixpkgs.config.allowUnfree = true;
       nixosConfigurations.beethoven = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
