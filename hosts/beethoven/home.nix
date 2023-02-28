@@ -4,7 +4,6 @@
     imports = [
       ../../services/bspwm.nix
       ../../services/sxhkd.nix
-      ../../services/polybar.nix
       ../common.nix
       ../common-linux.nix
     ];

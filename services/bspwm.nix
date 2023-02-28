@@ -33,9 +33,9 @@
       };
     };
 
-    /* startupPrograms = [
+    startupPrograms = [
       "${pkgs.polybar}/bin/polybar"
-    ]; */
+    ];
 
     extraConfig = ''
       xrandr --output DP-4 --mode 3440x1440
