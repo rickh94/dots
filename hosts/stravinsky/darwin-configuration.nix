@@ -4,6 +4,7 @@ let
 in
 {
   environment.systemPackages = with pkgs; [
+    home-manager
     neovim
     zsh
     alacritty
@@ -102,7 +103,6 @@ in
       /usr/bin/osascript -e "tell app \"Finder\" to make alias file at POSIX file \"/Users/${me}/Applications/NixApps/\" to POSIX file \"$src\" with properties {name: \"$appname\"}";
     done
   '';
-
 
   home-manager.useUserPackages = true;
   home-manager.useGlobalPkgs = true;

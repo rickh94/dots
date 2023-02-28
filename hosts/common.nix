@@ -12,7 +12,6 @@
     ../programs/zellij.nix
   ];
 
-
   home = {
     stateVersion = "22.11";
     # TODO: this only works sometimes, just do it manually in shell configs
