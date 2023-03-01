@@ -94,6 +94,7 @@
       wiki-tui
       obsidian
       rancher
+      sqlite
     ];
   };
 

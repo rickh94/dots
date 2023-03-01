@@ -459,7 +459,7 @@ require('legendary').setup({
     },
     {
       '<leader><space>',
-      { n = require('telescope.builtin').buffers }
+      { n = require('telescope.builtin').buffers },
       description = 'Find open buffers'
     },
     {
@@ -481,7 +481,7 @@ require('legendary').setup({
         {
           '<leader>sf',
           {
-            n = require('telescope.builtin').find_files(require('telescope.themes').get_dropdown { previewer = true })
+            n = require('telescope.builtin').find_files
           },
           description = "Telescope Search Files"
         },
@@ -649,7 +649,7 @@ require('legendary').setup({
     },
     {
       itemgroup = 'diag',
-      description = 'Diagnostic Keymaps'
+      description = 'Diagnostic Keymaps',
       icon = 'D',
       keymaps = {
         {
