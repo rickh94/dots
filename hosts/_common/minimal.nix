@@ -46,7 +46,7 @@
       go
       nodejs
       rustup
-      python3
+      (python310.withPackages (ps: with ps; [ pip flake8 black requests django ]))
 
       # rust replacements
       difftastic
