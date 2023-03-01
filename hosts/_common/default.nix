@@ -24,7 +24,6 @@
       kitty
       tmux
       killall
-      zoxide
 
       # dev tools
       neovide
@@ -40,7 +39,7 @@
       cargo-expand
 
       # languages
-      (python310Full.withPackages (ps: with ps; [ pip flake8 black requests django ]))
+      (python310.withPackages (ps: with ps; [ pip flake8 black requests django ]))
       elixir
 
       # music

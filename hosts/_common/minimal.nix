@@ -29,6 +29,7 @@
       tree
       neovim
       nushell
+      zoxide
       fish
       mosh
       zip
