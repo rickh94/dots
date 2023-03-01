@@ -2,7 +2,6 @@
 {
   xsession.windowManager.bspwm = {
     enable = true;
-    monitors = {"DP-4" = ["www" "dev" "ent" "mus" "vnc" "six" "VI" "VII" "VIII"];};
     settings = {
       "border_width" = 2;
       "window_gap" = 4;
@@ -20,8 +19,8 @@
         stick = true;
       };
       "firefox" = {
-          desktop = "^1";
-        };
+        desktop = "^1";
+      };
       "thunderbird" = {
         desktop = "^1";
       };

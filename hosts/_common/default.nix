@@ -39,7 +39,6 @@
       cargo-expand
 
       # languages
-      (python310.withPackages (ps: with ps; [ pip flake8 black requests django ]))
       elixir
 
       # music
