@@ -60,6 +60,8 @@
   #   "caps:escape" # map caps to escape.
   # };
 
+  services.picom.enable = true;
+
   # Enable CUPS to print documents.
   # services.printing.enable = true;
 

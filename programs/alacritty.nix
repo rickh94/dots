@@ -10,19 +10,19 @@
 
       font = {
         normal = {
-          family = "CaskaydiaCove Nerd Font Mono";
+          family = "CaskaydiaCove NF";
           style = "Regular";
         };
         bold = {
-          family = "CaskaydiaCove Nerd Font Mono";
+          family = "CaskaydiaCove NF";
           style = "Bold";
         };
         italic = {
-          family = "CaskaydiaCove Nerd Font Mono";
+          family = "CaskaydiaCove NF";
           style = "Italic";
         };
         bold_italic = {
-          family = "CaskaydiaCove Nerd Font Mono";
+          family = "CaskaydiaCove NF";
           style = "Bold Italic";
         };
         size = 12.0;

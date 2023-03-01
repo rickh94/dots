@@ -1,5 +1,9 @@
 { config, lib, pkgs, ... }:
 {
+  imports = [
+    ./minimal-linux.nix
+  ];
+
   home.packages = with pkgs; [
     # utilities
     tigervnc
@@ -14,10 +18,6 @@
     syncthing
     wireguard-tools
 
-    # virtualization
-    podman
-    virt-manager
-    virt-viewer
 
     # creative
     musescore
@@ -32,12 +32,4 @@
     prismlauncher
 
   ];
-  programs.home-manager.enable = true;
-
-  nix = {
-    package = pkgs.nix;
-    settings.experimental-features = [ "nix-command" "flakes" ];
-  };
-
-  programs.starship.enableNushellIntegration = false;
 }

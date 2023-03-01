@@ -22,6 +22,4 @@
     programs.rofi.enable = true;
     systemd.user.startServices = true;
 
-
-  };
 }

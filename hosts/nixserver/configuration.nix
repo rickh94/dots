@@ -15,8 +15,8 @@
   boot.kernelParams = [ "nohibernate" ];
 
 
-  networking.hostName = "beethoven"; 
-  networking.hostId = "06a8bf46";
+  networking.hostName = "chopin"; 
+  networking.hostId = "";
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  
   networking.networkmanager.enable = true;  
@@ -39,14 +39,6 @@
   # Enable the X11 windowing system.
   services.xserver = { 
     enable = true;
-    displayManager = {
-      defaultSession = "none+bspwm";
-      lightdm = {
-        enable = true;
-        greeters.slick.enable = true;
-      };
-    };
-    windowManager.bspwm.enable = true;
     desktopManager.xfce.enable = true;
     layout = "us";
     xkbVariant = "";
@@ -103,21 +95,31 @@
   };
 
   environment.systemPackages = with pkgs; [
+    # essentials
     firefox
     neovim
     git
+
     alacritty
-    sxhkd
     xorg.xinit
     killall
     xdotool
     xorg.xwininfo
+
     home-manager
-    lightdm-slick-greeter
+
     nushell
     wireguard-tools
     tree
     curl
+
+    virt-manager
+    virt-viewer
+    podman
+
+    unzip
+    zip
+
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

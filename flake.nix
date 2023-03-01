@@ -21,29 +21,101 @@
   outputs = { self, nixpkgs, darwin, home-manager }:
     {
       nixpkgs.config.allowUnfree = true;
-      nixosConfigurations.beethoven = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          ./hosts/beethoven/configuration.nix
-        ];
-        specialArgs = { inherit nixpkgs; };
+
+    # NIXOS HOST
+      nixosConfigurations = {
+        beethoven = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            ./hosts/beethoven/configuration.nix
+          ];
+          specialArgs = { inherit nixpkgs; };
+        };
+
+        nixvm = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            ./hosts/nixvm/configuration.nix
+          ];
+          specialArgs = { inherit nixpkgs; };
+        };
+
+        nixserver = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            ./hosts/nixserver/configuration.nix
+          ];
+          specialArgs = { inherit nixpkgs; };
+        };
       };
 
-      darwinConfigurations.stravinsky = darwin.lib.darwinSystem {
-        system = "aarch64-darwin";
-        pkgs = nixpkgs.legacyPackages.aarch64-darwin;
-        modules = [
-          ./hosts/stravinsky/darwin-configuration.nix
-          home-manager.darwinModules.home-manager
-          {
-            home-manager.users.rick = import ./hosts/stravinsky/home.nix;
-          }
-        ];
+    # DARWIN HOSTS
+      darwinConfigurations = {
+      # main macbook pro
+        stravinsky = darwin.lib.darwinSystem {
+          system = "aarch64-darwin";
+          pkgs = nixpkgs.legacyPackages.aarch64-darwin;
+          modules = [
+            ./hosts/stravinsky/darwin-configuration.nix
+            home-manager.darwinModules.home-manager
+            {
+              home-manager.users.rick = import ./hosts/stravinsky/home.nix;
+            }
+          ];
+        };
+
+        fakestravinsky = darwin.lib.darwinSystem {
+          system = "aarch64-darwin";
+          pkgs = nixpkgs.legacyPackages.aarch64-darwin;
+          modules = [
+            ./hosts/stravinsky/darwin-configuration.nix
+            home-manager.darwinModules.home-manager
+            {
+              home-manager.users.rick = import ./hosts/strvinsky/home.nix;
+            }
+          ];
+        };
+
+        aarch64minimalvm = darwin.lib.darwinSystem {
+          system = "aarch64-darwin";
+          pkgs = nixpkgs.legacyPackages.aarch64-darwin;
+          modules = [
+            ./hosts/macvm/darwin-configuration.nix
+            home-manager.darwinModules.home-manager
+            {
+              home-manager.users.rick = import ./hosts/macvm/home.nix;
+            }
+          ];
+        };
+
+        x86minimalvm = darwin.lib.darwinSystem {
+          system = "x86_64-darwin";
+          pkgs = nixpkgs.legacyPackages.x86_64-darwin;
+          modules = [
+            ./hosts/macvm/darwin-configuration.nix
+            home-manager.darwinModules.home-manager
+            {
+              home-manager.users.rick = import ./hosts/macvm/home.nix;
+            }
+          ];
+        };
       };
 
-      homeConfigurations.beethoven = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.x86_64-linux;
-        modules = [ ./hosts/beethoven/home.nix ];
+      homeConfigurations = {
+        beethoven = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.x86_64-linux;
+          modules = [ ./hosts/beethoven/home.nix ];
+        };
+
+        nixvm = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.x86_64-linux;
+          modules = [ ./hosts/nixvm/home.nix ];
+        };
+
+        nixserver = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.x86_64-linux;
+          modules = [ ./hosts/nixserver/home.nix ];
+        };
       };
 
       defaultPackage.x86_64-linux = home-manager.defaultPackage.x86_64-linux;

@@ -1,10 +1,7 @@
 { lib, config, pkgs, nixpkgs, ... }:
 {
   imports = [
-    ../common.nix
-    ../../services/yabairc.nix
-    ../../services/skhdrc.nix
-    ../../programs/hammerspoon.nix
+    ../minimal.nix
   ];
 
   home.stateVersion = "22.11";
@@ -36,11 +33,4 @@
       '';
   };
 
-  /* programs.nushell.extraEnv = ''
-    let-env PATH = ($env.PATH | append "/opt/homebrew/bin")
-  '';
-
-  programs.fish.interactiveShellInit = ''
-    fish_add_path "/opt/homebrew/bin"
-  ''; */
 }
