@@ -1,10 +1,12 @@
 { config, pkgs, lib, ... }:
-
+let
+  impermanence = builtins.fetchTarball "https://github.com/nix-community/impermanence/archive/master.tar.gz";
+in
 {
   imports =
-    [ 
+    [
       ./hardware-configuration.nix
-      ./wipe-root.nix
+      "${impermanence}/nixos.nix"
     ];
 
   boot.loader.systemd-boot.enable = true;
@@ -15,11 +17,11 @@
   boot.kernelParams = [ "nohibernate" ];
 
 
-  networking.hostName = "beethoven"; 
+  networking.hostName = "beethoven";
   networking.hostId = "06a8bf46";
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  
-  networking.networkmanager.enable = true;  
+  networking.networkmanager.enable = true;
 
   # Set your time zone.
   time.timeZone = "America/New_York";
@@ -37,7 +39,7 @@
   # };
 
   # Enable the X11 windowing system.
-  services.xserver = { 
+  services.xserver = {
     enable = true;
     displayManager = {
       defaultSession = "none+bspwm";
@@ -99,9 +101,12 @@
   # services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
+  users.mutableUsers = false;
   users.users.rick = {
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" ]; # Enable ‘sudo’ for the user.
+    passwordFile = "/persist/passwd/rick";
+    shell = pkgs.nushell;
   };
 
   environment.systemPackages = with pkgs; [
@@ -125,10 +130,10 @@
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
+  programs.gnupg.agent = {
+    enable = true;
+    enableSSHSupport = true;
+  };
 
   # List services that you want to enable:
 
@@ -156,11 +161,28 @@
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "22.11"; # Did you read the comment?
 
-  nix.settings.experimental-features = ["nix-command" "flakes" ];
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   nixpkgs.config.allowUnfree = true;
 
   services.zfs.trim.enable = true;
 
+  # WIPE ROOT CONFIGURATION
+  environment.persistence."/persist/impermenance" = {
+    directories = [
+      "/etc/nixos"
+    ];
+    files = [
+      "/etc/ssh/ssh_host_rsa_key"
+      "/etc/ssh/ssh_host_rsa_key.pub"
+      "/etc/ssh/ssh_host_ed25519_key"
+      "/etc/ssh/ssh_host_ed25519_key.pub"
+      "/etc/machine-id"
+    ];
+  };
+
+  boot.initrd.postDeviceCommands = lib.mkAfter ''
+    zfs rollback -r rpool/local/root@blank
+  '';
 }
 
