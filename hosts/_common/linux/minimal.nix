@@ -4,6 +4,9 @@
     # utilities
     firefox
     wireguard-tools
+    gcc12
+    glibc
+
 
     # virtualization
     podman

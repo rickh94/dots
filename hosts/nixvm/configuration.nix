@@ -18,8 +18,8 @@ in
 
 
   # FIXME set hostname and host id
-  networking.hostName = "";
-  networking.hostId = "";
+  networking.hostName = "nixvm";
+  networking.hostId = "99a4b700";
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  
   networking.networkmanager.enable = true;
