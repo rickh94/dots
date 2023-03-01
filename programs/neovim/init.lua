@@ -310,9 +310,6 @@ require('lazy').setup({
   },
   {
     'mrjones2014/legendary.nvim',
-    dependencies = {
-      'kkharji/sqlite.lua'
-    }
   },
   'ThePrimeagen/vim-be-good',
   'stevearc/dressing.nvim',
@@ -668,6 +665,13 @@ require('legendary').setup({
           description = 'Open Diagnostic Float'
         }
       }
+    },
+    {
+      '<leader>p',
+      {
+        n = '<cmd>Legendary<cr>'
+      },
+      description = 'Open Legendary command prompt'
     }
   },
   which_key = {
@@ -769,35 +773,91 @@ local on_attach = function(_, bufnr)
           n = vim.lsp.buf.rename,
         },
         description = 'LSP rename symbol'
+      },
+      {
+        '<leader>a',
+        {
+          n = vim.lsp.buf.code_action,
+        },
+        description = 'LSP: Action'
+      },
+      {
+        'gd',
+        {
+          n = vim.lsp.buf.definition,
+        },
+        description = 'Goto Definition'
+      },
+      {
+        'gr',
+        {
+          n = require('telescope.builtin').lsp_references,
+        },
+        description = 'Goto References'
+      },
+      {
+        'gI',
+        {
+          n = vim.lsp.buf.implementation
+        },
+        description = 'Goto Implementation'
+      },
+      {
+        '<leader>D',
+        {
+          n = vim.lsp.buf.type_definition
+        },
+        description = 'Type Definition'
+      },
+      {
+        'K',
+        {
+          n = vim.lsp.buf.hover
+        },
+        description = 'Hover Documentation'
+      },
+      {
+        '<C-k>',
+        {
+          n = vim.lsp.buf.signature_help
+        },
+        description = 'Signature Documentation'
+      },
+      {
+        'gD',
+        { n = vim.lsp.buf.declaration },
+        description = 'Goto Declaration'
       }
+
     }
   })
   -- nmap('<leader>r', vim.lsp.buf.rename, 'Rename')
-  nmap('<leader>a', vim.lsp.buf.code_action, 'Action')
+  -- nmap('<leader>a', vim.lsp.buf.code_action, 'Action')
 
-  nmap('gd', vim.lsp.buf.definition, 'Goto Definition')
-  nmap('gr', require('telescope.builtin').lsp_references, 'Goto References')
-  nmap('gI', vim.lsp.buf.implementation, 'Goto Implementation')
-  nmap('<leader>D', vim.lsp.buf.type_definition, 'Type Definition')
-  nmap('<leader>ls', require('telescope.builtin').lsp_document_symbols, 'Document symbols')
-  nmap('<leader>lS', require('telescope.builtin').lsp_dynamic_workspace_symbols, 'Workspace Symbols')
+  -- nmap('gd', vim.lsp.buf.definition, 'Goto Definition')
+  -- nmap('gr', require('telescope.builtin').lsp_references, 'Goto References')
+  -- nmap('gI', vim.lsp.buf.implementation, 'Goto Implementation')
+  -- nmap('<leader>D', vim.lsp.buf.type_definition, 'Type Definition')
+  -- not active
+  -- nmap('<leader>ls', require('telescope.builtin').lsp_document_symbols, 'Document symbols')
+  -- nmap('<leader>lS', require('telescope.builtin').lsp_dynamic_workspace_symbols, 'Workspace Symbols')
 
   -- See `:help K` for why this keymap
-  nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
-  nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
+  -- nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
+  -- nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
 
   -- Lesser used LSP functionality
-  nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
+  -- nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
   -- nmap('<leader>wa', vim.lsp.buf.add_workspace_folder, '[W]orkspace [A]dd Folder')
   -- nmap('<leader>wr', vim.lsp.buf.remove_workspace_folder, '[W]orkspace [R]emove Folder')
-  nmap('<leader>wf', function()
-    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-  end, 'Workspace List Folders')
+  -- nmap('<leader>wf', function()
+  --   print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+  -- end, 'Workspace List Folders')
 
   -- Create a command `:Format` local to the LSP buffer
-  vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
-    vim.lsp.buf.format()
-  end, { desc = 'Format current buffer with LSP' })
+  -- vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
+  --   vim.lsp.buf.format()
+  -- end, { desc = 'Format current buffer with LSP' })
 end
 
 -- Enable the following language servers
