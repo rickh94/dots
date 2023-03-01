@@ -17,8 +17,9 @@ in
   boot.kernelParams = [ "nohibernate" ];
 
 
-  networking.hostName = "beethoven";
-  networking.hostId = "06a8bf46";
+  # FIXME set hostname and host id
+  networking.hostName = "";
+  networking.hostId = "";
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  
   networking.networkmanager.enable = true;

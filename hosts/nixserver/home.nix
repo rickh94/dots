@@ -1,10 +1,10 @@
-{ config, lib, pkgs, ...}:
+{ config, lib, pkgs, ... }:
 {
 
-    imports = [
-      ../minimal.nix
-      ../minimal-linux.nix
-    ];
-    home.username = "rick";
-    home.homeDirectory = "/home/rick";
+  imports = [
+    ../_common/minimal.nix
+    ../_common/linux/minimal.nix
+  ];
+  home.username = "rick";
+  home.homeDirectory = "/home/rick";
 }

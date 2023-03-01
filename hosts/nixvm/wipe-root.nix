@@ -1,8 +1,5 @@
 { lib, ... }:
 {
-  boot.initrd.postDeviceCommands = lib.mkAfter ''
-    zfs rollback -r rpool/local/root@blank
-  '';
 
   # OPT-IN STATE
   environment.etc = {
@@ -37,12 +34,12 @@
     hostKeys = [
       {
         path = "/persist/ssh/ssh_host_ed25519_key";
-	      type = "ed25519";
+        type = "ed25519";
       }
       {
         path = "/persist/ssh/ssh_host_rsa_key";
-	      type = "rsa";
-	      bits = 4096;
+        type = "rsa";
+        bits = 4096;
       }
     ];
   };

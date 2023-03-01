@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 {
   imports = [
-    ./minimal-linux.nix
+    ./minimal.nix
   ];
 
   home.packages = with pkgs; [

@@ -1,11 +1,11 @@
 { config, pkgs, nixpkgs, lib, ... }:
 {
   imports = [
-    ../programs/neovim.nix
-    ../programs/nushell/default.nix
-    ../programs/git.nix
-    ../programs/starship.nix
-    ../programs/zellij.nix
+    ../../programs/neovim.nix
+    ../../programs/nushell/default.nix
+    ../../programs/git.nix
+    ../../programs/starship.nix
+    ../../programs/zellij.nix
   ];
 
   home = {
@@ -22,7 +22,7 @@
       diff = "difftastic";
       du = "dust";
     };
-    
+
     packages = with pkgs; [
       # basics
       wget
@@ -46,7 +46,7 @@
       nodejs
       rustup
       python3
-      
+
       # rust replacements
       difftastic
       tldr
@@ -74,6 +74,7 @@
         cd $HOME/Wallpapers
         ${pkgs.wget}/bin/wget -v -i wallpapers.txt
       '';
+    };
   };
 
   programs.fish.enable = true;

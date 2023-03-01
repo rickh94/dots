@@ -1,11 +1,11 @@
 { config, pkgs, nixpkgs, lib, ... }:
 {
   imports = [
-     ./minimal.nix
-    ../programs/direnv/default.nix
-    ../programs/alacritty.nix
-    ../programs/kitty.nix
-    ../programs/tmux.nix
+    ./minimal.nix
+    ../../programs/direnv/default.nix
+    ../../programs/alacritty.nix
+    ../../programs/kitty.nix
+    ../../programs/tmux.nix
   ];
 
   home = {
@@ -18,7 +18,7 @@
 
 
     packages = with pkgs; [
-    # basics
+      # basics
       alacritty
       ffmpeg
       kitty
@@ -26,7 +26,7 @@
       killall
       zoxide
 
-    # dev tools
+      # dev tools
       neovide
       gibo
       direnv
@@ -39,21 +39,21 @@
       gitui
       cargo-expand
 
-    # languages
+      # languages
       (python310Full.withPackages (ps: with ps; [ pip flake8 black requests django ]))
       elixir
 
-    # music
+      # music
       audacity
 
-    # rust replacements
+      # rust replacements
       helix
       tokei
 
-    # communication
+      # communication
       zoom-us
 
-    # misc
+      # misc
       ncspot
       sccache
       wiki-tui
