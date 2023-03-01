@@ -1,14 +1,9 @@
 #!/usr/bin/env bash
 
-passwd rick
-mkdir /persist/etc
-cp -r /etc/nixos /persist/etc
-cp /etc/passwd /persist/etc/
-cp /etc/shadow /persist/etc/
-cp /etc/machine-id /persist/etc/
-cp /etc/group /persist/etc/
+mkdir /persist/{impermanence,passwd}
+mkpasswd > /persist/passwd/rick
+cp -r /etc/nixos /persist/impermenance/etc
+cp /etc/machine-id /persist/impermenance/etc/
 ssh-keygen -A
-mkdir /persist/ssh
-cp /etc/ssh/ssh_host_rsa_key /persist/ssh
-cp /etc/ssh/ssh_host_ed25519_key /persist/ssh
+cp /etc/ssh/ssh_host_*_key{,.pub} /persist/impermenance/etc/ssh
 

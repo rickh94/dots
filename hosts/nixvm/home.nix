@@ -22,4 +22,5 @@
   programs.rofi.enable = true;
   systemd.user.startServices = true;
 
+  xsession.windowManager.bspwm.monitors = { "Virtual-1" = [ "www" "dev" "ent" "mus" "vnc" "six" "VI" "VII" "VIII" ]; };
 }
