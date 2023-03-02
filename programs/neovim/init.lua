@@ -313,6 +313,8 @@ require('lazy').setup({
   },
   'ThePrimeagen/vim-be-good',
   'stevearc/dressing.nvim',
+  'ThePrimeagen/harpoon',
+  'mbbill/undotree',
 }, {})
 
 -- [[ Setting options ]]
@@ -320,6 +322,7 @@ require('lazy').setup({
 
 -- Set highlight on search
 vim.o.hlsearch = false
+vim.o.incsearch = true
 
 -- Make line numbers default
 vim.o.number = true
@@ -347,7 +350,7 @@ vim.o.smartcase = true
 vim.wo.signcolumn = 'yes'
 
 -- Decrease update time
-vim.o.updatetime = 250
+vim.o.updatetime = 50
 vim.o.timeout = true
 vim.o.timeoutlen = 300
 
@@ -357,7 +360,20 @@ vim.o.completeopt = 'menuone,noselect'
 -- NOTE: You should make sure your terminal supports this
 vim.o.termguicolors = true
 
-vim.o.guifont = "CaskadiaCove NF"
+vim.o.guifont = "CaskadiaCove NF:12"
+
+vim.o.expandtab = true
+
+vim.o.swapfile = false
+vim.o.backup = false
+vim.o.undodir = vim.fn.stdpath('state') .. '/.local/state/nvim/undodir'
+vim.o.smartindent = true
+
+vim.o.scrolloff = 8
+
+vim.o.colorcolumn = "80"
+
+
 
 -- [[ Basic Keymaps ]]
 
@@ -392,6 +408,8 @@ require('telescope').setup {
     },
   },
 }
+
+require('telescope').load_extension('harpoon')
 
 -- Enable telescope fzf native, if installed
 pcall(require('telescope').load_extension, 'fzf')
@@ -509,6 +527,13 @@ require('legendary').setup({
             n = require('telescope.builtin').diagnostics
           },
           description = 'Search Diagnostics'
+        },
+        {
+          '<leader>sm',
+          {
+            n = '<cmd>Telescope harpoon marks<cr>'
+          },
+          description = 'Search harpoon marks'
         }
       }
     },
@@ -672,6 +697,138 @@ require('legendary').setup({
         n = '<cmd>Legendary<cr>'
       },
       description = 'Open Legendary command prompt'
+    }
+  },
+  {
+    '<leader>u',
+    { n =  vim.cmd.UndotreeToggle },
+    description = 'Open Undo Tree'
+  },
+  {
+    itemgroup = 'harpoon',
+    description = '+Harpoon',
+    icon = 'H',
+    keymaps = {
+      {
+        '<leader>hq',
+        { n = require('harpoon.ui').toggle_quick_menu() },
+        description = 'Show/hide harpoon quick menu'
+      },
+      {
+        '<leader>ha',
+        { n = require('harpoon.mark').add_file() },
+        description = 'Add file to harpoon marks'
+      },
+      {
+        '<leader>h1',
+        { n = require('harpoon.mark').nav_file(1) },
+        description = 'Nav to file number'
+      },
+      {
+        '<leader>h2',
+        { n = require('harpoon.mark').nav_file(2) },
+        description = 'Nav to file number'
+      },
+      {
+        '<leader>h3',
+        { n = require('harpoon.mark').nav_file(3) },
+        description = 'Nav to file number'
+      },
+      {
+        '<leader>h4',
+        { n = require('harpoon.mark').nav_file(4) },
+        description = 'Nav to file number'
+      },
+      {
+        '<leader>h5',
+        { n = require('harpoon.mark').nav_file(5) },
+        description = 'Nav to file number'
+      },
+      {
+        '<leader>h6',
+        { n = require('harpoon.mark').nav_file(6) },
+        description = 'Nav to file number'
+      },
+      {
+        '<leader>h1',
+        { n = require('harpoon.mark').nav_file(1) },
+        description = 'Nav to file number'
+      },
+      {
+        '<leader>h8',
+        { n = require('harpoon.mark').nav_file(8) },
+        description = 'Nav to file number'
+      },
+      {
+        '<leader>h9',
+        { n = require('harpoon.mark').nav_file(9) },
+        description = 'Nav to file number'
+      },
+      {
+        '<leader>h0',
+        { n = require('harpoon.mark').nav_file(10) },
+        description = 'Nav to file number'
+      },
+      {
+        '<leader>hh',
+        { n = require('harpoon.mark').nav_prev() },
+        description = 'Navigate to previous harpoon'
+      },
+      {
+        '<leader>hl',
+        { n = require('harpoon.mark').nav_next() },
+        description = 'Navigate to next harpoon'
+      },
+    },
+    {
+      "J",
+      { v = ":m '>+1<cr>gv=gv" },
+      description = "Drag lines around in visual mode with indenting"
+    },
+    {
+      "K",
+      { v = ":m '<-2<cr>gv=gv" },
+      description = "Drag lines around in visual mode with indenting"
+    },
+    {
+      '<C-d>',
+      { n = '<C-d>zz' },
+      description = "Half page jump with cursor in center"
+    },
+    {
+      '<C-u>',
+      { n = '<C-u>zz' },
+      description = "Half page jump with cursor in center"
+    },
+    {
+      'n',
+      { n = 'nzzzv' },
+      description = 'Next search result with cursor in middle'
+    },
+    {
+      'N',
+      { n = 'Nzzzv' },
+      description = 'Prev search result with cursor in middle'
+    },
+    {
+      '<leader>p',
+      { x = '"_dP'},
+      description = 'Paste over without losing current register'
+    },
+    {
+      '<leader>y',
+      {
+        n = '"+y',
+        v = '"+y'
+      },
+      description = "Yank into system clipboard"
+    },
+    {
+      '<leader>Y',
+      {
+        n = '"+Y',
+      },
+      description = "Yank line into system clipboard"
     }
   },
   which_key = {
@@ -905,6 +1062,16 @@ mason_lspconfig.setup_handlers {
       settings = servers[server_name],
     }
   end,
+}
+
+require('lspconfig').sumneko_lua.setup {
+  settings = {
+    Lua = {
+      diagnostics = {
+        globals = { 'vim' }
+      }
+    }
+  }
 }
 
 -- nvim-cmp setup
