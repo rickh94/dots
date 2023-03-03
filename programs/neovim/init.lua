@@ -64,7 +64,7 @@ require('lazy').setup({
       'hrsh7th/cmp-path',
       'hrsh7th/cmp-cmdline',
       'ray-x/cmp-treesitter',
-      'lukas-reineke/cmp-rg',
+      -- 'lukas-reineke/cmp-rg',
     },
   },
   -- icons in completions
@@ -409,7 +409,7 @@ require('telescope').setup {
   },
 }
 
-require('telescope').load_extension('harpoon')
+-- require('telescope').load_extension('harpoon')
 
 -- Enable telescope fzf native, if installed
 pcall(require('telescope').load_extension, 'fzf')
@@ -830,7 +830,7 @@ require('legendary').setup({
       },
       description = "Yank line into system clipboard"
     }
-  } ]],
+  }, ]]
   which_key = {
     auto_register = true,
   }
@@ -1064,7 +1064,7 @@ mason_lspconfig.setup_handlers {
   end,
 }
 
-require('lspconfig').sumneko_lua.setup {
+require('lspconfig').lua_ls.setup {
   settings = {
     Lua = {
       diagnostics = {
@@ -1119,7 +1119,7 @@ cmp.setup {
     { name = 'buffer' },
     { name = 'treesitter' },
     { name = 'path' },
-    { name = 'rg' },
+    -- { name = 'rg' },
   },
   formatting = {
     format = require('lspkind').cmp_format({

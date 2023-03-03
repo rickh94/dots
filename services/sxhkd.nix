@@ -6,7 +6,7 @@
       # reload sxhkd
       "super + Escape" = "pkill -USR1 -x sxhkd";
 
-      "super + @Space" = "${pkgs.rofi}/bin/rofi -show run";
+      "super +  r" = "${pkgs.rofi}/bin/rofi -show run";
 
       # terminal
       "hyper + t" = "kitty";

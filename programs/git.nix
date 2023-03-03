@@ -54,6 +54,7 @@
       ".dynamodb"
       ".idea"
       "_build"
+      ".direnv"
     ];
   };
 

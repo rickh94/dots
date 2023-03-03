@@ -124,6 +124,7 @@ in
     wireguard-tools
     tree
     curl
+    pavucontrol
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -188,7 +189,24 @@ in
 
 
   services.xserver.videoDrivers = [ "nvidia" ];
+  services.xserver.config = lib.mkAfter ''
+  Section "Device"
+    Identifier "Nvidia Composition Pipeline"
+    Driver "nvidia"
+    VendorName "NVIDIA Corporation"
+    BoardName "GeForce RTX 2060 SUPER"
+    Option "ForceCompositionPipeline" "1"
+  EndSection
+
+  Section "InputClass"
+    Identifier "MX Master Acceleration"
+    MatchDriver "libinput"
+    MatchProduct "MX Master"
+    Option "AccelSpeed" "-0.6"
+  EndSection
+  '';
   hardware.opengl.enable = true;
   hardware.nvidia.modesetting.enable = true;
+
 }
 

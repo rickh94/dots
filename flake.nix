@@ -16,9 +16,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+
   };
 
-  outputs = { self, nixpkgs, darwin, home-manager }:
+  outputs = inputs@{ self, nixpkgs, darwin, home-manager, unstable }:
     {
       nixpkgs.config.allowUnfree = true;
 
@@ -104,7 +106,9 @@
       homeConfigurations = {
         beethoven = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.x86_64-linux;
-          modules = [ ./hosts/beethoven/home.nix ];
+          modules = [ ./hosts/beethoven/home.nix 
+          ];
+          extraSpecialArgs = { inherit inputs; };
         };
 
         nixvm = home-manager.lib.homeManagerConfiguration {

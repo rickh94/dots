@@ -22,5 +22,5 @@
   programs.rofi.enable = true;
   systemd.user.startServices = true;
 
-  xsession.windowManager.bspwm.monitors = { "DP-4" = [ "www" "dev" "ent" "mus" "vnc" "six" "VI" "VII" "VIII" ]; };
+  xsession.windowManager.bspwm.monitors = { "DP-4" = [ "www" "dev" "ent" "mus" "vnc" "virt" "VIII" "IX"]; };
 }

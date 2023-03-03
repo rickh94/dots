@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, ... }:
+let
+  unstable = import inputs.unstable {
+      system = pkgs.system;
+  };
+in
 {
   imports = [
     ./minimal.nix
@@ -20,7 +25,7 @@
 
 
     # creative
-    musescore
+    unstable.musescore
     inkscape
     gimp
     krita

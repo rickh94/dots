@@ -30,6 +30,24 @@
       "code" = {
         desktop = "^2";
       };
+      "jetbrains-webstorm" = {
+        desktop = "^2";
+      };
+      "jetbrains-pycharm" = {
+        desktop = "^2";
+      };
+      "jetbrains-idea" = {
+        desktop = "^2";
+      };
+      "Spotify" = {
+        desktop = "^3";
+      };
+      "vlc" = {
+        desktop = "^3";
+      };
+      "MuseScore4" = {
+        desktop = "^4";
+      };
     };
 
     startupPrograms = [
