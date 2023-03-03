@@ -313,7 +313,7 @@ require('lazy').setup({
   },
   'ThePrimeagen/vim-be-good',
   'stevearc/dressing.nvim',
-  'ThePrimeagen/harpoon',
+  -- 'ThePrimeagen/harpoon',
   'mbbill/undotree',
 }, {})
 
@@ -704,7 +704,7 @@ require('legendary').setup({
     { n = vim.cmd.UndotreeToggle },
     description = 'Open Undo Tree'
   },
-  {
+  --[[ {
     itemgroup = 'harpoon',
     description = '+Harpoon',
     icon = 'H',
@@ -830,7 +830,7 @@ require('legendary').setup({
       },
       description = "Yank line into system clipboard"
     }
-  },
+  } ]],
   which_key = {
     auto_register = true,
   }
