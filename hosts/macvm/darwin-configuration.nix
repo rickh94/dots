@@ -1,7 +1,4 @@
 { pkgs, nix, config, lib, ... }:
-let
-  me = "rick";
-in
 {
   imports = [
     ../_common/mac/system-activation.nix

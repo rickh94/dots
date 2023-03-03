@@ -1,4 +1,7 @@
 { pkgs, lib, ... }:
+let
+  me = "rick";
+in
 {
   system.activationScripts.applications.text = pkgs.lib.mkForce ''
     echo "setting up ~/Applications/NixApps.."

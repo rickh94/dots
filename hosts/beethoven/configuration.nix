@@ -208,5 +208,7 @@ in
   hardware.opengl.enable = true;
   hardware.nvidia.modesetting.enable = true;
 
+  services.redis.servers.default.enable = true;
+  services.redis.servers.default.port = 6379;
 }
 
