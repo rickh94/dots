@@ -19,7 +19,7 @@ in
 
 
   networking.hostName = "beethoven";
-  networking.hostId = "06a8bf46";
+  networking.hostId = "85462731";
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  
   networking.networkmanager.enable = true;
@@ -95,6 +95,7 @@ in
       swtpm.enable = true;
     };
   };
+
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
@@ -184,5 +185,10 @@ in
   '';
 
   fileSystems."/persist".neededForBoot = true;
+
+
+  services.xserver.videoDrivers = [ "nvidia" ];
+  hardware.opengl.enable = true;
+  hardware.nvidia.modesetting.enable = true;
 }
 
