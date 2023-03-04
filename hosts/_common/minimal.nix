@@ -6,6 +6,7 @@
     ../../programs/git.nix
     ../../programs/starship.nix
     ../../programs/zellij.nix
+    ../../programs/bat.nix
   ];
 
   home = {

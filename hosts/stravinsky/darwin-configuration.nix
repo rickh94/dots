@@ -71,7 +71,6 @@ in
       "koekeishiya/formulae"
     ];
     casks = [
-      "hammerspoon"
       "firefox"
       "handbrake"
       "musescore"

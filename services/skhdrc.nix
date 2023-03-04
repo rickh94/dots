@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, config, ... }:
 {
   xdg.configFile."skhd/skhdrc" = {
     executable = true;
@@ -53,6 +53,38 @@
       # rotate window tree clockwise
       hyper - 0x21 : yabai -m space --rotate 90
       hyper - 0x1E : yabai -m space --mirror y-axis
+
+      # show/hide alacritty dropdown terminal
+      hyper - return : ${config.home.homeDirectory}/.config/skhd/scripts/toggle-alacritty.sh
+    '';
+  };
+
+  xdg.configFile."skhd/scripts/toggle-alacritty.sh" = {
+    executable = true;
+    text = ''
+      #!/usr/bin/env bash
+      # get alacritty's id from yabai
+      aid=`yabai -m query --windows | ${pkgs.jq}/bin/jq '.[] |select(.app == "Alacritty").id' | tr -d '\n'`
+
+      # if the id is empty, open alacritty
+      if [[ -z $aid ]]; then
+        /usr/bin/open -a ${config.home.homeDirectory}/Applications/HMApps/Alacritty.app
+        aid=`yabai -m query --windows | ${pkgs.jq}/bin/jq '.[] |select(.app == "Alacritty").id' | tr -d '\n'`
+        yabai -m window $aid --resize abs:1600:300 --move abs:0:0 --focus
+        exit 0;
+      fi
+
+      is_visible=`yabai -m query --windows --window $aid | ${pkgs.jq}/bin/jq '."is-visible"'`
+
+      if [ $is_visible == 'true' ]; then
+        /usr/bin/osascript -e "
+      tell app \"System Events\"
+        set visible of process \"Alacritty\" to false
+      end tell"
+      else
+        yabai -m window $aid --resize abs:1600:300 
+        yabai -m window $aid --move abs:0:0 --focus
+      fi
     '';
   };
 }

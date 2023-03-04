@@ -454,3 +454,4 @@ let-env config = {
 
 source ~/.zoxide.nu
 source ~/.cache/starship/init.nu
+

@@ -37,6 +37,7 @@
       yabai -m config window_opacity_duration 0.0
       yabai -m config active_window_opacity 1.0
       yabai -m config window_border_blur off
+      yabai -m config window_animation_duration 0.0
 
 
 
@@ -81,7 +82,7 @@
       yabai -m rule --add app="Karabiner-Elements" sticky=on layer=above manage=off
       yabai -m rule --add app="Karabiner-EventViewer" sticky=on layer=above manage=off
       yabai -m rule --add app="System Information" sticky=off layer=above manage=off
-      yabai -m rule --add app="Alacritty" sticky=off layer=above manage=off border=off
+      yabai -m rule --add app="Alacritty" sticky=on layer=above manage=off border=off
       yabai -m rule --add app="Warp" sticky=off layer=above manage=off
       yabai -m rule --add app="iTerm 2" sticky=off layer=above manage=off
       yabai -m rule --add app="Terminal" sticky=off layer=above manage=off

@@ -5,7 +5,6 @@
     ../_common/mac/home-activation.nix
     ../../services/yabairc.nix
     ../../services/skhdrc.nix
-    ../../programs/hammerspoon.nix
   ];
 
   home.stateVersion = "22.11";

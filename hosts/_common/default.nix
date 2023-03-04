@@ -56,6 +56,7 @@
       ncspot
       sccache
       wiki-tui
+      jq
       obsidian
     ];
 

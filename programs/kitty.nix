@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 {
   programs.kitty = {
     enable = true;
@@ -7,9 +7,17 @@
       name = "CaskaydiaCove Nerd Font";
       size = 12;
     };
-    theme = "Monokai Soda";
     settings = {
-      shell = "${pkgs.zsh}/bin/zsh -c '${pkgs.nushell}/bin/nu'";
+      shell = "zsh -c \"${pkgs.nushell}/bin/nu\"";
     };
+    theme = "Monokai Soda";
+  };
+
+  xdg.configFile."kitty/startup.sh" = {
+    executable = true;
+    text = ''
+      #!/usr/bin/env bash
+      ${pkgs.bash}/bin/bash -c '${pkgs.nushell}/bin/nu'
+    '';
   };
 }
