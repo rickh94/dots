@@ -275,12 +275,12 @@ require('lazy').setup({
   -- run database commands from vim
   'tpope/vim-dadbod',
   -- colorful window separators
-  {
+  --[[ {
     'nvim-zh/colorful-winsep.nvim',
     config = function()
       require('colorful-winsep').setup()
     end
-  },
+  }, ]]
   -- add brackets and things around stuff
   'machakann/vim-sandwich',
   -- dim inactive areas of code
@@ -785,58 +785,58 @@ require('legendary').setup({
         { n = require('harpoon.mark').nav_next() },
         description = 'Navigate to next harpoon'
       },
-    },
+    }, 
+  },  ]]
+  {
+    "J",
+    { v = ":m '>+1<cr>gv=gv" },
+    description = "Drag lines around in visual mode with indenting"
+  },
+  {
+    "K",
+    { v = ":m '<-2<cr>gv=gv" },
+    description = "Drag lines around in visual mode with indenting"
+  },
+  {
+    '<C-d>',
+    { n = '<C-d>zz' },
+    description = "Half page jump with cursor in center"
+  },
+  {
+    '<C-u>',
+    { n = '<C-u>zz' },
+    description = "Half page jump with cursor in center"
+  },
+  {
+    'n',
+    { n = 'nzzzv' },
+    description = 'Next search result with cursor in middle'
+  },
+  {
+    'N',
+    { n = 'Nzzzv' },
+    description = 'Prev search result with cursor in middle'
+  },
+  {
+    '<leader>p',
+    { x = '"_dP' },
+    description = 'Paste over without losing current register'
+  },
+  {
+    '<leader>y',
     {
-      "J",
-      { v = ":m '>+1<cr>gv=gv" },
-      description = "Drag lines around in visual mode with indenting"
+      n = '"+y',
+      v = '"+y'
     },
+    description = "Yank into system clipboard"
+  },
+  {
+    '<leader>Y',
     {
-      "K",
-      { v = ":m '<-2<cr>gv=gv" },
-      description = "Drag lines around in visual mode with indenting"
+      n = '"+Y',
     },
-    {
-      '<C-d>',
-      { n = '<C-d>zz' },
-      description = "Half page jump with cursor in center"
-    },
-    {
-      '<C-u>',
-      { n = '<C-u>zz' },
-      description = "Half page jump with cursor in center"
-    },
-    {
-      'n',
-      { n = 'nzzzv' },
-      description = 'Next search result with cursor in middle'
-    },
-    {
-      'N',
-      { n = 'Nzzzv' },
-      description = 'Prev search result with cursor in middle'
-    },
-    {
-      '<leader>p',
-      { x = '"_dP' },
-      description = 'Paste over without losing current register'
-    },
-    {
-      '<leader>y',
-      {
-        n = '"+y',
-        v = '"+y'
-      },
-      description = "Yank into system clipboard"
-    },
-    {
-      '<leader>Y',
-      {
-        n = '"+Y',
-      },
-      description = "Yank line into system clipboard"
-    }
-  }, ]]
+    description = "Yank line into system clipboard"
+  },
   which_key = {
     auto_register = true,
   }
@@ -1158,7 +1158,7 @@ cmp.setup.cmdline(':', {
 -- vim.cmd [[autocmd! CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]]
 
 -- autoformat on save
-vim.cmd [[autocmd! BufWritePre <buffer> lua vim.lsp.buf.format()]]
+vim.cmd [[autocmd BufWritePre * lua vim.lsp.buf.format()]]
 
 
 
