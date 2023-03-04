@@ -14,7 +14,7 @@ in
     tigervnc
     firefox
     handbrake
-    (nerdfonts.override { fonts = [ "FiraCode" "Hack" "CascadiaCode" ]; })
+    (nerdfonts.override { fonts = [ "FiraCode" "Hack" "CascadiaCode" "VictorMono"]; })
     thunderbird
     vlc
     brave
