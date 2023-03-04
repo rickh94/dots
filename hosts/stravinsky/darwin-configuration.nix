@@ -76,7 +76,7 @@ in
       "handbrake"
       "musescore"
       "steam"
-      "thunderbird"
+      "thunderbird-beta"
       "iterm2"
       "krita"
       "gimp"
@@ -92,6 +92,7 @@ in
       "plex-htpc"
       "plexamp"
       "syncthing"
+      "karabiner-elements"
     ];
   };
 

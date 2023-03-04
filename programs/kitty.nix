@@ -9,7 +9,7 @@
     };
     theme = "Monokai Soda";
     settings = {
-      shell = "${pkgs.nushell}/bin/nu";
+      shell = "${pkgs.zsh}/bin/zsh -c '${pkgs.nushell}/bin/nu'";
     };
   };
 }

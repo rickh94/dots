@@ -2,6 +2,7 @@
 {
   home.file.".hammerspoon/init.lua" = {
     text = ''
+      hs.application.enableSpotlightForNameSearches(true)
       local spaces = require "hs.spaces"
       local screen = require "hs.screen"
 
@@ -20,7 +21,7 @@
           --print("win:screen() = ", win:screen())
 
           local fullScreen = not win:isStandard()
-          if fullscreen then
+          if fullScreen then
             hs.eventtap.keyStroke('cmd', 'return', 0, alacritty)
           end
 
@@ -60,7 +61,7 @@
               -- print(name)
               -- print(event)
 
-              if event == hx.application.watcher.launched and name = APP_NAME then
+              if event == hx.application.watcher.launched and name == APP_NAME then
                 app:hide()
                 moveWindow(app, space)
                 appWatcher:stop()

@@ -29,7 +29,7 @@
       };
 
       shell = {
-        program = "${pkgs.nushell}/bin/nu";
+        program = "${pkgs.zsh}/bin/zsh";
         args = [
           "-c"
           "${pkgs.zellij}/bin/zellij"

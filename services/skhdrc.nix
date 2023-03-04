@@ -3,7 +3,7 @@
   xdg.configFile."skhd/skhdrc" = {
     executable = true;
     text = ''
-      !/usr/bin/env sh
+      #!/usr/bin/env sh
       #  Quickly reload yabai
       ctrl + alt + cmd - r : launchctl kickstart -k "gui/$UID/homebrew.mxcl.yabai"
 

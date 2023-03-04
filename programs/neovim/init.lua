@@ -360,7 +360,7 @@ vim.o.completeopt = 'menuone,noselect'
 -- NOTE: You should make sure your terminal supports this
 vim.o.termguicolors = true
 
-vim.o.guifont = "CaskadiaCove NF:12"
+vim.o.guifont = "CaskaydiaCove Nerd Font:11"
 
 vim.o.expandtab = true
 

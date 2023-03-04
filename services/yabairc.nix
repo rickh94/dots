@@ -1,4 +1,4 @@
-{ ... }: 
+{ ... }:
 {
   xdg.configFile."yabai/yabairc" = {
     executable = true;
@@ -88,6 +88,7 @@
       yabai -m rule --add app="Notable" sticky=on layer=above manage=off
       yabai -m rule --add app="Notes" sticky=on layer=above manage=off
       yabai -m rule --add app="Bitwarden" sticky=on manage=off
+      yabai -m rule --add app="Arq 7" sticky=on manage=off
     '';
   };
 }
