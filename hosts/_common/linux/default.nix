@@ -22,6 +22,7 @@ in
     spotify
     syncthing
     wireguard-tools
+    bitwarden
 
 
     # creative
