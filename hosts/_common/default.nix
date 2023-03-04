@@ -37,6 +37,7 @@
       bacon
       gitui
       cargo-expand
+      rust-analyzer
 
       # languages
       elixir

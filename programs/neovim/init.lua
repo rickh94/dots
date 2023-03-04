@@ -167,8 +167,13 @@ require('lazy').setup({
     'simrat39/rust-tools.nvim',
     priority = 90,
     config = function()
-      require('rust-tools').setup()
-      require('rust-tools').inlay_hints.set()
+      require('rust-tools').setup({
+        tools = {
+          inlay_hints = {
+            auto = true
+          }
+        }
+      })
     end
   },
   -- cargo crates resolution
@@ -372,6 +377,7 @@ vim.o.smartindent = true
 vim.o.scrolloff = 8
 
 vim.o.colorcolumn = "80"
+vim.o.nowrap = true
 
 
 
@@ -615,14 +621,14 @@ require('legendary').setup({
         {
           '<leader>bn',
           {
-            n = '<cmd>bNext<CR>'
+            n = '<cmd>bn<CR>'
           },
           description = 'Next Buffer'
         },
         {
           '<leader>bp',
           {
-            n = '<cmd>bPrev<CR>'
+            n = '<cmd>bp<CR>'
           },
           description = 'Previous Buffer'
         },
@@ -1153,6 +1159,7 @@ cmp.setup.cmdline(':', {
 
 -- autoformat on save
 vim.cmd [[autocmd! BufWritePre <buffer> lua vim.lsp.buf.format()]]
+
 
 
 -- The line beneath this is called `modeline`. See `:help modeline`
