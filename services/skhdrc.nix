@@ -68,9 +68,14 @@
 
       # if the id is empty, open alacritty
       if [[ -z $aid ]]; then
-        /usr/bin/open -a ${config.home.homeDirectory}/Applications/HMApps/Alacritty.app
+        /usr/bin/open -a ${config.home.homeDirectory}/Applications/HMApps/Alacritty.app  
+        sleep 0.5;
         aid=`yabai -m query --windows | ${pkgs.jq}/bin/jq '.[] |select(.app == "Alacritty").id' | tr -d '\n'`
-        yabai -m window $aid --resize abs:1600:300 --move abs:0:0 --focus
+        yabai -m window $aid --resize abs:1600:300 
+        sleep 0.5;
+        yabai -m window $aid --move abs:0:0 
+        sleep 0.5;
+        yabai -m window $aid --focus
         exit 0;
       fi
 
@@ -82,8 +87,9 @@
         set visible of process \"Alacritty\" to false
       end tell"
       else
-        yabai -m window $aid --resize abs:1600:300 
-        yabai -m window $aid --move abs:0:0 --focus
+        yabai -m window $aid --resize abs:1200:300 
+        yabai -m window $aid --move abs:0:0 
+        yabai -m window $aid --focus
       fi
     '';
   };

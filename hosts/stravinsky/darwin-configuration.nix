@@ -66,9 +66,11 @@ in
       "yabai"
       "skhd"
       "handbrake"
+      "buffalo"
     ];
     taps = [
       "koekeishiya/formulae"
+      "gobuffalo/tap"
     ];
     casks = [
       "firefox"
