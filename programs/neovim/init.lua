@@ -1179,8 +1179,30 @@ cmp.setup.cmdline(':', {
 -- vim.cmd [[autocmd! CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]]
 
 -- autoformat on save
-vim.cmd [[autocmd BufWritePre * lua vim.lsp.buf.format()]]
+local formatOnSave = { "html", "go", "rs", "js", "css", "json", "ex", "rb", "vue", "c", "cpp", "java", "nix", "ts" }
+for _, v in pairs(formatOnSave) do
+  vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+    pattern = "*." .. v,
+    callback = function(_)
+      vim.lsp.buf.format()
+    end
+  })
+end
 
+
+-- Custom filetypes from regex
+-- use syntax filetype[ext] = "filetype"
+local filetypes = {}
+filetypes["njk"] = "twig"
+filetypes["pcss"] = "css"
+
+
+for k, v in pairs(filetypes) do
+  vim.api.nvim_create_autocmd({ "BufWritePre", "BufRead" }, {
+    pattern = "*." .. k,
+    command = "set filetype=" .. v
+  })
+end
 
 
 -- The line beneath this is called `modeline`. See `:help modeline`

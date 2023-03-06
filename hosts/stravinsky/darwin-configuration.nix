@@ -66,6 +66,7 @@ in
       "yabai"
       "skhd"
       "handbrake"
+      "libiconv"
       # "buffalo"
       # "buffalo-pop"
     ];
