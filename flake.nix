@@ -21,10 +21,13 @@
   };
 
   outputs = inputs@{ self, nixpkgs, darwin, home-manager, unstable }:
+    let
+      nerdfonts = [ "FiraCode" "Hack" "CascadiaCode" "Hasklig" "Lilex" "VictorMono" ];
+    in
     {
       nixpkgs.config.allowUnfree = true;
 
-    # NIXOS HOST
+      # NIXOS HOST
       nixosConfigurations = {
         beethoven = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
@@ -51,9 +54,9 @@
         };
       };
 
-    # DARWIN HOSTS
+      # DARWIN HOSTS
       darwinConfigurations = {
-      # main macbook pro
+        # main macbook pro
         stravinsky = darwin.lib.darwinSystem {
           system = "aarch64-darwin";
           pkgs = nixpkgs.legacyPackages.aarch64-darwin;
@@ -64,6 +67,7 @@
               home-manager.users.rick = import ./hosts/stravinsky/home.nix;
             }
           ];
+          specialArgs = { inherit nerdfonts; };
         };
 
         fakestravinsky = darwin.lib.darwinSystem {
@@ -106,9 +110,10 @@
       homeConfigurations = {
         beethoven = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.x86_64-linux;
-          modules = [ ./hosts/beethoven/home.nix 
+          modules = [
+            ./hosts/beethoven/home.nix
           ];
-          extraSpecialArgs = { inherit inputs; };
+          extraSpecialArgs = { inherit inputs; inherit nerdfonts; };
         };
 
         nixvm = home-manager.lib.homeManagerConfiguration {

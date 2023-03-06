@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, nerdfonts, ... }:
 {
 
   imports = [
@@ -22,6 +22,6 @@
   programs.rofi.enable = true;
   systemd.user.startServices = true;
 
-  xsession.windowManager.bspwm.monitors = { "DP-4" = [ "www" "dev" "ent" "mus" "vnc" "virt" "VIII" "IX"]; };
+  xsession.windowManager.bspwm.monitors = { "DP-4" = [ "www" "dev" "ent" "mus" "vnc" "virt" "VIII" "IX" ]; };
 
 }

@@ -290,7 +290,7 @@ require('lazy').setup({
     end
   }, ]]
   -- add brackets and things around stuff
-  'machakann/vim-sandwich',
+  -- 'machakann/vim-sandwich',
   -- dim inactive areas of code
   {
     'folke/twilight.nvim',
@@ -328,6 +328,17 @@ require('lazy').setup({
   'stevearc/dressing.nvim',
   -- 'ThePrimeagen/harpoon',
   'mbbill/undotree',
+  {
+    'ray-x/go.nvim',
+    dependencies = {
+      'ray-x/guihua.lua'
+    },
+    config = function()
+      require('go').setup()
+    end,
+    event = { "CMdlineEnter" },
+    ft = { "go", "gomod" },
+  }
 }, {})
 
 -- [[ Setting options ]]
@@ -827,11 +838,11 @@ require('legendary').setup({
     { n = 'Nzzzv' },
     description = 'Prev search result with cursor in middle'
   },
-  --[[ {
+  {
     '<leader>p',
     { x = '"_dP' },
     description = 'Paste over without losing current register'
-  }, ]]
+  },
   {
     '<leader>y',
     {

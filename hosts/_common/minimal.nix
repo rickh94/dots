@@ -52,7 +52,7 @@
       # rust replacements
       difftastic
       tldr
-      dog
+      dogdns
       lfs
       starship
       zellij

@@ -33,6 +33,8 @@
         args = [
           "-c"
           "${pkgs.zellij}/bin/zellij"
+          "-l"
+          "compact"
         ];
       };
     };

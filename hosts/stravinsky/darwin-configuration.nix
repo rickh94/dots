@@ -1,4 +1,4 @@
-{ pkgs, nix, config, lib, ... }:
+{ pkgs, nix, config, lib, nerdfonts, ... }:
 let
   me = "rick";
 in
@@ -50,7 +50,7 @@ in
   fonts = {
     fontDir.enable = true;
     fonts = [
-      (pkgs.nerdfonts.override { fonts = [ "FiraCode" "Hack" "CascadiaCode" ]; })
+      (pkgs.nerdfonts.override { fonts = nerdfonts; })
     ];
   };
 
@@ -66,11 +66,12 @@ in
       "yabai"
       "skhd"
       "handbrake"
-      "buffalo"
+      # "buffalo"
+      # "buffalo-pop"
     ];
     taps = [
       "koekeishiya/formulae"
-      "gobuffalo/tap"
+      # "gobuffalo/tap"
     ];
     casks = [
       "firefox"
