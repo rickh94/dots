@@ -10,19 +10,19 @@
 
       font = {
         normal = {
-          family = "CaskaydiaCove NF";
+          family = "VictorMono Nerd Font";
           style = "Regular";
         };
         bold = {
-          family = "CaskaydiaCove NF";
+          family = "VictorMono Nerd Font";
           style = "Bold";
         };
         italic = {
-          family = "CaskaydiaCove NF";
+          family = "VictorMono Nerd Font";
           style = "Italic";
         };
         bold_italic = {
-          family = "CaskaydiaCove NF";
+          family = "VictorMono Nerd Font";
           style = "Bold Italic";
         };
         size = 12.0;
@@ -32,9 +32,7 @@
         program = "${pkgs.zsh}/bin/zsh";
         args = [
           "-c"
-          "${pkgs.zellij}/bin/zellij"
-          "-l"
-          "compact"
+          "${pkgs.zellij}/bin/zellij -l compact"
         ];
       };
     };

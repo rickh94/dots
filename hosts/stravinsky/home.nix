@@ -10,6 +10,18 @@
   home.stateVersion = "22.11";
   nixpkgs.config.allowUnfree = true;
 
+  programs.alacritty.settings.window = {
+    position = {
+      x = 0;
+      y = 0;
+    };
+
+    dimensions = {
+      columns = 233;
+      lines = 22;
+    };
+  };
+
 
 
   /* programs.nushell.extraEnv = ''

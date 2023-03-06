@@ -4,7 +4,7 @@
     enable = true;
     font = {
       package = pkgs.nerdfonts;
-      name = "CaskaydiaCove Nerd Font";
+      name = "VictorMono Nerd Font";
       size = 12;
     };
     settings = {
