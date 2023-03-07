@@ -22,6 +22,11 @@
     };
   };
 
+  home.file.".local/state/redis/.keep" = {
+    enable = true;
+    text = "";
+  };
+
 
 
   /* programs.nushell.extraEnv = ''

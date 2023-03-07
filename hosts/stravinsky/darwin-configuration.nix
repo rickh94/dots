@@ -7,6 +7,7 @@ in
     ../_common/mac/system-activation.nix
   ];
   environment.systemPackages = with pkgs; [
+    redis
     colima
     docker
     home-manager
@@ -104,5 +105,12 @@ in
   home-manager.useUserPackages = true;
   home-manager.useGlobalPkgs = true;
 
+  services.redis = {
+    enable = true;
+    bind = "127.0.0.1";
+    port = 6379;
+    package = pkgs.redis;
+    dataDir = "/Users/rick/.local/state/redis";
+  };
 
 }
