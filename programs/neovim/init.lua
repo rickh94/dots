@@ -635,7 +635,7 @@ require('legendary').setup({
         {
           '<leader>bc',
           {
-            n = '<cmd>bd<CR>'
+            n = '<cmd>bp<bar>sp<bar>bn<bar>bd<CR>'
           },
           description = 'Close Current Buffer'
         },
