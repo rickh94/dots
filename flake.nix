@@ -22,7 +22,7 @@
 
   outputs = inputs@{ self, nixpkgs, darwin, home-manager, unstable }:
     let
-      nerdfonts = [ "FiraCode" "Hack" "CascadiaCode" "Hasklig" "Lilex" "VictorMono" ];
+      chosenfonts = [ "FiraCode" "Hack" "CascadiaCode" "Hasklig" "Lilex" "VictorMono" ];
     in
     {
       nixpkgs.config.allowUnfree = true;
@@ -67,7 +67,7 @@
               home-manager.users.rick = import ./hosts/stravinsky/home.nix;
             }
           ];
-          specialArgs = { inherit nerdfonts; };
+          specialArgs = { inherit chosenfonts; };
         };
 
         fakestravinsky = darwin.lib.darwinSystem {
@@ -113,7 +113,7 @@
           modules = [
             ./hosts/beethoven/home.nix
           ];
-          extraSpecialArgs = { inherit inputs; inherit nerdfonts; };
+          extraSpecialArgs = { inherit inputs; inherit chosenfonts; };
         };
 
         nixvm = home-manager.lib.homeManagerConfiguration {
