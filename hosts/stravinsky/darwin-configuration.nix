@@ -1,4 +1,4 @@
-{ pkgs, nix, config, lib, nerdfonts, ... }:
+{ pkgs, nix, config, lib, chosenfonts, ... }:
 let
   me = "rick";
 in
@@ -51,7 +51,7 @@ in
   fonts = {
     fontDir.enable = true;
     fonts = [
-      (pkgs.nerdfonts.override { fonts = nerdfonts; })
+      (pkgs.nerdfonts.override { fonts = chosenfonts; })
     ];
   };
 
