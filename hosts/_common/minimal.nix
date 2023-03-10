@@ -46,7 +46,7 @@
 
       # rust replacements
       difftastic
-      tldr
+      tealdeer
       dogdns
       lfs
       starship
