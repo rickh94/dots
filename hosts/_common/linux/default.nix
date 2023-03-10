@@ -23,6 +23,7 @@ in
     syncthing
     wireguard-tools
     bitwarden
+    xclip
 
 
     # creative
