@@ -439,58 +439,6 @@ require('telescope').setup {
 -- Enable telescope fzf native, if installed
 pcall(require('telescope').load_extension, 'fzf')
 
--- See `:help telescope.builtin`
--- vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
--- vim.keymap.set('n', '<leader><space>', require('telescope.builtin').buffers, { desc = '[ ] Find existing buffers' })
--- vim.keymap.set('n', '<leader>/', function()
---   -- You can pass additional configuration to telescope to change theme, layout, etc.
---   require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
---     winblend = 10,
---     previewer = false,
---   })
--- end, { desc = '[/] Fuzzily search in current buffer' })
-
-
--- vim.keymap.set('n', '<leader>s', '<Nop>', { desc = "[S]earch with telescope" })
--- vim.keymap.set('n', '<leader>sf', require('telescope.builtin').find_files, { desc = '[S]earch [F]iles' })
--- vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc = '[S]earch [H]elp' })
--- vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
--- vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
--- vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
---
--- window manipulation
--- vim.keymap.set('n', '<leader>w', '<Nop>')
--- vim.keymap.set('n', '<leader>wk', '<C-w>k', { desc = '[W]indow Up' })
--- vim.keymap.set('n', '<leader>wj', '<C-w>j', { desc = '[W]indow Down' })
--- vim.keymap.set('n', '<leader>wh', '<C-w>h', { desc = '[W]indow Left' })
--- vim.keymap.set('n', '<leader>wl', '<C-w>l', { desc = '[W]indow Right' })
--- vim.keymap.set('n', '<leader>ws', '<C-w>s', { desc = '[W]indow [S]plit' })
--- vim.keymap.set('n', '<leader>wv', '<C-w>v', { desc = '[W]indow [V]ertical Split' })
--- vim.keymap.set('n', '<leader>wq', '<C-w>q', { desc = '[W]indow Close' })
--- vim.keymap.set('n', '<leader>wt', '<C-w>T', { desc = '[W]indow split to new tab' })
---
--- buffer command
--- vim.keymap.set('n', '<leader>bc', '<cmd>bd<CR>', { desc = 'Close Buffer' })
--- vim.keymap.set('n', '<leader>bn', '<cmd>bNext<CR>', { desc = 'Next Buffer' })
--- vim.keymap.set('n', '<leader>bp', '<cmd>bPrev<CR>', { desc = 'Previous Buffer' })
---
--- better indent, unindent
--- vim.keymap.set('v', '<', '<gv', { desc = 'unindent once without deselecting' })
--- vim.keymap.set('v', '>', '>gv', { desc = 'indent onces without deselecting' })
---
---
--- open and use nvim tree
--- vim.keymap.set('n', '<leader>e', '<cmd>NvimTreeToggle<cr>', { desc = "Open or close file tree" })
--- vim.keymap.set('n', '<leader>o', '<cmd>NvimTreeFocus<cr>', { desc = "Focus file tree" })
--- search todos in project
--- vim.keymap.set('n', '<leader>t', '<cmd>TodoTelescope<cr>', { desc = "Search Project Todos" })
--- twilight dimming
--- vim.keymap.set('n', '<leader>T', '<cmd>Twilight<cr>', { desc = "Toggle Twilght dimming" })
--- Diagnostic keymaps
--- vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
--- vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
--- vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float, { desc = "Open Diagnostic Float" })
-
 require('legendary').setup({
   keymaps = {
     {
@@ -871,10 +819,10 @@ require('nvim-treesitter.configs').setup {
   ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'typescript', 'help', 'vim', 'nix' },
 
   -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
-  auto_install = false,
+  auto_install = true,
 
   highlight = { enable = true },
-  indent = { enable = true, disable = { 'python' } },
+  indent = { enable = true, disable = { 'python', 'html' } },
   incremental_selection = {
     enable = true,
     keymaps = {
@@ -1179,7 +1127,8 @@ cmp.setup.cmdline(':', {
 -- vim.cmd [[autocmd! CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]]
 
 -- autoformat on save
-local formatOnSave = { "html", "go", "rs", "js", "css", "json", "ex", "rb", "vue", "c", "cpp", "java", "nix", "ts" }
+local formatOnSave = { "html", "go", "rs", "js", "css", "json", "ex", "rb", "vue", "c", "cpp", "java", "nix", "ts",
+  "lua", "nix" }
 for _, v in pairs(formatOnSave) do
   vim.api.nvim_create_autocmd({ "BufWritePre" }, {
     pattern = "*." .. v,
@@ -1188,6 +1137,11 @@ for _, v in pairs(formatOnSave) do
     end
   })
 end
+
+vim.api.nvim_create_autocmd({ "BufRead" }, {
+  pattern = "*.html",
+  command = "setlocal tabstop=2 shiftwidth=2 expandtab",
+})
 
 
 -- Custom filetypes from regex

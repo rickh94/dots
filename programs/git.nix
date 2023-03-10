@@ -17,7 +17,7 @@
       };
     };
     ignores = [
-    ".DS_Store"
+      ".DS_Store"
       "*~"
       "*.un~"
       "*.sw*"
@@ -55,6 +55,7 @@
       ".idea"
       "_build"
       ".direnv"
+      ".envrc"
     ];
   };
 

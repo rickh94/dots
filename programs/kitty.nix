@@ -8,16 +8,17 @@
       size = 12;
     };
     settings = {
-      shell = "zsh -c \"${pkgs.nushell}/bin/nu\"";
+      shell = "${pkgs.fish}/bin/fish";
+      cursor_shape = "beam";
     };
     theme = "Monokai Soda";
   };
 
-  xdg.configFile."kitty/startup.sh" = {
-    executable = true;
-    text = ''
-      #!/usr/bin/env bash
-      ${pkgs.bash}/bin/bash -c '${pkgs.nushell}/bin/nu'
-    '';
-  };
+  # xdg.configFile."kitty/startup.sh" = {
+  #   executable = true;
+  #   text = ''
+  #     #!/usr/bin/env bash
+  #     ${pkgs.bash}/bin/bash -c '${pkgs.nushell}/bin/nu'
+  #   '';
+  # };
 }

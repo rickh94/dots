@@ -6,6 +6,7 @@
     ../../programs/alacritty.nix
     ../../programs/kitty.nix
     ../../programs/tmux.nix
+    ../../programs/atuin.nix
   ];
 
   home = {
@@ -49,6 +50,7 @@
       # rust replacements
       helix
       tokei
+      atuin
 
       # communication
       zoom-us
@@ -71,6 +73,7 @@
       '';
     };
   };
+
 
   #nixpkgs.config.allowUnfree = true;
 

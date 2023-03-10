@@ -4,7 +4,7 @@
     enable = true;
     keyMode = "vi";
     historyLimit = 10000;
-    shell = "${pkgs.nushell}/bin/nu";
+    shell = "${pkgs.fish}/bin/fish";
     extraConfig = lib.strings.concatStringsSep "\n" [
       "tmux_conf_new_window_retain_current_path=true"
       "tmux_conf_new_pane_retain_current_path=true"

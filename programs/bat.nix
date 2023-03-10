@@ -4,7 +4,7 @@
     enable = true;
     config =
       {
-        theme = "base16-256";
+        theme = "gruvbox-dark";
         italic-text = "always";
       };
   };

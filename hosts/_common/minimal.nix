@@ -7,6 +7,7 @@
     ../../programs/starship.nix
     ../../programs/zellij.nix
     ../../programs/bat.nix
+    ../../programs/fish.nix
   ];
 
   home = {
@@ -16,13 +17,7 @@
       NIXPKGS_ALLOW_UNFREE = 1;
     };
 
-    shellAliases = {
-      hm = "home-manager";
-      g = "git";
-      cat = "bat";
-      diff = "difftastic";
-      du = "dust";
-    };
+    shellAliases = { };
 
     packages = with pkgs; [
       # basics
@@ -70,8 +65,12 @@
 
   };
 
-  programs.fish.enable = true;
   programs.bash.enable = true;
   programs.zsh.enable = true;
+
+  programs.zoxide = {
+    enable = true;
+    enableFishIntegration = true;
+  };
 
 }

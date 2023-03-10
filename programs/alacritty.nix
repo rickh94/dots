@@ -7,6 +7,7 @@
         decorations = "none";
         opacity = 0.9;
       };
+      cursor.style.shape = "Beam";
 
       font = {
         normal = {
