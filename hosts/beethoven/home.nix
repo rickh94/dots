@@ -1,4 +1,4 @@
-{ config, lib, pkgs, nerdfonts, ... }:
+{ config, lib, pkgs, chosenfonts, ... }:
 {
 
   imports = [

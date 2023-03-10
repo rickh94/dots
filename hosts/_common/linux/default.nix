@@ -1,4 +1,4 @@
-{ config, lib, pkgs, inputs, nerdfonts, ... }:
+{ config, lib, pkgs, inputs, chosenfonts, ... }:
 let
   unstable = import inputs.unstable {
     system = pkgs.system;
@@ -14,7 +14,7 @@ in
     tigervnc
     firefox
     handbrake
-    (nerdfonts.override { fonts = nerdfonts; })
+    (nerdfonts.override { fonts = chosenfonts; })
     thunderbird
     vlc
     brave
