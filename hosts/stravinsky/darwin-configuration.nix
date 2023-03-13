@@ -90,7 +90,6 @@ in
       "eloston-chromium"
       "prismlauncher"
       "spotify"
-      "bitwarden"
       "obs"
       "arq"
       "rancher"
