@@ -39,6 +39,7 @@
       gitui
       cargo-expand
       rust-analyzer
+      microserver
 
 
       # languages

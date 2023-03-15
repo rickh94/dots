@@ -96,6 +96,17 @@ in
     };
   };
 
+  virtualisation.oci-containers.backend = "podman";
+
+  virtualisation.podman = {
+      enable = true;
+      dockerCompat = true;
+      defaultNetwork.dnsname.enable = true;
+      extraPackages = [
+        pkgs.zfs
+      ];
+    };
+
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
@@ -125,6 +136,8 @@ in
     tree
     curl
     pavucontrol
+    podman
+    podman-compose
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -190,14 +203,6 @@ in
 
   services.xserver.videoDrivers = [ "nvidia" ];
   services.xserver.config = lib.mkAfter ''
-  Section "Device"
-    Identifier "Nvidia Composition Pipeline"
-    Driver "nvidia"
-    VendorName "NVIDIA Corporation"
-    BoardName "GeForce RTX 2060 SUPER"
-    Option "ForceCompositionPipeline" "1"
-  EndSection
-
   Section "InputClass"
     Identifier "MX Master Acceleration"
     MatchDriver "libinput"
@@ -205,6 +210,11 @@ in
     Option "AccelSpeed" "-0.6"
   EndSection
   '';
+  services.xserver.screenSection = ''
+  Option         "metamodes" "nvidia-auto-select +0+0 {ForceFullCompositionPipeline=On}"
+  Option         "AllowIndirectGLXProtocol" "off"
+  Option         "TripleBuffer" "on"
+'';
   hardware.opengl.enable = true;
   hardware.nvidia.modesetting.enable = true;
 
