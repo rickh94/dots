@@ -25,6 +25,24 @@ in
     bitwarden
     xclip
 
+    # cloud stuff
+    awscli2
+    oci-cli
+    azure-cli
+    doctl
+    hcloud
+    cloud-init
+    nixos-generators
+
+    # terraform
+    terraform
+    terraform-providers.docker
+    terraform-providers.oci
+    terraform-providers.aws
+    terraform-providers.ibm
+    terraform-providers.digitalocean
+    terraform-providers.linode
+    terraform-providers.libvirt
 
     # creative
     unstable.musescore
