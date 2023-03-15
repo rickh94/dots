@@ -68,6 +68,8 @@ in
       "skhd"
       "handbrake"
       "libiconv"
+      "nss"
+      "oci-cli"
       # "buffalo"
       # "buffalo-pop"
     ];
@@ -97,6 +99,8 @@ in
       "plexamp"
       "syncthing"
       "karabiner-elements"
+      "nextcloud"
+      "rustdesk"
     ];
   };
 

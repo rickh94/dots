@@ -125,6 +125,11 @@
           pkgs = nixpkgs.legacyPackages.x86_64-linux;
           modules = [ ./hosts/nixserver/home.nix ];
         };
+
+        proxyserver = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.x86_64-linux;
+          modules = [ ./hosts/proxy-server/home.nix ];
+        };
       };
 
       defaultPackage.x86_64-linux = home-manager.defaultPackage.x86_64-linux;

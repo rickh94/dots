@@ -7,4 +7,5 @@
   ];
   home.username = "ubuntu";
   home.homeDirectory = "/home/ubuntu";
+  home.stateVersion = "22.11";
 }

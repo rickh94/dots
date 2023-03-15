@@ -15,6 +15,10 @@
       find = "fd";
     };
 
+    functions = {
+      gitignore = "curl -sL https://www.gitignore.io/api/$argv";
+      title = "zellij action rename-tab $argv[1]";
+    };
   };
 
 }
