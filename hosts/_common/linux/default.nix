@@ -34,7 +34,8 @@ in
     cloud-init
     nixos-generators
 
-    # terraform
+    # deployment
+    morph
     terraform
     terraform-providers.docker
     terraform-providers.oci
