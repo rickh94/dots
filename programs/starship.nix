@@ -17,10 +17,10 @@
         "$lua"
         "$rust"
         "$java"
-        "$line_break"
         "$jobs"
         "$sudo"
         "$python"
+        "$line_break"
         "$nix_shell"
         "$character"
       ];

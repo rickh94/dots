@@ -37,6 +37,7 @@
       zsh
       pv
       netcat
+      git-crypt
 
       # languages
       go

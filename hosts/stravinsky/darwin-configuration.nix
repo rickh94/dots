@@ -116,4 +116,11 @@ in
     dataDir = "/Users/rick/.local/state/redis";
   };
 
+  services.dnsmasq = {
+    enable = true;
+    addresses = {
+      "localhost" = "127.0.0.1";
+    };
+  };
+
 }
