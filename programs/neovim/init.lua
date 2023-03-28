@@ -1,4 +1,3 @@
--- Set <space> as the leader key
 -- See `:help mapleader`
 --  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
 vim.g.mapleader = ' '
@@ -33,7 +32,7 @@ require('lazy').setup({
   'tpope/vim-rhubarb',
 
   -- Detect tabstop and shiftwidth automatically
-  'tpope/vim-sleuth',
+  -- 'tpope/vim-sleuth',
 
   -- NOTE: This is where your plugins related to LSP can be installed.
   --  The configuration is done below. Search for lspconfig to find it below.
@@ -342,8 +341,28 @@ require('lazy').setup({
   {
     "max397574/colortils.nvim",
     cmd = "Colortils",
-    config = function() 
+    config = function()
       require('colortils').setup()
+    end
+  },
+  'sheerun/vim-polyglot',
+  -- 'github/copilot.vim',
+  {
+    'zbirenbaum/copilot.lua',
+    cmd = "Copilot",
+    event = "InsertEnter",
+    config = function()
+      require("copilot").setup({
+        suggestion = { enabled = false },
+        panel = { enabled = false },
+      })
+    end
+  },
+  {
+    'zbirenbaum/copilot-cmp',
+    after = { "copilot.lua" },
+    config = function()
+      require("copilot_cmp").setup()
     end
   }
 }, {})
@@ -434,8 +453,8 @@ require('telescope').setup {
   defaults = {
     mappings = {
       i = {
-            ['<C-u>'] = false,
-            ['<C-d>'] = false,
+        ['<C-u>'] = false,
+        ['<C-d>'] = false,
       },
     },
   },
@@ -813,6 +832,13 @@ require('legendary').setup({
     },
     description = "Yank line into system clipboard"
   },
+  {
+    '<leader>P',
+    {
+      n = '"+p',
+    },
+    description = "Paste from system clipboard"
+  },
   which_key = {
     auto_register = true,
   }
@@ -845,32 +871,32 @@ require('nvim-treesitter.configs').setup {
       lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
       keymaps = {
         -- You can use the capture groups defined in textobjects.scm
-            ['aa'] = '@parameter.outer',
-            ['ia'] = '@parameter.inner',
-            ['af'] = '@function.outer',
-            ['if'] = '@function.inner',
-            ['ac'] = '@class.outer',
-            ['ic'] = '@class.inner',
+        ['aa'] = '@parameter.outer',
+        ['ia'] = '@parameter.inner',
+        ['af'] = '@function.outer',
+        ['if'] = '@function.inner',
+        ['ac'] = '@class.outer',
+        ['ic'] = '@class.inner',
       },
     },
     move = {
       enable = true,
       set_jumps = true, -- whether to set jumps in the jumplist
       goto_next_start = {
-            [']m'] = '@function.outer',
-            [']]'] = '@class.outer',
+        [']m'] = '@function.outer',
+        [']]'] = '@class.outer',
       },
       goto_next_end = {
-            [']M'] = '@function.outer',
-            [']['] = '@class.outer',
+        [']M'] = '@function.outer',
+        [']['] = '@class.outer',
       },
       goto_previous_start = {
-            ['[m'] = '@function.outer',
-            ['[['] = '@class.outer',
+        ['[m'] = '@function.outer',
+        ['[['] = '@class.outer',
       },
       goto_previous_end = {
-            ['[M'] = '@function.outer',
-            ['[]'] = '@class.outer',
+        ['[M'] = '@function.outer',
+        ['[]'] = '@class.outer',
       },
     },
     --[[ swap = {
@@ -994,9 +1020,9 @@ local on_attach = function(_, bufnr)
   -- end, 'Workspace List Folders')
 
   -- Create a command `:Format` local to the LSP buffer
-  -- vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
-  --   vim.lsp.buf.format()
-  -- end, { desc = 'Format current buffer with LSP' })
+  vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
+    vim.lsp.buf.format()
+  end, { desc = 'Format current buffer with LSP' })
 end
 
 -- Enable the following language servers
@@ -1007,7 +1033,17 @@ end
 local servers = {
   -- clangd = {},
   -- gopls = {},
-  -- pyright = {},
+  pyright = {
+    pyright = { autoImportCompletion = true, },
+    python = {
+      analysis = {
+        autoSearchPaths = true,
+        diagnosticMode = 'openFilesOnly',
+        useLibraryCodeForTypes = true,
+        typeCheckingMode = 'off'
+      }
+    }
+  },
   -- rust_analyzer = {},
   -- tsserver = {},
 
@@ -1056,6 +1092,12 @@ require('lspconfig').lua_ls.setup {
   }
 }
 
+require('lspconfig').emmet_ls.setup {
+  capabilities = capabilities,
+  filetypes = { 'html', 'typescriptreact', 'javascriptreact', 'css', 'sass', 'scss', 'less', 'svelte', 'vue',
+    'djangohtml', 'twig' },
+}
+
 -- nvim-cmp setup
 local cmp = require 'cmp'
 local luasnip = require 'luasnip'
@@ -1069,14 +1111,14 @@ cmp.setup {
     end,
   },
   mapping = cmp.mapping.preset.insert {
-        ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-        ['<C-f>'] = cmp.mapping.scroll_docs(4),
-        ['<C-Space>'] = cmp.mapping.complete {},
-        ['<CR>'] = cmp.mapping.confirm {
+    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    ['<C-Space>'] = cmp.mapping.complete {},
+    ['<CR>'] = cmp.mapping.confirm {
       behavior = cmp.ConfirmBehavior.Replace,
       select = true,
     },
-        ['<Tab>'] = cmp.mapping(function(fallback)
+    ['<Tab>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_next_item()
       elseif luasnip.expand_or_jumpable() then
@@ -1085,7 +1127,7 @@ cmp.setup {
         fallback()
       end
     end, { 'i', 's' }),
-        ['<S-Tab>'] = cmp.mapping(function(fallback)
+    ['<S-Tab>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_prev_item()
       elseif luasnip.jumpable(-1) then
@@ -1096,10 +1138,11 @@ cmp.setup {
     end, { 'i', 's' }),
   },
   sources = {
+    { name = 'copilot' },
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
     { name = 'buffer' },
-    { name = 'treesitter' },
+    -- { name = 'treesitter' },
     { name = 'path' },
     -- { name = 'rg' },
   },
@@ -1150,6 +1193,20 @@ vim.api.nvim_create_autocmd({ "BufRead" }, {
   command = "setlocal tabstop=2 shiftwidth=2 expandtab",
 })
 
+vim.api.nvim_create_autocmd({ "BufRead" }, {
+  pattern = "*.ts",
+  command = "setlocal tabstop=2 shiftwidth=2 expandtab",
+})
+
+vim.api.nvim_create_autocmd({ "BufRead" }, {
+  pattern = "*.js",
+  command = "setlocal tabstop=2 shiftwidth=2 expandtab",
+})
+
+vim.api.nvim_create_autocmd({ "BufRead" }, {
+  pattern = "*.svelte",
+  command = "setlocal tabstop=2 shiftwidth=2 expandtab",
+})
 
 -- Custom filetypes from regex
 -- use syntax filetype[ext] = "filetype"
@@ -1166,6 +1223,14 @@ for k, v in pairs(filetypes) do
 end
 
 require('rust-tools').inlay_hints.enable()
+-- lspkind.lua
+require("lspkind").init({
+  symbol_map = {
+    Copilot = "",
+  },
+})
+
+vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })
 
 
 -- The line beneath this is called `modeline`. See `:help modeline`
