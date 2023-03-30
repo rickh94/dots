@@ -1095,7 +1095,7 @@ require('lspconfig').lua_ls.setup {
 require('lspconfig').emmet_ls.setup {
   capabilities = capabilities,
   filetypes = { 'html', 'typescriptreact', 'javascriptreact', 'css', 'sass', 'scss', 'less', 'svelte', 'vue',
-    'djangohtml', 'twig' },
+    'djangohtml', 'twig', 'astro' },
 }
 
 -- nvim-cmp setup
@@ -1208,11 +1208,17 @@ vim.api.nvim_create_autocmd({ "BufRead" }, {
   command = "setlocal tabstop=2 shiftwidth=2 expandtab",
 })
 
+vim.api.nvim_create_autocmd({ "BufRead" }, {
+  pattern = "*.astro",
+  command = "setlocal tabstop=2 shiftwidth=2 expandtab",
+})
+
 -- Custom filetypes from regex
 -- use syntax filetype[ext] = "filetype"
 local filetypes = {}
 filetypes["njk"] = "twig"
 filetypes["pcss"] = "css"
+filetypes["astro"] = "astro"
 
 
 for k, v in pairs(filetypes) do
@@ -1231,6 +1237,7 @@ require("lspkind").init({
 })
 
 vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })
+
 
 
 -- The line beneath this is called `modeline`. See `:help modeline`
