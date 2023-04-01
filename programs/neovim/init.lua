@@ -1176,7 +1176,7 @@ cmp.setup.cmdline(':', {
 
 -- autoformat on save
 local formatOnSave = { "html", "go", "rs", "js", "css", "json", "ex", "rb", "vue", "c", "cpp", "java", "nix", "ts",
-  "lua", "nix" }
+  "lua", "nix", "astro" }
 for _, v in pairs(formatOnSave) do
   vim.api.nvim_create_autocmd({ "BufWritePre" }, {
     pattern = "*." .. v,
@@ -1206,9 +1206,14 @@ vim.api.nvim_create_autocmd({ "BufRead" }, {
   command = "setlocal tabstop=2 shiftwidth=2 expandtab",
 })
 
-vim.api.nvim_create_autocmd({ "BufRead" }, {
+vim.api.nvim_create_autocmd({ "BufRead", "BufWritePre" }, {
   pattern = "*.astro",
   command = "setlocal tabstop=2 shiftwidth=2 expandtab",
+})
+
+vim.api.nvim_create_autocmd({ "BufRead" }, {
+  pattern = "*.c",
+  command = "setlocal tabstop=8 shiftwidth=8 noexpandtab",
 })
 
 -- Custom filetypes from regex

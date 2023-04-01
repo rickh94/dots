@@ -76,6 +76,7 @@ in
     taps = [
       "koekeishiya/formulae"
       "homebrew/cask-versions"
+      "homebrew/services"
       # "gobuffalo/tap"
     ];
     casks = [
