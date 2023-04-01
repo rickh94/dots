@@ -6,7 +6,7 @@
     shellAliases = {
       hm = "home-manager";
       g = "git";
-      diff = "difftastic";
+      diff = "difft";
       du = "dust";
       ls = "exa";
       cat = "bat";

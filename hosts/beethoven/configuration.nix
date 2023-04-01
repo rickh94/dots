@@ -125,7 +125,6 @@ in
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" "libvirtd" ]; # Enable ‘sudo’ for the user.
     passwordFile = "/persist/passwd/rick";
-    shell = pkgs.fish;
   };
 
   environment.systemPackages = with pkgs; [

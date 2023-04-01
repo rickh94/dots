@@ -230,7 +230,6 @@ require('lazy').setup({
       vim.notify = require('nvim-notify')
     end ]]
   },
-  'lukas-reineke/indent-blankline.nvim',
   {
     'echasnovski/mini.indentscope',
     versio = '*',
@@ -340,10 +339,9 @@ require('lazy').setup({
     ft = { "go", "gomod" },
   },
   {
-    "max397574/colortils.nvim",
-    cmd = "Colortils",
-    config = function() 
-      require('colortils').setup()
+    'jose-elias-alvarez/typescript.nvim',
+    config = function()
+      require('typescript').setup({})
     end
   }
 }, {})
@@ -368,7 +366,7 @@ vim.o.mouse = 'a'
 vim.o.clipboard = 'unnamedplus'
 
 -- Enable break indent
-vim.o.breakindent = true
+vim.o.breakindent = false
 
 -- Save undo history
 vim.o.undofile = true
@@ -994,9 +992,9 @@ local on_attach = function(_, bufnr)
   -- end, 'Workspace List Folders')
 
   -- Create a command `:Format` local to the LSP buffer
-  -- vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
-  --   vim.lsp.buf.format()
-  -- end, { desc = 'Format current buffer with LSP' })
+   vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
+     vim.lsp.buf.format()
+   end, { desc = 'Format current buffer with LSP' })
 end
 
 -- Enable the following language servers
@@ -1147,6 +1145,21 @@ end
 
 vim.api.nvim_create_autocmd({ "BufRead" }, {
   pattern = "*.html",
+  command = "setlocal tabstop=2 shiftwidth=2 expandtab",
+})
+
+vim.api.nvim_create_autocmd({ "BufRead" }, {
+  pattern = "*.ts[x?]",
+  command = "setlocal tabstop=2 shiftwidth=2 expandtab",
+})
+
+vim.api.nvim_create_autocmd({ "BufRead" }, {
+  pattern = "*.js[x?]",
+  command = "setlocal tabstop=2 shiftwidth=2 expandtab",
+})
+
+vim.api.nvim_create_autocmd({ "BufRead" }, {
+  pattern = "*.svelte",
   command = "setlocal tabstop=2 shiftwidth=2 expandtab",
 })
 
