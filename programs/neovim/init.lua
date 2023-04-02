@@ -362,6 +362,13 @@ require('lazy').setup({
     config = function()
       require("copilot_cmp").setup()
     end
+  },
+  'nvim-treesitter/nvim-treesitter-context',
+  {
+    'folke/persistence.nvim',
+    config = function()
+      require('persistence').setup()
+    end
   }
 }, {})
 
@@ -696,14 +703,102 @@ require('legendary').setup({
         n = '<cmd>Legendary<cr>'
       },
       description = 'Open Legendary command prompt'
-    }
+    },
+    {
+      '<leader>u',
+      { n = vim.cmd.UndotreeToggle },
+      description = 'Open Undo Tree'
+    },
+    {
+      "J",
+      { v = ":m '>+1<cr>gv=gv" },
+      description = "Drag lines around in visual mode with indenting"
+    },
+    {
+      "K",
+      { v = ":m '<-2<cr>gv=gv" },
+      description = "Drag lines around in visual mode with indenting"
+    },
+    {
+      '<C-d>',
+      { n = '<C-d>zz' },
+      description = "Half page jump with cursor in center"
+    },
+    {
+      '<C-u>',
+      { n = '<C-u>zz' },
+      description = "Half page jump with cursor in center"
+    },
+    {
+      'n',
+      { n = 'nzzzv' },
+      description = 'Next search result with cursor in middle'
+    },
+    {
+      'N',
+      { n = 'Nzzzv' },
+      description = 'Prev search result with cursor in middle'
+    },
+    {
+      '<leader>p',
+      { x = '"_dP' },
+      description = 'Paste over without losing current register'
+    },
+    {
+      '<leader>y',
+      {
+        n = '"+y',
+        v = '"+y'
+      },
+      description = "Yank into system clipboard"
+    },
+    {
+      '<leader>Y',
+      {
+        n = '"+Y',
+      },
+      description = "Yank line into system clipboard"
+    },
+    {
+      '<leader>P',
+      {
+        n = '"+p',
+      },
+      description = "Paste from system clipboard"
+    },
+    {
+      "<leader>qs",
+      description = "Restore session for current directory",
+      {
+        n = function()
+          require('peristence').load()
+        end
+      }
+    },
+    {
+      "<leader>ql",
+      description = "Restores last session",
+      {
+        n = function()
+          require('peristence').load({ last = true })
+        end
+      }
+    },
+    {
+      "<leader>qd",
+      description = "stop persistence (don't save session)",
+      {
+        n = function()
+          require('peristence').stop()
+        end
+      }
+    },
   },
-  {
-    '<leader>u',
-    { n = vim.cmd.UndotreeToggle },
-    description = 'Open Undo Tree'
-  },
-  --[[ {
+  which_key = {
+    auto_register = true,
+  }
+})
+    --[[ {
     itemgroup = 'harpoon',
     description = '+Harpoon',
     icon = 'H',
@@ -780,67 +875,6 @@ require('legendary').setup({
       },
     },
   },  ]]
-  {
-    "J",
-    { v = ":m '>+1<cr>gv=gv" },
-    description = "Drag lines around in visual mode with indenting"
-  },
-  {
-    "K",
-    { v = ":m '<-2<cr>gv=gv" },
-    description = "Drag lines around in visual mode with indenting"
-  },
-  {
-    '<C-d>',
-    { n = '<C-d>zz' },
-    description = "Half page jump with cursor in center"
-  },
-  {
-    '<C-u>',
-    { n = '<C-u>zz' },
-    description = "Half page jump with cursor in center"
-  },
-  {
-    'n',
-    { n = 'nzzzv' },
-    description = 'Next search result with cursor in middle'
-  },
-  {
-    'N',
-    { n = 'Nzzzv' },
-    description = 'Prev search result with cursor in middle'
-  },
-  {
-    '<leader>p',
-    { x = '"_dP' },
-    description = 'Paste over without losing current register'
-  },
-  {
-    '<leader>y',
-    {
-      n = '"+y',
-      v = '"+y'
-    },
-    description = "Yank into system clipboard"
-  },
-  {
-    '<leader>Y',
-    {
-      n = '"+Y',
-    },
-    description = "Yank line into system clipboard"
-  },
-  {
-    '<leader>P',
-    {
-      n = '"+p',
-    },
-    description = "Paste from system clipboard"
-  },
-  which_key = {
-    auto_register = true,
-  }
-})
 
 
 -- [[ Configure Treesitter ]]
