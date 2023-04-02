@@ -124,4 +124,17 @@ in
     };
   };
 
+  system.activationScripts.extraActivation.text = ''
+        #!/usr/bin/env bash
+        # PAM settings
+        echo >&2 "setting up pam..."
+    # Enable sudo Touch ID authentication
+    # script from https://gist.github.com/jmatsushita/5c50ef14b4b96cb24ae5268dab613050
+        if ! greq 'pam_tid.so' /etc/pam.d/sudo > /dev/null; then
+          sed -i "" '2i\
+        auth       sufficient     pam_tid.so
+          ' /etc/pam.d/sudo
+        fi
+  '';
+
 }
