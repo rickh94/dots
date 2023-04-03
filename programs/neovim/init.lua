@@ -265,13 +265,7 @@ require('lazy').setup({
   -- ui changes
   -- themes
   'folke/tokyonight.nvim',
-  'ray-x/aurora',
-  {
-    'navarasu/onedark.nvim',
-    config = function()
-      require('onedark').setup({ style = 'darker' })
-    end,
-  },
+  'LunarVim/onedarker.nvim',
   'ellisonleao/gruvbox.nvim',
   'bluz71/vim-nightfly-colors',
   'bluz71/vim-moonfly-colors',
@@ -279,16 +273,11 @@ require('lazy').setup({
     'catppuccin/nvim',
     name = 'catppucin',
   },
-
-  -- auto theme switcher
   {
-    'folke/styler.nvim',
+    'yorik1984/newpaper.nvim',
     config = function()
-      require('styler').setup({
-        themes = {
-        }
-      })
-    end
+      require('newpaper').setup({ style = 'dark' })
+    end,
   },
 
   -- dashboard
@@ -334,7 +323,7 @@ require('lazy').setup({
   },
 })
 
-vim.cmd.colorscheme('onedark')
+vim.cmd.colorscheme('tokyonight-moon')
 
 
 -- SETTING OPTIONS
@@ -766,7 +755,7 @@ local format_on_save_ext = {
 }
 
 for _, v in pairs(format_on_save_ext) do
-  vim.api.nvim_create_autocmd("BufWritePre", {
+  vim.api.nvim_create_autocmd({ "BufWritePre" }, {
     pattern = "*." .. v,
     callback = function(_)
       vim.lsp.buf.format()
@@ -783,6 +772,7 @@ local setlocal_frompattern = {
   ['*.js'] = twotrue,
   ['*.jsx'] = twotrue,
   ['*.svelte'] = twotrue,
+  ['*.vue'] = twotrue,
   ['*.astro'] = twotrue,
   ['*.py'] = { 4, true },
   ['*.c'] = { 8, false },
@@ -813,6 +803,35 @@ for p, t in pairs(filetypes) do
     command = 'set filetype=' .. t,
   })
 end
+
+local color = {
+  ['lua']    = 'gruvbox',
+  ['bash']   = 'gruvbox',
+  ['nix']    = 'gruvbox',
+  ['rs']     = 'moonfly',
+  ['c']      = 'moonfly',
+  ['go']     = 'newpaper',
+  ['ts']     = 'catppuccin-mocha',
+  ['js']     = 'catppuccin-mocha',
+  ['jsx']    = 'nightfly',
+  ['tsx']    = 'nightfly',
+  ['vue']    = 'onedarker',
+  ['svelte'] = 'onedarker',
+  ['html']   = 'onedarker',
+  ['astro']  = 'onedarker',
+  ['css']    = 'onedarker',
+  ['md']     = 'onedarker',
+  ['njk']    = 'onedarker',
+  ['py']     = 'tokyonight-storm',
+}
+
+for p, c in pairs(color) do
+  vim.api.nvim_create_autocmd({ 'BufRead', 'BufEnter' }, {
+    pattern = '*.' .. p,
+    command = 'colorscheme ' .. c,
+  })
+end
+
 
 
 -- vim: se ft=lua sw=2 ts=2 expandtab:
