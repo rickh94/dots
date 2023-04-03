@@ -18,6 +18,7 @@
     functions = {
       gitignore = "curl -sL https://www.gitignore.io/api/$argv";
       title = "zellij action rename-tab $argv[1]";
+      getlinuxformat = "wget https://raw.githubusercontent.com/torvalds/linux/master/.clang-format";
     };
   };
 
