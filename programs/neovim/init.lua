@@ -392,7 +392,7 @@ vim.o.mouse = 'a'
 -- vim.o.clipboard = 'unnamedplus'
 
 -- Enable break indent
-vim.o.breakindent = false
+vim.o.breakindent = true
 
 -- Save undo history
 vim.o.undofile = true
@@ -421,7 +421,7 @@ vim.o.expandtab = true
 
 vim.o.swapfile = false
 vim.o.backup = false
-vim.o.undodir = vim.fn.stdpath('state') .. '/.local/state/nvim/undodir'
+vim.o.undodir = vim.fn.stdpath('state') .. '/undodir'
 vim.o.smartindent = true
 
 vim.o.scrolloff = 8
