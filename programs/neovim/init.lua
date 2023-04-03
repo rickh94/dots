@@ -362,6 +362,13 @@ require('lazy').setup({
     config = function()
       require("copilot_cmp").setup()
     end
+  },
+  'nvim-treesitter/nvim-treesitter-context',
+  {
+    'folke/persistence.nvim',
+    config = function()
+      require('persistence').setup()
+    end
   }
 }, {})
 
@@ -527,13 +534,6 @@ require('legendary').setup({
           },
           description = 'Search Diagnostics'
         },
-        {
-          '<leader>sm',
-          {
-            n = '<cmd>Telescope harpoon marks<cr>'
-          },
-          description = 'Search harpoon marks'
-        }
       }
     },
     {
@@ -696,153 +696,101 @@ require('legendary').setup({
         n = '<cmd>Legendary<cr>'
       },
       description = 'Open Legendary command prompt'
-    }
-  },
-  {
-    '<leader>u',
-    { n = vim.cmd.UndotreeToggle },
-    description = 'Open Undo Tree'
-  },
-  --[[ {
-    itemgroup = 'harpoon',
-    description = '+Harpoon',
-    icon = 'H',
-    keymaps = {
-      {
-        '<leader>hq',
-        { n = require('harpoon.ui').toggle_quick_menu() },
-        description = 'Show/hide harpoon quick menu'
-      },
-      {
-        '<leader>ha',
-        { n = require('harpoon.mark').add_file() },
-        description = 'Add file to harpoon marks'
-      },
-      {
-        '<leader>h1',
-        { n = require('harpoon.mark').nav_file(1) },
-        description = 'Nav to file number'
-      },
-      {
-        '<leader>h2',
-        { n = require('harpoon.mark').nav_file(2) },
-        description = 'Nav to file number'
-      },
-      {
-        '<leader>h3',
-        { n = require('harpoon.mark').nav_file(3) },
-        description = 'Nav to file number'
-      },
-      {
-        '<leader>h4',
-        { n = require('harpoon.mark').nav_file(4) },
-        description = 'Nav to file number'
-      },
-      {
-        '<leader>h5',
-        { n = require('harpoon.mark').nav_file(5) },
-        description = 'Nav to file number'
-      },
-      {
-        '<leader>h6',
-        { n = require('harpoon.mark').nav_file(6) },
-        description = 'Nav to file number'
-      },
-      {
-        '<leader>h1',
-        { n = require('harpoon.mark').nav_file(1) },
-        description = 'Nav to file number'
-      },
-      {
-        '<leader>h8',
-        { n = require('harpoon.mark').nav_file(8) },
-        description = 'Nav to file number'
-      },
-      {
-        '<leader>h9',
-        { n = require('harpoon.mark').nav_file(9) },
-        description = 'Nav to file number'
-      },
-      {
-        '<leader>h0',
-        { n = require('harpoon.mark').nav_file(10) },
-        description = 'Nav to file number'
-      },
-      {
-        '<leader>hh',
-        { n = require('harpoon.mark').nav_prev() },
-        description = 'Navigate to previous harpoon'
-      },
-      {
-        '<leader>hl',
-        { n = require('harpoon.mark').nav_next() },
-        description = 'Navigate to next harpoon'
-      },
     },
-  },  ]]
-  {
-    "J",
-    { v = ":m '>+1<cr>gv=gv" },
-    description = "Drag lines around in visual mode with indenting"
-  },
-  {
-    "K",
-    { v = ":m '<-2<cr>gv=gv" },
-    description = "Drag lines around in visual mode with indenting"
-  },
-  {
-    '<C-d>',
-    { n = '<C-d>zz' },
-    description = "Half page jump with cursor in center"
-  },
-  {
-    '<C-u>',
-    { n = '<C-u>zz' },
-    description = "Half page jump with cursor in center"
-  },
-  {
-    'n',
-    { n = 'nzzzv' },
-    description = 'Next search result with cursor in middle'
-  },
-  {
-    'N',
-    { n = 'Nzzzv' },
-    description = 'Prev search result with cursor in middle'
-  },
-  {
-    '<leader>p',
-    { x = '"_dP' },
-    description = 'Paste over without losing current register'
-  },
-  {
-    '<leader>y',
     {
-      n = '"+y',
-      v = '"+y'
+      '<leader>u',
+      { n = vim.cmd.UndotreeToggle },
+      description = 'Open Undo Tree'
     },
-    description = "Yank into system clipboard"
-  },
-  {
-    '<leader>Y',
     {
-      n = '"+Y',
+      "J",
+      { v = ":m '>+1<cr>gv=gv" },
+      description = "Drag lines around in visual mode with indenting"
     },
-    description = "Yank line into system clipboard"
-  },
-  {
-    '<leader>P',
     {
-      n = '"+p',
+      "K",
+      { v = ":m '<-2<cr>gv=gv" },
+      description = "Drag lines around in visual mode with indenting"
     },
-    description = "Paste from system clipboard"
+    {
+      '<C-d>',
+      { n = '<C-d>zz' },
+      description = "Half page jump with cursor in center"
+    },
+    {
+      '<C-u>',
+      { n = '<C-u>zz' },
+      description = "Half page jump with cursor in center"
+    },
+    {
+      'n',
+      { n = 'nzzzv' },
+      description = 'Next search result with cursor in middle'
+    },
+    {
+      'N',
+      { n = 'Nzzzv' },
+      description = 'Prev search result with cursor in middle'
+    },
+    {
+      '<leader>p',
+      { x = '"_dP' },
+      description = 'Paste over without losing current register'
+    },
+    {
+      '<leader>y',
+      {
+        n = '"+y',
+        v = '"+y'
+      },
+      description = "Yank into system clipboard"
+    },
+    {
+      '<leader>Y',
+      {
+        n = '"+Y',
+      },
+      description = "Yank line into system clipboard"
+    },
+    {
+      '<leader>P',
+      {
+        n = '"+p',
+      },
+      description = "Paste from system clipboard"
+    },
+    {
+      "<leader>qs",
+      description = "Restore session for current directory",
+      {
+        n = function()
+          require('persistence').load()
+        end
+      }
+    },
+    {
+      "<leader>ql",
+      description = "Restores last session",
+      {
+        n = function()
+          require('persistence').load({ last = true })
+        end
+      }
+    },
+    {
+      "<leader>qd",
+      description = "stop persistence (don't save session)",
+      {
+        n = function()
+          require('persistence').stop()
+        end
+      }
+    },
   },
   which_key = {
     auto_register = true,
   }
 })
-
-
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
@@ -1112,7 +1060,7 @@ cmp.setup {
     ['<C-d>'] = cmp.mapping.scroll_docs(-4),
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
     ['<C-Space>'] = cmp.mapping.complete {},
-    ['<CR>'] = cmp.mapping.confirm {
+    ['<C-y>'] = cmp.mapping.confirm {
       behavior = cmp.ConfirmBehavior.Replace,
       select = true,
     },
@@ -1192,12 +1140,12 @@ vim.api.nvim_create_autocmd({ "BufRead" }, {
 })
 
 vim.api.nvim_create_autocmd({ "BufRead" }, {
-  pattern = "*.ts[x?]",
+  pattern = "*.ts",
   command = "setlocal tabstop=2 shiftwidth=2 expandtab",
 })
 
 vim.api.nvim_create_autocmd({ "BufRead" }, {
-  pattern = "*.js[x?]",
+  pattern = "*.js",
   command = "setlocal tabstop=2 shiftwidth=2 expandtab",
 })
 
