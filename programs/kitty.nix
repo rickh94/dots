@@ -14,11 +14,11 @@
     theme = "Monokai Soda";
   };
 
-  # xdg.configFile."kitty/startup.sh" = {
-  #   executable = true;
-  #   text = ''
-  #     #!/usr/bin/env bash
-  #     ${pkgs.bash}/bin/bash -c '${pkgs.nushell}/bin/nu'
-  #   '';
-  # };
+  xdg.configFile."kitty/startup.sh" = {
+    executable = true;
+    text = ''
+      #!/usr/bin/env bash
+      ${pkgs.bash}/bin/bash -c '${pkgs.fish}/bin/fish'
+    '';
+  };
 }

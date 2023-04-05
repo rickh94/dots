@@ -70,6 +70,7 @@ in
       "libiconv"
       "nss"
       "oci-cli"
+      "lilypond"
       # "buffalo"
       # "buffalo-pop"
     ];

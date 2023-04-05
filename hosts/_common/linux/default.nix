@@ -52,6 +52,7 @@ in
     krita
     obs-studio
     davinci-resolve
+    lilypond
 
     # gaming
     steam

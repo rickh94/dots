@@ -293,7 +293,7 @@ require('lazy').setup({
   },
 
   -- prettier notifications
-  'rcarriga/nvim-notify',
+  -- 'rcarriga/nvim-notify',
 
   -- prettier ui elements
   'stevearc/dressing.nvim',
@@ -333,7 +333,7 @@ vim.o.incsearch = true
 vim.o.number = true
 vim.o.relativenumber = true
 
-vim.o.mouse = true
+vim.o.mouse = 'nv'
 vim.o.breakindent = true
 
 vim.o.undofile = true
@@ -652,6 +652,7 @@ local servers = {
   svelte = {},
   html = {},
   astro = {},
+  eslint = {},
 }
 
 require('neodev').setup()
@@ -751,7 +752,7 @@ cmp.setup.cmdline(':', {
 -- autoformat on save
 local format_on_save_ext = {
   "html", "go", "rs", "css", "json", "ex", "rb", "vue", "c", "cpp", "java",
-  "nix", "ts", "lua", "astro",
+  "nix", "ts", "lua", "astro", "svelte"
 }
 
 for _, v in pairs(format_on_save_ext) do

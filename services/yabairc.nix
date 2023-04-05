@@ -57,7 +57,6 @@
       yabai -m rule --add app="Thunderbird" space=www
       yabai -m rule --add app="Spark" space=www
       yabai -m rule --add app=".*[Nn]eovide.*" space=dev manage=on
-      yabai -m rule --add app=".neovide-wrapped" space=dev manage=on
       yabai -m rule --add app="Visual Studio Code" space=dev
       yabai -m rule --add app="WebStorm" space=dev
       yabai -m rule --add app="PyCharm" space=dev

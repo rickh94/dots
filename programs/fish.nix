@@ -13,6 +13,7 @@
       df = "lfs";
       grep = "rg";
       find = "fd";
+      mkdir = "mkdir -p";
     };
 
     functions = {
