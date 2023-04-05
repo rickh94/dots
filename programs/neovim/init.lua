@@ -8,8 +8,7 @@ if not vim.loop.fs_stat(lazypath) then
     'clone',
     '--filter=blob:none',
     'https://github.com/folke/lazy.nvim.git',
-    '--branch=stable',
-    lazypath,
+    '--branch=stable', lazypath,
   }
 end
 vim.opt.rtp:prepend(lazypath)
@@ -922,6 +921,7 @@ local color = {
   ['md']     = 'onedarker',
   ['njk']    = 'onedarker',
   ['py']     = 'tokyonight-storm',
+  ['ly']     = 'nightfly'
 }
 
 for p, c in pairs(color) do
@@ -935,6 +935,11 @@ end
 vim.api.nvim_create_autocmd('BufEnter', {
   command = "syntax sync fromstart",
   pattern = { '*.ly', '*.ily', '*.tex' }
+})
+
+vim.api.nvim_create_autocmd({ 'BufEnter', 'BufRead' }, {
+  command = "lua require('nvls').setup()",
+  pattern = { '*.ly', '*.ily', '*.tex' },
 })
 
 

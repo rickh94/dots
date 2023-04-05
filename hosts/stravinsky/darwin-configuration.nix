@@ -20,6 +20,7 @@ in
     nushell
     nodejs
     python310Full
+    fswatch
   ];
 
   environment.systemPath = [
