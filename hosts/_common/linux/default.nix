@@ -53,6 +53,7 @@ in
     obs-studio
     davinci-resolve
     lilypond
+    okular
 
     # gaming
     steam
