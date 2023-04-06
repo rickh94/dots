@@ -874,6 +874,8 @@ local setlocal_frompattern = {
   ['*.astro'] = twotrue,
   ['*.py'] = { 4, true },
   ['*.c'] = { 8, false },
+  ['*.ly'] = { 2, false },
+  ['*.ily'] = twotrue,
 }
 
 for p, s in pairs(setlocal_frompattern) do

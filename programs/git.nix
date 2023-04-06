@@ -57,6 +57,7 @@
       ".direnv"
       ".envrc"
     ];
+    lfs.enable = true;
   };
 
 }
