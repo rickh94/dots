@@ -33,7 +33,7 @@
         program = "${pkgs.zsh}/bin/zsh";
         args = [
           "-c"
-          "${pkgs.zellij}/bin/zellij -l compact attach --create dropdown"
+          "${pkgs.zellij}/bin/zellij -l compact"
         ];
       };
     };
