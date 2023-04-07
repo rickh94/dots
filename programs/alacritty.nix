@@ -5,7 +5,7 @@
     settings = {
       window = {
         decorations = "none";
-        opacity = 0.9;
+        opacity = 0.95;
       };
       cursor.style.shape = "Beam";
 

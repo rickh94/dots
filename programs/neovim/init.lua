@@ -270,7 +270,12 @@ require('lazy').setup({
   'bluz71/vim-moonfly-colors',
   {
     'catppuccin/nvim',
-    name = 'catppucin',
+    name = 'catppuccin',
+    config = function()
+      require('catppuccin').setup({
+        flavor = "mocha",
+      })
+    end
   },
   {
     'yorik1984/newpaper.nvim',
@@ -420,7 +425,6 @@ require('lazy').setup({
   }
 })
 
-vim.cmd.colorscheme('tokyonight-moon')
 
 
 -- SETTING OPTIONS
@@ -454,7 +458,7 @@ vim.o.swapfile = false
 vim.o.backup = false
 vim.o.undodir = vim.fn.stdpath('state') .. '/undodir'
 
-vim.o.smartindent = true
+vim.o.smartindent = false
 
 vim.o.scrolloff = 8
 
@@ -717,13 +721,13 @@ local servers = {
     },
   },
   lua_ls = {
-    Lua = {
-      workspace = { checkThirdParty = false },
-      telemetry = { enable = false },
-      diagnostics = {
-        globals = { 'vim' },
-      },
-    },
+    -- Lua = {
+    --   workspace = { checkThirdParty = false },
+    --   telemetry = { enable = false },
+    --   diagnostics = {
+    --     globals = { 'vim' },
+    --   },
+    -- },
   },
   clangd = {},
   tsserver = {},
@@ -876,6 +880,7 @@ local setlocal_frompattern = {
   ['*.c'] = { 8, false },
   ['*.ly'] = { 2, false },
   ['*.ily'] = twotrue,
+  ['*.nix'] = twotrue,
 }
 
 for p, s in pairs(setlocal_frompattern) do
@@ -904,34 +909,34 @@ for p, t in pairs(filetypes) do
   })
 end
 
-local color = {
-  ['lua']    = 'gruvbox',
-  ['bash']   = 'gruvbox',
-  ['nix']    = 'gruvbox',
-  ['rs']     = 'moonfly',
-  ['c']      = 'moonfly',
-  ['go']     = 'newpaper',
-  ['ts']     = 'catppuccin-mocha',
-  ['js']     = 'catppuccin-mocha',
-  ['jsx']    = 'nightfly',
-  ['tsx']    = 'nightfly',
-  ['vue']    = 'onedarker',
-  ['svelte'] = 'onedarker',
-  ['html']   = 'onedarker',
-  ['astro']  = 'onedarker',
-  ['css']    = 'onedarker',
-  ['md']     = 'onedarker',
-  ['njk']    = 'onedarker',
-  ['py']     = 'tokyonight-storm',
-  ['ly']     = 'nightfly'
-}
-
-for p, c in pairs(color) do
-  vim.api.nvim_create_autocmd({ 'BufRead', 'BufEnter' }, {
-    pattern = '*.' .. p,
-    command = 'colorscheme ' .. c,
-  })
-end
+-- local color = {
+--   ['lua']    = 'gruvbox',
+--   ['bash']   = 'gruvbox',
+--   ['nix']    = 'gruvbox',
+--   ['rs']     = 'moonfly',
+--   ['c']      = 'moonfly',
+--   ['go']     = 'newpaper',
+--   ['ts']     = 'catppuccin-mocha',
+--   ['js']     = 'catppuccin-mocha',
+--   ['jsx']    = 'nightfly',
+--   ['tsx']    = 'nightfly',
+--   ['vue']    = 'onedarker',
+--   ['svelte'] = 'onedarker',
+--   ['html']   = 'onedarker',
+--   ['astro']  = 'onedarker',
+--   ['css']    = 'onedarker',
+--   ['md']     = 'onedarker',
+--   ['njk']    = 'onedarker',
+--   ['py']     = 'tokyonight-storm',
+--   ['ly']     = 'nightfly'
+-- }
+--
+-- for p, c in pairs(color) do
+--   vim.api.nvim_create_autocmd({ 'BufRead', 'BufEnter' }, {
+--     pattern = '*.' .. p,
+--     command = 'colorscheme ' .. c,
+--   })
+-- end
 
 -- lilypond configuration
 vim.api.nvim_create_autocmd('BufEnter', {
@@ -939,10 +944,17 @@ vim.api.nvim_create_autocmd('BufEnter', {
   pattern = { '*.ly', '*.ily', '*.tex' }
 })
 
-vim.api.nvim_create_autocmd({ 'BufEnter', 'BufRead' }, {
-  command = "lua require('nvls').setup()",
-  pattern = { '*.ly', '*.ily', '*.tex' },
+vim.api.nvim_create_autocmd('ColorScheme', {
+  command = "highlight Normal ctermbg=NONE guibg=NONE",
+  pattern = "*",
 })
+
+vim.cmd.colorscheme('tokyonight-night')
+
+-- vim.api.nvim_create_autocmd({ 'BufEnter', 'BufRead' }, {
+--   command = "lua require('nvls').setup()",
+--   pattern = { '*.ly', '*.ily', '*.tex' },
+-- })
 
 
 -- vim: se ft=lua sw=2 ts=2 expandtab:

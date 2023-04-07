@@ -14,11 +14,11 @@ in {
         { command = "${pkgs.xss-lock}/bin/xss-lock --transfer-sleep-lock -- i3lock --nofork"; }
         # { command = "nm-applet"; }
         { command = "${pkgs.feh}/bin/feh --bg-fill --randomize $HOME/Wallpapers/*.png"; }
-        { command = "${pkgs.xorg.xmodmap}/bin/xmodmap -e 'clear Lock'"; }
-        { command = "${pkgs.xorg.xmodmap}/bin/xmodmap -e 'keycode 66 = Hyper_L'"; }
-        { command = "${pkgs.xorg.xmodmap}/bin/xmodmap -e 'remove Mod4 = Hyper_L'"; }
-        { command = "${pkgs.xorg.xmodmap}/bin/xmodmap -e 'add Mod3 = Hyper_L'"; }
-        { command = "${pkgs.xorg.setxkbmap}/bin/setxkbmap -option shift:both_capslock"; }
+        # { command = "xmodmap -e 'keycode 66 = Hyper_L'"; }
+        # { command = "xmodmap -e 'clear Lock'"; }
+        # { command = "xmodmap -e 'remove Mod4 = Hyper_L'"; }
+        # { command = "xmodmap -e 'add Mod3 = Hyper_L'"; }
+        # { command = "${pkgs.xorg.setxkbmap}/bin/setxkbmap -option shift:both_capslock"; }
       ];
       fonts = {
         names = [ "DejaVu Sans Mono" ];
@@ -54,7 +54,7 @@ in {
 
         "${mod}+s" = "split h";
         "${mod}+v" = "split v";
-        "${hyper}+f" = "fullscreen toggle";
+        "${mod}+F11" = "fullscreen toggle";
         "${mod}+w" = "layout tabbed";
         "${mod}+e" = "layout toggle split";
         "${mod}+f" = "floating toggle";
@@ -71,15 +71,15 @@ in {
         "${mod}+8" = "workspace number 8";
         "${mod}+9" = "workspace number 9";
 
-        "${hyper}+1" = "move container to workspace number 1";
-        "${hyper}+2" = "move container to workspace number 2";
-        "${hyper}+3" = "move container to workspace number 3";
-        "${hyper}+4" = "move container to workspace number 4";
-        "${hyper}+5" = "move container to workspace number 5";
-        "${hyper}+6" = "move container to workspace number 6";
-        "${hyper}+7" = "move container to workspace number 7";
-        "${hyper}+8" = "move container to workspace number 8";
-        "${hyper}+9" = "move container to workspace number 9";
+        "${mod}+Shift+1" = "move container to workspace number 1";
+        "${mod}+Shift+2" = "move container to workspace number 2";
+        "${mod}+Shift+3" = "move container to workspace number 3";
+        "${mod}+Shift+4" = "move container to workspace number 4";
+        "${mod}+Shift+5" = "move container to workspace number 5";
+        "${mod}+Shift+6" = "move container to workspace number 6";
+        "${mod}+Shift+7" = "move container to workspace number 7";
+        "${mod}+Shift+8" = "move container to workspace number 8";
+        "${mod}+Shift+9" = "move container to workspace number 9";
 
         "${mod}+Shift+c" = "reload";
         "${mod}+Shift+r" = "restart";

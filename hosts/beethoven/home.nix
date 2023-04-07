@@ -29,11 +29,6 @@ in
     pkgs.xorg.setxkbmap
   ];
 
-  home.keyboard.options = [
-    "caps:hyper"
-    "shift:both_capslock"
-  ];
-
   programs.rofi.enable = true;
   systemd.user.startServices = true;
 
