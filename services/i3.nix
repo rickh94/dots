@@ -1,9 +1,10 @@
-{pkgs, lib, ...}:
-let 
+{ pkgs, lib, ... }:
+let
   mod = "Mod4";
   hyper = "Mod3";
   refresh_i3status = "killall -SIGUSR1 i3status";
-in {
+in
+{
   xsession.windowManager.i3 = {
     enable = true;
     config = {

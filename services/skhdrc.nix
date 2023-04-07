@@ -55,7 +55,8 @@
       hyper - 0x1E : yabai -m space --mirror y-axis
 
       # show/hide alacritty dropdown terminal
-      hyper - return : ${config.home.homeDirectory}/.config/skhd/scripts/toggle-alacritty.sh
+      # hyper - return : ${config.home.homeDirectory}/.config/skhd/scripts/toggle-alacritty.sh
+      # hyper - return : alacritty msg create-window
     '';
   };
 

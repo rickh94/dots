@@ -39,6 +39,7 @@
       yabai -m config window_border_blur off
       yabai -m config window_animation_duration 0.0
 
+
       ##########         SPACE NAMES            ##########
 
       setup_space 1 one
@@ -50,15 +51,17 @@
       setup_space 7 seven
 
       ##########     SPACE WINDOW CONSTRAINTS      ##########
+      yabai -m rules --add app="Alacritty" manage=on
 
       ##########     FLOATING WINDOW SETTINGS      ##########
 
       yabai -m rule --add app="Finder" sticky=on layer=above manage=off
       yabai -m rule --add app="Obsidian" sticky=on layer=above manage=off
-      yabai -m rule --add app="System Settings" sticky=on layer=above manage=off
+      yabai -m rule --add app="System Settings" sticky=on manage=off
       yabai -m rule --add app="Karabiner-Elements" sticky=on layer=above manage=off
       yabai -m rule --add app="Karabiner-EventViewer" sticky=on layer=above manage=off
       yabai -m rule --add app="System Information" sticky=off layer=above manage=off
+      yabai -m rule --add app="Warp" sticky=off layer=above manage=off
       yabai -m rule --add app="iTerm 2" sticky=off layer=above manage=off
       yabai -m rule --add app="Terminal" sticky=off layer=above manage=off
       yabai -m rule --add app="Notable" sticky=on layer=above manage=off

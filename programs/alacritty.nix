@@ -6,6 +6,7 @@
       window = {
         decorations = "none";
         opacity = 0.95;
+        startup_mode = "Windowed";
       };
       cursor.style.shape = "Beam";
 

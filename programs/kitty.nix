@@ -10,8 +10,9 @@
     settings = {
       shell = "${pkgs.fish}/bin/fish";
       cursor_shape = "beam";
+      backgroundOpacity = "0.95";
     };
-    theme = "Monokai Soda";
+    theme = "Tomorrow Night";
   };
 
   xdg.configFile."kitty/startup.sh" = {

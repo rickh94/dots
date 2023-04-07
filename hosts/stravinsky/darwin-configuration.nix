@@ -72,10 +72,12 @@ in
       "nss"
       "oci-cli"
       "lilypond"
+      "sketchybar"
       # "buffalo"
       # "buffalo-pop"
     ];
     taps = [
+      "FelixKratz/formulae"
       "koekeishiya/formulae"
       "homebrew/cask-versions"
       "homebrew/services"

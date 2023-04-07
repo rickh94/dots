@@ -71,7 +71,7 @@
       onChange = ''
         #!/usr/bin/env bash
         cd $HOME/Wallpapers
-        ${pkgs.wget}/bin/wget -v -i wallpapers.txt
+        ${pkgs.wget}/bin/wget -nc -i wallpapers.txt
       '';
     };
   };
