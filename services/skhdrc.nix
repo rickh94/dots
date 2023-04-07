@@ -59,38 +59,38 @@
     '';
   };
 
-  xdg.configFile."skhd/scripts/toggle-alacritty.sh" = {
-    executable = true;
-    text = ''
-      #!/usr/bin/env bash
-      # get alacritty's id from yabai
-      aid=`yabai -m query --windows | ${pkgs.jq}/bin/jq '.[] |select(.app == "Alacritty").id' | tr -d '\n'`
-
-      # if the id is empty, open alacritty
-      if [[ -z $aid ]]; then
-        /usr/bin/open -a ${config.home.homeDirectory}/Applications/HMApps/Alacritty.app  
-        sleep 1;
-        aid=`yabai -m query --windows | ${pkgs.jq}/bin/jq '.[] |select(.app == "Alacritty").id' | tr -d '\n'`
-        #yabai -m window $aid --resize abs:1600:300 
-        #sleep 0.5;
-        #yabai -m window $aid --move abs:0:0 
-        #sleep 0.5;
-        yabai -m window $aid --focus
-        exit 0;
-      fi
-
-      is_visible=`yabai -m query --windows --window $aid | ${pkgs.jq}/bin/jq '."is-visible"'`
-
-      if [ $is_visible == 'true' ]; then
-        /usr/bin/osascript -e "
-      tell app \"System Events\"
-        set visible of process \"Alacritty\" to false
-      end tell"
-      else
-        #yabai -m window $aid --resize abs:1600:300 
-        #yabai -m window $aid --move abs:0:0 
-        yabai -m window $aid --focus
-      fi
-    '';
-  };
+  # xdg.configFile."skhd/scripts/toggle-alacritty.sh" = {
+  #   executable = true;
+  #   text = ''
+  #     #!/usr/bin/env bash
+  #     # get alacritty's id from yabai
+  #     aid=`yabai -m query --windows | ${pkgs.jq}/bin/jq '.[] |select(.app == "Alacritty").id' | tr -d '\n'`
+  #
+  #     # if the id is empty, open alacritty
+  #     if [[ -z $aid ]]; then
+  #       /usr/bin/open -a ${config.home.homeDirectory}/Applications/HMApps/Alacritty.app  
+  #       sleep 1;
+  #       aid=`yabai -m query --windows | ${pkgs.jq}/bin/jq '.[] |select(.app == "Alacritty").id' | tr -d '\n'`
+  #       #yabai -m window $aid --resize abs:1600:300 
+  #       #sleep 0.5;
+  #       #yabai -m window $aid --move abs:0:0 
+  #       #sleep 0.5;
+  #       yabai -m window $aid --focus
+  #       exit 0;
+  #     fi
+  #
+  #     is_visible=`yabai -m query --windows --window $aid | ${pkgs.jq}/bin/jq '."is-visible"'`
+  #
+  #     if [ $is_visible == 'true' ]; then
+  #       /usr/bin/osascript -e "
+  #     tell app \"System Events\"
+  #       set visible of process \"Alacritty\" to false
+  #     end tell"
+  #     else
+  #       #yabai -m window $aid --resize abs:1600:300 
+  #       #yabai -m window $aid --move abs:0:0 
+  #       yabai -m window $aid --focus
+  #     fi
+  #   '';
+  # };
 }

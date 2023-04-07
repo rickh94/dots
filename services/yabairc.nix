@@ -39,40 +39,17 @@
       yabai -m config window_border_blur off
       yabai -m config window_animation_duration 0.0
 
-
-
       ##########         SPACE NAMES            ##########
 
-      setup_space 1 www
-      setup_space 2 dev
-      setup_space 3 entertainment
-      setup_space 4 music
-      setup_space 5 remote
+      setup_space 1 one
+      setup_space 2 two
+      setup_space 3 three
+      setup_space 4 four
+      setup_space 5 five
       setup_space 6 six
       setup_space 7 seven
 
       ##########     SPACE WINDOW CONSTRAINTS      ##########
-
-      yabai -m rule --add app="Firefox" space=www
-      yabai -m rule --add app="Thunderbird" space=www
-      yabai -m rule --add app="Spark" space=www
-      yabai -m rule --add app=".*[Nn]eovide.*" space=dev manage=on
-      yabai -m rule --add app="Visual Studio Code" space=dev
-      yabai -m rule --add app="WebStorm" space=dev
-      yabai -m rule --add app="PyCharm" space=dev
-      yabai -m rule --add app="Intellij IDEA.*" space=dev
-      yabai -m rule --add app="Spotify" space=entertainment
-      yabai -m rule --add app=".*[Pp]lex.*" space=entertainment
-      yabai -m rule --add app="QuickTime Player" space=entertainment
-      yabai -m rule --add app="VLC" space=entertainment
-      yabai -m rule --add app="Preview" space=music
-      yabai -m rule --add app="Image Capture" space=music
-      yabai -m rule --add app="forScore" space=music
-      yabai -m rule --add app="Dorico.*" space=music
-      yabai -m rule --add app="MuseScore.*" space=music
-      yabai -m rule --add app="Screen Sharing" space=remote
-      yabai -m rule --add app="UTM" space=remote
-
 
       ##########     FLOATING WINDOW SETTINGS      ##########
 
@@ -82,8 +59,6 @@
       yabai -m rule --add app="Karabiner-Elements" sticky=on layer=above manage=off
       yabai -m rule --add app="Karabiner-EventViewer" sticky=on layer=above manage=off
       yabai -m rule --add app="System Information" sticky=off layer=above manage=off
-      yabai -m rule --add app="Alacritty" sticky=on layer=above manage=off border=off
-      yabai -m rule --add app="Warp" sticky=off layer=above manage=off
       yabai -m rule --add app="iTerm 2" sticky=off layer=above manage=off
       yabai -m rule --add app="Terminal" sticky=off layer=above manage=off
       yabai -m rule --add app="Notable" sticky=on layer=above manage=off
