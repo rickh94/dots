@@ -42,13 +42,13 @@
 
       ##########         SPACE NAMES            ##########
 
-      setup_space 1 one
-      setup_space 2 two
-      setup_space 3 three
-      setup_space 4 four
-      setup_space 5 five
-      setup_space 6 six
-      setup_space 7 seven
+      setup_space 1 1
+      setup_space 2 2
+      setup_space 3 3
+      setup_space 4 4
+      setup_space 5 5
+      setup_space 6 6
+      setup_space 7 7
 
       ##########     SPACE WINDOW CONSTRAINTS      ##########
       yabai -m rules --add app="Alacritty" manage=on
@@ -68,6 +68,11 @@
       yabai -m rule --add app="Notes" sticky=on layer=above manage=off
       yabai -m rule --add app="Bitwarden" sticky=on manage=off
       yabai -m rule --add app="Arq 7" sticky=on manage=off
+
+      ########  SIGNALS ######
+      yabai -m signal --add event=window_focused action="sketchybar --trigger window_focus"
+      yabai -m signal --add event=window_created action="sketchybar --trigger windows_on_spaces"
+      yabai -m signal --add event=window_destroyed action="sketchybar --trigger windows_on_spaces"
     '';
   };
 }

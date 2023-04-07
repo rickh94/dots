@@ -27,7 +27,7 @@
           family = "VictorMono Nerd Font";
           style = "Bold Italic";
         };
-        size = 12.0;
+        size = 13.0;
       };
 
       shell = {

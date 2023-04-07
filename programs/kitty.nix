@@ -4,15 +4,19 @@
     enable = true;
     font = {
       package = pkgs.nerdfonts;
-      name = "VictorMono Nerd Font";
-      size = 12;
+      name = "VictorMono Nerd Font Mono";
+      size = 13.0;
     };
     settings = {
       shell = "${pkgs.fish}/bin/fish";
       cursor_shape = "beam";
-      backgroundOpacity = "0.95";
+      background_opacity = "0.95";
+      hide_window_decorations = "yes";
+      bold_font = "VictorMono Nerd Font Mono Bold";
+      italic_font = "VictorMono Nerd Font Mono Italic";
+      bold_italic_font = "VictorMono Nerd Font Mono Bold Italic";
     };
-    theme = "Tomorrow Night";
+    theme = "Molokai";
   };
 
   xdg.configFile."kitty/startup.sh" = {

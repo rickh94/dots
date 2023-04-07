@@ -73,17 +73,17 @@ in
       "oci-cli"
       "lilypond"
       "sketchybar"
-      # "buffalo"
-      # "buffalo-pop"
+      "jq"
+      "switchaudio-osx"
     ];
     taps = [
       "FelixKratz/formulae"
       "koekeishiya/formulae"
       "homebrew/cask-versions"
       "homebrew/services"
-      # "gobuffalo/tap"
     ];
     casks = [
+      "sf-symbols"
       "firefox"
       "handbrake"
       "musescore"

@@ -6,6 +6,7 @@
     text = ''
       default_shell "${pkgs.fish}/bin/fish"
       theme "molokai-dark"
+      on_force_close "quit"
 
       themes {
           molokai-dark {

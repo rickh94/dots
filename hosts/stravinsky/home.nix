@@ -5,20 +5,16 @@
     ../_common/mac/home-activation.nix
     ../../services/yabairc.nix
     ../../services/skhdrc.nix
+    ../../services/sketchybar.nix
   ];
 
   home.stateVersion = "22.11";
   nixpkgs.config.allowUnfree = true;
 
   programs.alacritty.settings.window = {
-    position = {
-      x = 0;
-      y = 0;
-    };
-
     dimensions = {
-      columns = 233;
-      lines = 22;
+      columns = 500;
+      lines = 500;
     };
   };
 

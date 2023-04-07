@@ -56,7 +56,7 @@
 
       # show/hide alacritty dropdown terminal
       # hyper - return : ${config.home.homeDirectory}/.config/skhd/scripts/toggle-alacritty.sh
-      # hyper - return : alacritty msg create-window
+      hyper - return : alacritty msg create-window
     '';
   };
 

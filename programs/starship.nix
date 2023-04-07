@@ -39,7 +39,7 @@
 
       git_branch = {
         format = "[$branch]($style)";
-        style = "bright-black";
+        style = "bright-pink";
       };
 
       git_status = {
