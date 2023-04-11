@@ -302,6 +302,24 @@ require('lazy').setup({
   -- prettier ui elements
   'stevearc/dressing.nvim',
 
+  -- transparency
+  {
+    'xiyaowong/nvim-transparent',
+    config = function()
+      require("transparent").setup({
+        groups = { -- table: default groups
+          'Normal', 'NormalNC', 'Comment', 'Constant', 'Special', 'Identifier',
+          'Statement', 'PreProc', 'Type', 'Underlined', 'Todo', 'String', 'Function',
+          'Conditional', 'Repeat', 'Operator', 'Structure', 'LineNr', 'NonText',
+          'SignColumn', 'CursorLineNr', 'EndOfBuffer',
+        },
+        extra_groups = {},   -- table: additional groups that should be cleared
+        exclude_groups = {}, -- table: groups you don't want to clear
+      })
+    end,
+    lazy = false,
+  },
+
   -- highlight todo comments
   {
     'folke/todo-comments.nvim',
@@ -325,6 +343,8 @@ require('lazy').setup({
       require('persistence').setup()
     end,
   },
+
+  -- lilypond
   {
     'martineausimon/nvim-lilypond-suite',
     dependencies = 'MunifTanjim/nui.nvim',
@@ -721,13 +741,13 @@ local servers = {
     },
   },
   lua_ls = {
-    -- Lua = {
-    --   workspace = { checkThirdParty = false },
-    --   telemetry = { enable = false },
-    --   diagnostics = {
-    --     globals = { 'vim' },
-    --   },
-    -- },
+    Lua = {
+      workspace = { checkThirdParty = false },
+      telemetry = { enable = false },
+      diagnostics = {
+        globals = { 'vim' },
+      },
+    },
   },
   clangd = {},
   tsserver = {},
@@ -938,23 +958,23 @@ end
 --   })
 -- end
 
+vim.cmd.colorscheme('tokyonight-night')
 -- lilypond configuration
 vim.api.nvim_create_autocmd('BufEnter', {
   command = "syntax sync fromstart",
   pattern = { '*.ly', '*.ily', '*.tex' }
 })
 
-vim.api.nvim_create_autocmd('ColorScheme', {
-  command = "highlight Normal ctermbg=NONE guibg=NONE",
-  pattern = "*",
-})
-
-vim.cmd.colorscheme('tokyonight-night')
-
--- vim.api.nvim_create_autocmd({ 'BufEnter', 'BufRead' }, {
---   command = "lua require('nvls').setup()",
---   pattern = { '*.ly', '*.ily', '*.tex' },
+-- vim.api.nvim_create_autocmd('ColorScheme', {
+--   command = "highlight Normal ctermbg=NONE guibg=NONE",
+--   pattern = "*",
 -- })
+
+
+vim.api.nvim_create_autocmd({ 'BufEnter', 'BufRead' }, {
+  command = "lua require('nvls').setup()",
+  pattern = { '*.ly', '*.ily', '*.tex' },
+})
 
 
 -- vim: se ft=lua sw=2 ts=2 expandtab:

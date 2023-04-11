@@ -8,24 +8,24 @@
       ctrl + alt + cmd - r : launchctl kickstart -k "gui/$UID/homebrew.mxcl.yabai"
 
       # switch to space
-      ctrl - 1 : yabai -m space --focus www
-      ctrl - 2 : yabai -m space --focus dev
-      ctrl - 3 : yabai -m space --focus entertainment
-      ctrl - 4 : yabai -m space --focus music
-      ctrl - 5 : yabai -m space --focus remote
-      ctrl - 6 : yabai -m space --focus six
-      ctrl - 7 : yabai -m space --focus seven
+      ctrl - 1 : yabai -m space --focus 1
+      ctrl - 2 : yabai -m space --focus 2
+      ctrl - 3 : yabai -m space --focus 3
+      ctrl - 4 : yabai -m space --focus 4
+      ctrl - 5 : yabai -m space --focus 5
+      ctrl - 6 : yabai -m space --focus 6
+      ctrl - 7 : yabai -m space --focus 7
       ctrl - 8 : yabai -m space --focus 8
       ctrl - 9 : yabai -m space --focus 9
 
       # send window to space
-      hyper - 1 : yabai -m window --space www
-      hyper - 2 : yabai -m window --space dev
-      hyper - 3 : yabai -m window --space entertainment
-      hyper - 4 : yabai -m window --space music
-      hyper - 5 : yabai -m window --space remote
-      hyper - 6 : yabai -m window --space six
-      hyper - 7 : yabai -m window --space seven
+      hyper - 1 : yabai -m window --space 1
+      hyper - 2 : yabai -m window --space 2
+      hyper - 3 : yabai -m window --space 3
+      hyper - 4 : yabai -m window --space 4
+      hyper - 5 : yabai -m window --space 5
+      hyper - 6 : yabai -m window --space 6
+      hyper - 7 : yabai -m window --space 7
       hyper - 8 : yabai -m window --space 8
       hyper - 9 : yabai -m window --space 9
 

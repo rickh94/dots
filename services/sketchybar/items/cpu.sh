@@ -8,7 +8,6 @@ cpu_top=(
   padding_right=15
   y_offset=6
 )
-
 cpu_percent=(
   label.font="$FONT:Heavy:12"
   label=CPU
