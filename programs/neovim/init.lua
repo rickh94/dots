@@ -873,7 +873,7 @@ cmp.setup.cmdline(':', {
 -- autoformat on save
 local format_on_save_ext = {
   "html", "go", "rs", "css", "json", "ex", "rb", "vue", "c", "cpp", "java",
-  "nix", "ts", "lua", "astro", "svelte"
+  "nix", "ts", "lua", "astro", "svelte", "tsx",
 }
 
 for _, v in pairs(format_on_save_ext) do
@@ -974,6 +974,11 @@ vim.api.nvim_create_autocmd('BufEnter', {
 vim.api.nvim_create_autocmd({ 'BufEnter', 'BufRead' }, {
   command = "lua require('nvls').setup()",
   pattern = { '*.ly', '*.ily', '*.tex' },
+})
+
+vim.api.nvim_create_autocmd({'BufEnter'}, {
+  command = "set smartindent",
+  pattern = {'*.tsx'},
 })
 
 
