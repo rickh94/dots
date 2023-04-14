@@ -75,12 +75,14 @@ in
       "sketchybar"
       "jq"
       "switchaudio-osx"
+      "mongodb-community"
     ];
     taps = [
       "FelixKratz/formulae"
       "koekeishiya/formulae"
       "homebrew/cask-versions"
       "homebrew/services"
+      "mongodb/brew"
     ];
     casks = [
       "sf-symbols"

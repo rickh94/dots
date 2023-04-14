@@ -910,7 +910,7 @@ for p, s in pairs(setlocal_frompattern) do
   else
     cmd = cmd .. ' noexpandtab'
   end
-  vim.api.nvim_create_autocmd('BufReadPre', {
+  vim.api.nvim_create_autocmd({ 'BufReadPre', 'BufRead' }, {
     pattern = p,
     command = cmd,
   })

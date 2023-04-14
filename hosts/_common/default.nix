@@ -41,6 +41,8 @@
       rust-analyzer
       microserver
       git-lfs
+      nodejs
+      nodePackages.pnpm
 
 
       # languages
