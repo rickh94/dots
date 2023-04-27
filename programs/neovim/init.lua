@@ -19,7 +19,13 @@ require('lazy').setup({
   'tpope/vim-rhubarb',
 
   -- autodetect ts and sw
-  'tpope/vim-sleuth',
+  -- 'tpope/vim-sleuth',
+  {
+    'NMAC427/guess-indent.nvim',
+    config = function()
+      require('guess-indent').setup({})
+    end
+  },
 
   -- fix behavior of .
   'tpope/vim-repeat',
@@ -177,6 +183,7 @@ require('lazy').setup({
   -- language support plugins
   -- edgedb
   'edgedb/edgedb-vim',
+  'NoahTheDuke/vim-just',
 
   -- rust
   {
@@ -478,7 +485,7 @@ vim.o.swapfile = false
 vim.o.backup = false
 vim.o.undodir = vim.fn.stdpath('state') .. '/undodir'
 
-vim.o.smartindent = false
+vim.o.smartindent = true
 
 vim.o.scrolloff = 8
 
@@ -780,8 +787,6 @@ require('neodev').setup()
 require('mason').setup()
 
 
-require('mason').setup()
-
 local mason_lspconfig = require('mason-lspconfig')
 
 mason_lspconfig.setup({ ensure_installed = vim.tbl_keys(servers), })
@@ -976,10 +981,10 @@ vim.api.nvim_create_autocmd({ 'BufEnter', 'BufRead' }, {
   pattern = { '*.ly', '*.ily', '*.tex' },
 })
 
-vim.api.nvim_create_autocmd({'BufEnter'}, {
-  command = "set smartindent",
-  pattern = {'*.tsx'},
-})
+-- vim.api.nvim_create_autocmd({ 'BufEnter' }, {
+--   command = "set smartindent",
+--   pattern = { '*.tsx' },
+-- })
 
 
 -- vim: se ft=lua sw=2 ts=2 expandtab:

@@ -76,6 +76,13 @@ in
       "jq"
       "switchaudio-osx"
       "mongodb-community"
+      "mongodb-database-tools"
+      "brotli"
+      "c-ares"
+      "libnghttp2"
+      "node@16"
+      "libuv"
+      "mongosh"
     ];
     taps = [
       "FelixKratz/formulae"
