@@ -595,7 +595,7 @@ wk.register({
     d = { vim.diagnostic.goto_prev, "Previous diagnostic" },
   },
   [']'] = {
-    d = { vim.diagnostic.goto_prev, "Next diagnostic" },
+    d = { vim.diagnostic.goto_next, "Next diagnostic" },
   },
   ['<leader>'] = {
     d = { function() vim.diagnostic.open_float() end, "Open Diagnostic" },

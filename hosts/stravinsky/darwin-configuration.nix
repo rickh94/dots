@@ -72,7 +72,6 @@ in
       "nss"
       "oci-cli"
       "lilypond"
-      "sketchybar"
       "jq"
       "switchaudio-osx"
       "mongodb-community"
