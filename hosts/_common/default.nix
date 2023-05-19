@@ -43,6 +43,7 @@
       git-lfs
       nodejs
       nodePackages.pnpm
+      cargo-watch
 
 
       # languages
