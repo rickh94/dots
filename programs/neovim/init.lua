@@ -485,7 +485,7 @@ vim.o.swapfile = false
 vim.o.backup = false
 vim.o.undodir = vim.fn.stdpath('state') .. '/undodir'
 
-vim.o.smartindent = true
+vim.o.smartindent = false
 
 vim.o.scrolloff = 8
 
@@ -757,7 +757,6 @@ local servers = {
     },
   },
   clangd = {},
-  tsserver = {},
   emmet_ls = {
     capabilities = capabilities,
     filetypes = {
@@ -800,6 +799,17 @@ mason_lspconfig.setup_handlers({
     })
   end,
 })
+
+require('lspconfig').tsserver.setup({
+  root_dir = require('lspconfig').util.root_pattern("package.json"),
+  single_file_support = false
+})
+
+require('lspconfig').denols.setup({
+  root_dir = require('lspconfig').util.root_pattern("deno.json"),
+})
+
+
 
 -- COMPLETION SETUP
 local cmp = require('cmp')
