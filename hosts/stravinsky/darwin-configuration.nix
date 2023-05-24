@@ -82,12 +82,14 @@ in
       "node@16"
       "libuv"
       "mongosh"
+      "turso"
     ];
     taps = [
       "FelixKratz/formulae"
       "koekeishiya/formulae"
       "homebrew/cask-versions"
       "homebrew/services"
+      "chiselstrike/tap"
       "mongodb/brew"
     ];
     casks = [

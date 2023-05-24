@@ -851,10 +851,10 @@ cmp.setup({
     end, { 'i', 's' }),
   }),
   sources = {
-    { name = 'copilot',  max_item_count = 2 },
-    { name = 'nvim_lsp', max_item_count = 5 },
-    { name = 'luasnip',  max_item_count = 2 },
+    { name = 'nvim_lsp', max_item_count = 10 },
     { name = 'buffer',   max_item_count = 2 },
+    { name = 'copilot',  max_item_count = 2 },
+    { name = 'luasnip',  max_item_count = 2 },
     { name = 'rg',       max_item_count = 1 }
   },
   formatting = {
