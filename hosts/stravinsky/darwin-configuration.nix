@@ -21,6 +21,7 @@ in
     nodejs
     python310Full
     fswatch
+    rubik
   ];
 
   environment.systemPath = [
@@ -83,6 +84,8 @@ in
       "libuv"
       "mongosh"
       "turso"
+      "flyctl"
+      "aom"
     ];
     taps = [
       "FelixKratz/formulae"
@@ -116,6 +119,7 @@ in
       "karabiner-elements"
       "nextcloud"
       "rustdesk"
+      "inkscape"
     ];
   };
 

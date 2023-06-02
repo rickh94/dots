@@ -42,7 +42,7 @@ require('lazy').setup({
     config = function()
       require('sos').setup({
         enabled = true,
-        timeout = 10000,
+        timeout = 20000,
         autowrite = true,
         save_on_cmd = "some",
         save_on_bufleave = true,
@@ -351,6 +351,36 @@ require('lazy').setup({
     end,
   },
 
+  -- null ls
+  {
+    'jose-elias-alvarez/null-ls.nvim',
+    config = function()
+      local null_ls = require('null-ls')
+      null_ls.setup({
+        sources = {
+          null_ls.builtins.code_actions.eslint_d,
+          null_ls.builtins.code_actions.proselint,
+          null_ls.builtins.code_actions.refactoring,
+          null_ls.builtins.code_actions.shellcheck,
+          null_ls.builtins.formatting.djlint,
+          null_ls.builtins.formatting.isort,
+          null_ls.builtins.formatting.black,
+          null_ls.builtins.formatting.json_tool,
+          null_ls.builtins.formatting.just,
+          null_ls.builtins.diagnostics.djlint,
+          null_ls.builtins.diagnostics.jshint,
+          null_ls.builtins.diagnostics.jsonlint,
+          -- null_ls.builtins.diagnostics.markuplint,
+          null_ls.builtins.diagnostics.proselint,
+          null_ls.builtins.diagnostics.sqlfluff,
+          null_ls.builtins.diagnostics.standardjs,
+          null_ls.builtins.diagnostics.stylelint,
+          -- null_ls.builtins.diagnostics.vulture,
+        }
+      })
+    end
+  },
+
   -- lilypond
   {
     'martineausimon/nvim-lilypond-suite',
@@ -485,7 +515,7 @@ vim.o.swapfile = false
 vim.o.backup = false
 vim.o.undodir = vim.fn.stdpath('state') .. '/undodir'
 
-vim.o.smartindent = false
+vim.o.smartindent = true
 
 vim.o.scrolloff = 8
 
@@ -545,6 +575,13 @@ wk.register({
     s = { '<C-w>s', 'Horizontal Split' },
     v = { '<C-w>v', 'Horizontal Split' },
   },
+}, { prefix = '<leader>', mode = 'n' })
+
+wk.register({
+  k = { '<C-w>k', 'Window Up' },
+  j = { '<C-w>j', 'Window Down' },
+  h = { '<C-w>h', 'Window Left' },
+  l = { '<C-w>l', 'Window Right' }
 }, { prefix = '<leader>', mode = 'n' })
 
 -- BUFFER KEYBINDS
@@ -769,7 +806,7 @@ local servers = {
       'less',
       'svelte',
       'vue',
-      'djangohtml',
+      'htmldjango',
       'twig',
       'astro',
     },
@@ -887,8 +924,8 @@ cmp.setup.cmdline(':', {
 
 -- autoformat on save
 local format_on_save_ext = {
-  "html", "go", "rs", "css", "json", "ex", "rb", "vue", "c", "cpp", "java",
-  "nix", "ts", "lua", "astro", "svelte", "tsx",
+  "go", "rs", "css", "json", "ex", "rb", "vue", "c", "cpp", "java",
+  "nix", "ts", "lua", "astro", "tsx", "py",
 }
 
 for _, v in pairs(format_on_save_ext) do
