@@ -9,6 +9,7 @@
         startup_mode = "Windowed";
       };
       cursor.style.shape = "Beam";
+      cursor.style.blinking = "Off";
 
       font = {
         normal = {

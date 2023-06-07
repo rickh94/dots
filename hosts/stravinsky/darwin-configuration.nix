@@ -21,6 +21,7 @@ in
     nodejs
     python310Full
     fswatch
+    rubik
   ];
 
   environment.systemPath = [
@@ -82,12 +83,16 @@ in
       "node@16"
       "libuv"
       "mongosh"
+      "turso"
+      "flyctl"
+      "aom"
     ];
     taps = [
       "FelixKratz/formulae"
       "koekeishiya/formulae"
       "homebrew/cask-versions"
       "homebrew/services"
+      "chiselstrike/tap"
       "mongodb/brew"
     ];
     casks = [
@@ -114,6 +119,7 @@ in
       "karabiner-elements"
       "nextcloud"
       "rustdesk"
+      "inkscape"
     ];
   };
 
