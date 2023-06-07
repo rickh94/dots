@@ -216,6 +216,7 @@ in
   environment.persistence."/persist/impermanence" = {
     directories = [
       "/etc/nixos"
+      "/var/lib/containers/storage"
     ];
     files = [
       "/etc/ssh/ssh_host_rsa_key"
@@ -223,7 +224,6 @@ in
       "/etc/ssh/ssh_host_ed25519_key"
       "/etc/ssh/ssh_host_ed25519_key.pub"
       "/etc/machine-id"
-      "/var/lib/containers/storage"
     ];
   };
 
