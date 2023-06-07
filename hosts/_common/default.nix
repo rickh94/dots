@@ -48,7 +48,6 @@
       proselint
       backblaze-b2
       poetry
-      python3Packages.vulture
 
       # languages
       elixir
