@@ -3,7 +3,7 @@
 
   inputs = {
     nixpkgs = {
-      url = "github:nixos/nixpkgs/nixos-22.11";
+      url = "github:nixos/nixpkgs/nixos-23.05";
     };
     /* nixos-hardware.url = "github:nixos/nixos-hardware/master"; */
     home-manager = {
@@ -34,7 +34,7 @@
           modules = [
             ./hosts/beethoven/configuration.nix
           ];
-          specialArgs = { inherit nixpkgs; };
+          specialArgs = { inherit nixpkgs; inherit inputs; inherit chosenfonts; };
         };
 
         nixvm = nixpkgs.lib.nixosSystem {
@@ -132,7 +132,7 @@
         };
       };
 
-      defaultPackage.x86_64-linux = home-manager.defaultPackage.x86_64-linux;
+#      defaultPackage.x86_64-linux = home-manager.defaultPackage.x86_64-linux;
       defaultPackage.aarch64-darwin = home-manager.defaultPackage.aarch64-darwin;
     };
 }

@@ -1,7 +1,10 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, chosenfonts, inputs, ... }:
 
 let
   impermanence = builtins.fetchTarball "https://github.com/nix-community/impermanence/archive/master.tar.gz";
+  unstable = import inputs.unstable {
+    system = pkgs.system;
+  };
 in
 {
   imports =
@@ -14,7 +17,7 @@ in
   boot.loader.efi.canTouchEfiVariables = true;
   boot.supportedFilesystems = [ "zfs" ];
   boot.zfs.devNodes = "/dev/disk/by-partuuid";
-  boot.tmpOnTmpfsSize = "8G";
+  boot.tmp.tmpfsSize = "8G";
   boot.kernelParams = [ "nohibernate" ];
 
 
@@ -110,7 +113,6 @@ in
   virtualisation.podman = {
     enable = true;
     dockerCompat = true;
-    defaultNetwork.dnsname.enable = true;
     extraPackages = [
       pkgs.zfs
     ];
@@ -138,6 +140,7 @@ in
 
   environment.systemPackages = with pkgs; [
     firefox
+    (nerdfonts.override { fonts = chosenfonts; })
     neovim
     git
     alacritty
@@ -146,7 +149,6 @@ in
     killall
     xdotool
     xorg.xwininfo
-    home-manager
     lightdm-slick-greeter
     nushell
     wireguard-tools
@@ -156,6 +158,7 @@ in
     podman
     podman-compose
     qemu_full
+    nextcloud-client
   ];
 
   environment.pathsToLink = [ "/libexec" ];

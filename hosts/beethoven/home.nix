@@ -1,14 +1,7 @@
 { config, lib, pkgs, chosenfonts, inputs, ... }:
-let
-  unstable = import inputs.unstable {
-    system = pkgs.system;
-  };
-in
 {
 
   imports = [
-    # ../../services/bspwm.nix
-    # ../../services/sxhkd.nix
     ../../services/i3.nix
     ../_common/default.nix
     ../_common/linux/default.nix

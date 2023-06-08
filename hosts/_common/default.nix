@@ -38,7 +38,6 @@
       bacon
       gitui
       cargo-expand
-      rust-analyzer
       microserver
       git-lfs
       nodejs

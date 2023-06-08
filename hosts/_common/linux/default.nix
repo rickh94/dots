@@ -46,18 +46,12 @@ in
     terraform-providers.libvirt
 
     # creative
-    unstable.musescore
+    musescore
     inkscape
     gimp
     krita
     obs-studio
-    davinci-resolve
     lilypond
     okular
-
-    # gaming
-    steam
-    prismlauncher
-
   ];
 }

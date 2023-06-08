@@ -16,7 +16,7 @@
       italic_font = "VictorMono Nerd Font Mono Italic";
       bold_italic_font = "VictorMono Nerd Font Mono Bold Italic";
     };
-    theme = "Molokai";
+    # theme = "Molokai";
   };
 
   xdg.configFile."kitty/startup.sh" = {
