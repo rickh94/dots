@@ -77,6 +77,15 @@ require('lazy').setup({
       return vim.fn.executable 'make' == 1
     end
   },
+
+  {
+    'nvim-telescope/telescope-file-browser.nvim',
+    dependencies = {
+      'nvim-telescope/telescope.nvim',
+      'nvim-tree/nvim-web-devicons',
+      'nvim-lua/plenary.nvim',
+    },
+  },
   -- file tree
   {
     'nvim-tree/nvim-tree.lua',
@@ -126,6 +135,12 @@ require('lazy').setup({
       'lukas-reineke/cmp-rg',
     },
   },
+  {
+    'L3MON4D3/LuaSnip',
+    dependencies = {
+      "rafamadriz/friendly-snippets"
+    },
+  },
 
   -- bracket related plugins
   {
@@ -171,18 +186,19 @@ require('lazy').setup({
       show_trailing_blankline_indent = false,
     }
   },
-  {
-    'echasnovski/mini.indentscope',
-    version = '*',
-    config = function()
-      require('mini.indentscope').setup()
-    end,
-  },
+  -- {
+  --   'echasnovski/mini.indentscope',
+  --   version = '*',
+  --   config = function()
+  --     require('mini.indentscope').setup()
+  --   end,
+  -- },
+  'tpope/vim-dadbod',
 
 
   -- language support plugins
   -- edgedb
-  'edgedb/edgedb-vim',
+  -- 'edgedb/edgedb-vim',
   'NoahTheDuke/vim-just',
 
   -- rust
@@ -245,28 +261,37 @@ require('lazy').setup({
   -- css
   'ap/vim-css-color',
 
-  -- copilot
+  -- codeium ai coding assistant
   {
-    'zbirenbaum/copilot.lua',
-    cmd = 'Copilot',
-    event = 'InsertEnter',
+    'Exafunction/codeium.vim',
     config = function()
-      require('copilot').setup({
-        suggestion = { enabled = false },
-        panel = { enabled = false },
-      })
-    end,
-  },
-  {
-    'zbirenbaum/copilot-cmp',
-    after = { 'copilot.lua' },
-    config = function()
-      require('copilot_cmp').setup()
+      vim.keymap.set('i', '<C-g>', function() return vim.fn['codeium#Accept']() end, { expr = true })
+      vim.keymap.set('i', '<c-;>', function() return vim.fn['codeium#CycleCompletions'](1) end, { expr = true })
+      vim.keymap.set('i', '<c-,>', function() return vim.fn['codeium#CycleCompletions'](-1) end, { expr = true })
+      vim.keymap.set('i', '<c-x>', function() return vim.fn['codeium#Clear']() end, { expr = true })
     end
   },
 
-  -- random snippets
-  'rafamadriz/friendly-snippets',
+  -- copilot
+  -- {
+  --   'zbirenbaum/copilot.lua',
+  --   cmd = 'Copilot',
+  --   event = 'InsertEnter',
+  --   config = function()
+  --     require('copilot').setup({
+  --       suggestion = { enabled = false },
+  --       panel = { enabled = false },
+  --     })
+  --   end,
+  -- },
+  -- {
+  --   'zbirenbaum/copilot-cmp',
+  --   after = { 'copilot.lua' },
+  --   config = function()
+  --     require('copilot_cmp').setup()
+  --   end
+  -- },
+
 
   -- ui changes
   -- themes
@@ -363,13 +388,20 @@ require('lazy').setup({
           null_ls.builtins.code_actions.refactoring,
           null_ls.builtins.code_actions.shellcheck,
           null_ls.builtins.formatting.djlint,
+          null_ls.builtins.formatting.prettier,
           null_ls.builtins.formatting.isort,
           null_ls.builtins.formatting.black,
           null_ls.builtins.formatting.json_tool,
           null_ls.builtins.formatting.just,
           null_ls.builtins.diagnostics.djlint,
-          null_ls.builtins.diagnostics.jshint,
           null_ls.builtins.diagnostics.jsonlint,
+          null_ls.builtins.diagnostics.mypy.with {
+            command = {
+              "python",
+              "-m",
+              "mypy"
+            }
+          },
           -- null_ls.builtins.diagnostics.markuplint,
           null_ls.builtins.diagnostics.proselint,
           null_ls.builtins.diagnostics.sqlfluff,
@@ -380,6 +412,8 @@ require('lazy').setup({
       })
     end
   },
+
+  'jay-babu/mason-null-ls.nvim',
 
   -- lilypond
   {
@@ -541,9 +575,10 @@ require('telescope').setup({
         ['<C-d>'] = false,
       }
     }
-  }
+  },
 })
 pcall(require('telescope').load_extension, 'fzf')
+pcall(require('telescope').load_extension, 'file_browser')
 
 require('rust-tools').inlay_hints.enable()
 
@@ -667,6 +702,7 @@ wk.register({
 
 
 wk.register({
+  f = { b = { '<cmd>Telescope file_browser<cr>', 'Open Telescope File Browser' } },
   -- NVIM TREE KEYBINDS
   e = { '<cmd>NvimTreeToggle<cr>', 'Open/close file tree' },
   o = { '<cmd>NvimTreeFocus<cr>', 'Focus file tree' },
@@ -806,21 +842,46 @@ local servers = {
       'less',
       'svelte',
       'vue',
-      'htmldjango',
       'twig',
       'astro',
     },
+    init_options = {
+      userLanguages = {
+        htmldjango = "html",
+      },
+    }
   },
   gopls = {},
   rust_analyzer = {},
   svelte = {},
+  tsserver = {
+    cmd = { "bun", "x", "typescript-language-server", "--stdio" }
+  },
   html = {},
   astro = {},
   eslint = {},
+  tailwindcss = {
+    capabilities = capabilities,
+    init_options = {
+      userLanguages = {
+        htmldjango = "html",
+      },
+    }
+  }
 }
 
 require('neodev').setup()
 require('mason').setup()
+require('mason-null-ls').setup({
+  automatic_installation = true,
+  ensure_installed = {
+    "black",
+    "eslint_d",
+    "prettier",
+    "djlint",
+    "mypy",
+  }
+})
 
 
 local mason_lspconfig = require('mason-lspconfig')
@@ -852,13 +913,54 @@ require('lspconfig').denols.setup({
 local cmp = require('cmp')
 local luasnip = require('luasnip')
 
-luasnip.config.setup()
+luasnip.config.setup({
+  history = true,
+  ext_base_prio = 100,
+  ext_prio_increase = 1,
+  enable_autosnippets = true,
+})
+
+luasnip.filetype_extend("python", {
+  "django"
+})
+
+luasnip.filetype_extend("html", {
+  "htmldjango"
+})
+
+require("luasnip.loaders.from_vscode").lazy_load()
 
 cmp.setup({
   snippet = {
     expand = function(args)
       luasnip.lsp_expand(args.body)
     end
+  },
+  window = {
+    completion = {
+      border = {
+        "╭",
+        "─",
+        "╮",
+        "│",
+        "╯",
+        "─",
+        "╰",
+        "│"
+      }
+    },
+    documentation = {
+      border = {
+        "╭",
+        "─",
+        "╮",
+        "│",
+        "╯",
+        "─",
+        "╰",
+        "│"
+      }
+    }
   },
   mapping = cmp.mapping.preset.insert({
     ['<C-d>'] = cmp.mapping.scroll_docs(-4),
@@ -889,9 +991,9 @@ cmp.setup({
   }),
   sources = {
     { name = 'nvim_lsp', max_item_count = 10 },
+    { name = 'luasnip',  max_item_count = 3 },
     { name = 'buffer',   max_item_count = 2 },
-    { name = 'copilot',  max_item_count = 2 },
-    { name = 'luasnip',  max_item_count = 2 },
+    -- { name = 'copilot',  max_item_count = 2 },
     { name = 'rg',       max_item_count = 1 }
   },
   formatting = {

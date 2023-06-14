@@ -120,6 +120,7 @@ in
       "nextcloud"
       "rustdesk"
       "inkscape"
+      "temurin8"
     ];
   };
 

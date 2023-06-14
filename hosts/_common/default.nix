@@ -42,11 +42,14 @@
       git-lfs
       nodejs
       nodePackages.pnpm
-      cargo-watch
+      nodePackages.typescript
       nodePackages.stylelint
+      cargo-watch
       proselint
       backblaze-b2
       poetry
+      mypy
+      bun
 
       # languages
       elixir

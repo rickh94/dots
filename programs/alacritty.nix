@@ -13,19 +13,19 @@
 
       font = {
         normal = {
-          family = "VictorMono Nerd Font";
+          family = "Hack Nerd Font";
           style = "Regular";
         };
         bold = {
-          family = "VictorMono Nerd Font";
+          family = "Hack Nerd Font";
           style = "Bold";
         };
         italic = {
-          family = "VictorMono Nerd Font";
+          family = "Hack Nerd Font";
           style = "Italic";
         };
         bold_italic = {
-          family = "VictorMono Nerd Font";
+          family = "Hack Nerd Font";
           style = "Bold Italic";
         };
         size = 13.0;

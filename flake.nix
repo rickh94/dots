@@ -22,7 +22,7 @@
 
   outputs = inputs@{ self, nixpkgs, darwin, home-manager, unstable }:
     let
-      chosenfonts = [ "FiraCode" "Hack" "CascadiaCode" "Hasklig" "Lilex" "VictorMono" ];
+      chosenfonts = [ "FiraCode" "Hack" "CascadiaCode" "Hasklig" "Lilex" "VictorMono" "Hermit" ];
     in
     {
       nixpkgs.config.allowUnfree = true;
@@ -132,7 +132,7 @@
         };
       };
 
-#      defaultPackage.x86_64-linux = home-manager.defaultPackage.x86_64-linux;
+      #      defaultPackage.x86_64-linux = home-manager.defaultPackage.x86_64-linux;
       defaultPackage.aarch64-darwin = home-manager.defaultPackage.aarch64-darwin;
     };
 }
