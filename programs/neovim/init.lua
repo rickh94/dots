@@ -114,7 +114,7 @@ require('lazy').setup({
       'williamboman/mason.nvim',
       'williamboman/mason-lspconfig.nvim',
       -- lsp status updates
-      { 'j-hui/fidget.nvim', opts = {} },
+      -- { 'j-hui/fidget.nvim', opts = { }, },
       -- additional lua config for nvim stuff
       'folke/neodev.nvim',
     },
@@ -296,25 +296,26 @@ require('lazy').setup({
   -- ui changes
   -- themes
   'folke/tokyonight.nvim',
-  'LunarVim/onedarker.nvim',
-  'ellisonleao/gruvbox.nvim',
-  'bluz71/vim-nightfly-colors',
-  'bluz71/vim-moonfly-colors',
-  {
-    'catppuccin/nvim',
-    name = 'catppuccin',
-    config = function()
-      require('catppuccin').setup({
-        flavor = "mocha",
-      })
-    end
-  },
-  {
-    'yorik1984/newpaper.nvim',
-    config = function()
-      require('newpaper').setup({ style = 'dark' })
-    end,
-  },
+  -- 'LunarVim/onedarker.nvim',
+  -- 'ellisonleao/gruvbox.nvim',
+  -- 'bluz71/vim-nightfly-colors',
+  -- 'bluz71/vim-moonfly-colors',
+  -- {
+  --   'catppuccin/nvim',
+  --   name = 'catppuccin',
+  --   config = function()
+  --     require('catppuccin').setup({
+  --       flavor = "mocha",
+  --     })
+  --   end
+  -- },
+  -- {
+  --   'yorik1984/newpaper.nvim',
+  --   config = function()
+  --     require('newpaper').setup({ style = 'dark' })
+  --   end,
+  -- },
+
 
   -- dashboard
   {
@@ -382,6 +383,7 @@ require('lazy').setup({
     config = function()
       local null_ls = require('null-ls')
       null_ls.setup({
+        debug = false,
         sources = {
           null_ls.builtins.code_actions.eslint_d,
           null_ls.builtins.code_actions.proselint,
@@ -407,13 +409,26 @@ require('lazy').setup({
           null_ls.builtins.diagnostics.sqlfluff,
           null_ls.builtins.diagnostics.standardjs,
           null_ls.builtins.diagnostics.stylelint,
+          -- null_ls.builtins.diagnostics.pylint.with {
+          --   diagnostics_postprocess = function(diagnostic)
+          --     diagnostic.code = diagnostic.message_id
+          --   end,
+          -- },
+          null_ls.builtins.diagnostics.pyproject_flake8,
           -- null_ls.builtins.diagnostics.vulture,
-        }
+        },
+        on_attach = function(client, bufnr)
+          if client.supports_method("textDocument/formatting") then
+            vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
+              vim.lsp.buf.format()
+            end, { desc = 'Format current buffer with LSP' })
+          end
+        end
       })
     end
   },
 
-  'jay-babu/mason-null-ls.nvim',
+  -- 'jay-babu/mason-null-ls.nvim',
 
   -- lilypond
   {
@@ -555,6 +570,7 @@ vim.o.scrolloff = 8
 
 vim.o.colorcolumn = "80"
 vim.o.wrap = false
+vim.o.nowrap = true
 
 -- highlight on yank
 local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
@@ -581,14 +597,14 @@ pcall(require('telescope').load_extension, 'fzf')
 pcall(require('telescope').load_extension, 'file_browser')
 
 require('rust-tools').inlay_hints.enable()
+--
+-- require('lspkind').init({
+--   symbol_map = {
+--     Copilot = ""
+--   }
+-- })
 
-require('lspkind').init({
-  symbol_map = {
-    Copilot = ""
-  }
-})
-
-vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })
+-- vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })
 
 -- KEYMAP
 vim.g.mapleader = ' '
@@ -809,17 +825,19 @@ capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
 -- LSP Server Setup
 local servers = {
-  pyright = {
-    pyright = { autoImportCompletion = true },
-    python = {
-      analysis = {
-        autoSearchPaths = true,
-        diagnosticMode = 'openFilesOnly',
-        useLibraryCodeFOrTypes = true,
-        typeCheckingMode = 'off'
-      },
-    },
-  },
+  -- pyright = {
+  --   pyright = {
+  --     autoImportCompletion = true,
+  --   },
+  --   python = {
+  --     analysis = {
+  --       autoSearchPaths = true,
+  --       diagnosticMode = 'openFilesOnly',
+  --       useLibraryCodeFOrTypes = true,
+  --       typeCheckingMode = 'off'
+  --     },
+  --   },
+  -- },
   lua_ls = {
     Lua = {
       workspace = { checkThirdParty = false },
@@ -853,13 +871,14 @@ local servers = {
   },
   gopls = {},
   rust_analyzer = {},
-  svelte = {},
-  tsserver = {
-    cmd = { "bun", "x", "typescript-language-server", "--stdio" }
+  svelte = {
   },
-  html = {},
-  astro = {},
-  eslint = {},
+  html = {
+  },
+  astro = {
+  },
+  eslint = {
+  },
   tailwindcss = {
     capabilities = capabilities,
     init_options = {
@@ -872,16 +891,6 @@ local servers = {
 
 require('neodev').setup()
 require('mason').setup()
-require('mason-null-ls').setup({
-  automatic_installation = true,
-  ensure_installed = {
-    "black",
-    "eslint_d",
-    "prettier",
-    "djlint",
-    "mypy",
-  }
-})
 
 
 local mason_lspconfig = require('mason-lspconfig')
@@ -900,12 +909,32 @@ mason_lspconfig.setup_handlers({
 
 require('lspconfig').tsserver.setup({
   root_dir = require('lspconfig').util.root_pattern("package.json"),
-  single_file_support = false
-})
+  single_file_support = false,
+  cmd = { "bun", "x", "typescript-language-server", "--stdio" }
 
-require('lspconfig').denols.setup({
-  root_dir = require('lspconfig').util.root_pattern("deno.json"),
 })
+require('lspconfig').eslint.setup({
+  cmd = { 'bun', 'x', 'eslint-language-server', '--stdio' },
+})
+require('lspconfig').svelte.setup({
+  cmd = { 'bun', 'x', 'svelteserver', '--stdio' },
+})
+require('lspconfig').tailwindcss.setup({
+  cmd = { 'bun', 'x', 'tailwindcss-language-server', '--stdio' },
+})
+require('lspconfig').astro.setup({
+  cmd = { 'bun', 'x', 'astro-ls', '--stdio' },
+})
+require('lspconfig').emmet_ls.setup({
+  cmd = { 'bun', 'x', 'emmet-ls', '--stdio' },
+})
+-- require('lspconfig').pyright.setup({
+--   cmd = { 'bun', 'x', 'pyright-langserver', '--stdio' }
+-- })
+
+-- require('lspconfig').denols.setup({
+--   root_dir = require('lspconfig').util.root_pattern("deno.json"),
+-- })
 
 
 

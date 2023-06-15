@@ -71,6 +71,10 @@
       wiki-tui
       jq
       obsidian
+
+
+      # random
+      montserrat
     ];
 
     file."Wallpapers/wallpapers.txt" = {
