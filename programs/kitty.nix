@@ -12,9 +12,9 @@
       cursor_shape = "beam";
       background_opacity = "0.95";
       hide_window_decorations = "yes";
-      bold_font = "VictorMono Nerd Font Mono Bold";
-      italic_font = "VictorMono Nerd Font Mono Italic";
-      bold_italic_font = "VictorMono Nerd Font Mono Bold Italic";
+      bold_font = "Hack Nerd Font Mono Bold";
+      italic_font = "Hack Nerd Font Mono Italic";
+      bold_italic_font = "Hack Nerd Font Mono Bold Italic";
     };
     # theme = "Molokai";
   };

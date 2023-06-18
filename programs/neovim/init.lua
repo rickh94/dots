@@ -77,6 +77,15 @@ require('lazy').setup({
       return vim.fn.executable 'make' == 1
     end
   },
+
+  {
+    'nvim-telescope/telescope-file-browser.nvim',
+    dependencies = {
+      'nvim-telescope/telescope.nvim',
+      'nvim-tree/nvim-web-devicons',
+      'nvim-lua/plenary.nvim',
+    },
+  },
   -- file tree
   {
     'nvim-tree/nvim-tree.lua',
@@ -105,7 +114,7 @@ require('lazy').setup({
       'williamboman/mason.nvim',
       'williamboman/mason-lspconfig.nvim',
       -- lsp status updates
-      { 'j-hui/fidget.nvim', opts = {} },
+      -- { 'j-hui/fidget.nvim', opts = { }, },
       -- additional lua config for nvim stuff
       'folke/neodev.nvim',
     },
@@ -124,6 +133,12 @@ require('lazy').setup({
       'hrsh7th/cmp-path',
       'hrsh7th/cmp-cmdline',
       'lukas-reineke/cmp-rg',
+    },
+  },
+  {
+    'L3MON4D3/LuaSnip',
+    dependencies = {
+      "rafamadriz/friendly-snippets"
     },
   },
 
@@ -171,18 +186,19 @@ require('lazy').setup({
       show_trailing_blankline_indent = false,
     }
   },
-  {
-    'echasnovski/mini.indentscope',
-    version = '*',
-    config = function()
-      require('mini.indentscope').setup()
-    end,
-  },
+  -- {
+  --   'echasnovski/mini.indentscope',
+  --   version = '*',
+  --   config = function()
+  --     require('mini.indentscope').setup()
+  --   end,
+  -- },
+  'tpope/vim-dadbod',
 
 
   -- language support plugins
   -- edgedb
-  'edgedb/edgedb-vim',
+  -- 'edgedb/edgedb-vim',
   'NoahTheDuke/vim-just',
 
   -- rust
@@ -245,51 +261,61 @@ require('lazy').setup({
   -- css
   'ap/vim-css-color',
 
-  -- copilot
+  -- codeium ai coding assistant
   {
-    'zbirenbaum/copilot.lua',
-    cmd = 'Copilot',
-    event = 'InsertEnter',
+    'Exafunction/codeium.vim',
     config = function()
-      require('copilot').setup({
-        suggestion = { enabled = false },
-        panel = { enabled = false },
-      })
-    end,
-  },
-  {
-    'zbirenbaum/copilot-cmp',
-    after = { 'copilot.lua' },
-    config = function()
-      require('copilot_cmp').setup()
+      vim.keymap.set('i', '<C-g>', function() return vim.fn['codeium#Accept']() end, { expr = true })
+      vim.keymap.set('i', '<c-;>', function() return vim.fn['codeium#CycleCompletions'](1) end, { expr = true })
+      vim.keymap.set('i', '<c-,>', function() return vim.fn['codeium#CycleCompletions'](-1) end, { expr = true })
+      vim.keymap.set('i', '<c-x>', function() return vim.fn['codeium#Clear']() end, { expr = true })
     end
   },
 
-  -- random snippets
-  'rafamadriz/friendly-snippets',
+  -- copilot
+  -- {
+  --   'zbirenbaum/copilot.lua',
+  --   cmd = 'Copilot',
+  --   event = 'InsertEnter',
+  --   config = function()
+  --     require('copilot').setup({
+  --       suggestion = { enabled = false },
+  --       panel = { enabled = false },
+  --     })
+  --   end,
+  -- },
+  -- {
+  --   'zbirenbaum/copilot-cmp',
+  --   after = { 'copilot.lua' },
+  --   config = function()
+  --     require('copilot_cmp').setup()
+  --   end
+  -- },
+
 
   -- ui changes
   -- themes
   'folke/tokyonight.nvim',
-  'LunarVim/onedarker.nvim',
-  'ellisonleao/gruvbox.nvim',
-  'bluz71/vim-nightfly-colors',
-  'bluz71/vim-moonfly-colors',
-  {
-    'catppuccin/nvim',
-    name = 'catppuccin',
-    config = function()
-      require('catppuccin').setup({
-        flavor = "mocha",
-      })
-    end
-  },
-  {
-    'yorik1984/newpaper.nvim',
-    config = function()
-      require('newpaper').setup({ style = 'dark' })
-    end,
-  },
+  -- 'LunarVim/onedarker.nvim',
+  -- 'ellisonleao/gruvbox.nvim',
+  -- 'bluz71/vim-nightfly-colors',
+  -- 'bluz71/vim-moonfly-colors',
+  -- {
+  --   'catppuccin/nvim',
+  --   name = 'catppuccin',
+  --   config = function()
+  --     require('catppuccin').setup({
+  --       flavor = "mocha",
+  --     })
+  --   end
+  -- },
+  -- {
+  --   'yorik1984/newpaper.nvim',
+  --   config = function()
+  --     require('newpaper').setup({ style = 'dark' })
+  --   end,
+  -- },
+
 
   -- dashboard
   {
@@ -357,29 +383,52 @@ require('lazy').setup({
     config = function()
       local null_ls = require('null-ls')
       null_ls.setup({
+        debug = false,
         sources = {
           null_ls.builtins.code_actions.eslint_d,
           null_ls.builtins.code_actions.proselint,
           null_ls.builtins.code_actions.refactoring,
           null_ls.builtins.code_actions.shellcheck,
           null_ls.builtins.formatting.djlint,
+          null_ls.builtins.formatting.prettier,
           null_ls.builtins.formatting.isort,
           null_ls.builtins.formatting.black,
           null_ls.builtins.formatting.json_tool,
           null_ls.builtins.formatting.just,
           null_ls.builtins.diagnostics.djlint,
-          null_ls.builtins.diagnostics.jshint,
           null_ls.builtins.diagnostics.jsonlint,
+          null_ls.builtins.diagnostics.mypy.with {
+            command = {
+              "python",
+              "-m",
+              "mypy"
+            }
+          },
           -- null_ls.builtins.diagnostics.markuplint,
           null_ls.builtins.diagnostics.proselint,
           null_ls.builtins.diagnostics.sqlfluff,
           null_ls.builtins.diagnostics.standardjs,
           null_ls.builtins.diagnostics.stylelint,
+          -- null_ls.builtins.diagnostics.pylint.with {
+          --   diagnostics_postprocess = function(diagnostic)
+          --     diagnostic.code = diagnostic.message_id
+          --   end,
+          -- },
+          null_ls.builtins.diagnostics.pyproject_flake8,
           -- null_ls.builtins.diagnostics.vulture,
-        }
+        },
+        on_attach = function(client, bufnr)
+          if client.supports_method("textDocument/formatting") then
+            vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
+              vim.lsp.buf.format()
+            end, { desc = 'Format current buffer with LSP' })
+          end
+        end
       })
     end
   },
+
+  -- 'jay-babu/mason-null-ls.nvim',
 
   -- lilypond
   {
@@ -521,6 +570,7 @@ vim.o.scrolloff = 8
 
 vim.o.colorcolumn = "80"
 vim.o.wrap = false
+vim.o.nowrap = true
 
 -- highlight on yank
 local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
@@ -541,19 +591,20 @@ require('telescope').setup({
         ['<C-d>'] = false,
       }
     }
-  }
+  },
 })
 pcall(require('telescope').load_extension, 'fzf')
+pcall(require('telescope').load_extension, 'file_browser')
 
 require('rust-tools').inlay_hints.enable()
+--
+-- require('lspkind').init({
+--   symbol_map = {
+--     Copilot = ""
+--   }
+-- })
 
-require('lspkind').init({
-  symbol_map = {
-    Copilot = ""
-  }
-})
-
-vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })
+-- vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })
 
 -- KEYMAP
 vim.g.mapleader = ' '
@@ -667,6 +718,7 @@ wk.register({
 
 
 wk.register({
+  f = { b = { '<cmd>Telescope file_browser<cr>', 'Open Telescope File Browser' } },
   -- NVIM TREE KEYBINDS
   e = { '<cmd>NvimTreeToggle<cr>', 'Open/close file tree' },
   o = { '<cmd>NvimTreeFocus<cr>', 'Focus file tree' },
@@ -773,17 +825,19 @@ capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
 -- LSP Server Setup
 local servers = {
-  pyright = {
-    pyright = { autoImportCompletion = true },
-    python = {
-      analysis = {
-        autoSearchPaths = true,
-        diagnosticMode = 'openFilesOnly',
-        useLibraryCodeFOrTypes = true,
-        typeCheckingMode = 'off'
-      },
-    },
-  },
+  -- pyright = {
+  --   pyright = {
+  --     autoImportCompletion = true,
+  --   },
+  --   python = {
+  --     analysis = {
+  --       autoSearchPaths = true,
+  --       diagnosticMode = 'openFilesOnly',
+  --       useLibraryCodeFOrTypes = true,
+  --       typeCheckingMode = 'off'
+  --     },
+  --   },
+  -- },
   lua_ls = {
     Lua = {
       workspace = { checkThirdParty = false },
@@ -806,17 +860,33 @@ local servers = {
       'less',
       'svelte',
       'vue',
-      'htmldjango',
       'twig',
       'astro',
     },
+    init_options = {
+      userLanguages = {
+        htmldjango = "html",
+      },
+    }
   },
   gopls = {},
   rust_analyzer = {},
-  svelte = {},
-  html = {},
-  astro = {},
-  eslint = {},
+  svelte = {
+  },
+  html = {
+  },
+  astro = {
+  },
+  eslint = {
+  },
+  tailwindcss = {
+    capabilities = capabilities,
+    init_options = {
+      userLanguages = {
+        htmldjango = "html",
+      },
+    }
+  }
 }
 
 require('neodev').setup()
@@ -839,12 +909,32 @@ mason_lspconfig.setup_handlers({
 
 require('lspconfig').tsserver.setup({
   root_dir = require('lspconfig').util.root_pattern("package.json"),
-  single_file_support = false
-})
+  single_file_support = false,
+  cmd = { "bun", "x", "typescript-language-server", "--stdio" }
 
-require('lspconfig').denols.setup({
-  root_dir = require('lspconfig').util.root_pattern("deno.json"),
 })
+require('lspconfig').eslint.setup({
+  cmd = { 'bun', 'x', 'eslint-language-server', '--stdio' },
+})
+require('lspconfig').svelte.setup({
+  cmd = { 'bun', 'x', 'svelteserver', '--stdio' },
+})
+require('lspconfig').tailwindcss.setup({
+  cmd = { 'bun', 'x', 'tailwindcss-language-server', '--stdio' },
+})
+require('lspconfig').astro.setup({
+  cmd = { 'bun', 'x', 'astro-ls', '--stdio' },
+})
+require('lspconfig').emmet_ls.setup({
+  cmd = { 'bun', 'x', 'emmet-ls', '--stdio' },
+})
+-- require('lspconfig').pyright.setup({
+--   cmd = { 'bun', 'x', 'pyright-langserver', '--stdio' }
+-- })
+
+-- require('lspconfig').denols.setup({
+--   root_dir = require('lspconfig').util.root_pattern("deno.json"),
+-- })
 
 
 
@@ -852,13 +942,54 @@ require('lspconfig').denols.setup({
 local cmp = require('cmp')
 local luasnip = require('luasnip')
 
-luasnip.config.setup()
+luasnip.config.setup({
+  history = true,
+  ext_base_prio = 100,
+  ext_prio_increase = 1,
+  enable_autosnippets = true,
+})
+
+luasnip.filetype_extend("python", {
+  "django"
+})
+
+luasnip.filetype_extend("html", {
+  "htmldjango"
+})
+
+require("luasnip.loaders.from_vscode").lazy_load()
 
 cmp.setup({
   snippet = {
     expand = function(args)
       luasnip.lsp_expand(args.body)
     end
+  },
+  window = {
+    completion = {
+      border = {
+        "╭",
+        "─",
+        "╮",
+        "│",
+        "╯",
+        "─",
+        "╰",
+        "│"
+      }
+    },
+    documentation = {
+      border = {
+        "╭",
+        "─",
+        "╮",
+        "│",
+        "╯",
+        "─",
+        "╰",
+        "│"
+      }
+    }
   },
   mapping = cmp.mapping.preset.insert({
     ['<C-d>'] = cmp.mapping.scroll_docs(-4),
@@ -889,9 +1020,9 @@ cmp.setup({
   }),
   sources = {
     { name = 'nvim_lsp', max_item_count = 10 },
+    { name = 'luasnip',  max_item_count = 3 },
     { name = 'buffer',   max_item_count = 2 },
-    { name = 'copilot',  max_item_count = 2 },
-    { name = 'luasnip',  max_item_count = 2 },
+    -- { name = 'copilot',  max_item_count = 2 },
     { name = 'rg',       max_item_count = 1 }
   },
   formatting = {

@@ -7,6 +7,12 @@
       default_shell "${pkgs.fish}/bin/fish"
       theme "molokai-dark"
       on_force_close "quit"
+      keybinds {
+          unbind "Ctrl g"
+          normal {
+            unbind "Ctrl o"
+          }
+      }
 
       themes {
           molokai-dark {
