@@ -118,13 +118,7 @@ in
     enable = true;
     bars = {
       bottom = {
-        settings = {
-          theme = {
-            name = "nord-dark";
-          };
-          icons.name = "awesome5";
-        };
-        # icons = "awesome5";
+        icons = "awesome6";
         # theme = "nord-dark";
         blocks = [
           {

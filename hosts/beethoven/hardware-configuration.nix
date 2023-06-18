@@ -14,7 +14,7 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "nvme/root";
+    { device = "nvme/local/root";
       fsType = "zfs";
     };
 
@@ -24,17 +24,17 @@
     };
 
   fileSystems."/nix" =
-    { device = "nvme/nix";
+    { device = "nvme/local/nix";
       fsType = "zfs";
     };
 
   fileSystems."/persist" =
-    { device = "nvme/persist";
+    { device = "nvme/safe/persist";
       fsType = "zfs";
     };
 
   fileSystems."/home" =
-    { device = "nvme/home";
+    { device = "nvme/safe/home";
       fsType = "zfs";
     };
 
