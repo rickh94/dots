@@ -231,7 +231,7 @@ in
   };
 
   boot.initrd.postDeviceCommands = lib.mkAfter ''
-    zfs rollback -r rpool/local/root@blank
+    zfs rollback -r nvme/local/root@blank
   '';
 
   fileSystems."/persist".neededForBoot = true;
