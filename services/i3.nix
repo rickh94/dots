@@ -119,7 +119,6 @@ in
     bars = {
       bottom = {
         icons = "awesome6";
-        # theme = "nord-dark";
         blocks = [
           {
             block = "disk_space";

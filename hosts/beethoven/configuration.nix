@@ -227,11 +227,13 @@ in
       "/etc/ssh/ssh_host_ed25519_key"
       "/etc/ssh/ssh_host_ed25519_key.pub"
       "/etc/machine-id"
+      "/opt/syncoid/id_ed25519"
+      "/opt/syncoid/id_ed25519.pub"
     ];
   };
 
   boot.initrd.postDeviceCommands = lib.mkAfter ''
-    zfs rollback -r rpool/local/root@blank
+    zfs rollback -r nvme/local/root@blank
   '';
 
   fileSystems."/persist".neededForBoot = true;
@@ -256,5 +258,27 @@ in
 
   services.redis.servers.default.enable = true;
   services.redis.servers.default.port = 6379;
+
+  services.sanoid = {
+    enable = true;
+    datasets = {
+      "nvme/safe" = {
+          recursive = true;
+          autosnap = true;
+          autoprune = true;
+      };
+    };
+  };
+
+  services.syncoid = {
+      enable = true;
+      sshKey = "/opt/syncoid/id_ed25519";
+      interval = "daily";
+      commands."chopin" = {
+          source = "nvme/safe";
+          target = "beethoven@chopin:backuptank/beethoven/nvme/safe";
+          recursive = true;
+        };
+    };
 }
 
