@@ -220,6 +220,7 @@ in
     directories = [
       "/etc/nixos"
       "/var/lib/containers/storage"
+      "/opt/syncoid"
     ];
     files = [
       "/etc/ssh/ssh_host_rsa_key"
@@ -227,8 +228,6 @@ in
       "/etc/ssh/ssh_host_ed25519_key"
       "/etc/ssh/ssh_host_ed25519_key.pub"
       "/etc/machine-id"
-      "/opt/syncoid/id_ed25519"
-      "/opt/syncoid/id_ed25519.pub"
     ];
   };
 
@@ -278,7 +277,12 @@ in
           source = "nvme/safe";
           target = "beethoven@chopin:backuptank/beethoven/nvme/safe";
           recursive = true;
+          extraArgs = [ "--sshoption=StrictHostKeyChecking=off"];
         };
     };
+
+  security.sudo.extraRules = [
+    { users = ["syncoid" "sanoid"]; commands = [{ command = "${pkgs.zfs}/bin/zfs"; options = ["NOPASSWD"]; }];}
+  ];
 }
 
