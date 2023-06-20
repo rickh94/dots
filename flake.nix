@@ -124,6 +124,18 @@
           extraSpecialArgs = { inherit inputs; inherit chosenfonts; i3mod = "Mod4"; };
         };
 
+        chopin = home-manager.lib.homeManagerConfiguration {
+          # pkgs = import nixpkgs.legacyPackages.x86_64-linux;
+          pkgs = import nixpkgs {
+              system = "x86_64-linux";
+              overlays = [codeium.overlays.x86_64-linux.default];
+            };
+          modules = [
+            ./hosts/chopin/home.nix
+          ];
+          extraSpecialArgs = { inherit inputs; inherit chosenfonts; };
+        };
+
         nixvm = home-manager.lib.homeManagerConfiguration {
           pkgs = import nixpkgs {
               system = "x86_64-linux";
