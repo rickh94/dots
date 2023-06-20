@@ -13,7 +13,7 @@ in
   boot.loader.efi.canTouchEfiVariables = true;
   boot.supportedFilesystems = [ "zfs" ];
   boot.zfs.devNodes = "/dev/disk/by-partuuid";
-  boot.tmpOnTmpfsSize = "8G";
+  boot.tmp.tmpFsSize = "8G";
   boot.kernelParams = [ "nohibernate" ];
 
 
