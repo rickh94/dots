@@ -10,7 +10,6 @@
   ];
 
   home = {
-    stateVersion = "22.11";
     sessionPath = [
       "${config.home.homeDirectory}/.cargo/bin"
       "${config.home.homeDirectory}/.local/bin"

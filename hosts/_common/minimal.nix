@@ -11,6 +11,7 @@
   ];
 
   home = {
+    stateVersion = "22.11";
     sessionVariables = {
       EDITOR = "nvim";
       MAKEFLAGS = "-j4";
