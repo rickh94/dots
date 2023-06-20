@@ -1,7 +1,6 @@
-{ pkgs, lib, ... }:
+{ pkgs, lib, i3mod, ... }:
 let
-  mod = "Mod4";
-  hyper = "Mod3";
+  mod = i3mod;
   refresh_i3status = "killall -SIGUSR1 i3status";
 in
 {

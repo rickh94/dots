@@ -121,7 +121,7 @@
           modules = [
             ./hosts/beethoven/home.nix
           ];
-          extraSpecialArgs = { inherit inputs; inherit chosenfonts; };
+          extraSpecialArgs = { inherit inputs; inherit chosenfonts; i3mod = "control"; };
         };
 
         nixvm = home-manager.lib.homeManagerConfiguration {
@@ -130,7 +130,7 @@
               overlays = [codeium.overlays.x86_64-linux.default];
             };
           modules = [ ./hosts/nixvm/home.nix ];
-          extraSpecialArgs = { inherit inputs; inherit chosenfonts; };
+          extraSpecialArgs = { inherit inputs; inherit chosenfonts; i3mod = "Mod4"; };
         };
 
         nixserver = home-manager.lib.homeManagerConfiguration {
