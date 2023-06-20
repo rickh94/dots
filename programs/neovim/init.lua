@@ -259,16 +259,16 @@ require('lazy').setup({
   },
 
   -- pathced codeium ai coding assistant
-   {
-     'rickh94/codeium.vim',
-     commit = "1d1325",
-     config = function()
-       vim.keymap.set('i', '<C-g>', function() return vim.fn['codeium#Accept']() end, { expr = true })
-       vim.keymap.set('i', '<c-;>', function() return vim.fn['codeium#CycleCompletions'](1) end, { expr = true })
-       vim.keymap.set('i', '<c-,>', function() return vim.fn['codeium#CycleCompletions'](-1) end, { expr = true })
-       vim.keymap.set('i', '<c-x>', function() return vim.fn['codeium#Clear']() end, { expr = true })
-     end
-   },
+  {
+    'rickh94/codeium.vim',
+    commit = "1d1325",
+    config = function()
+      vim.keymap.set('i', '<C-g>', function() return vim.fn['codeium#Accept']() end, { expr = true })
+      vim.keymap.set('i', '<c-;>', function() return vim.fn['codeium#CycleCompletions'](1) end, { expr = true })
+      vim.keymap.set('i', '<c-,>', function() return vim.fn['codeium#CycleCompletions'](-1) end, { expr = true })
+      vim.keymap.set('i', '<c-x>', function() return vim.fn['codeium#Clear']() end, { expr = true })
+    end
+  },
 
   -- copilot
   -- {
@@ -387,13 +387,17 @@ require('lazy').setup({
           null_ls.builtins.code_actions.proselint,
           null_ls.builtins.code_actions.refactoring,
           null_ls.builtins.code_actions.shellcheck,
-          null_ls.builtins.formatting.djlint,
+          null_ls.builtins.formatting.djlint.with {
+            filetypes = { "django", "jinja.html", "htmldjango", "djhtml" },
+          },
           null_ls.builtins.formatting.prettier,
           null_ls.builtins.formatting.isort,
           null_ls.builtins.formatting.black,
           null_ls.builtins.formatting.json_tool,
           null_ls.builtins.formatting.just,
-          null_ls.builtins.diagnostics.djlint,
+          null_ls.builtins.diagnostics.djlint.with {
+            filetypes = { "django", "jinja.html", "htmldjango", "djhtml" },
+          },
           null_ls.builtins.diagnostics.jsonlint,
           null_ls.builtins.diagnostics.mypy.with {
             command = {
@@ -405,7 +409,7 @@ require('lazy').setup({
           -- null_ls.builtins.diagnostics.markuplint,
           null_ls.builtins.diagnostics.proselint,
           null_ls.builtins.diagnostics.sqlfluff,
-          null_ls.builtins.diagnostics.standardjs,
+          -- null_ls.builtins.diagnostics.standardjs,
           null_ls.builtins.diagnostics.stylelint,
           -- null_ls.builtins.diagnostics.pylint.with {
           --   diagnostics_postprocess = function(diagnostic)
@@ -870,8 +874,6 @@ local servers = {
   gopls = {},
   rust_analyzer = {},
   svelte = {
-  },
-  html = {
   },
   astro = {
   },

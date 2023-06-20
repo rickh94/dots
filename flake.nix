@@ -46,7 +46,7 @@
           modules = [
             ./hosts/nixvm/configuration.nix
           ];
-          specialArgs = { inherit nixpkgs; };
+          specialArgs = { inherit nixpkgs; inherit chosenfonts; };
         };
 
         nixserver = nixpkgs.lib.nixosSystem {
@@ -125,8 +125,12 @@
         };
 
         nixvm = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.x86_64-linux;
+          pkgs = import nixpkgs {
+              system = "x86_64-linux";
+              overlays = [codeium.overlays.x86_64-linux.default];
+            };
           modules = [ ./hosts/nixvm/home.nix ];
+          extraSpecialArgs = { inherit inputs; inherit chosenfonts; };
         };
 
         nixserver = home-manager.lib.homeManagerConfiguration {
