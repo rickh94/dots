@@ -130,7 +130,7 @@
               overlays = [codeium.overlays.x86_64-linux.default];
             };
           modules = [ ./hosts/nixvm/home.nix ];
-          extraSpecialArgs = { inherit inputs; inherit chosenfonts; i3mod = "control"; };
+          extraSpecialArgs = { inherit inputs; inherit chosenfonts; i3mod = "Control"; };
         };
 
         nixserver = home-manager.lib.homeManagerConfiguration {
