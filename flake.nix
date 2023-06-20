@@ -130,6 +130,7 @@
               overlays = [codeium.overlays.x86_64-linux.default];
             };
           modules = [ ./hosts/nixvm/home.nix ];
+          extraSpecialArgs = { inherit inputs; inherit chosenfonts; };
         };
 
         nixserver = home-manager.lib.homeManagerConfiguration {
