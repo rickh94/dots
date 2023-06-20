@@ -132,10 +132,17 @@ in
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.mutableUsers = false;
-  users.users.rick = {
-    isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" "libvirtd" ]; # Enable ‘sudo’ for the user.
-    passwordFile = "/persist/passwd/rick";
+  users.users = {
+    rick = {
+      isNormalUser = true;
+      extraGroups = [ "wheel" "networkmanager" "libvirtd" ]; # Enable ‘sudo’ for the user.
+      passwordFile = "/persist/passwd/rick";
+    };
+
+    backupuser = {
+      isNormalUser = true;
+      createHome = true;
+    };
   };
 
   environment.systemPackages = with pkgs; [
@@ -220,7 +227,6 @@ in
     directories = [
       "/etc/nixos"
       "/var/lib/containers/storage"
-      "/opt/syncoid"
     ];
     files = [
       "/etc/ssh/ssh_host_rsa_key"
@@ -228,6 +234,8 @@ in
       "/etc/ssh/ssh_host_ed25519_key"
       "/etc/ssh/ssh_host_ed25519_key.pub"
       "/etc/machine-id"
+      "/var/lib/syncoid/id_ed25519"
+      "/var/lib/syncoid/id_ed25519.pub"
     ];
   };
 
@@ -271,7 +279,7 @@ in
 
   services.syncoid = {
       enable = true;
-      sshKey = "/opt/syncoid/id_ed25519";
+      sshKey = "/var/lib/syncoid/id_ed25519";
       interval = "daily";
       commands."chopin" = {
           source = "nvme/safe";
@@ -282,7 +290,7 @@ in
     };
 
   security.sudo.extraRules = [
-    { users = ["syncoid" "sanoid"]; commands = [{ command = "${pkgs.zfs}/bin/zfs"; options = ["NOPASSWD"]; }];}
+    { users = ["syncoid" "sanoid" "backupuser"]; commands = [{ command = "${pkgs.zfs}/bin/zfs"; options = ["NOPASSWD"]; }];}
   ];
 }
 
