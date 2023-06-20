@@ -24,7 +24,6 @@
       wget
       tree
       # neovim
-      nushell
       zoxide
       fish
       mosh

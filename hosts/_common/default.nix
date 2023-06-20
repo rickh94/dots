@@ -27,7 +27,6 @@
       killall
 
       # dev tools
-      neovide
       gibo
       direnv
       nix-direnv
@@ -36,7 +35,6 @@
       ngrok
       gh
       bacon
-      gitui
       cargo-expand
       microserver
       git-lfs
@@ -66,12 +64,8 @@
       zoom-us
 
       # misc
-      ncspot
       sccache
-      wiki-tui
       jq
-      obsidian
-
 
       # random
       montserrat

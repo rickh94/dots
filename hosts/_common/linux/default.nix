@@ -36,14 +36,6 @@ in
 
     # deployment
     morph
-    terraform
-    terraform-providers.docker
-    terraform-providers.oci
-    terraform-providers.aws
-    terraform-providers.ibm
-    terraform-providers.digitalocean
-    terraform-providers.linode
-    terraform-providers.libvirt
 
     # creative
     musescore
