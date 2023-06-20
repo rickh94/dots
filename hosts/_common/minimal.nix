@@ -38,6 +38,7 @@
       pv
       netcat
       git-crypt
+      gnupg
 
       # languages
       go
