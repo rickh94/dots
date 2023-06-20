@@ -7,7 +7,6 @@
     ../_common/linux/minimal.nix
     ../../programs/direnv/default.nix
     ../../programs/tmux.nix
-    ../../programs/atuin.nix
   ];
   home.username = "rick";
   home.homeDirectory = "/home/rick";
