@@ -137,12 +137,9 @@ in
       isNormalUser = true;
       extraGroups = [ "wheel" "networkmanager" "libvirtd" ]; # Enable ‘sudo’ for the user.
       passwordFile = "/persist/passwd/rick";
+      uid = 1000;
     };
 
-    backupuser = {
-      isNormalUser = true;
-      createHome = true;
-    };
   };
 
   environment.systemPackages = with pkgs; [
@@ -290,7 +287,7 @@ in
     };
 
   security.sudo.extraRules = [
-    { users = ["syncoid" "sanoid" "backupuser"]; commands = [{ command = "${pkgs.zfs}/bin/zfs"; options = ["NOPASSWD"]; }];}
+    { users = ["syncoid" "sanoid"]; commands = [{ command = "${pkgs.zfs}/bin/zfs"; options = ["NOPASSWD"]; }];}
   ];
 }
 
