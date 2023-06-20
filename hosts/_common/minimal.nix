@@ -23,7 +23,7 @@
       # basics
       wget
       tree
-      neovim
+      # neovim
       nushell
       zoxide
       fish

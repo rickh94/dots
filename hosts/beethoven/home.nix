@@ -20,6 +20,7 @@
     pkgs.xss-lock
     pkgs.xorg.xmodmap
     pkgs.xorg.setxkbmap
+    inputs.codeium.packages.x86_64-linux.codeium-lsp
   ];
 
   programs.rofi.enable = true;

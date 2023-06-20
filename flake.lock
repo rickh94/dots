@@ -1,5 +1,26 @@
 {
   "nodes": {
+    "codeium": {
+      "inputs": {
+        "flake-utils": "flake-utils",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1686709473,
+        "narHash": "sha256-W5ek0WOQgYvQKe8uyalHRuwYyYIvaSckxmCkHKaxlTQ=",
+        "owner": "jcdickinson",
+        "repo": "codeium.nvim",
+        "rev": "68bee19b25150bd8fb46739cad5887637f315d3a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "jcdickinson",
+        "repo": "codeium.nvim",
+        "type": "github"
+      }
+    },
     "darwin": {
       "inputs": {
         "nixpkgs": [
@@ -18,6 +39,21 @@
         "owner": "lnl7",
         "ref": "master",
         "repo": "nix-darwin",
+        "type": "github"
+      }
+    },
+    "flake-utils": {
+      "locked": {
+        "lastModified": 1667395993,
+        "narHash": "sha256-nuEHfE/LcWyuSWnS8t12N1wc105Qtau+/OdUAjtQ0rA=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "5aed5285a952e0b949eb3ba02c12fa4fcfef535f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
         "type": "github"
       }
     },
@@ -59,6 +95,7 @@
     },
     "root": {
       "inputs": {
+        "codeium": "codeium",
         "darwin": "darwin",
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",

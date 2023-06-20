@@ -19,13 +19,13 @@ require('lazy').setup({
   'tpope/vim-rhubarb',
 
   -- autodetect ts and sw
-  -- 'tpope/vim-sleuth',
-  {
-    'NMAC427/guess-indent.nvim',
-    config = function()
-      require('guess-indent').setup({})
-    end
-  },
+  'tpope/vim-sleuth',
+  -- {
+  --   'NMAC427/guess-indent.nvim',
+  --   config = function()
+  --     require('guess-indent').setup({})
+  --   end
+  -- },
 
   -- fix behavior of .
   'tpope/vim-repeat',
@@ -179,13 +179,13 @@ require('lazy').setup({
   },
 
   -- indent blankline and scope
-  {
-    'lukas-reineke/indent-blankline.nvim',
-    opts = {
-      char = '┊',
-      show_trailing_blankline_indent = false,
-    }
-  },
+  -- {
+  --   'lukas-reineke/indent-blankline.nvim',
+  --   opts = {
+  --     char = '┊',
+  --     show_trailing_blankline_indent = false,
+  --   }
+  -- },
   -- {
   --   'echasnovski/mini.indentscope',
   --   version = '*',
@@ -258,19 +258,17 @@ require('lazy').setup({
     end,
   },
 
-  -- css
-  'ap/vim-css-color',
-
-  -- codeium ai coding assistant
-  {
-    'Exafunction/codeium.vim',
-    config = function()
-      vim.keymap.set('i', '<C-g>', function() return vim.fn['codeium#Accept']() end, { expr = true })
-      vim.keymap.set('i', '<c-;>', function() return vim.fn['codeium#CycleCompletions'](1) end, { expr = true })
-      vim.keymap.set('i', '<c-,>', function() return vim.fn['codeium#CycleCompletions'](-1) end, { expr = true })
-      vim.keymap.set('i', '<c-x>', function() return vim.fn['codeium#Clear']() end, { expr = true })
-    end
-  },
+  -- pathced codeium ai coding assistant
+   {
+     'rickh94/codeium.vim',
+     commit = "1d1325",
+     config = function()
+       vim.keymap.set('i', '<C-g>', function() return vim.fn['codeium#Accept']() end, { expr = true })
+       vim.keymap.set('i', '<c-;>', function() return vim.fn['codeium#CycleCompletions'](1) end, { expr = true })
+       vim.keymap.set('i', '<c-,>', function() return vim.fn['codeium#CycleCompletions'](-1) end, { expr = true })
+       vim.keymap.set('i', '<c-x>', function() return vim.fn['codeium#Clear']() end, { expr = true })
+     end
+   },
 
   -- copilot
   -- {

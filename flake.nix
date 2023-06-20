@@ -17,10 +17,14 @@
     };
 
     unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    codeium = {
+      url = "github:jcdickinson/codeium.nvim";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
   };
 
-  outputs = inputs@{ self, nixpkgs, darwin, home-manager, unstable }:
+  outputs = inputs@{ self, nixpkgs, darwin, home-manager, unstable, codeium }:
     let
       chosenfonts = [ "FiraCode" "Hack" "CascadiaCode" "Hasklig" "Lilex" "VictorMono" "Hermit" ];
     in
@@ -109,7 +113,11 @@
 
       homeConfigurations = {
         beethoven = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.x86_64-linux;
+          # pkgs = import nixpkgs.legacyPackages.x86_64-linux;
+          pkgs = import nixpkgs {
+              system = "x86_64-linux";
+              overlays = [codeium.overlays.x86_64-linux.default];
+            };
           modules = [
             ./hosts/beethoven/home.nix
           ];
