@@ -20,7 +20,7 @@
     pkgs.xss-lock
     pkgs.xorg.xmodmap
     pkgs.xorg.setxkbmap
-    inputs.codeium.packages.aarch64-linux.codeium-lsp
+    # inputs.codeium.packages.aarch64-linux.codeium-lsp
   ];
 
 
