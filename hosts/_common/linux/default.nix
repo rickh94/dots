@@ -45,5 +45,9 @@ in
     obs-studio
     lilypond
     okular
+
+    # utils
+    flameshot
+    nomacs
   ];
 }
