@@ -30,7 +30,6 @@
       direnv
       nix-direnv
       redis
-      vscodium
       ngrok
       gh
       bacon
@@ -55,12 +54,10 @@
       audacity
 
       # rust replacements
-      helix
       tokei
       atuin
 
       # communication
-      zoom-us
 
       # misc
       sccache

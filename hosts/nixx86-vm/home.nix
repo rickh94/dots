@@ -1,10 +1,10 @@
-{ config, lib, pkgs, chosenfonts, inputs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 {
 
   imports = [
     ../../services/i3.nix
-    ../_common/desktop.nix
-    ../_common/linux/desktop.nix
+    ../_common/default.nix
+    ../_common/linux/default.nix
   ];
   home.username = "rick";
   home.homeDirectory = "/home/rick";
@@ -22,6 +22,7 @@
     pkgs.xorg.setxkbmap
     inputs.codeium.packages.x86_64-linux.codeium-lsp
   ];
+
 
   programs.rofi.enable = true;
   systemd.user.startServices = true;

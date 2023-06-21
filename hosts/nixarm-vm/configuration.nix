@@ -1,4 +1,4 @@
-{ config, pkgs, lib, chosenfonts, inputs, ... }:
+{ config, pkgs, lib, chosenfonts, ... }:
 {
   imports =
     [
@@ -6,18 +6,13 @@
       ../_common/linux/configuration/boot.nix
       ../_common/linux/configuration/basic.nix
       ../_common/linux/configuration/xconfig.nix
-      ../_common/linux/configuration/virt.nix
       ../_common/linux/configuration/podman.nix
+      ../_common/linux/configuration/impermanence.nix
       ../_common/linux/configuration/users-rick.nix
-      ./impermanence.nix
-      ./nvidia.nix
-      ./backup.nix
     ];
 
-
-
-  networking.hostName = "beethoven";
-  networking.hostId = "85462731";
+  networking.hostName = "nixarm-vm";
+  networking.hostId = "99a4b702";
 
   environment.systemPackages = with pkgs; [
     firefox
@@ -30,21 +25,15 @@
     xdotool
     xorg.xwininfo
     lightdm-slick-greeter
+    nushell
     wireguard-tools
     tree
     curl
-    pavucontrol
     podman
     podman-compose
-    qemu_full
-    nextcloud-client
   ];
 
   environment.pathsToLink = [ "/libexec" ];
-
-
-  # services.redis.servers.default.enable = true;
-  # services.redis.servers.default.port = 6379;
 
 }
 

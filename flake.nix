@@ -114,9 +114,9 @@
       homeConfigurations = {
         beethoven = home-manager.lib.homeManagerConfiguration {
           pkgs = import nixpkgs {
-              system = "x86_64-linux";
-              overlays = [codeium.overlays.x86_64-linux.default];
-            };
+            system = "x86_64-linux";
+            overlays = [ codeium.overlays.x86_64-linux.default ];
+          };
           modules = [
             ./hosts/beethoven/home.nix
           ];
@@ -125,9 +125,9 @@
 
         chopin = home-manager.lib.homeManagerConfiguration {
           pkgs = import nixpkgs {
-              system = "x86_64-linux";
-              overlays = [codeium.overlays.x86_64-linux.default];
-            };
+            system = "x86_64-linux";
+            overlays = [ codeium.overlays.x86_64-linux.default ];
+          };
           modules = [
             ./hosts/chopin/home.nix
           ];
@@ -136,9 +136,23 @@
 
         nixvm = home-manager.lib.homeManagerConfiguration {
           pkgs = import nixpkgs {
-              system = "x86_64-linux";
-              overlays = [codeium.overlays.x86_64-linux.default];
-            };
+            system = "x86_64-linux";
+            overlays = [ codeium.overlays.x86_64-linux.default ];
+          };
+          modules = [ ./hosts/nixvm/home.nix ];
+          extraSpecialArgs = { inherit inputs; inherit chosenfonts; i3mod = "Control"; };
+        };
+
+        nixx86-vm = home-manager.lib.homeManagerConfiguration {
+          pkgs = import nixpkgs {
+            system = "x86_64-linux";
+          };
+          modules = [ ./hosts/nixvm/home.nix ];
+          extraSpecialArgs = { inherit inputs; inherit chosenfonts; i3mod = "Control"; };
+        };
+
+        nixarm-vm = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.aarch64-linux;
           modules = [ ./hosts/nixvm/home.nix ];
           extraSpecialArgs = { inherit inputs; inherit chosenfonts; i3mod = "Control"; };
         };

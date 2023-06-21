@@ -1,7 +1,7 @@
 { lib, config, pkgs, nixpkgs, ... }:
 {
   imports = [
-    ../_common/default.nix
+    ../_common/desktop.nix
     ../_common/mac/home-activation.nix
     ../../services/yabairc.nix
     ../../services/skhdrc.nix

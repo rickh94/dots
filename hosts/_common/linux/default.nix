@@ -1,9 +1,4 @@
 { config, lib, pkgs, inputs, chosenfonts, ... }:
-let
-  unstable = import inputs.unstable {
-    system = pkgs.system;
-  };
-in
 {
   imports = [
     ./minimal.nix
@@ -15,14 +10,7 @@ in
     firefox
     handbrake
     (nerdfonts.override { fonts = chosenfonts; })
-    thunderbird
-    vlc
-    brave
-    ungoogled-chromium
-    spotify
-    syncthing
     wireguard-tools
-    bitwarden
     xclip
 
     # cloud stuff
@@ -37,17 +25,5 @@ in
     # deployment
     morph
 
-    # creative
-    musescore
-    inkscape
-    gimp
-    krita
-    obs-studio
-    lilypond
-    okular
-
-    # utils
-    flameshot
-    nomacs
   ];
 }
