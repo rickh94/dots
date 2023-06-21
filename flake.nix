@@ -49,6 +49,22 @@
           specialArgs = { inherit nixpkgs; inherit chosenfonts; };
         };
 
+        nixx86-vm = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            ./hosts/nixx86-vm/configuration.nix
+          ];
+          specialArgs = { inherit nixpkgs; inherit chosenfonts; };
+        };
+
+        nixarm-vm = nixpkgs.lib.nixosSystem {
+          system = "aarch64-linux";
+          modules = [
+            ./hosts/nixarm-vm/configuration.nix
+          ];
+          specialArgs = { inherit nixpkgs; inherit chosenfonts; };
+        };
+
         nixserver = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           modules = [
@@ -147,13 +163,13 @@
           pkgs = import nixpkgs {
             system = "x86_64-linux";
           };
-          modules = [ ./hosts/nixvm/home.nix ];
+          modules = [ ./hosts/nixx86-vm/home.nix ];
           extraSpecialArgs = { inherit inputs; inherit chosenfonts; i3mod = "Control"; };
         };
 
         nixarm-vm = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.aarch64-linux;
-          modules = [ ./hosts/nixvm/home.nix ];
+          modules = [ ./hosts/nixarm-vm/home.nix ];
           extraSpecialArgs = { inherit inputs; inherit chosenfonts; i3mod = "Control"; };
         };
 
