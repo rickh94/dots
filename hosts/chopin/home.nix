@@ -1,4 +1,3 @@
-
 { config, lib, pkgs, chosenfonts, inputs, ... }:
 {
 
@@ -15,7 +14,6 @@
     pkgs.ffmpeg
     pkgs.killall
     pkgs.zellij
-    pkgs.atuin
     pkgs.tmux
     pkgs.gibo
     pkgs.direnv

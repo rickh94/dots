@@ -9,7 +9,7 @@
 
   ];
 
-  file."Wallpapers/wallpapers.txt" = {
+  home.file."Wallpapers/wallpapers.txt" = {
     enable = true;
     source = ../../wallpapers/wallpapers.txt;
     onChange = ''

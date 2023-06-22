@@ -1,13 +1,20 @@
 {
   description = "NixOs and home-manager configuration for mac";
 
+  nixConfig = {
+    experimental-features = [ "nix-command" "flakes" ];
+    substituters = [
+      "https://cache.nixos.org"
+    ];
+  };
+
   inputs = {
     nixpkgs = {
       url = "github:nixos/nixpkgs/nixos-23.05";
     };
     /* nixos-hardware.url = "github:nixos/nixos-hardware/master"; */
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "github:nix-community/home-manager/release-23.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -33,7 +40,7 @@
 
       # NIXOS HOST
       nixosConfigurations = {
-        beethoven = nixpkgs.lib.nixosSystem {
+        beethoven = nixpkgs.lib.nixosSystem rec {
           system = "x86_64-linux";
           modules = [
             ./hosts/beethoven/configuration.nix
@@ -41,7 +48,7 @@
           specialArgs = { inherit nixpkgs; inherit inputs; inherit chosenfonts; };
         };
 
-        nixvm = nixpkgs.lib.nixosSystem {
+        nixvm = nixpkgs.lib.nixosSystem rec {
           system = "x86_64-linux";
           modules = [
             ./hosts/nixvm/configuration.nix
