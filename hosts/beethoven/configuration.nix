@@ -37,7 +37,6 @@
     podman
     podman-compose
     qemu_full
-    nextcloud-client
   ];
 
   environment.pathsToLink = [ "/libexec" ];
