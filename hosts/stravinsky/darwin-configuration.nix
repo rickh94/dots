@@ -86,6 +86,9 @@ in
       "turso"
       "flyctl"
       "aom"
+      # "dnsmasq"
+      # "nginx"
+      # "php"
     ];
     taps = [
       "FelixKratz/formulae"
@@ -96,6 +99,8 @@ in
       "mongodb/brew"
     ];
     casks = [
+      "orbstack"
+      "local" # local wordpress runnenitr
       "sf-symbols"
       "firefox"
       "handbrake"

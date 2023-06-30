@@ -1,4 +1,4 @@
-{ config, pkgs, nixpkgs, lib, ... }:
+{ config, pkgs, nixpkgs, lib, devenv, ... }:
 {
   imports = [
     ./minimal.nix
@@ -13,6 +13,7 @@
     sessionPath = [
       "${config.home.homeDirectory}/.cargo/bin"
       "${config.home.homeDirectory}/.local/bin"
+      "${config.home.homeDirectory}/.config/composer/vendor/bin"
     ];
 
 
@@ -24,6 +25,7 @@
       kitty
       tmux
       killall
+
 
       # dev tools
       gibo
@@ -46,9 +48,14 @@
       poetry
       mypy
       bun
+      phpactor
+      phpPackages.composer
+      phpPackages.php-cs-fixer
+      devenv.packages.${pkgs.system}.devenv
 
       # languages
       elixir
+      php
 
       # music
       audacity

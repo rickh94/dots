@@ -150,6 +150,7 @@ require('lazy').setup({
       require('mini.pairs').setup()
     end,
   },
+  'psliwka/vim-smoothie',
   'machakann/vim-sandwich',
 
   -- git signs in gutter
@@ -258,6 +259,8 @@ require('lazy').setup({
     end,
   },
 
+  'jwalton512/vim-blade',
+
   -- pathced codeium ai coding assistant
   {
     'rickh94/codeium.vim',
@@ -316,16 +319,16 @@ require('lazy').setup({
 
 
   -- dashboard
-  {
-    'glepnir/dashboard-nvim',
-    event = 'VimEnter',
-    config = function()
-      require('dashboard').setup({})
-    end,
-    dependencies = {
-      'nvim-tree/nvim-web-devicons',
-    }
-  },
+  -- {
+  --   'glepnir/dashboard-nvim',
+  --   event = 'VimEnter',
+  --   config = function()
+  --     require('dashboard').setup({})
+  --   end,
+  --   dependencies = {
+  --     'nvim-tree/nvim-web-devicons',
+  --   }
+  -- },
 
   -- prettier notifications
   -- 'rcarriga/nvim-notify',
@@ -395,6 +398,8 @@ require('lazy').setup({
           null_ls.builtins.formatting.black,
           null_ls.builtins.formatting.json_tool,
           null_ls.builtins.formatting.just,
+          null_ls.builtins.formatting.phpcsfixer,
+          -- null_ls.builtins.formatting.pint,
           null_ls.builtins.diagnostics.djlint.with {
             filetypes = { "django", "jinja.html", "htmldjango", "djhtml" },
           },
@@ -868,6 +873,9 @@ local servers = {
     init_options = {
       userLanguages = {
         htmldjango = "html",
+        twig = "html",
+        php = "html",
+        blade = "html",
       },
     }
   },
@@ -1084,6 +1092,7 @@ local setlocal_frompattern = {
   ['*.ly'] = { 2, false },
   ['*.ily'] = twotrue,
   ['*.nix'] = twotrue,
+  ['*.php'] = twotrue,
 }
 
 for p, s in pairs(setlocal_frompattern) do
@@ -1111,6 +1120,17 @@ for p, t in pairs(filetypes) do
     command = 'set filetype=' .. t,
   })
 end
+
+-- Hardwrap in markdown
+vim.api.nvim_create_autocmd({ 'FileType' }, {
+  pattern = 'markdown',
+  callback = function()
+    vim.opt_local.linebreak = true
+    vim.opt_local.textwidth = 80
+    vim.opt_local.spell = true
+    vim.opt_local.spelllang = 'en_us'
+  end
+})
 
 -- local color = {
 --   ['lua']    = 'gruvbox',

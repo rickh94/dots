@@ -3,6 +3,7 @@
 
   nixConfig = {
     experimental-features = [ "nix-command" "flakes" ];
+    allowUnfree = true;
     substituters = [
       "https://cache.nixos.org"
     ];
@@ -23,6 +24,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    devenv.url = "github:cachix/devenv/latest";
+
     unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     codeium = {
       url = "github:jcdickinson/codeium.nvim";
@@ -31,7 +34,7 @@
 
   };
 
-  outputs = inputs@{ self, nixpkgs, darwin, home-manager, unstable, codeium }:
+  outputs = inputs@{ self, nixpkgs, darwin, home-manager, unstable, codeium, devenv }:
     let
       chosenfonts = [ "FiraCode" "Hack" "CascadiaCode" "Hasklig" "Lilex" "VictorMono" "Hermit" ];
     in
@@ -91,10 +94,13 @@
             ./hosts/stravinsky/darwin-configuration.nix
             home-manager.darwinModules.home-manager
             {
-              home-manager.users.rick = import ./hosts/stravinsky/home.nix;
+              home-manager = {
+                users.rick = import ./hosts/stravinsky/home.nix;
+                extraSpecialArgs = { inherit devenv; };
+              };
             }
           ];
-          specialArgs = { inherit chosenfonts; };
+          specialArgs = { inherit chosenfonts; inherit devenv; };
         };
 
         fakestravinsky = darwin.lib.darwinSystem {
@@ -143,7 +149,7 @@
           modules = [
             ./hosts/beethoven/home.nix
           ];
-          extraSpecialArgs = { inherit inputs; inherit chosenfonts; i3mod = "Mod4"; };
+          extraSpecialArgs = { inherit inputs; inherit chosenfonts; inherit devenv; i3mod = "Mod4"; };
         };
 
         chopin = home-manager.lib.homeManagerConfiguration {
@@ -154,7 +160,7 @@
           modules = [
             ./hosts/chopin/home.nix
           ];
-          extraSpecialArgs = { inherit inputs; inherit chosenfonts; };
+          extraSpecialArgs = { inherit inputs; inherit chosenfonts; inherit devenv; };
         };
 
         nixvm = home-manager.lib.homeManagerConfiguration {
@@ -163,7 +169,7 @@
             overlays = [ codeium.overlays.x86_64-linux.default ];
           };
           modules = [ ./hosts/nixvm/home.nix ];
-          extraSpecialArgs = { inherit inputs; inherit chosenfonts; i3mod = "Control"; };
+          extraSpecialArgs = { inherit inputs; inherit chosenfonts; inherit devenv; i3mod = "Control"; };
         };
 
         nixx86-vm = home-manager.lib.homeManagerConfiguration {
@@ -171,13 +177,13 @@
             system = "x86_64-linux";
           };
           modules = [ ./hosts/nixx86-vm/home.nix ];
-          extraSpecialArgs = { inherit inputs; inherit chosenfonts; i3mod = "Control"; };
+          extraSpecialArgs = { inherit inputs; inherit chosenfonts; inherit devenv; i3mod = "Control"; };
         };
 
         nixarm-vm = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.aarch64-linux;
           modules = [ ./hosts/nixarm-vm/home.nix ];
-          extraSpecialArgs = { inherit inputs; inherit chosenfonts; i3mod = "Control"; };
+          extraSpecialArgs = { inherit inputs; inherit chosenfonts; inherit devenv; i3mod = "Control"; };
         };
 
         nixserver = home-manager.lib.homeManagerConfiguration {
