@@ -35,7 +35,7 @@
         program = "${pkgs.zsh}/bin/zsh";
         args = [
           "-c"
-          "${pkgs.zellij}/bin/zellij -l compact"
+          "${pkgs.zellij}/bin/zellij"
         ];
       };
     };

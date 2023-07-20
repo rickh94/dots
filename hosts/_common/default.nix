@@ -11,6 +11,7 @@
 
   home = {
     sessionPath = [
+      "${config.home.homeDirectory}/go/bin"
       "${config.home.homeDirectory}/.cargo/bin"
       "${config.home.homeDirectory}/.local/bin"
       "${config.home.homeDirectory}/.config/composer/vendor/bin"
@@ -52,10 +53,12 @@
       phpPackages.composer
       phpPackages.php-cs-fixer
       devenv.packages.${pkgs.system}.devenv
+      ocamlformat
 
       # languages
       elixir
       php
+      ocaml
 
       # music
       audacity

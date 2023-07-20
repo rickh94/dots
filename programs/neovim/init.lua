@@ -19,13 +19,13 @@ require('lazy').setup({
   'tpope/vim-rhubarb',
 
   -- autodetect ts and sw
-  'tpope/vim-sleuth',
-  -- {
-  --   'NMAC427/guess-indent.nvim',
-  --   config = function()
-  --     require('guess-indent').setup({})
-  --   end
-  -- },
+  -- 'tpope/vim-sleuth',
+  {
+    'NMAC427/guess-indent.nvim',
+    config = function()
+      require('guess-indent').setup({})
+    end
+  },
 
   -- fix behavior of .
   'tpope/vim-repeat',
@@ -386,7 +386,7 @@ require('lazy').setup({
       null_ls.setup({
         debug = false,
         sources = {
-          null_ls.builtins.code_actions.eslint_d,
+          -- null_ls.builtins.code_actions.eslint_d,
           null_ls.builtins.code_actions.proselint,
           null_ls.builtins.code_actions.refactoring,
           null_ls.builtins.code_actions.shellcheck,
@@ -748,10 +748,11 @@ require('nvim-treesitter.configs').setup({
     'bash',
     'svelte',
     'astro',
+    'php',
   },
   auto_install = true,
   highlight = { enable = true },
-  indent = { enable = false, },
+  indent = { enable = true, },
   incremental_selection = {
     enable = true,
     keymaps = {
@@ -832,19 +833,6 @@ capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
 -- LSP Server Setup
 local servers = {
-  -- pyright = {
-  --   pyright = {
-  --     autoImportCompletion = true,
-  --   },
-  --   python = {
-  --     analysis = {
-  --       autoSearchPaths = true,
-  --       diagnosticMode = 'openFilesOnly',
-  --       useLibraryCodeFOrTypes = true,
-  --       typeCheckingMode = 'off'
-  --     },
-  --   },
-  -- },
   lua_ls = {
     Lua = {
       workspace = { checkThirdParty = false },
@@ -869,13 +857,13 @@ local servers = {
       'vue',
       'twig',
       'astro',
+      'php',
+      'blade',
     },
     init_options = {
       userLanguages = {
         htmldjango = "html",
         twig = "html",
-        php = "html",
-        blade = "html",
       },
     }
   },
@@ -885,15 +873,42 @@ local servers = {
   },
   astro = {
   },
-  eslint = {
-  },
   tailwindcss = {
     capabilities = capabilities,
     init_options = {
       userLanguages = {
         htmldjango = "html",
+        twig = "html",
+        php = "html",
       },
     }
+  },
+  intelephense = {
+    capabilities = capabilities,
+    intelephense = {
+      stubs = {
+        "bcmath",
+        "bz2",
+        "calendar",
+        "Core",
+        "curl",
+        "zip",
+        "zlib",
+        "wordpress",
+        "woocommerce",
+        "acf-pro",
+        "wordpress-globals",
+        "wp-cli",
+        "genesis",
+        "polylang",
+      },
+      environment = {
+        includePaths = "~/.composer/vendor/php-stubs",
+      },
+      files = {
+        maxSize = 5000000,
+      },
+    },
   }
 }
 
@@ -935,6 +950,9 @@ require('lspconfig').astro.setup({
 })
 require('lspconfig').emmet_ls.setup({
   cmd = { 'bun', 'x', 'emmet-ls', '--stdio' },
+})
+require('lspconfig').intelephense.setup({
+  cmd = { 'bun', 'x', 'intelephense', '--stdio' },
 })
 -- require('lspconfig').pyright.setup({
 --   cmd = { 'bun', 'x', 'pyright-langserver', '--stdio' }
@@ -1080,6 +1098,7 @@ local twotrue = { 2, true }
 
 local setlocal_frompattern = {
   ['*.html'] = twotrue,
+  ['*.njk'] = twotrue,
   ['*.ts'] = twotrue,
   ['*.tsx'] = twotrue,
   ['*.js'] = twotrue,
@@ -1092,7 +1111,7 @@ local setlocal_frompattern = {
   ['*.ly'] = { 2, false },
   ['*.ily'] = twotrue,
   ['*.nix'] = twotrue,
-  ['*.php'] = twotrue,
+  ['*.ml'] = twotrue,
 }
 
 for p, s in pairs(setlocal_frompattern) do

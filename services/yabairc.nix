@@ -69,10 +69,6 @@
       yabai -m rule --add app="Bitwarden" sticky=on manage=off
       yabai -m rule --add app="Arq 7" sticky=on manage=off
 
-      ########  SIGNALS ######
-      yabai -m signal --add event=window_focused action="sketchybar --trigger window_focus"
-      yabai -m signal --add event=window_created action="sketchybar --trigger windows_on_spaces"
-      yabai -m signal --add event=window_destroyed action="sketchybar --trigger windows_on_spaces"
     '';
   };
 }

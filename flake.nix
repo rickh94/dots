@@ -163,6 +163,28 @@
           extraSpecialArgs = { inherit inputs; inherit chosenfonts; inherit devenv; };
         };
 
+        kali-arm = home-manager.lib.homeManagerConfiguration {
+          pkgs = import nixpkgs {
+            system = "aarch64-linux";
+            overlays = [ codeium.overlays.aarch64-linux.default ];
+          };
+          modules = [
+            ./hosts/kali/home.nix
+          ];
+          extraSpecialArgs = { inherit inputs; inherit chosenfonts; inherit devenv; };
+        };
+
+        kali-x86 = home-manager.lib.homeManagerConfiguration {
+          pkgs = import nixpkgs {
+            system = "x86_64-linux";
+            overlays = [ codeium.overlays.x86_64-linux.default ];
+          };
+          modules = [
+            ./hosts/kali/home.nix
+          ];
+          extraSpecialArgs = { inherit inputs; inherit chosenfonts; inherit devenv; };
+        };
+
         nixvm = home-manager.lib.homeManagerConfiguration {
           pkgs = import nixpkgs {
             system = "x86_64-linux";
