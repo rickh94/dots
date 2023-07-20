@@ -2,10 +2,8 @@
 {
 
   imports = [
-    ../_common/minimal.nix
-    ../_common/linux/minimal.nix
-    ../../programs/direnv/default.nix
-    ../../programs/tmux.nix
+    ../_common/default.nix
+    ../_common/linux/default.nix
   ];
   home.username = "rick";
   home.homeDirectory = "/home/rick";
