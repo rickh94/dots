@@ -16,7 +16,7 @@ in
 
 
   networking.hostName = "berg";
-  networking.hostId = "d4e76b";
+  networking.hostId = "d4e76b17";
 
   # Enable the X11 windowing system.
   services.xserver = {
