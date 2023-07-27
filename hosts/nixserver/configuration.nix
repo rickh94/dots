@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, nixpkgs, ... }:
 
 let
   impermanence = builtins.fetchTarball "https://github.com/nix-community/impermanence/archive/master.tar.gz";
@@ -6,38 +6,17 @@ in
 {
   imports =
     [
+      ./_common/linux/configuration/boot.nix
+      ./_common/linux/configuration/basic.nix
+      ./_common/linux/configuration/virt.nix
+      ./_common/linux/configuration/users-rick.nix
       ./hardware-configuration.nix
       "${impermanence}/nixos.nix"
     ];
 
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.supportedFilesystems = [ "zfs" ];
-  boot.zfs.devNodes = "/dev/disk/by-partuuid";
-  boot.tmpOnTmpfsSize = "8G";
-  boot.kernelParams = [ "nohibernate" ];
 
-
-  networking.hostName = "chopin";
+  networking.hostName = "berg";
   networking.hostId = "";
-  # Pick only one of the below networking options.
-  # networking.wireless.enable = true;  
-  networking.networkmanager.enable = true;
-
-  # Set your time zone.
-  time.timeZone = "America/New_York";
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  # Select internationalisation properties.
-  i18n.defaultLocale = "en_US.UTF-8";
-  # console = {
-  #   font = "Lat2-Terminus16";
-  #   keyMap = "us";
-  #   useXkbConfig = true; # use xkbOptions in tty.
-  # };
 
   # Enable the X11 windowing system.
   services.xserver = {
@@ -47,56 +26,6 @@ in
     xkbVariant = "";
   };
 
-
-  # Configure keymap in X11
-  # services.xserver.layout = "us";
-  # services.xserver.xkbOptions = {
-  #   "eurosign:e";
-  #   "caps:escape" # map caps to escape.
-  # };
-
-  # Enable CUPS to print documents.
-  # services.printing.enable = true;
-
-  # Enable sound.
-  sound.enable = true;
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-  };
-
-
-  # local network peer dns resolution
-  services.avahi = {
-    enable = true;
-    nssmdns = true;
-    publish = {
-      enable = true;
-      workstation = true;
-      hinfo = true;
-    };
-  };
-
-  virtualisation.libvirtd = {
-    enable = true;
-    qemu = {
-      ovmf.enable = true;
-      swtpm.enable = true;
-    };
-  };
-
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.rick = {
-    isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" ]; # Enable ‘sudo’ for the user.
-    passwordFile = "/persist/passwd/rick";
-  };
 
   environment.systemPackages = with pkgs; [
     # essentials
@@ -112,64 +41,229 @@ in
 
     home-manager
 
-    nushell
+    fish
     wireguard-tools
     tree
     curl
 
     virt-manager
     virt-viewer
-    podman
 
     unzip
     zip
 
   ];
 
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
+  services = {
+    ddclient = {
+      enable = true;
+      use = "web, web=dynamicdns.park-your-domain.com/get-ip";
+      protocol = "namecheap";
+      server = "dynamicdns.park-your-domain.com";
+      passwordFile = "/persist/secrets/ddclient";
+      domains = [
+        "vpn"
+      ];
+    };
 
-  # List services that you want to enable:
+    home-assistant = {
+      enable = true;
+    };
 
-  # Enable the OpenSSH daemon.
-  services.openssh = {
-    enable = true;
+    mosquitto = {
+      enable = true;
+      persistence = true;
+      listeners = [
+        {
+          port = 1883;
+          users = {
+            blacklamp.hashedPasswordFile = "/persist/passwd/mosquitto/blacklamp";
+            silverlamp.hashedPasswordFile = "/persist/passwd/mosquitto/silverlamp";
+            desklight.hashedPasswordFile = "/persist/passwd/mosquitto/desklight";
+          };
+        }
+      ];
+    };
+
+    jellyfin.enable = true;
+
+    nextcloud = {
+      enable = true;
+      package = pkgs.nextcloud27;
+      hostName = "localhost";
+      config.adminpassFile = "${pkgs.writeText "adminpass" "test123"}";
+      extraApps = with config.services.nextcloud.package.packages.apps; {
+        inherit news contacts calendar tasks;
+      };
+      extraAppsEnable = true;
+      configureRedis = true;
+      extraOptions = {
+        mail_smtpmode = "sendmail";
+        mail_sendmailmode = "pipe";
+      };
+      secretFile = "/etc/nextcloud-secrets.json";
+      phpOptions = {
+        upload_max_filesize = "16G";
+        post_max_size = "16G";
+      };
+    };
+
+    nginx.virtualHosts."localhost".listen = [{ addr = "127.0.0.1"; port = 8080; }];
+
+    sanoid = {
+      enable = true;
+      datasets = {
+        "nvme/safe" = {
+          recursive = true;
+          autosnap = true;
+          autoprune = true;
+        };
+        "tank/media" = {
+          recursive = true;
+          autosnap = true;
+          autoprune = true;
+        };
+        "tank/nextcloud" = {
+          recursive = true;
+          autosnap = true;
+          autoprune = true;
+        };
+      };
+    };
+
+    restic.backups.myaccount = {
+      initialize = true;
+      passwordFile = "/persist/secrets/restic";
+      paths = [
+        "/home/rick"
+        "/tank/media"
+        "/tank/nextcloud"
+      ];
+
+      repository = "b2:thing";
+      timerConfig = {
+        OnUnitActiveSec = "1d";
+      };
+
+      pruneOpts = [
+        "--keep-daily=7"
+        "--keep-weekly=4"
+        "--keep-monthly=2"
+        "--keep-yearly=0"
+      ];
+    };
+
+    samba = {
+      enable = true;
+      securityType = "user";
+      extraConfig = ''
+        workgroup = WORKGROUP
+        server string = smbnix
+        netbios name = smbnix
+        security = user 
+        #use sendfile = yes
+        #max protocol = smb2
+        # note: localhost is the ipv6 localhost ::1
+        hosts allow = 10.0.0. 10.7.0. 127.0.0.1 localhost
+        hosts deny = 0.0.0.0/0
+        guest account = nobody
+        map to guest = bad user
+      '';
+
+      shares = {
+        paht = "/srv/rick";
+        browseable = "yes";
+        "read only" = "no";
+        "guest ok" = "no";
+        "create mask" = "0644";
+        "directory mask" = "0755";
+        "force user" = "rick";
+        "force group" = "users";
+        "valid users" = "rick";
+      };
+    };
+
+    vaultwarden = {
+      enable = true;
+      backupDir = "/tank/vw-backups";
+      config = {
+        DOMAIN = "https://vw2.rickhenry.house";
+        SIGNUPS_ALLOWED = false;
+        ROCKET_PORT = 8222;
+        ROCKET_LOG = "critical";
+        # TODO: smtp config
+      };
+      environmentFile = "/persist/secrets/vaultwarden";
+    };
   };
 
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
+  systemd.services.restic-backups-myaccount = {
+    #TODO: add env vars with secrets storage or secrets file
+  };
 
-  # Copy the NixOS configuration file and link it from the resulting system
-  # (/run/current-system/configuration.nix). This is useful in case you
-  # accidentally delete configuration.nix.
-  # system.copySystemConfiguration = true;
+  virtualisation.oci-containers.containers."audiobookshelf" = {
+    autoStart = true;
+    image = "ghcr.io/advplyr/audiobookshelf:latest";
+    environment = {
+      AUDIOBOOKSHELF_UID = "99";
+      AUDIOBOOKSHELF_GID = "100";
+    };
 
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "22.11"; # Did you read the comment?
+    ports = [ "13378:80" ];
+    volumes = [
+      "/tank/media/Audiobooks:/audiobooks"
+      "/tank/media/Podcasts:/podcasts"
+      "/tank/media/Containers/Audiobookshelf/config:/config"
+      "/tank/media/Containers/Audiobookshelf/audiobooks:/metadata"
+    ];
+  };
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nixpkgs.config.packageOverrides = pkgs: {
+    vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
+  };
+  hardware.opengl = {
+    enable = true;
+    extraPackages = with pkgs; [
+      intel-media-driver
+      vaapiIntel
+      vaapiVdpau
+      libvdpau-va-gl
+      intel-compute-runtime
+    ];
+  };
 
-  nixpkgs.config.allowUnfree = true;
+  networking.wireguard.interfaces = {
+    wg0 = {
+      ips = [ "10.7.0.20/24" ];
+      listenPort = 51820;
+      privateKeyFile = "/persist/secrets/wireguard/privkey";
+      peers = [
+        {
+          # stravinsky
+          publicKey = "V530/oK8ToieScSB44I0ft6o8emHikOiSFfG0gH8+zE=";
+          allowedIPs = [ "10.7.0.20/24" ];
+          presharedKeyFile = "/persist/secrets/wireguard/stravinsky-psk";
+        }
+        {
+          # paganini
+          publicKey = "7/O//IXIEpMoh51I23PKyomKdhS4ELkKQIiiY61dJx8=";
+          allowedIPs = [ "10.7.0.30/24" ];
+          presharedKeyFile = "/persist/secrets/wireguard/paganini-psk";
+        }
+      ];
+    };
+  };
 
-  services.zfs.trim.enable = true;
+  boot.zfs.extraPools = [ "tank" ];
+
+
 
   # WIPE ROOT CONFIGURATION
   environment.persistence."/persist/impermanence" = {
     directories = [
       "/etc/nixos"
+      "/var/lib/hass"
+      "/var/lib/samba"
     ];
     files = [
       "/etc/ssh/ssh_host_rsa_key"
@@ -177,11 +271,12 @@ in
       "/etc/ssh/ssh_host_ed25519_key"
       "/etc/ssh/ssh_host_ed25519_key.pub"
       "/etc/machine-id"
+      "/etc/nextcloud-secrets.json"
     ];
   };
 
   boot.initrd.postDeviceCommands = lib.mkAfter ''
-    zfs rollback -r rpool/local/root@blank
+    zfs rollback -r nvme/local/root@blank
   '';
 
   fileSystems."/persist".neededForBoot = true;
