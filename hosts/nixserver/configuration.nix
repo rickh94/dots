@@ -245,7 +245,7 @@ in
 
   networking.wg-quick.interfaces = {
     wg0 = {
-      ips = [ "10.7.0.100/24" ];
+      address = [ "10.7.0.100/24" ];
       listenPort = 51820;
       privateKeyFile = "/persist/secrets/wireguard/privkey";
       peers = [
