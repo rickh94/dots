@@ -60,8 +60,8 @@ in
       enable = true;
       use = "web, web=dynamicdns.park-your-domain.com/get-ip";
       protocol = "namecheap";
-      login = "rickhenry.house";
-      ipv6 = true;
+      username = "rickhenry.house";
+      ipv6 = false;
       server = "dynamicdns.park-your-domain.com";
       passwordFile = "/persist/secrets/ddclient";
       domains = [
