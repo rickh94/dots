@@ -240,21 +240,23 @@ in
 
   networking.wireguard.interfaces = {
     wg0 = {
-      ips = [ "10.7.0.20/24" ];
+      ips = [ "10.7.0.100/24" ];
       listenPort = 51820;
       privateKeyFile = "/persist/secrets/wireguard/privkey";
       peers = [
         {
           # stravinsky
           publicKey = "V530/oK8ToieScSB44I0ft6o8emHikOiSFfG0gH8+zE=";
-          allowedIPs = [ "10.7.0.20/24" ];
+          allowedIPs = [ "10.7.0.20/32" ];
           presharedKeyFile = "/persist/secrets/wireguard/stravinsky-psk";
+          persistentKeepalive = 25;
         }
         {
           # paganini
           publicKey = "7/O//IXIEpMoh51I23PKyomKdhS4ELkKQIiiY61dJx8=";
-          allowedIPs = [ "10.7.0.30/24" ];
+          allowedIPs = [ "10.7.0.30/32" ];
           presharedKeyFile = "/persist/secrets/wireguard/paganini-psk";
+          persistentKeepalive = 25;
         }
       ];
     };
