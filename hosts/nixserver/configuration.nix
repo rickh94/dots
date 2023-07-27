@@ -68,6 +68,9 @@ in
 
     home-assistant = {
       enable = true;
+      config = {
+        default_config = { };
+      };
     };
 
     mosquitto = {
