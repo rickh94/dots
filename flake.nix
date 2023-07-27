@@ -80,7 +80,7 @@
           modules = [
             ./hosts/nixserver/configuration.nix
           ];
-          specialArgs = { inherit nixpkgs; };
+          specialArgs = { inherit nixpkgs; inherit chosenfonts; inherit inputs; };
         };
       };
 
