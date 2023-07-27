@@ -6,10 +6,10 @@ in
 {
   imports =
     [
-      ./_common/linux/configuration/boot.nix
-      ./_common/linux/configuration/basic.nix
-      ./_common/linux/configuration/virt.nix
-      ./_common/linux/configuration/users-rick.nix
+      ../_common/linux/configuration/boot.nix
+      ../_common/linux/configuration/basic.nix
+      ../_common/linux/configuration/virt.nix
+      ../_common/linux/configuration/users-rick.nix
       ./hardware-configuration.nix
       "${impermanence}/nixos.nix"
     ];
