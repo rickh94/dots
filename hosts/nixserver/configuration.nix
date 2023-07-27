@@ -60,6 +60,8 @@ in
       enable = true;
       use = "web, web=dynamicdns.park-your-domain.com/get-ip";
       protocol = "namecheap";
+      login = "rickhenry.house";
+      ipv6 = true;
       server = "dynamicdns.park-your-domain.com";
       passwordFile = "/persist/secrets/ddclient";
       domains = [
@@ -288,5 +290,9 @@ in
   '';
 
   fileSystems."/persist".neededForBoot = true;
+  # TODO: add mail config
+  # TODO: setup firewall
+  # TODO: additional samba shares
+  # TODO: passwordless sudo
 }
 
