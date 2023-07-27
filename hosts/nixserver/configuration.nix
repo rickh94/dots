@@ -95,9 +95,9 @@ in
       package = pkgs.nextcloud27;
       hostName = "localhost";
       config.adminpassFile = "${pkgs.writeText "adminpass" "test123"}";
-      extraApps = with config.services.nextcloud.package.packages.apps; {
-        inherit news contacts calendar tasks;
-      };
+      # extraApps = with config.services.nextcloud.package.packages.apps; {
+      #   inherit news contacts calendar tasks;
+      # };
       extraAppsEnable = true;
       configureRedis = true;
       extraOptions = {
@@ -174,15 +174,17 @@ in
       '';
 
       shares = {
-        paht = "/srv/rick";
-        browseable = "yes";
-        "read only" = "no";
-        "guest ok" = "no";
-        "create mask" = "0644";
-        "directory mask" = "0755";
-        "force user" = "rick";
-        "force group" = "users";
-        "valid users" = "rick";
+        rick = {
+          path = "/srv/rick";
+          browseable = "yes";
+          "read only" = "no";
+          "guest ok" = "no";
+          "create mask" = "0644";
+          "directory mask" = "0755";
+          "force user" = "rick";
+          "force group" = "users";
+          "valid users" = "rick";
+        };
       };
     };
 
