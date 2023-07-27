@@ -60,13 +60,15 @@ in
       enable = true;
       use = "web, web=dynamicdns.park-your-domain.com/get-ip";
       protocol = "namecheap";
-      username = "rickhenry.house";
       ipv6 = false;
       server = "dynamicdns.park-your-domain.com";
       passwordFile = "/persist/secrets/ddclient";
       domains = [
         "vpn"
       ];
+      extraConfig = ''
+        login=rickhenry.house
+      '';
     };
 
     home-assistant = {
