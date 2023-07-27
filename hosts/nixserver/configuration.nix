@@ -113,7 +113,7 @@ in
     sanoid = {
       enable = true;
       datasets = {
-        "nvme/safe" = {
+        "rpool/safe" = {
           recursive = true;
           autosnap = true;
           autoprune = true;
@@ -276,7 +276,7 @@ in
   };
 
   boot.initrd.postDeviceCommands = lib.mkAfter ''
-    zfs rollback -r nvme/local/root@blank
+    zfs rollback -r rpool/local/root@blank
   '';
 
   fileSystems."/persist".neededForBoot = true;
