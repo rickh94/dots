@@ -162,6 +162,7 @@ in
     };
 
     samba = {
+      openFirewall = true;
       enable = true;
       securityType = "user";
       extraConfig = ''
@@ -242,7 +243,7 @@ in
     ];
   };
 
-  networking.wireguard.interfaces = {
+  networking.wg-quick.interfaces = {
     wg0 = {
       ips = [ "10.7.0.100/24" ];
       listenPort = 51820;
@@ -264,6 +265,13 @@ in
         }
       ];
     };
+  };
+  networking.firewall = {
+    enable = true;
+    allowTCPPorts = [ 22 53 8123 8096 8222 5357 ];
+    allowUDPPorts = [ 53 5353 51820 5357 ];
+    extraCommands = ''iptables -t raw -A OUTPUT -p udp -m udp --dport 137 -j CT --helper netbios-ns'';
+    allowPing = true;
   };
 
   boot.zfs.extraPools = [ "tank" ];
