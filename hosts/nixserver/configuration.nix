@@ -140,6 +140,7 @@ in
     };
 
     restic.backups.myaccount = {
+      enable = false;
       initialize = true;
       passwordFile = "/persist/secrets/restic";
       paths = [
@@ -205,6 +206,23 @@ in
         # TODO: smtp config
       };
       environmentFile = "/persist/secrets/vaultwarden";
+    };
+
+    smartd = {
+      enable = true;
+      autodetect = true;
+    };
+  };
+
+  programs.msmtp = {
+    enable = true;
+    accounts.default = {
+      auth = true;
+      tls = true;
+      from = "berg@mg.rickhenry.house";
+      user = "berg@mg.rickhenry.house";
+      passwordeval = "cat /persist/secrets/msmtp";
+      host = "smtp.mailgun.org";
     };
   };
 
@@ -296,17 +314,25 @@ in
   environment.persistence."/tank/impermanence" = {
     directories = [
       "/var/lib/containers"
-      "/var/lib/jellyfin"
-      "/var/lib/nextcloud"
-      "/var/lib/bitwarden_rs"
-      "/var/lib/hass"
+      { directory = "/var/lib/jellyfin"; user = "jellyfin"; }
+      {
+        directory = "/var/lib/nextcloud";
+        user = "nextcloud";
+      }
+      {
+        directory = "/var/lib/bitwarden_rs";
+        user = "vaultwarden";
+      }
+      { directory = "/var/lib/hass"; user = "hass"; }
+      { directory = "/var/lib/mosquitto"; user = "mosquitto"; }
       "/var/lib/samba"
     ];
   };
 
-  boot.initrd.postDeviceCommands = lib.mkAfter ''
-    zfs rollback -r rpool/local/root@blank
-  '';
+  boot.initrd.postDeviceCommands = lib.mkAfter
+    ''
+      zfs rollback -r rpool/local/root@blank
+    '';
 
   fileSystems."/persist".neededForBoot = true;
 
