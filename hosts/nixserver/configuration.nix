@@ -300,6 +300,13 @@ in
   '';
 
   fileSystems."/persist".neededForBoot = true;
+
+  security.sudo.extraRules = [
+    {
+      users = [ "rick" ];
+      commands = [{ command = "ALL"; options = [ "SETENV" "NOPASSWD" ]; }];
+    }
+  ];
   # TODO: add mail config
   # TODO: setup firewall
   # TODO: additional samba shares
