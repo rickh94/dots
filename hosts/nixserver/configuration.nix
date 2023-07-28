@@ -212,14 +212,15 @@ in
       autodetect = true;
     };
 
-    # caddy = {
-    #   enable = true;
-    #   package = (pkgs.callPackage ../../programs/berg-caddy.nix {
-    #     plugins = [
-    #       "github.com/caddy-dns/namecheap"
-    #     ];
-    #   });
-    # };
+    caddy = {
+      enable = true;
+      package = (pkgs.callPackage ../../programs/berg-caddy.nix {
+        plugins = [
+          "github.com/caddy-dns/namecheap"
+        ];
+        vendorSha256 = "0000000000000000000000000000000000000000000000000000";
+      });
+    };
   };
 
   programs.msmtp = {
