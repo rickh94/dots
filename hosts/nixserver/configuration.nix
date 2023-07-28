@@ -211,6 +211,15 @@ in
       enable = true;
       autodetect = true;
     };
+
+    # caddy = {
+    #   enable = true;
+    #   package = (pkgs.callPackage ../../programs/berg-caddy.nix {
+    #     plugins = [
+    #       "github.com/caddy-dns/namecheap"
+    #     ];
+    #   });
+    # };
   };
 
   programs.msmtp = {
@@ -341,9 +350,8 @@ in
       commands = [{ command = "ALL"; options = [ "SETENV" "NOPASSWD" ]; }];
     }
   ];
-  # TODO: add mail config
-  # TODO: setup firewall
   # TODO: additional samba shares
-  # TODO: passwordless sudo
+
+  nix.settings.sandbox = false;
 }
 
