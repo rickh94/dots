@@ -282,8 +282,6 @@ in
   environment.persistence."/persist/impermanence" = {
     directories = [
       "/etc/nixos"
-      "/var/lib/hass"
-      "/var/lib/samba"
     ];
     files = [
       "/etc/ssh/ssh_host_rsa_key"
@@ -292,6 +290,17 @@ in
       "/etc/ssh/ssh_host_ed25519_key.pub"
       "/etc/machine-id"
       "/etc/nextcloud-secrets.json"
+    ];
+  };
+
+  environment.persistence."/tank/impermanence" = {
+    directories = [
+      "/var/lib/containers"
+      "/var/lib/jellyfin"
+      "/var/lib/nextcloud"
+      "/var/lib/bitwarden_rs"
+      "/var/lib/hass"
+      "/var/lib/samba"
     ];
   };
 
