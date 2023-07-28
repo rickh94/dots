@@ -139,8 +139,8 @@ in
       };
     };
 
+    restic.enable = false;
     restic.backups.myaccount = {
-      enable = false;
       initialize = true;
       passwordFile = "/persist/secrets/restic";
       paths = [
