@@ -318,7 +318,7 @@ in
   };
   networking.firewall = {
     enable = true;
-    allowedTCPPorts = [ 22 53 8123 8096 8222 5357 ];
+    allowedTCPPorts = [ 22 53 8123 8096 8222 5357 80 443 ];
     allowedUDPPorts = [ 53 5353 51820 5357 ];
     extraCommands = ''iptables -t raw -A OUTPUT -p udp -m udp --dport 137 -j CT --helper netbios-ns'';
     allowPing = true;
