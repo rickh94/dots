@@ -214,12 +214,16 @@ in
 
     caddy = {
       enable = true;
-      package = (pkgs.callPackage ../../programs/berg-caddy.nix {
-        plugins = [
-          "github.com/caddy-dns/namecheap"
-        ];
-        vendorSha256 = "0000000000000000000000000000000000000000000000000000";
-      });
+    };
+  };
+
+  security.acme = {
+    acceptTerms = true;
+    defaults.email = "rickhenry@rickhenry.dev";
+    certs."*.rickhenry.house" = {
+      dnsProvider = "namecheap";
+      credentialsFile = "/persist/secrets/acme/namecheap";
+      group = config.services.caddy.group;
     };
   };
 
