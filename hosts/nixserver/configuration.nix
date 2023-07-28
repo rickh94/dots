@@ -220,7 +220,8 @@ in
   security.acme = {
     acceptTerms = true;
     defaults.email = "rickhenry@rickhenry.dev";
-    certs."*.rickhenry.house" = {
+    certs."rickhenry.house" = {
+      domain = "*.rickhenry.house";
       dnsProvider = "namecheap";
       credentialsFile = "/persist/secrets/acme/namecheap";
       group = config.services.caddy.group;
