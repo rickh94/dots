@@ -214,6 +214,24 @@ in
 
     caddy = {
       enable = true;
+      virtualHosts = {
+        "jelly.rickhenry.house".extraConfig = ''
+          reverse_proxy :8096
+          tls /var/lib/acme/rickhenry.house/cert.pem /var/lib/acme/rickhenry.dev/key.pem
+        '';
+        "home.rickhenry.house".extraConfig = ''
+          reverse_proxy :8123
+          tls /var/lib/acme/rickhenry.house/cert.pem /var/lib/acme/rickhenry.dev/key.pem
+        '';
+        "next.rickhenry.house".extraConfig = ''
+          reverse_proxy :8080
+          tls /var/lib/acme/rickhenry.house/cert.pem /var/lib/acme/rickhenry.dev/key.pem
+        '';
+        "vault.rickhenry.house".extraConfig = ''
+          reverse_proxy :8222
+          tls /var/lib/acme/rickhenry.house/cert.pem /var/lib/acme/rickhenry.dev/key.pem
+        '';
+      };
     };
   };
 
