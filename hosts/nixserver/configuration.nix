@@ -99,11 +99,12 @@ in
     nextcloud = {
       enable = true;
       package = pkgs.nextcloud27;
-      hostName = "localhost";
+      hostName = "next.rickhenry.house";
+      https = true;
       config.adminpassFile = "${pkgs.writeText "adminpass" "test123"}";
-      # extraApps = with config.services.nextcloud.package.packages.apps; {
-      #   inherit news contacts calendar tasks;
-      # };
+      extraApps = with config.services.nextcloud.package.packages.apps; {
+        inherit news contacts calendar tasks;
+      };
       extraAppsEnable = true;
       configureRedis = true;
       extraOptions = {
@@ -239,6 +240,9 @@ in
       enable = true;
       settings = {
         address = "/next.rickhenry.house/10.7.0.100";
+        address = "/home.rickhenry.house/10.7.0.100";
+        address = "/jelly.rickhenry.house/10.7.0.100";
+        address = "/vault.rickhenry.house/10.7.0.100";
       };
       extraConfig = ''
         interface=wg0
