@@ -101,7 +101,13 @@ in
       package = pkgs.nextcloud27;
       hostName = "localhost";
       https = true;
-      config.adminpassFile = "${pkgs.writeText "adminpass" "test123"}";
+      config = {
+        adminpassFile = "${pkgs.writeText "adminpass" "test123"}";
+        extraTrustedDomains = [
+          "next.rickhenry.house"
+          "10.7.0.100"
+        ];
+      };
       extraApps = with config.services.nextcloud.package.packages.apps; {
         inherit contacts calendar tasks;
       };
