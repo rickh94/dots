@@ -99,7 +99,7 @@ in
     nextcloud = {
       enable = true;
       package = pkgs.nextcloud27;
-      hostName = "next.rickhenry.house";
+      hostName = "localhost";
       https = true;
       config.adminpassFile = "${pkgs.writeText "adminpass" "test123"}";
       extraApps = with config.services.nextcloud.package.packages.apps; {
