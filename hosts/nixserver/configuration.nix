@@ -238,14 +238,13 @@ in
 
     dnsmasq = {
       enable = true;
-      settings = {
-        address = "/next.rickhenry.house/10.7.0.100";
-        address = "/home.rickhenry.house/10.7.0.100";
-        address = "/jelly.rickhenry.house/10.7.0.100";
-        address = "/vault.rickhenry.house/10.7.0.100";
-      };
+      settings = { };
       extraConfig = ''
         interface=wg0
+        address=/next.rickhenry.house/10.7.0.100
+        address=/home.rickhenry.house/10.7.0.100
+        address=/jelly.rickhenry.house/10.7.0.100
+        address=/vault.rickhenry.house/10.7.0.100
       '';
     };
   };
