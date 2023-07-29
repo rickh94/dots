@@ -5,10 +5,11 @@
       ./hardware-configuration.nix
       ../_common/linux/configuration/boot.nix
       ../_common/linux/configuration/basic.nix
-      ../_common/linux/configuration/xconfig.nix
+      ../_common/linux/configuration/xconfig-noi3.nix
       ../_common/linux/configuration/podman.nix
       ../_common/linux/configuration/impermanence.nix
       ../_common/linux/configuration/users-rick.nix
+      ../_common/linux/rick-passwordless-sudo.nix
     ];
 
   networking.hostName = "nixx86-vm";

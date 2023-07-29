@@ -10,6 +10,7 @@ in
       ../_common/linux/configuration/basic.nix
       ../_common/linux/configuration/virt.nix
       ../_common/linux/configuration/users-rick.nix
+      ../_common/rick-passwordless-sudo.nix
       ./hardware-configuration.nix
       "${impermanence}/nixos.nix"
     ];
@@ -369,12 +370,6 @@ in
 
   fileSystems."/persist".neededForBoot = true;
 
-  security.sudo.extraRules = [
-    {
-      users = [ "rick" ];
-      commands = [{ command = "ALL"; options = [ "SETENV" "NOPASSWD" ]; }];
-    }
-  ];
   # TODO: additional samba shares
 
   nix.settings.sandbox = false;
