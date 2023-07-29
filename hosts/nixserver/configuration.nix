@@ -233,6 +233,10 @@ in
           reverse_proxy :8222
           tls /var/lib/acme/rickhenry.house/cert.pem /var/lib/acme/rickhenry.house/key.pem
         '';
+        "audio.rickhenry.house".extraConfig = ''
+          reverse_proxy :13378
+          tls /var/lib/acme/rickhenry.house/cert.pem /var/lib/acme/rickhenry.house/key.pem
+        '';
       };
     };
 
