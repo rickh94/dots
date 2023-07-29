@@ -103,7 +103,7 @@ in
       https = true;
       config.adminpassFile = "${pkgs.writeText "adminpass" "test123"}";
       extraApps = with config.services.nextcloud.package.packages.apps; {
-        inherit news contacts calendar tasks;
+        inherit contacts calendar tasks;
       };
       extraAppsEnable = true;
       configureRedis = true;
@@ -239,6 +239,7 @@ in
     dnsmasq = {
       enable = true;
       settings = {
+        interface = "wg0";
         address = [
           "/next.rickhenry.house/10.7.0.100"
           "/home.rickhenry.house/10.7.0.100"
