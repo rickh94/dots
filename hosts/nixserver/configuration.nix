@@ -372,9 +372,10 @@ in
   };
 
   environment.persistence."/tank/impermanence" = {
+    hideMounts = true;
     directories = [
       "/var/lib/containers"
-      { directory = "/var/lib/jellyfin"; user = "jellyfin"; }
+      { directory = "/var/lib/jellyfin"; user = "jellyfin"; group = "jellyfin"; }
       { directory = "/media"; user = "jellyfin"; }
       { directory = "/audio"; user = "99"; group = "100"; }
       {
