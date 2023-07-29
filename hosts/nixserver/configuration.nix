@@ -277,6 +277,8 @@ in
     #TODO: add env vars with secrets storage or secrets file
   };
 
+  virtualisation.podman.enable = true;
+
   virtualisation.oci-containers.containers."audiobookshelf" = {
     autoStart = true;
     image = "ghcr.io/advplyr/audiobookshelf:latest";
@@ -287,10 +289,10 @@ in
 
     ports = [ "13378:80" ];
     volumes = [
-      "/tank/media/Audiobooks:/audiobooks"
-      "/tank/media/Podcasts:/podcasts"
-      "/tank/media/Containers/Audiobookshelf/config:/config"
-      "/tank/media/Containers/Audiobookshelf/audiobooks:/metadata"
+      "/audio/Audiobooks:/audiobooks"
+      "/audio/Podcasts:/podcasts"
+      "/audio/Containers/Audiobookshelf/config:/config"
+      "/audio/Containers/Audiobookshelf/audiobooks:/metadata"
     ];
   };
 
@@ -363,6 +365,8 @@ in
     directories = [
       "/var/lib/containers"
       { directory = "/var/lib/jellyfin"; user = "jellyfin"; }
+      { directory = "/media"; user = "jellyfin"; }
+      { directory = "/audio"; user = "99"; group = "100"; }
       {
         directory = "/var/lib/nextcloud";
         user = "nextcloud";
