@@ -9,7 +9,7 @@
       ../_common/linux/configuration/podman.nix
       ../_common/linux/configuration/impermanence.nix
       ../_common/linux/configuration/users-rick.nix
-      ../_common/linux/rick-passwordless-sudo.nix
+      ../_common/rick-passwordless-sudo.nix
     ];
 
   networking.hostName = "nixx86-vm";
