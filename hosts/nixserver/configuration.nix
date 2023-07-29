@@ -234,6 +234,16 @@ in
         '';
       };
     };
+
+    dnsmasq = {
+      enable = true;
+      settings = {
+        address = "/next.rickhenry.house/10.7.0.100";
+      };
+      extraConfig = ''
+        interface=wg0
+      '';
+    };
   };
 
   security.acme = {
