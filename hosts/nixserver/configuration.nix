@@ -108,9 +108,9 @@ in
           "10.7.0.100"
         ];
       };
-      extraApps = with config.services.nextcloud.package.packages.apps; {
-        inherit contacts calendar tasks;
-      };
+      # extraApps = with config.services.nextcloud.package.packages.apps; {
+      #   inherit contacts calendar tasks;
+      # };
       extraAppsEnable = true;
       configureRedis = true;
       extraOptions = {
