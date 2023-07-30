@@ -262,7 +262,6 @@ in
         "audio.rickhenry.house".extraConfig = ''
           reverse_proxy {
             to :13378
-            tls
             tls_insecure_skip_verify
             read_buffer 8192
           }
@@ -271,7 +270,6 @@ in
         "prox.rickhenry.house".extraConfig = ''
           reverse_proxy {
             to https://10.0.1.176:8006
-            tls
             tls_insecure_skip_verify
             read_buffer 8192
           }
