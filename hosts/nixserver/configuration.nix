@@ -171,27 +171,40 @@ in
       };
     };
 
-    # restic.backups.myaccount = {
-    #   initialize = true;
-    #   passwordFile = "/persist/secrets/restic";
-    #   paths = [
-    #     "/home/rick"
-    #     "/tank/media"
-    #     "/tank/nextcloud"
-    #   ];
-    #
-    #   repository = "b2:thing";
-    #   timerConfig = {
-    #     OnUnitActiveSec = "1d";
-    #   };
-    #
-    #   pruneOpts = [
-    #     "--keep-daily=7"
-    #     "--keep-weekly=4"
-    #     "--keep-monthly=2"
-    #     "--keep-yearly=0"
-    #   ];
-    # };
+    restic.backups.myaccount = {
+      environmentFile = "/persist/secrets/restic/env";
+      initialize = true;
+      passwordFile = "/persist/secrets/restic/password";
+      paths = [
+        "/home/rick"
+        "/tank/media/music"
+        "/tank/nextcloud"
+        "/tank/vw-backups"
+        "/persist"
+        "/tank-impermanence"
+        "/srv/rick"
+      ];
+      exclude = [
+        ".zfs"
+        "/srv/restic"
+        "/srv/arqbackup"
+      ];
+      extraBackupArgs = [
+        "--exclude-if-present .NOBACKUP"
+      ];
+
+      repository = "b2:chopin-backup";
+      timerConfig = {
+        OnUnitActiveSec = "1d";
+      };
+
+      pruneOpts = [
+        "--keep-daily=7"
+        "--keep-weekly=4"
+        "--keep-monthly=2"
+        "--keep-yearly=0"
+      ];
+    };
 
     samba = {
       openFirewall = true;
