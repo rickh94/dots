@@ -144,6 +144,11 @@ in
           autosnap = true;
           autoprune = true;
         };
+        "tank/impermanence" = {
+          recursive = true;
+          autosnap = true;
+          autoprune = true;
+        };
       };
     };
 
@@ -243,6 +248,10 @@ in
           reverse_proxy :13378
           tls /var/lib/acme/rickhenry.house/cert.pem /var/lib/acme/rickhenry.house/key.pem
         '';
+        "prox.rickhenry.house".extraConfig = ''
+          reverse_proxy 10.0.1.176:8006
+          tls /var/lib/acme/rickhenry.house/cert.pem /var/lib/acme/rickhenry.house/key.pem
+        '';
       };
     };
 
@@ -254,6 +263,7 @@ in
           "/next.rickhenry.house/10.7.0.100"
           "/home.rickhenry.house/10.7.0.100"
           "/jelly.rickhenry.house/10.7.0.100"
+          "/vault.rickhenry.house/10.7.0.100"
           "/vault.rickhenry.house/10.7.0.100"
         ];
       };
@@ -338,6 +348,13 @@ in
           publicKey = "7/O//IXIEpMoh51I23PKyomKdhS4ELkKQIiiY61dJx8=";
           allowedIPs = [ "10.7.0.30/32" ];
           presharedKeyFile = "/persist/secrets/wireguard/paganini-psk";
+          persistentKeepalive = 25;
+        }
+        {
+          # iphone
+          publicKey = "upN/jrQg85q9T8nU5OGPy3rgdSw3IpstRpkXn8Nbizk=";
+          allowedIPs = [ "10.7.0.40/32" ];
+          presharedKeyFile = "/persist/secrets/wireguard/iphone-psk";
           persistentKeepalive = 25;
         }
       ];

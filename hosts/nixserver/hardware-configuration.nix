@@ -54,6 +54,12 @@
       fsType = "zfs";
     };
 
+  fileSystems."/tank-impermanence" =
+    {
+      device = "tank/impermanence";
+      fsType = "zfs";
+    };
+
   swapDevices = [ ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
