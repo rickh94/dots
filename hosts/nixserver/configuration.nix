@@ -63,6 +63,13 @@ in
 
   users.groups.jellyfin.gid = 996;
 
+  users.users.vaultwarden = {
+    isSystemUser = true;
+    uid = 988;
+  };
+
+  users.groups.vaultwarden.gid = 986;
+
   services = {
     ddclient = {
       enable = true;
@@ -218,10 +225,12 @@ in
       enable = true;
       backupDir = "/tank/vw-backups";
       config = {
-        DOMAIN = "https://vw2.rickhenry.house";
+        DOMAIN = "https://vault.rickhenry.house";
         SIGNUPS_ALLOWED = false;
         ROCKET_PORT = 8222;
         ROCKET_LOG = "critical";
+        SIGNUPS_ALLOWED = true;
+        USE_SENDMAIL = true;
         # TODO: smtp config
       };
       environmentFile = "/persist/secrets/vaultwarden.env";
@@ -313,7 +322,6 @@ in
       AUDIOBOOKSHELF_UID = "99";
       AUDIOBOOKSHELF_GID = "100";
     };
-
     ports = [ "13378:80" ];
     volumes = [
       "/tank/audio/Audiobooks:/audiobooks"
