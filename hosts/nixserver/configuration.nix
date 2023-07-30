@@ -248,7 +248,7 @@ in
           tls /var/lib/acme/rickhenry.house/cert.pem /var/lib/acme/rickhenry.house/key.pem
         '';
         "home.rickhenry.house".extraConfig = ''
-          reverse_proxy :8123
+          reverse_proxy localhost:8123
           tls /var/lib/acme/rickhenry.house/cert.pem /var/lib/acme/rickhenry.house/key.pem
         '';
         "next.rickhenry.house".extraConfig = ''
@@ -260,14 +260,7 @@ in
           tls /var/lib/acme/rickhenry.house/cert.pem /var/lib/acme/rickhenry.house/key.pem
         '';
         "audio.rickhenry.house".extraConfig = ''
-          reverse_proxy {
-            to localhost:13378
-            # transport http {
-            #   tls
-            #   tls_insecure_skip_verify
-            #   read_buffer 8192
-            # }
-          }
+          reverse_proxy localhost:13378
           tls /var/lib/acme/rickhenry.house/cert.pem /var/lib/acme/rickhenry.house/key.pem
         '';
         "prox.rickhenry.house".extraConfig = ''
