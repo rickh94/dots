@@ -261,12 +261,12 @@ in
         '';
         "audio.rickhenry.house".extraConfig = ''
           reverse_proxy {
-            to :13378
-            transport http {
-              tls
-              tls_insecure_skip_verify
-              read_buffer 8192
-            }
+            to localhost:13378
+            # transport http {
+            #   tls
+            #   tls_insecure_skip_verify
+            #   read_buffer 8192
+            # }
           }
           tls /var/lib/acme/rickhenry.house/cert.pem /var/lib/acme/rickhenry.house/key.pem
         '';
