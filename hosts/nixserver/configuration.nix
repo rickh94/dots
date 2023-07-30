@@ -217,7 +217,7 @@ in
         ROCKET_LOG = "critical";
         # TODO: smtp config
       };
-      environmentFile = "/persist/secrets/vaultwarden";
+      environmentFile = "/persist/secrets/vaultwarden.env";
     };
 
     smartd = {
