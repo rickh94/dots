@@ -58,7 +58,7 @@ in
 
   users.users.jellyfin = {
     isSystemUser = true;
-    id = 996;
+    uid = 996;
   };
 
   users.groups.jellyfin.gid = 996;
