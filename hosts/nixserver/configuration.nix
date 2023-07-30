@@ -56,7 +56,7 @@ in
 
   ];
 
-  users.jellyfin = {
+  users.users.jellyfin = {
     isSystemUser = true;
     id = 996;
     gid = 996;
