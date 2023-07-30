@@ -388,7 +388,7 @@ in
     ];
   };
 
-  environment.persistence."/tank/impermanence" = {
+  environment.persistence."/tank-impermanence" = {
     hideMounts = true;
     directories = [
       "/var"
@@ -415,6 +415,7 @@ in
     '';
 
   fileSystems."/persist".neededForBoot = true;
+  fileSystems."/tank-impermanence".neededForBoot = true;
 
   # TODO: additional samba shares
 
