@@ -253,7 +253,8 @@ in
           tls /var/lib/acme/rickhenry.house/cert.pem /var/lib/acme/rickhenry.house/key.pem
         '';
         "home.rickhenry.house".extraConfig = ''
-          proxy / localhost:8123 {
+          reverse_proxy {
+            to :8123
             websocket
             transparent
           }
