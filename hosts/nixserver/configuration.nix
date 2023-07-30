@@ -59,8 +59,9 @@ in
   users.users.jellyfin = {
     isSystemUser = true;
     id = 996;
-    gid = 996;
   };
+
+  users.groups.jellyfin.gid = 996;
 
   services = {
     ddclient = {
