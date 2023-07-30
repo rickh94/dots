@@ -16,7 +16,7 @@ in
     ];
 
 
-  networking.hostName = "berg";
+  networking.hostName = "albanberg";
   networking.hostId = "d4e76b17";
   networking.nat.internalInterfaces = [ "wg0" ];
 
@@ -53,7 +53,7 @@ in
 
     unzip
     zip
-
+    restic
   ];
 
   users.users.jellyfin = {
@@ -200,8 +200,8 @@ in
 
       pruneOpts = [
         "--keep-daily=7"
-        "--keep-weekly=4"
-        "--keep-monthly=2"
+        "--keep-weekly=2"
+        "--keep-monthly=1"
         "--keep-yearly=0"
       ];
     };
@@ -212,8 +212,8 @@ in
       securityType = "user";
       extraConfig = ''
         workgroup = WORKGROUP
-        server string = smbnix
-        netbios name = smbnix
+        server string = albanberg
+        netbios name = albanberg
         security = user 
         #use sendfile = yes
         #max protocol = smb2
@@ -338,10 +338,6 @@ in
       passwordeval = "cat /persist/secrets/msmtp";
       host = "smtp.mailgun.org";
     };
-  };
-
-  systemd.services.restic-backups-myaccount = {
-    #TODO: add env vars with secrets storage or secrets file
   };
 
   virtualisation.podman.enable = true;
