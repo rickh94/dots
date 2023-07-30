@@ -226,10 +226,9 @@ in
       backupDir = "/tank/vw-backups";
       config = {
         DOMAIN = "https://vault.rickhenry.house";
-        SIGNUPS_ALLOWED = false;
+        SIGNUPS_ALLOWED = true;
         ROCKET_PORT = 8222;
         ROCKET_LOG = "critical";
-        SIGNUPS_ALLOWED = true;
         USE_SENDMAIL = true;
         # TODO: smtp config
       };
