@@ -255,8 +255,10 @@ in
         "home.rickhenry.house".extraConfig = ''
           reverse_proxy {
             to :8123
-            websocket
-            transparent
+            header_up Host {host}
+            header_up X-Real-IP {remote_host}
+            header_up x-forwarded-for {remote_host}
+            header_up X-Forwarded-Proto {scheme}
           }
           tls /var/lib/acme/rickhenry.house/cert.pem /var/lib/acme/rickhenry.house/key.pem
         '';
