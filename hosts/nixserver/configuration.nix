@@ -56,6 +56,12 @@ in
 
   ];
 
+  users.jellyfin = {
+    isSystemUser = true;
+    id = 996;
+    gid = 996;
+  };
+
   services = {
     ddclient = {
       enable = true;
@@ -309,10 +315,10 @@ in
 
     ports = [ "13378:80" ];
     volumes = [
-      "/audio/Audiobooks:/audiobooks"
-      "/audio/Podcasts:/podcasts"
-      "/audio/Containers/Audiobookshelf/config:/config"
-      "/audio/Containers/Audiobookshelf/audiobooks:/metadata"
+      "/tank/audio/Audiobooks:/audiobooks"
+      "/tank/audio/Podcasts:/podcasts"
+      "/tank/audio/Containers/Audiobookshelf/config:/config"
+      "/tank/audio/Containers/Audiobookshelf/audiobooks:/metadata"
     ];
   };
 
@@ -393,8 +399,6 @@ in
     directories = [
       "/var"
       # { directory = "/var/lib/jellyfin"; user = "jellyfin"; group = "jellyfin"; }
-      { directory = "/media"; user = "jellyfin"; }
-      { directory = "/audio"; user = "99"; group = "100"; }
       # {
       #   directory = "/var/lib/nextcloud";
       #   user = "nextcloud";
