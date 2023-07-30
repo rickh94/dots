@@ -90,6 +90,11 @@ in
       enable = true;
       config = {
         default_config = { };
+        http = {
+          base_url = "https://home.rickhenry.house";
+          use_x_forwarded_for = true;
+          trusted_proxies = "127.0.0.1";
+        };
       };
     };
 
@@ -248,7 +253,10 @@ in
           tls /var/lib/acme/rickhenry.house/cert.pem /var/lib/acme/rickhenry.house/key.pem
         '';
         "home.rickhenry.house".extraConfig = ''
-          reverse_proxy localhost:8123
+          proxy / localhost:8123 {
+            websocket
+            transparent
+          }
           tls /var/lib/acme/rickhenry.house/cert.pem /var/lib/acme/rickhenry.house/key.pem
         '';
         "next.rickhenry.house".extraConfig = ''
