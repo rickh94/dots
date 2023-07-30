@@ -293,7 +293,8 @@ in
           "/home.rickhenry.house/10.7.0.100"
           "/jelly.rickhenry.house/10.7.0.100"
           "/vault.rickhenry.house/10.7.0.100"
-          "/vault.rickhenry.house/10.7.0.100"
+          "/prox.rickhenry.house/10.7.0.100"
+          "/audio.rickhenry.house/10.7.0.100"
         ];
       };
     };
