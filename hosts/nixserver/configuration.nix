@@ -226,10 +226,10 @@ in
       backupDir = "/tank/vw-backups";
       config = {
         DOMAIN = "https://vault.rickhenry.house";
-        SIGNUPS_ALLOWED = true;
+        SIGNUPS_ALLOWED = false;
         ROCKET_PORT = 8222;
         ROCKET_LOG = "critical";
-        USE_SENDMAIL = true;
+        # USE_SENDMAIL = true;
         # TODO: smtp config
       };
       environmentFile = "/persist/secrets/vaultwarden.env";
