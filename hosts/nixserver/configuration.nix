@@ -168,6 +168,11 @@ in
           autosnap = true;
           autoprune = true;
         };
+        "tank/srv/rick" = {
+          recursive = true;
+          autosnap = true;
+          autoprune = true;
+        };
       };
     };
 
@@ -218,7 +223,7 @@ in
         #use sendfile = yes
         #max protocol = smb2
         # note: localhost is the ipv6 localhost ::1
-        hosts allow = 10.0.0. 10.7.0. 127.0.0.1 localhost
+        hosts allow = 10.0.1. 10.7.0. 127.0.0.1 localhost
         hosts deny = 0.0.0.0/0
         guest account = nobody
         map to guest = bad user
@@ -434,18 +439,6 @@ in
     hideMounts = true;
     directories = [
       "/var"
-      # { directory = "/var/lib/jellyfin"; user = "jellyfin"; group = "jellyfin"; }
-      # {
-      #   directory = "/var/lib/nextcloud";
-      #   user = "nextcloud";
-      # }
-      # {
-      #   directory = "/var/lib/bitwarden_rs";
-      #   user = "vaultwarden";
-      # }
-      # { directory = "/var/lib/hass"; user = "hass"; }
-      # { directory = "/var/lib/mosquitto"; user = "mosquitto"; }
-      # "/var/lib/samba"
     ];
   };
 
