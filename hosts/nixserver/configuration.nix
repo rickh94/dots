@@ -251,10 +251,17 @@ in
     grafana = {
       enable = true;
       settings = {
-        port = 3001;
-        admin_password = "$__file{/persist/secrets/grafana/admin_password}";
-        secret_key = "$__file{/persist/secrets/grafana/secret_key}";
+        security = {
+          admin_password = "$__file\{/persist/secrets/grafana/admin_password\}";
+          secret_key = "$__file{/persist/secrets/grafana/secret_key}";
+        };
       };
+    };
+
+    grafana_report = {
+      port = 3001;
+      protocol = "http";
+      enable = true;
     };
 
     vaultwarden = {
