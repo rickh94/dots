@@ -308,14 +308,7 @@ in
           tls /var/lib/acme/rickhenry.house/cert.pem /var/lib/acme/rickhenry.house/key.pem
         '';
         "gitea.rickhenry.house".extraConfig = ''
-          reverse_proxy {
-            to https://10.0.1.240:3000
-            transport http {
-              tls
-              tls_insecure_skip_verify
-              read_buffer 8192
-            }
-          }
+          reverse_proxy http://10.0.1.240:3000
           tls /var/lib/acme/rickhenry.house/cert.pem /var/lib/acme/rickhenry.house/key.pem
         '';
       };
@@ -419,6 +412,13 @@ in
           publicKey = "upN/jrQg85q9T8nU5OGPy3rgdSw3IpstRpkXn8Nbizk=";
           allowedIPs = [ "10.7.0.40/32" ];
           presharedKeyFile = "/persist/secrets/wireguard/iphone-psk";
+          persistentKeepalive = 25;
+        }
+        {
+          # wright
+          publicKey = "9/MFu6dR2rUD1r09xXff+coVh6khUVY/5pOFU/gOTTU=";
+          allowedIPs = [ "10.7.0.50/32" ];
+          presharedKeyFile = "/persist/secrets/wireguard/wright-psk";
           persistentKeepalive = 25;
         }
       ];
