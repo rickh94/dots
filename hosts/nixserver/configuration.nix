@@ -54,6 +54,8 @@ in
     unzip
     zip
     restic
+
+    openssl
   ];
 
   users.users.jellyfin = {
@@ -244,6 +246,15 @@ in
           "valid users" = "rick";
         };
       };
+
+      grafana = {
+        enable = true;
+        settings = {
+          port = 3001;
+          admin_password = "$__file{/persist/secrets/grafana/admin_password}";
+          secret_key = "$__file{/persist/secrets/grafana/secret_key}";
+        };
+      };
     };
 
     vaultwarden = {
@@ -313,6 +324,10 @@ in
           reverse_proxy http://10.0.1.240:3000
           tls /var/lib/acme/rickhenry.house/cert.pem /var/lib/acme/rickhenry.house/key.pem
         '';
+        "grafana.rickhenry.house".extraConfig = ''
+          reverse_proxy http://localhost:3001
+          tls /var/lib/acme/rickhenry.house/cert.pem /var/lib/acme/rickhenry.house/key.pem
+        '';
       };
     };
 
@@ -329,6 +344,7 @@ in
           "/audio.rickhenry.house/10.7.0.100"
           "/gitlab.rickhenry.house/10.7.0.100"
           "/gitea.rickhenry.house/10.7.0.100"
+          "/grafana.rickhenry.house/10.7.0.100"
         ];
       };
     };
