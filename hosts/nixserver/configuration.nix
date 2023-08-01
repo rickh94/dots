@@ -173,6 +173,8 @@ in
           autosnap = true;
           autoprune = true;
         };
+        # not backuptank
+        # some of vroom
       };
     };
 
@@ -320,6 +322,32 @@ in
         ];
       };
     };
+
+    zfs = {
+      zed.settings = {
+        ZED_DEBUG_LOG = "/tmp/zed.debug.log";
+
+        ZED_EMAIL_ADDR = [ "rickhenry@rickhenry.dev" ];
+        ZED_EMAIL_PROG = "${pkgs.msmtp}/bin/sendmail";
+        ZED_EMAIL_OPTS = "@ADDRESS@";
+
+        ZED_NOTIFY_INTERVAL_SECS = 3600;
+        ZED_NOTIFY_VERBOSE = true;
+
+        ZED_USE_ENCLOSURE_LEDS = true;
+        ZED_SCRUB_AFTER_RESILVER = true;
+      };
+      autoScrub = {
+        enable = true;
+        pools = [
+          "tank"
+          "rpool"
+          # "backuptank"
+          # "vroom"
+        ];
+
+      };
+    };
   };
 
   security.acme = {
@@ -415,7 +443,11 @@ in
     allowPing = true;
   };
 
-  boot.zfs.extraPools = [ "tank" ];
+  boot.zfs.extraPools = [
+    "tank"
+    #    "backuptank"
+    #    "vroom"
+  ];
 
 
 
