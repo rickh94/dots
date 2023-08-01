@@ -307,6 +307,10 @@ in
           reverse_proxy http://10.0.1.171:80
           tls /var/lib/acme/rickhenry.house/cert.pem /var/lib/acme/rickhenry.house/key.pem
         '';
+        "gitea.rickhenry.house".extraConfig = ''
+          reverse_proxy http://10.0.1.240:3000
+          tls /var/lib/acme/rickhenry.house/cert.pem /var/lib/acme/rickhenry.house/key.pem
+        '';
       };
     };
 
@@ -322,6 +326,7 @@ in
           "/prox.rickhenry.house/10.7.0.100"
           "/audio.rickhenry.house/10.7.0.100"
           "/gitlab.rickhenry.house/10.7.0.100"
+          "/gitea.rickhenry.house/10.7.0.100"
         ];
       };
     };
