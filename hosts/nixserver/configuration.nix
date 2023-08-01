@@ -308,7 +308,14 @@ in
           tls /var/lib/acme/rickhenry.house/cert.pem /var/lib/acme/rickhenry.house/key.pem
         '';
         "gitea.rickhenry.house".extraConfig = ''
-          reverse_proxy http://10.0.1.240:3000
+          reverse_proxy {
+            to http://10.0.1.240:3000
+            transport http {
+              tls
+              tls_insecure_skip_verify
+              read_buffer 8192
+            }
+          }
           tls /var/lib/acme/rickhenry.house/cert.pem /var/lib/acme/rickhenry.house/key.pem
         '';
       };
