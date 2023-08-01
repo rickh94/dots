@@ -305,6 +305,14 @@ in
           }
           tls /var/lib/acme/rickhenry.house/cert.pem /var/lib/acme/rickhenry.house/key.pem
         '';
+        "gitlab.rickhenry.house".extraConfig = ''
+          reverse_proxy http://10.0.1.171:80
+          tls /var/lib/acme/rickhenry.house/cert.pem /var/lib/acme/rickhenry.house/key.pem
+        '';
+        "gitea.rickhenry.house".extraConfig = ''
+          reverse_proxy http://10.0.1.240:3000
+          tls /var/lib/acme/rickhenry.house/cert.pem /var/lib/acme/rickhenry.house/key.pem
+        '';
       };
     };
 
@@ -319,6 +327,8 @@ in
           "/vault.rickhenry.house/10.7.0.100"
           "/prox.rickhenry.house/10.7.0.100"
           "/audio.rickhenry.house/10.7.0.100"
+          "/gitlab.rickhenry.house/10.7.0.100"
+          "/gitea.rickhenry.house/10.7.0.100"
         ];
       };
     };
@@ -430,6 +440,13 @@ in
           publicKey = "upN/jrQg85q9T8nU5OGPy3rgdSw3IpstRpkXn8Nbizk=";
           allowedIPs = [ "10.7.0.40/32" ];
           presharedKeyFile = "/persist/secrets/wireguard/iphone-psk";
+          persistentKeepalive = 25;
+        }
+        {
+          # wright
+          publicKey = "9/MFu6dR2rUD1r09xXff+coVh6khUVY/5pOFU/gOTTU=";
+          allowedIPs = [ "10.7.0.50/32" ];
+          presharedKeyFile = "/persist/secrets/wireguard/wright-psk";
           persistentKeepalive = 25;
         }
       ];
