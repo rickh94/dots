@@ -309,7 +309,7 @@ in
         '';
         "gitea.rickhenry.house".extraConfig = ''
           reverse_proxy {
-            to http://10.0.1.240:3000
+            to https://10.0.1.240:3000
             transport http {
               tls
               tls_insecure_skip_verify
