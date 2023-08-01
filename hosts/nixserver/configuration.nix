@@ -274,7 +274,6 @@ in
       enable = true;
       settings = {
         security = {
-          admin_password = "$__file\{/persist/secrets/grafana/admin_password\}";
           secret_key = "$__file{/persist/secrets/grafana/secret_key}";
         };
       };
