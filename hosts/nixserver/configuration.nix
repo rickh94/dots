@@ -304,7 +304,7 @@ in
           tls /var/lib/acme/rickhenry.house/cert.pem /var/lib/acme/rickhenry.house/key.pem
         '';
         "gitlab.rickhenry.house".extraConfig = ''
-          reverse_proxy http://10.0.1.171
+          reverse_proxy http://10.0.1.171:80
           tls /var/lib/acme/rickhenry.house/cert.pem /var/lib/acme/rickhenry.house/key.pem
         '';
       };
