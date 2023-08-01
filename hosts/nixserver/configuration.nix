@@ -62,15 +62,37 @@ in
     isSystemUser = true;
     uid = 996;
   };
-
   users.groups.jellyfin.gid = 996;
 
   users.users.vaultwarden = {
     isSystemUser = true;
     uid = 988;
   };
-
   users.groups.vaultwarden.gid = 986;
+
+  users.users.grafana = {
+    isSystemUser = true;
+    uid = 196;
+  };
+  users.groups.grafana.gid = 985;
+
+  users.users.nextcloud = {
+    isSystemUser = true;
+    uid = 995;
+  };
+  users.groups.nextcloud.gid = 995;
+
+  users.users.mosquitto = {
+    isSystemUser = true;
+    uid = 246;
+  };
+  users.groups.mosquitto.gid = 246;
+
+  users.users.dnsmasq = {
+    isSystemUser = true;
+    uid = 997;
+  };
+  users.groups.dnsmasq.gid = 997;
 
   services = {
     ddclient = {
@@ -258,12 +280,6 @@ in
       };
     };
 
-    grafana_report = {
-      port = 3001;
-      protocol = "http";
-      enable = true;
-    };
-
     vaultwarden = {
       enable = true;
       backupDir = "/tank/vw-backups";
@@ -332,7 +348,7 @@ in
           tls /var/lib/acme/rickhenry.house/cert.pem /var/lib/acme/rickhenry.house/key.pem
         '';
         "grafana.rickhenry.house".extraConfig = ''
-          reverse_proxy http://localhost:3001
+          reverse_proxy http://localhost:3000
           tls /var/lib/acme/rickhenry.house/cert.pem /var/lib/acme/rickhenry.house/key.pem
         '';
       };
