@@ -3,7 +3,6 @@
 {
   imports =
     [
-      ../_common/linux/configuration/boot.nix
       ../_common/linux/configuration/basic.nix
       ../_common/linux/configuration/users-rick.nix
       ../_common/rick-passwordless-sudo.nix
@@ -11,9 +10,8 @@
     ];
 
 
-  networking.hostName = "albanberg";
-  networking.hostId = "d4e76b17";
-  networking.nat.internalInterfaces = [ "wg0" ];
+  networking.hostName = "nixmc";
+  networking.hostId = "d4e76b12";
 
   # Enable the X11 windowing system.
   services.xserver = {

@@ -2,7 +2,7 @@
 {
 
   imports = [
-    (modulesPath + "profiles/qemu-guest.nix")
+    (modulesPath + "/profiles/qemu-guest.nix")
   ];
   boot.initrd.availableKernelModules = [ "ztz_piix" "uhci_hcd" "virtio_pci" "sd_mod" "sr_mod" ];
   boot.initrd.kernelModules = [ ];
@@ -14,9 +14,9 @@
     fsType = "ext4";
   };
 
-  swapDevices = {
+  swapDevices = [{
     device = "/dev/disk/by-label/swap";
-  };
+  }];
 
   networking.useDHCP = lib.mkDefault true;
 
