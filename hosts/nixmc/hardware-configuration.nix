@@ -8,6 +8,7 @@
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
+  boot.loader.grub.devices = [ "/dev/disk/by-label/nixos" ];
 
   fileSystems."/" = {
     device = "/dev/disk/by-label/nixos";
