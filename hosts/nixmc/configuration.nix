@@ -62,6 +62,7 @@
       };
     };
 
+  nix.settings.sandbox = false;
 
 }
 
