@@ -82,6 +82,14 @@
           ];
           specialArgs = { inherit nixpkgs; inherit chosenfonts; inherit inputs; };
         };
+
+        nixmc = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            ./hosts/nixmc/configuration.nix
+          ];
+          specialArgs = { inherit nixpkgs; inherit chosenfonts; inherit inputs; };
+        };
       };
 
       # DARWIN HOSTS
