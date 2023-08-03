@@ -296,12 +296,19 @@ in
           enabledCollectors = [ "systemd" ];
           port = 9002;
         };
+        zfs = {
+          enable = true;
+          port = 9003;
+        };
       };
       scrapeConfigs = [
         {
           job_name = "albanberg";
           static_configs = [{
-            targets = [ "127.0.0.1:${toString config.services.prometheus.exporters.node.port}" ];
+            targets = [
+              "127.0.0.1:${toString config.services.prometheus.exporters.node.port}"
+              "127.0.0.1:${toString config.services.prometheus.exporters.zfs.port}"
+            ];
           }];
         }
       ];
