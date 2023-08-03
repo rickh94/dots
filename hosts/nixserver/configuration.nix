@@ -336,7 +336,6 @@ in
               "127.0.0.1:${toString config.services.prometheus.exporters.zfs.port}"
               "127.0.0.1:${toString config.services.prometheus.exporters.wireguard.port}"
               "127.0.0.1:${toString config.services.prometheus.exporters.smartctl.port}"
-              "127.0.0.1:${toString config.services.prometheus.exporters.nextcloud.port}"
               "127.0.0.1:${toString config.services.prometheus.exporters.dnsmasq.port}"
             ];
           }];
