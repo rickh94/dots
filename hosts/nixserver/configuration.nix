@@ -445,7 +445,7 @@ in
     wantedBy = [ "multi-user.target" ];
     serviceConfig = {
       ExecStart = ''
-        ${pks.grafana-loki}/bin/promtail --config.file ${./promtail.yaml}
+        ${pkgs.grafana-loki}/bin/promtail --config.file ${./promtail.yaml}
       '';
     };
   };
