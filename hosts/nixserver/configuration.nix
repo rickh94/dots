@@ -57,6 +57,8 @@ in
 
     openssl
     grafana-loki
+    makemkv
+    handbrake
   ];
 
   users.users.jellyfin = {
@@ -175,6 +177,7 @@ in
       # extraApps = with config.services.nextcloud.package.packages.apps; {
       #   inherit contacts calendar tasks;
       # };
+      appstoreEnable = true;
       extraAppsEnable = true;
       configureRedis = true;
       extraOptions = {
@@ -203,17 +206,17 @@ in
           autosnap = true;
           autoprune = true;
         };
-        "tank/nextcloud" = {
-          recursive = true;
-          autosnap = true;
-          autoprune = true;
-        };
-        "tank/impermanence" = {
+        "vroom/impermanence" = {
           recursive = true;
           autosnap = true;
           autoprune = true;
         };
         "tank/srv/rick" = {
+          recursive = true;
+          autosnap = true;
+          autoprune = true;
+        };
+        "tank/media" = {
           recursive = true;
           autosnap = true;
           autoprune = true;
@@ -233,8 +236,9 @@ in
         "/tank/nextcloud"
         "/tank/vw-backups"
         "/persist"
-        "/tank-impermanence"
+        "/vroom-impermanence"
         "/srv/rick"
+        "/srv/git"
       ];
       exclude = [
         ".zfs"
@@ -471,11 +475,18 @@ in
         pools = [
           "tank"
           "rpool"
-          # "backuptank"
-          # "vroom"
+          "backuptank"
+          "vroom"
         ];
 
       };
+    };
+
+    nfs.server = {
+      enable = true;
+      exports = ''
+        /tank/proxmox 10.0.1.0/24(rw,sync,crossmnt,no_subtree_check,all_squash)
+      '';
     };
   };
 
@@ -523,10 +534,10 @@ in
     };
     ports = [ "13378:80" ];
     volumes = [
-      "/tank/audio/Audiobooks:/audiobooks"
-      "/tank/audio/Podcasts:/podcasts"
-      "/tank/audio/Containers/Audiobookshelf/config:/config"
-      "/tank/audio/Containers/Audiobookshelf/audiobooks:/metadata"
+      "/vroom/audio/Audiobooks:/audiobooks"
+      "/vroom/audio/Podcasts:/podcasts"
+      "/vroom/audio/Containers/Audiobookshelf/config:/config"
+      "/vroom/audio/Containers/Audiobookshelf/audiobooks:/metadata"
     ];
   };
 
@@ -592,8 +603,8 @@ in
 
   boot.zfs.extraPools = [
     "tank"
-    #    "backuptank"
-    #    "vroom"
+    "backuptank"
+    "vroom"
   ];
 
 
@@ -614,7 +625,7 @@ in
     ];
   };
 
-  environment.persistence."/tank-impermanence" = {
+  environment.persistence."/vroom-impermanence" = {
     hideMounts = true;
     directories = [
       "/var"
@@ -627,7 +638,7 @@ in
     '';
 
   fileSystems."/persist".neededForBoot = true;
-  fileSystems."/tank-impermanence".neededForBoot = true;
+  fileSystems."/vroom-impermanence".neededForBoot = true;
 
   # TODO: additional samba shares
 
