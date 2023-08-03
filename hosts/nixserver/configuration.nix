@@ -56,6 +56,7 @@ in
     restic
 
     openssl
+    grafana-loki
   ];
 
   users.users.jellyfin = {
@@ -289,6 +290,23 @@ in
     prometheus = {
       enable = true;
       port = 9001;
+      exporters = {
+        node = {
+          enable = true;
+          enabledCollectors = [ "systemd" ];
+          port = 9002;
+        };
+      };
+      scrapeConfigs = [
+        {
+          targets = [ "127.0.0.1:${toString config.services.prometheus.exporters.node.port}" ];
+        }
+      ];
+    };
+
+    loki = {
+      enable = true;
+      configFile = ./loki-local-config.yaml;
     };
 
     vaultwarden = {
@@ -419,6 +437,16 @@ in
         ];
 
       };
+    };
+  };
+
+  systemd.services.promtail = {
+    description = "Promtail service for loki";
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      ExecStart = ''
+        ${pks.grafana-loki}/bin/promtail --config.file ${./promtail.yaml}
+      '';
     };
   };
 
