@@ -101,6 +101,20 @@ in
   };
   users.groups.dnsmasq.gid = 997;
 
+  users.users.loki = {
+    isSystemUser = true;
+    uid = 987;
+    group = "loki";
+  };
+  users.groups.loki.gid = 984;
+
+  users.users.prometheus = {
+    isSystemUser = true;
+    uid = 255;
+    group = "prometheus";
+  };
+  users.groups.prometheus.gid = 255;
+
   services = {
     ddclient = {
       enable = true;
@@ -300,6 +314,26 @@ in
           enable = true;
           port = 9003;
         };
+        restic = {
+          enable = true;
+          port = 9004;
+        };
+        wireguard = {
+          enable = true;
+          port = 9005;
+        };
+        smartctl = {
+          enable = true;
+          port = 9006;
+        };
+        nextcloud = {
+          enable = true;
+          port = 9007;
+        };
+        dnsmasq = {
+          enable = true;
+          port = 9008;
+        };
       };
       scrapeConfigs = [
         {
@@ -308,6 +342,11 @@ in
             targets = [
               "127.0.0.1:${toString config.services.prometheus.exporters.node.port}"
               "127.0.0.1:${toString config.services.prometheus.exporters.zfs.port}"
+              "127.0.0.1:${toString config.services.prometheus.exporters.restic.port}"
+              "127.0.0.1:${toString config.services.prometheus.exporters.wireguard.port}"
+              "127.0.0.1:${toString config.services.prometheus.exporters.smartctl.port}"
+              "127.0.0.1:${toString config.services.prometheus.exporters.nextcloud.port}"
+              "127.0.0.1:${toString config.services.prometheus.exporters.dnsmasq.port}"
             ];
           }];
         }
@@ -552,6 +591,7 @@ in
       ];
     };
   };
+
   networking.firewall = {
     enable = true;
     allowedTCPPorts = [ 22 53 8123 8096 8222 5357 80 443 ];
