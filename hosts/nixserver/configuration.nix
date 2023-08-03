@@ -216,11 +216,6 @@ in
           autosnap = true;
           autoprune = true;
         };
-        "tank/media" = {
-          recursive = true;
-          autosnap = true;
-          autoprune = true;
-        };
         # not backuptank
         # some of vroom
       };
@@ -451,7 +446,6 @@ in
           "/gitlab.rickhenry.house/10.7.0.100"
           "/gitea.rickhenry.house/10.7.0.100"
           "/grafana.rickhenry.house/10.7.0.100"
-          "/mineos.rickhenry.house/10.7.0.100"
         ];
       };
     };
