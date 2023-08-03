@@ -322,10 +322,6 @@ in
           enable = true;
           port = 9006;
         };
-        nextcloud = {
-          enable = true;
-          port = 9007;
-        };
         dnsmasq = {
           enable = true;
           port = 9008;
