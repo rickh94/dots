@@ -61,36 +61,42 @@ in
   users.users.jellyfin = {
     isSystemUser = true;
     uid = 996;
+    group = "jellyfin";
   };
   users.groups.jellyfin.gid = 996;
 
   users.users.vaultwarden = {
     isSystemUser = true;
     uid = 988;
+    group = "vaultwarden";
   };
   users.groups.vaultwarden.gid = 986;
 
   users.users.grafana = {
     isSystemUser = true;
     uid = 196;
+    group = "grafana";
   };
   users.groups.grafana.gid = 985;
 
   users.users.nextcloud = {
     isSystemUser = true;
     uid = 995;
+    group = "nextcloud";
   };
   users.groups.nextcloud.gid = 995;
 
   users.users.mosquitto = {
     isSystemUser = true;
     uid = 246;
+    group = "mosquitto";
   };
   users.groups.mosquitto.gid = 246;
 
   users.users.dnsmasq = {
     isSystemUser = true;
     uid = 997;
+    group = "dnsmasq";
   };
   users.groups.dnsmasq.gid = 997;
 
@@ -270,6 +276,7 @@ in
       };
 
     };
+
     grafana = {
       enable = true;
       settings = {
@@ -277,6 +284,11 @@ in
           secret_key = "$__file{/persist/secrets/grafana/secret_key}";
         };
       };
+    };
+
+    prometheus = {
+      enable = true;
+      port = 9001;
     };
 
     vaultwarden = {
