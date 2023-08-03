@@ -314,10 +314,6 @@ in
           enable = true;
           port = 9003;
         };
-        restic = {
-          enable = true;
-          port = 9004;
-        };
         wireguard = {
           enable = true;
           port = 9005;
@@ -342,7 +338,6 @@ in
             targets = [
               "127.0.0.1:${toString config.services.prometheus.exporters.node.port}"
               "127.0.0.1:${toString config.services.prometheus.exporters.zfs.port}"
-              "127.0.0.1:${toString config.services.prometheus.exporters.restic.port}"
               "127.0.0.1:${toString config.services.prometheus.exporters.wireguard.port}"
               "127.0.0.1:${toString config.services.prometheus.exporters.smartctl.port}"
               "127.0.0.1:${toString config.services.prometheus.exporters.nextcloud.port}"
