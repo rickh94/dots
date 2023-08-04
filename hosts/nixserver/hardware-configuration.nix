@@ -54,9 +54,9 @@
       fsType = "zfs";
     };
 
-  fileSystems."/tank-impermanence" =
+  fileSystems."/vroom-impermanence" =
     {
-      device = "tank/impermanence";
+      device = "vroom/impermanence";
       fsType = "zfs";
     };
 

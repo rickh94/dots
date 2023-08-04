@@ -54,21 +54,68 @@ in
     unzip
     zip
     restic
+
+    openssl
+    grafana-loki
+    makemkv
+    handbrake
   ];
 
   users.users.jellyfin = {
     isSystemUser = true;
     uid = 996;
+    group = "jellyfin";
   };
-
   users.groups.jellyfin.gid = 996;
 
   users.users.vaultwarden = {
     isSystemUser = true;
     uid = 988;
+    group = "vaultwarden";
   };
-
   users.groups.vaultwarden.gid = 986;
+
+  users.users.grafana = {
+    isSystemUser = true;
+    uid = 196;
+    group = "grafana";
+  };
+  users.groups.grafana.gid = 985;
+
+  users.users.nextcloud = {
+    isSystemUser = true;
+    uid = 995;
+    group = "nextcloud";
+  };
+  users.groups.nextcloud.gid = 995;
+
+  users.users.mosquitto = {
+    isSystemUser = true;
+    uid = 246;
+    group = "mosquitto";
+  };
+  users.groups.mosquitto.gid = 246;
+
+  users.users.dnsmasq = {
+    isSystemUser = true;
+    uid = 997;
+    group = "dnsmasq";
+  };
+  users.groups.dnsmasq.gid = 997;
+
+  users.users.loki = {
+    isSystemUser = true;
+    uid = 987;
+    group = "loki";
+  };
+  users.groups.loki.gid = 984;
+
+  users.users.prometheus = {
+    isSystemUser = true;
+    uid = 255;
+    group = "prometheus";
+  };
+  users.groups.prometheus.gid = 255;
 
   services = {
     ddclient = {
@@ -130,6 +177,7 @@ in
       # extraApps = with config.services.nextcloud.package.packages.apps; {
       #   inherit contacts calendar tasks;
       # };
+      appstoreEnable = true;
       extraAppsEnable = true;
       configureRedis = true;
       extraOptions = {
@@ -158,12 +206,7 @@ in
           autosnap = true;
           autoprune = true;
         };
-        "tank/nextcloud" = {
-          recursive = true;
-          autosnap = true;
-          autoprune = true;
-        };
-        "tank/impermanence" = {
+        "vroom/impermanence" = {
           recursive = true;
           autosnap = true;
           autoprune = true;
@@ -172,6 +215,44 @@ in
           recursive = true;
           autosnap = true;
           autoprune = true;
+        };
+        "vroom/vaultwarden" = {
+          recursive = true;
+          autosnap = true;
+          autoprune = true;
+        };
+        # not backuptank
+        # some of vroom
+      };
+    };
+
+    syncoid = {
+      enable = true;
+      interval = "hourly";
+      commands = {
+        "rpool/safe" = {
+          recursive = true;
+          target = "backuptank/host/rpool/safe";
+        };
+        "tank/media" = {
+          target = "backuptank/host/tank/media";
+          recursive = true;
+        };
+        "tank/srv/rick" = {
+          target = "backuptank/host/tank/srv-rick";
+          recursive = true;
+        };
+        "tank/vw-backups" = {
+          target = "backuptank/host/tank/vw-backups";
+          recursive = true;
+        };
+        "vroom/impermanence" = {
+          target = "backuptank/host/vroom/impermanence";
+          recursive = true;
+        };
+        "vroom/vaultwarden" = {
+          target = "backuptank/host/vroom/impermanence";
+          recursive = true;
         };
       };
     };
@@ -186,8 +267,9 @@ in
         "/tank/nextcloud"
         "/tank/vw-backups"
         "/persist"
-        "/tank-impermanence"
+        "/vroom-impermanence"
         "/srv/rick"
+        "/srv/git"
       ];
       exclude = [
         ".zfs"
@@ -241,7 +323,86 @@ in
           "force group" = "users";
           "valid users" = "rick";
         };
+        "stravinsky-backup" = {
+          path = "/srv/arqbackup/stravinsky-mac";
+          browseable = "yes";
+          "read only" = "no";
+          "guest ok" = "no";
+          "create mask" = "0644";
+          "directory mask" = "0755";
+          "force user" = "rick";
+          "force group" = "users";
+          "valid users" = "rick";
+        };
+        "wright-backup" = {
+          path = "/srv/arqbackup/wright";
+          browseable = "yes";
+          "read only" = "no";
+          "guest ok" = "no";
+          "create mask" = "0644";
+          "directory mask" = "0755";
+          "force user" = "rick";
+          "force group" = "users";
+          "valid users" = "rick";
+        };
       };
+
+    };
+
+    grafana = {
+      enable = true;
+      settings = {
+        security = {
+          secret_key = "$__file{/persist/secrets/grafana/secret_key}";
+        };
+      };
+    };
+
+    prometheus = {
+      enable = true;
+      port = 9001;
+      exporters = {
+        node = {
+          enable = true;
+          enabledCollectors = [ "systemd" ];
+          port = 9002;
+        };
+        zfs = {
+          enable = true;
+          port = 9003;
+        };
+        wireguard = {
+          enable = true;
+          port = 9005;
+        };
+        smartctl = {
+          enable = true;
+          port = 9006;
+        };
+        dnsmasq = {
+          enable = true;
+          port = 9008;
+        };
+      };
+      scrapeConfigs = [
+        {
+          job_name = "albanberg";
+          static_configs = [{
+            targets = [
+              "127.0.0.1:${toString config.services.prometheus.exporters.node.port}"
+              "127.0.0.1:${toString config.services.prometheus.exporters.zfs.port}"
+              "127.0.0.1:${toString config.services.prometheus.exporters.wireguard.port}"
+              "127.0.0.1:${toString config.services.prometheus.exporters.smartctl.port}"
+              "127.0.0.1:${toString config.services.prometheus.exporters.dnsmasq.port}"
+            ];
+          }];
+        }
+      ];
+    };
+
+    loki = {
+      enable = true;
+      configFile = ./loki-local-config.yaml;
     };
 
     vaultwarden = {
@@ -311,6 +472,21 @@ in
           reverse_proxy http://10.0.1.240:3000
           tls /var/lib/acme/rickhenry.house/cert.pem /var/lib/acme/rickhenry.house/key.pem
         '';
+        "grafana.rickhenry.house".extraConfig = ''
+          reverse_proxy http://localhost:3000
+          tls /var/lib/acme/rickhenry.house/cert.pem /var/lib/acme/rickhenry.house/key.pem
+        '';
+        "mineos.rickhenry.house".extraConfig = ''
+          reverse_proxy {
+            to https://10.0.1.127:443
+            transport http {
+              tls
+              tls_insecure_skip_verify
+              read_buffer 8192
+            }
+          }
+          tls /var/lib/acme/rickhenry.house/cert.pem /var/lib/acme/rickhenry.house/key.pem
+        '';
       };
     };
 
@@ -327,8 +503,52 @@ in
           "/audio.rickhenry.house/10.7.0.100"
           "/gitlab.rickhenry.house/10.7.0.100"
           "/gitea.rickhenry.house/10.7.0.100"
+          "/grafana.rickhenry.house/10.7.0.100"
         ];
       };
+    };
+
+    zfs = {
+      zed.settings = {
+        ZED_DEBUG_LOG = "/tmp/zed.debug.log";
+
+        ZED_EMAIL_ADDR = [ "rickhenry@rickhenry.dev" ];
+        ZED_EMAIL_PROG = "${pkgs.msmtp}/bin/sendmail";
+        ZED_EMAIL_OPTS = "@ADDRESS@";
+
+        ZED_NOTIFY_INTERVAL_SECS = 3600;
+        ZED_NOTIFY_VERBOSE = true;
+
+        ZED_USE_ENCLOSURE_LEDS = true;
+        ZED_SCRUB_AFTER_RESILVER = true;
+      };
+      autoScrub = {
+        enable = true;
+        pools = [
+          "tank"
+          "rpool"
+          "backuptank"
+          "vroom"
+        ];
+
+      };
+    };
+
+    nfs.server = {
+      enable = true;
+      exports = ''
+        /tank/proxmox 10.0.1.0/24(rw,sync,crossmnt,no_subtree_check,all_squash)
+      '';
+    };
+  };
+
+  systemd.services.promtail = {
+    description = "Promtail service for loki";
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      ExecStart = ''
+        ${pkgs.grafana-loki}/bin/promtail --config.file ${./promtail.yaml}
+      '';
     };
   };
 
@@ -366,10 +586,10 @@ in
     };
     ports = [ "13378:80" ];
     volumes = [
-      "/tank/audio/Audiobooks:/audiobooks"
-      "/tank/audio/Podcasts:/podcasts"
-      "/tank/audio/Containers/Audiobookshelf/config:/config"
-      "/tank/audio/Containers/Audiobookshelf/audiobooks:/metadata"
+      "/vroom/audio/Audiobooks:/audiobooks"
+      "/vroom/audio/Podcasts:/podcasts"
+      "/vroom/audio/Containers/Audiobookshelf/config:/config"
+      "/vroom/audio/Containers/Audiobookshelf/audiobooks:/metadata"
     ];
   };
 
@@ -424,15 +644,20 @@ in
       ];
     };
   };
+
   networking.firewall = {
     enable = true;
-    allowedTCPPorts = [ 22 53 8123 8096 8222 5357 80 443 ];
-    allowedUDPPorts = [ 53 5353 51820 5357 ];
+    allowedTCPPorts = [ 22 53 8123 8096 8222 5357 80 443 111 2049 ];
+    allowedUDPPorts = [ 53 5353 51820 5357 111 2049 ];
     extraCommands = ''iptables -t raw -A OUTPUT -p udp -m udp --dport 137 -j CT --helper netbios-ns'';
     allowPing = true;
   };
 
-  boot.zfs.extraPools = [ "tank" ];
+  boot.zfs.extraPools = [
+    "tank"
+    "backuptank"
+    "vroom"
+  ];
 
 
 
@@ -452,7 +677,7 @@ in
     ];
   };
 
-  environment.persistence."/tank-impermanence" = {
+  environment.persistence."/vroom-impermanence" = {
     hideMounts = true;
     directories = [
       "/var"
@@ -465,7 +690,7 @@ in
     '';
 
   fileSystems."/persist".neededForBoot = true;
-  fileSystems."/tank-impermanence".neededForBoot = true;
+  fileSystems."/vroom-impermanence".neededForBoot = true;
 
   # TODO: additional samba shares
 
