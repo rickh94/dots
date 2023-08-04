@@ -216,8 +216,40 @@ in
           autosnap = true;
           autoprune = true;
         };
+        "vroom/vaultwarden" = {
+          recursive = true;
+          autosnap = true;
+          autoprune = true;
+        };
         # not backuptank
         # some of vroom
+      };
+    };
+
+    syncoid = {
+      enable = true;
+      interval = "hourly";
+      commands = {
+        "rpool/safe" = {
+          recursive = true;
+          target = "backuptank/host/rpool/safe";
+        };
+        "tank/media" = {
+          target = "backuptank/host/tank/media";
+          recursive = true;
+        };
+        "tank/srv/rick" = {
+          target = "backuptank/host/tank/srv-rick";
+          recursive = true;
+        };
+        "vroom/impermanence" = {
+          target = "backuptank/host/vroom/impermanence";
+          recursive = true;
+        };
+        "vroom/vaultwarden" = {
+          target = "backuptank/host/vroom/impermanence";
+          recursive = true;
+        };
       };
     };
 
