@@ -287,6 +287,28 @@ in
           "force group" = "users";
           "valid users" = "rick";
         };
+        "stravinsky-backup" = {
+          path = "/srv/arqbackup/stravinsky-mac";
+          browseable = "yes";
+          "read only" = "no";
+          "guest ok" = "no";
+          "create mask" = "0644";
+          "directory mask" = "0755";
+          "force user" = "rick";
+          "force group" = "users";
+          "valid users" = "rick";
+        };
+        "wright-backup" = {
+          path = "/srv/arqbackup/wright";
+          browseable = "yes";
+          "read only" = "no";
+          "guest ok" = "no";
+          "create mask" = "0644";
+          "directory mask" = "0755";
+          "force user" = "rick";
+          "force group" = "users";
+          "valid users" = "rick";
+        };
       };
 
     };
