@@ -538,6 +538,7 @@ in
       enable = true;
       exports = ''
         /tank/proxmox 10.0.1.0/24(rw,sync,crossmnt,no_subtree_check,all_squash)
+        /backuptank/proxmox 10.0.1.0/24(rw,sync,crossmnt,no_subtree_check,all_squash)
       '';
     };
   };
