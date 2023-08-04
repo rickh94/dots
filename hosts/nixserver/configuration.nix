@@ -242,6 +242,10 @@ in
           target = "backuptank/host/tank/srv-rick";
           recursive = true;
         };
+        "tank/vw-backups" = {
+          target = "backuptank/host/tank/vw-backups";
+          recursive = true;
+        };
         "vroom/impermanence" = {
           target = "backuptank/host/vroom/impermanence";
           recursive = true;
