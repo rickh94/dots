@@ -14,6 +14,7 @@
 
   networking.hostName = "nixx86-vm";
   networking.hostId = "99a4b701";
+  users.users.rick.shell = pkgs.fish;
 
   environment.systemPackages = with pkgs; [
     firefox
