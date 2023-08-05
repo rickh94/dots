@@ -230,8 +230,8 @@ in
       enable = true;
       interval = "hourly";
       commonArgs = [
-      "--compress=zstd-slow"
-      "--recursive"
+        "--compress=zstd-slow"
+        "--recursive"
       ];
       commands = {
         "rpool/safe" = {
@@ -241,8 +241,8 @@ in
           target = "backuptank/host/tank/media";
           useCommonArgs = false;
           extraArgs = [
-          "--compress=none"
-          "--recursive"
+            "--compress=none"
+            "--recursive"
           ];
         };
         "tank/srv/rick" = {
@@ -539,6 +539,9 @@ in
 
     nfs.server = {
       enable = true;
+      lockdPort = 4001;
+      mountdPort = 4002;
+      statdPort = 4000;
       exports = ''
         /tank/proxmox 10.0.1.0/24(rw,sync,crossmnt,no_subtree_check,all_squash)
         /backuptank/proxmox 10.0.1.0/24(rw,sync,crossmnt,no_subtree_check,all_squash)
@@ -651,8 +654,8 @@ in
 
   networking.firewall = {
     enable = true;
-    allowedTCPPorts = [ 22 53 8123 8096 8222 5357 80 443 111 2049 ];
-    allowedUDPPorts = [ 53 5353 51820 5357 111 2049 ];
+    allowedTCPPorts = [ 22 53 8123 8096 8222 5357 80 443 111 2049 4000 4001 4002 20048 ];
+    allowedUDPPorts = [ 53 5353 51820 5357 111 2049 4000 4001 4002 20048 ];
     extraCommands = ''iptables -t raw -A OUTPUT -p udp -m udp --dport 137 -j CT --helper netbios-ns'';
     allowPing = true;
   };
