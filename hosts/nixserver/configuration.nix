@@ -230,9 +230,8 @@ in
       enable = true;
       interval = "hourly";
       commonArgs = [
-      "--delete-target-snapshots"
-      "--compress zstd-slow"
-      "-r"
+      "--compress=zstd-slow"
+      "--recursive"
       ];
       commands = {
         "rpool/safe" = {
@@ -240,6 +239,11 @@ in
         };
         "tank/media" = {
           target = "backuptank/host/tank/media";
+          useCommonArgs = false;
+          extraArgs = [
+          "--compress=none"
+          "--recursive"
+          ];
         };
         "tank/srv/rick" = {
           target = "backuptank/host/tank/srv-rick";
