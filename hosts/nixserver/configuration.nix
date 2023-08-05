@@ -236,28 +236,22 @@ in
       ];
       commands = {
         "rpool/safe" = {
-          recursive = true;
           target = "backuptank/host/rpool/safe";
         };
         "tank/media" = {
           target = "backuptank/host/tank/media";
-          recursive = true;
         };
         "tank/srv/rick" = {
           target = "backuptank/host/tank/srv-rick";
-          recursive = true;
         };
         "tank/vw-backups" = {
           target = "backuptank/host/tank/vw-backups";
-          recursive = true;
         };
         "vroom/impermanence" = {
           target = "backuptank/host/vroom/impermanence";
-          recursive = true;
         };
         "vroom/vaultwarden" = {
-          target = "backuptank/host/vroom/impermanence";
-          recursive = true;
+          target = "backuptank/host/vroom/vaultwarden";
         };
       };
     };
