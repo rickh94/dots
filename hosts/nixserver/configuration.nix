@@ -229,6 +229,11 @@ in
     syncoid = {
       enable = true;
       interval = "hourly";
+      commonArgs = [
+      "--delete-target-snapshots"
+      "--compress zstd-slow"
+      "-r"
+      ];
       commands = {
         "rpool/safe" = {
           recursive = true;
