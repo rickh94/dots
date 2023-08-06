@@ -498,15 +498,8 @@ in
           reverse_proxy http://localhost:28981
           tls /var/lib/acme/rickhenry.house/cert.pem /var/lib/acme/rickhenry.house/key.pem
         '';
-        "mineos.rickhenry.house".extraConfig = ''
-          reverse_proxy {
-            to https://10.0.1.127:443
-            transport http {
-              tls
-              tls_insecure_skip_verify
-              read_buffer 8192
-            }
-          }
+        "ptero.rickhenry.house".extraConfig = ''
+          reverse_proxy http://10.0.1.134:80
           tls /var/lib/acme/rickhenry.house/cert.pem /var/lib/acme/rickhenry.house/key.pem
         '';
       };
@@ -527,6 +520,7 @@ in
           "/gitea.rickhenry.house/10.7.0.100"
           "/grafana.rickhenry.house/10.7.0.100"
           "/paper.rickhenry.house/10.7.0.100"
+          "/ptero.rickhenry.house/10.7.0.100"
         ];
       };
     };
