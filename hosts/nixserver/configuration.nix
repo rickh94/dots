@@ -417,7 +417,7 @@ in
 
     vaultwarden = {
       enable = true;
-      backupDir = "/tank/vw-backups";
+      backupDir = "/backuptank/vw-backups";
       config = {
         DOMAIN = "https://vault.rickhenry.house";
         SIGNUPS_ALLOWED = false;
