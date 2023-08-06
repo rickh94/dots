@@ -431,7 +431,7 @@ in
       enable = true;
       dataDir = "/vroom/paperless";
       mediaDir = "/vroom/paperless/media";
-      mediaDir = "/vroom/paperless/consume";
+      consumeDir = "/vroom/paperless/consume";
       address = "paper.rickhenry.house";
       port = 28981;
     };
