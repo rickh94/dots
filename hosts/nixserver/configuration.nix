@@ -68,6 +68,13 @@ in
   };
   users.groups.jellyfin.gid = 996;
 
+  users.users.paperless = {
+    isSystemUser = true;
+    uid = 315;
+    group = "paperless";
+  };
+  users.groups.paperless.gid = 315;
+
   users.users.vaultwarden = {
     isSystemUser = true;
     uid = 988;
