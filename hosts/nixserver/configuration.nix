@@ -427,6 +427,15 @@ in
       autodetect = true;
     };
 
+    paperless = {
+      enable = true;
+      dataDir = "/vroom/paperless";
+      mediaDir = "/vroom/paperless/media";
+      mediaDir = "/vroom/paperless/consume";
+      address = "paper.rickhenry.house";
+      port = 28981;
+    };
+
     caddy = {
       enable = true;
       virtualHosts = {
@@ -479,6 +488,10 @@ in
           reverse_proxy http://localhost:3000
           tls /var/lib/acme/rickhenry.house/cert.pem /var/lib/acme/rickhenry.house/key.pem
         '';
+        "paper.rickhenry.house".extraConfig = ''
+          reverse_proxy http://localhost:28981
+          tls /var/lib/acme/rickhenry.house/cert.pem /var/lib/acme/rickhenry.house/key.pem
+        '';
         "mineos.rickhenry.house".extraConfig = ''
           reverse_proxy {
             to https://10.0.1.127:443
@@ -507,6 +520,7 @@ in
           "/gitlab.rickhenry.house/10.7.0.100"
           "/gitea.rickhenry.house/10.7.0.100"
           "/grafana.rickhenry.house/10.7.0.100"
+          "/paper.rickhenry.house/10.7.0.100"
         ];
       };
     };
