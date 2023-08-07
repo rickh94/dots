@@ -124,9 +124,6 @@ in
   };
   users.groups.prometheus.gid = 255;
 
-  programs.fish.enable = true;
-  users.users.rick.shell = pkgs.fish;
-
   services = {
     ddclient = {
       enable = true;
