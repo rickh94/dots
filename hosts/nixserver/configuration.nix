@@ -34,7 +34,6 @@ in
     firefox
     neovim
     git
-    xorg.lndir
 
     alacritty
     xorg.xinit
