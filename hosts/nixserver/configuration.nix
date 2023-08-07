@@ -507,13 +507,7 @@ in
           tls /var/lib/acme/rickhenry.house/cert.pem /var/lib/acme/rickhenry.house/key.pem
         '';
         "paper.rickhenry.house".extraConfig = ''
-          reverse_proxy {
-            to http://localhost:28981
-            header_up Host {host}
-            header_up X-Real-IP {remote_host}
-            header_up x-forwarded-for {remote_host}
-            header_up X-Forwarded-Proto {scheme}
-          }
+          reverse_proxy http://localhost:28981
           tls /var/lib/acme/rickhenry.house/cert.pem /var/lib/acme/rickhenry.house/key.pem
         '';
         "ptero.rickhenry.house".extraConfig = ''
@@ -651,6 +645,7 @@ in
     wg0 = {
       address = [ "10.7.0.100/24" ];
       listenPort = 51820;
+      MTU = 1410;
       privateKeyFile = "/persist/secrets/wireguard/privkey";
       peers = [
         {
