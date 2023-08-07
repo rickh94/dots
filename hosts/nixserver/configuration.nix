@@ -451,6 +451,7 @@ in
       mediaDir = "/vroom/paperless/media";
       consumptionDir = "/vroom/paperless/consume";
       port = 28981;
+      address = "localhost";
     };
 
     caddy = {
@@ -507,7 +508,7 @@ in
         '';
         "paper.rickhenry.house".extraConfig = ''
           reverse_proxy {
-            to :28981
+            to http://localhost:28981
             header_up Host {host}
             header_up X-Real-IP {remote_host}
             header_up x-forwarded-for {remote_host}
