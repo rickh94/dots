@@ -645,7 +645,7 @@ in
     wg0 = {
       address = [ "10.7.0.100/24" ];
       listenPort = 51820;
-      MTU = 1410;
+      mtu = 1410;
       privateKeyFile = "/persist/secrets/wireguard/privkey";
       peers = [
         {
