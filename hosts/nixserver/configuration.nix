@@ -506,7 +506,13 @@ in
           tls /var/lib/acme/rickhenry.house/cert.pem /var/lib/acme/rickhenry.house/key.pem
         '';
         "paper.rickhenry.house".extraConfig = ''
-          reverse_proxy http://localhost:28981
+          reverse_proxy {
+            to :28981
+            header_up Host {host}
+            header_up X-Real-IP {remote_host}
+            header_up x-forwarded-for {remote_host}
+            header_up X-Forwarded-Proto {scheme}
+          }
           tls /var/lib/acme/rickhenry.house/cert.pem /var/lib/acme/rickhenry.house/key.pem
         '';
         "ptero.rickhenry.house".extraConfig = ''
