@@ -700,7 +700,6 @@ in
   environment.persistence."/persist/impermanence" = {
     directories = [
       "/etc/nixos"
-      "/var/lib/acme"
     ];
     files = [
       "/etc/ssh/ssh_host_rsa_key"
