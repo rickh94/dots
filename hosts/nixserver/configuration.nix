@@ -228,6 +228,11 @@ in
           autosnap = true;
           autoprune = true;
         };
+        "vroom/paperless" = {
+          recursive = true;
+          autosnap = true;
+          autoprune = true;
+        };
         # not backuptank
         # some of vroom
       };
@@ -264,6 +269,9 @@ in
         "vroom/vaultwarden" = {
           target = "backuptank/host/vroom/vaultwarden";
         };
+        "vroom/paperless" = {
+          target = "backuptank/host/vroom/paperless";
+        };
       };
     };
 
@@ -278,6 +286,7 @@ in
         "/tank/vw-backups"
         "/persist"
         "/vroom-impermanence"
+        "/vroom/paperless"
         "/srv/rick"
         "/srv/git"
       ];
