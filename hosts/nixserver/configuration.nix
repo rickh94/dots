@@ -59,6 +59,7 @@ in
     grafana-loki
     makemkv
     handbrake
+    smartmontools
   ];
 
   users.users.jellyfin = {
@@ -452,6 +453,12 @@ in
     smartd = {
       enable = true;
       autodetect = true;
+      notifications = {
+        mail = {
+          enable = true;
+          recipient = "rickhenry@rickhenry.dev";
+        };
+      };
     };
 
     paperless = {
