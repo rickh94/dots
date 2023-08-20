@@ -8,11 +8,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1691324904,
-        "narHash": "sha256-jZed9g8hquDaadqEbkqjwaJ7tFYVa5dfQeP/bwrjme8=",
+        "lastModified": 1691633921,
+        "narHash": "sha256-RIQWVoSHtt9bXnJlrS0LxQzk9T3m8200Za7owI1uObY=",
         "owner": "jcdickinson",
         "repo": "codeium.nvim",
-        "rev": "6d66ed1baad335305414ac94f71c4b97b5dd97a7",
+        "rev": "33688316ac63d3deb68baf4f940b48161aa9321d",
         "type": "github"
       },
       "original": {
@@ -243,11 +243,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1691328192,
-        "narHash": "sha256-w59N1zyDQ7SupfMJLFvtms/SIVbdryqlw5AS4+DiH+Y=",
+        "lastModified": 1691522891,
+        "narHash": "sha256-xqQqVryXKJoFQ/+RL0A7DihkLkev8dk6afM7B04TilU=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "61676e4dcfeeb058f255294bcb08ea7f3bc3ce56",
+        "rev": "78287547942dd8e8afff0ae47fb8e2553db79d7e",
         "type": "github"
       },
       "original": {
@@ -297,11 +297,11 @@
     },
     "unstable": {
       "locked": {
-        "lastModified": 1691276849,
-        "narHash": "sha256-RNnrzxhW38SOFIF6TY/WaX7VB3PCkYFEeRE5YZU+wHw=",
+        "lastModified": 1691472822,
+        "narHash": "sha256-XVfYZ2oB3lNPVq6sHCY9WkdQ8lHoIDzzbpg8bB6oBxA=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "5faab29808a2d72f4ee0c44c8e850e4e6ada972f",
+        "rev": "41c7605718399dcfa53dd7083793b6ae3bc969ff",
         "type": "github"
       },
       "original": {

@@ -555,6 +555,10 @@ in
 
     zfs = {
       autoSnapshot.enable = false;
+      trim = {
+        enable = true;
+        interval = "weekly";
+      };
       zed.settings = {
         ZED_DEBUG_LOG = "/tmp/zed.debug.log";
 

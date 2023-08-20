@@ -71,7 +71,7 @@ in
       "handbrake"
       "libiconv"
       "nss"
-      "oci-cli"
+      # "oci-cli"
       "lilypond"
       "jq"
       "switchaudio-osx"
