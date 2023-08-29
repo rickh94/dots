@@ -14,7 +14,7 @@
 
   networking.hostName = "nixx86-vm";
   networking.hostId = "99a4b701";
-  users.users.rick.shell = pkgs.fish;
+  users.users.rick.shell = pkgs.zsh;
 
   environment.systemPackages = with pkgs; [
     firefox
@@ -33,7 +33,9 @@
     curl
     podman
     podman-compose
+    zsh
   ];
+  programs.zsh.enable = true;
 
   environment.pathsToLink = [ "/libexec" ];
 

@@ -16,6 +16,10 @@ in
     ];
 
 
+  users.users.rick.shell = pkgs.zsh;
+  programs.zsh.enable = true;
+
+
   networking.hostName = "albanberg";
   networking.hostId = "d4e76b17";
   networking.nat.internalInterfaces = [ "wg0" ];
