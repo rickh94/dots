@@ -86,6 +86,8 @@ in
       "turso"
       "flyctl"
       "aom"
+      "vercel-cli"
+      "docker-credential-helper"
       # "dnsmasq"
       # "nginx"
       # "php"
@@ -99,16 +101,11 @@ in
       "mongodb/brew"
     ];
     casks = [
-      "orbstack"
-      "local" # local wordpress runnenitr
       "sf-symbols"
       "firefox"
       "handbrake"
       "musescore"
       "steam"
-      "thunderbird-beta"
-      "iterm2"
-      "krita"
       "gimp"
       "vlc"
       "brave-browser"
@@ -117,15 +114,11 @@ in
       "spotify"
       "obs"
       "arq"
-      "rancher"
-      "plex-htpc"
-      "plexamp"
-      "syncthing"
       "karabiner-elements"
       "nextcloud"
-      "rustdesk"
       "inkscape"
       "temurin8"
+      "opera"
     ];
   };
 

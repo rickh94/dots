@@ -398,6 +398,9 @@ require('lazy').setup({
           null_ls.builtins.formatting.black,
           null_ls.builtins.formatting.json_tool,
           null_ls.builtins.formatting.just,
+          null_ls.builtins.formatting.prettier.with {
+            filetypes = { "javascript", "typescript", "astro", "javascriptreact", "typescriptreact", },
+          },
           null_ls.builtins.formatting.phpcsfixer,
           -- null_ls.builtins.formatting.pint,
           null_ls.builtins.diagnostics.djlint.with {
