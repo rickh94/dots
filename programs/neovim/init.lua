@@ -1085,7 +1085,7 @@ cmp.setup.cmdline(':', {
 -- autoformat on save
 local format_on_save_ext = {
   "go", "rs", "css", "json", "ex", "rb", "vue", "c", "cpp", "java",
-  "nix", "ts", "lua", "astro", "tsx", "py",
+  "nix", "ts", "lua", "astro", "tsx", "py", "html"
 }
 
 for _, v in pairs(format_on_save_ext) do

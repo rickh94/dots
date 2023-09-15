@@ -92,6 +92,7 @@ in
       "aom"
       "vercel-cli"
       "docker-credential-helper"
+      "neovide"
       # "dnsmasq"
       # "nginx"
       # "php"

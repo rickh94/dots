@@ -56,6 +56,12 @@
       "_build"
       ".direnv"
       ".envrc"
+      "*.db"
+      "*.db-wal"
+      "*.db-shm"
+      "*.db-litestream"
+      ".devenv*"
+      "devenv.local.nix"
     ];
     lfs.enable = true;
   };
