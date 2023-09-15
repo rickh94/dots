@@ -534,11 +534,6 @@ in
           reverse_proxy http://10.0.1.134:80
           tls /var/lib/acme/rickhenry.house/cert.pem /var/lib/acme/rickhenry.house/key.pem
         '';
-        "vm.rickhenry.house".extraConfig = ''
-          :22 {
-              reverse_proxy 10.0.1.179:22
-            }
-        '';
       };
     };
 
@@ -558,7 +553,6 @@ in
           "/grafana.rickhenry.house/10.7.0.100"
           "/paper.rickhenry.house/10.7.0.100"
           "/ptero.rickhenry.house/10.7.0.100"
-          "/vm.rickhenry.house/10.7.0.100"
         ];
       };
     };
