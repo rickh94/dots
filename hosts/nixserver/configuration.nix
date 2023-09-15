@@ -558,6 +558,7 @@ in
           "/grafana.rickhenry.house/10.7.0.100"
           "/paper.rickhenry.house/10.7.0.100"
           "/ptero.rickhenry.house/10.7.0.100"
+          "/vm.rickhenry.house/10.7.0.100"
         ];
       };
     };
