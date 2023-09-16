@@ -7,6 +7,7 @@
   xdg.configFile."nvim-astro" = {
     source = ./neovim/nvim-astronvim;
     recursive = true;
+    target = "nvim-astro";
   };
 
   xdg.configFile."nvim-doom" = {
