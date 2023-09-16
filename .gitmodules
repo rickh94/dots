@@ -1,0 +1,12 @@
+[submodule "programs/neovim/nvim-astronvim"]
+	path = programs/neovim/nvim-astronvim
+	url = https://github.com/AstroNvim/AstroNvim
+[submodule "programs/neovim/nvim-nvchad"]
+	path = programs/neovim/nvim-nvchad
+	url = https://github.com/NvChad/NvChad
+[submodule "programs/neovim/nvim-lunarvim"]
+	path = programs/neovim/nvim-lunarvim
+	url = https://github.com/lunarvim/lunarvim
+[submodule "programs/neovim/nvim-doom"]
+	path = programs/neovim/nvim-doom
+	url = https://github.com/doom-neovim/doom-nvim

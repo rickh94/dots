@@ -14,9 +14,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
-  -- git plugins
-  'tpope/vim-fugitive',
-  'tpope/vim-rhubarb',
 
   -- autodetect ts and sw
   -- 'tpope/vim-sleuth',
@@ -150,7 +147,8 @@ require('lazy').setup({
       require('mini.pairs').setup()
     end,
   },
-  'psliwka/vim-smoothie',
+
+  -- 'psliwka/vim-smoothie',
   'machakann/vim-sandwich',
 
   -- git signs in gutter
@@ -179,6 +177,14 @@ require('lazy').setup({
     }
   },
 
+  -- theoretically pretty scrolling
+  {
+    'echasnovski/mini.animate',
+    version = '*',
+    config = function()
+      require('mini.pairs').setup()
+    end,
+  },
   -- indent blankline and scope
   -- {
   --   'lukas-reineke/indent-blankline.nvim',
@@ -216,6 +222,7 @@ require('lazy').setup({
       })
     end
   },
+
   {
     'simrat39/inlay-hints.nvim',
     priority = 80,
@@ -223,6 +230,7 @@ require('lazy').setup({
       require('inlay-hints').setup()
     end
   },
+
   {
     'saecki/crates.nvim',
     config = function()
@@ -234,7 +242,12 @@ require('lazy').setup({
   {
     'windwp/nvim-ts-autotag',
     config = function()
-      require('nvim-ts-autotag').setup()
+      require('nvim-ts-autotag').setup({
+        filetypes = {
+          'html', 'javascript', 'typescript', 'javascriptreact', 'typescriptreact', 'svelte', 'vue', 'tsx', 'jsx',
+          'rescript', 'xml', 'php', 'markdown', 'astro', 'glimmer', 'handlebars', 'hbs', 'twig', 'htmldjango'
+        },
+      })
     end
   },
 
@@ -264,7 +277,8 @@ require('lazy').setup({
   -- pathced codeium ai coding assistant
   {
     'rickh94/codeium.vim',
-    commit = "1d1325",
+    -- commit = "1d1325",
+    commit = "6764313",
     config = function()
       vim.keymap.set('i', '<C-g>', function() return vim.fn['codeium#Accept']() end, { expr = true })
       vim.keymap.set('i', '<c-;>', function() return vim.fn['codeium#CycleCompletions'](1) end, { expr = true })
@@ -296,77 +310,30 @@ require('lazy').setup({
 
   -- ui changes
   -- themes
-  'folke/tokyonight.nvim',
-  -- 'LunarVim/onedarker.nvim',
-  -- 'ellisonleao/gruvbox.nvim',
-  -- 'bluz71/vim-nightfly-colors',
-  -- 'bluz71/vim-moonfly-colors',
-  -- {
-  --   'catppuccin/nvim',
-  --   name = 'catppuccin',
-  --   config = function()
-  --     require('catppuccin').setup({
-  --       flavor = "mocha",
-  --     })
-  --   end
-  -- },
-  -- {
-  --   'yorik1984/newpaper.nvim',
-  --   config = function()
-  --     require('newpaper').setup({ style = 'dark' })
-  --   end,
-  -- },
-
-
-  -- dashboard
-  -- {
-  --   'glepnir/dashboard-nvim',
-  --   event = 'VimEnter',
-  --   config = function()
-  --     require('dashboard').setup({})
-  --   end,
-  --   dependencies = {
-  --     'nvim-tree/nvim-web-devicons',
-  --   }
-  -- },
-
-  -- prettier notifications
-  -- 'rcarriga/nvim-notify',
+  {
+    'folke/tokyonight.nvim',
+    lazy = false,
+    priority = 1000,
+    opts = {},
+    config = function()
+      require('tokyonight').setup({
+        transparent = true,
+        styles = {
+          sidebars = "dark",
+          floats = "dark",
+        }
+      })
+    end
+  },
 
   -- prettier ui elements
   'stevearc/dressing.nvim',
-
-  -- transparency
-  {
-    'xiyaowong/nvim-transparent',
-    config = function()
-      require("transparent").setup({
-        groups = { -- table: default groups
-          'Normal', 'NormalNC', 'Comment', 'Constant', 'Special', 'Identifier',
-          'Statement', 'PreProc', 'Type', 'Underlined', 'Todo', 'String', 'Function',
-          'Conditional', 'Repeat', 'Operator', 'Structure', 'LineNr', 'NonText',
-          'SignColumn', 'CursorLineNr', 'EndOfBuffer',
-        },
-        extra_groups = {},   -- table: additional groups that should be cleared
-        exclude_groups = {}, -- table: groups you don't want to clear
-      })
-    end,
-    lazy = false,
-  },
 
   -- highlight todo comments
   {
     'folke/todo-comments.nvim',
     config = function()
       require('todo-comments').setup()
-    end
-  },
-
-  -- twilight dim code
-  {
-    'folke/twilight.nvim',
-    config = function()
-      require('twilight').setup()
     end
   },
 
@@ -437,8 +404,6 @@ require('lazy').setup({
       })
     end
   },
-
-  -- 'jay-babu/mason-null-ls.nvim',
 
   -- lilypond
   {
@@ -578,9 +543,11 @@ vim.o.smartindent = true
 
 vim.o.scrolloff = 8
 
-vim.o.colorcolumn = "80"
+vim.o.colorcolumn = "120"
 vim.o.wrap = false
 vim.o.nowrap = true
+vim.o.cursorline = true
+
 
 -- highlight on yank
 local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
