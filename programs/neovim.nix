@@ -5,23 +5,31 @@
   };
 
   xdg.configFile."nvim-astro" = {
-    source = ./neovim/nvim-astronvim;
+    source = builtins.fetchGit {
+      url = "https://github.com/astronvim/astronvim";
+    };
     recursive = true;
     target = "nvim-astro";
   };
 
   xdg.configFile."nvim-doom" = {
-    source = ./neovim/nvim-doom;
+    source = builtins.fetchGit {
+      url = "https://github.com/doom-neovim/doom-nvim";
+    };
     recursive = true;
   };
 
   xdg.configFile."nvim-nvchad" = {
-    source = ./neovim/nvim-nvchad;
+    source = builtins.fetchGit {
+      url = "https://github.com/NvChad/NvChad";
+    };
     recursive = true;
   };
 
   xdg.configFile."nvim-lunar" = {
-    source = ./neovim/nvim-lunarvim;
+    source = builtins.fetchGit {
+      url = "https://github.com/LunarVim/LunarVim";
+    };
     recursive = true;
   };
 

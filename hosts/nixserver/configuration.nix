@@ -268,14 +268,9 @@ in
         "tank/vw-backups" = {
           target = "backuptank/host/tank/vw-backups";
         };
-        "vroom/impermanence" = {
-          target = "backuptank/host/vroom/impermanence";
-        };
-        "vroom/vaultwarden" = {
-          target = "backuptank/host/vroom/vaultwarden";
-        };
-        "vroom/paperless" = {
-          target = "backuptank/host/vroom/paperless";
+        "vroom" = {
+          target = "backuptank/host/vroom";
+          recursive = true;
         };
       };
     };

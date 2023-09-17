@@ -33,6 +33,12 @@ require('lazy').setup({
   -- auto mkdir -p on save
   'jghauser/mkdir.nvim',
 
+  -- leap aroud nicely
+  'ggandor/leap.nvim',
+
+
+  'hiphish/rainbow-delimiters.nvim',
+
   -- autosave on pause or leave
   {
     'tmillr/sos.nvim',
@@ -345,65 +351,165 @@ require('lazy').setup({
     end,
   },
 
-  -- null ls
   {
-    'jose-elias-alvarez/null-ls.nvim',
+    'mfussenegger/nvim-lint',
     config = function()
-      local null_ls = require('null-ls')
-      null_ls.setup({
-        debug = false,
-        sources = {
-          -- null_ls.builtins.code_actions.eslint_d,
-          null_ls.builtins.code_actions.proselint,
-          null_ls.builtins.code_actions.refactoring,
-          null_ls.builtins.code_actions.shellcheck,
-          null_ls.builtins.formatting.djlint.with {
-            filetypes = { "django", "jinja.html", "htmldjango", "djhtml" },
-          },
-          null_ls.builtins.formatting.prettier,
-          null_ls.builtins.formatting.isort,
-          null_ls.builtins.formatting.black,
-          null_ls.builtins.formatting.json_tool,
-          null_ls.builtins.formatting.just,
-          null_ls.builtins.formatting.prettier.with {
-            filetypes = { "javascript", "typescript", "astro", "javascriptreact", "typescriptreact", },
-          },
-          null_ls.builtins.formatting.phpcsfixer,
-          -- null_ls.builtins.formatting.pint,
-          null_ls.builtins.diagnostics.djlint.with {
-            filetypes = { "django", "jinja.html", "htmldjango", "djhtml" },
-          },
-          null_ls.builtins.diagnostics.jsonlint,
-          null_ls.builtins.diagnostics.mypy.with {
-            command = {
-              "python",
-              "-m",
-              "mypy"
-            }
-          },
-          -- null_ls.builtins.diagnostics.markuplint,
-          null_ls.builtins.diagnostics.proselint,
-          null_ls.builtins.diagnostics.sqlfluff,
-          -- null_ls.builtins.diagnostics.standardjs,
-          null_ls.builtins.diagnostics.stylelint,
-          -- null_ls.builtins.diagnostics.pylint.with {
-          --   diagnostics_postprocess = function(diagnostic)
-          --     diagnostic.code = diagnostic.message_id
-          --   end,
-          -- },
-          null_ls.builtins.diagnostics.pyproject_flake8,
-          -- null_ls.builtins.diagnostics.vulture,
+      require('lint').linters.flake8 = {
+        cmd = "pflake8"
+      }
+      require('lint').linters_by_ft = {
+        python = {
+          'flake8', 'mypy', 'vulture'
         },
-        on_attach = function(client, bufnr)
-          if client.supports_method("textDocument/formatting") then
-            vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
-              vim.lsp.buf.format()
-            end, { desc = 'Format current buffer with LSP' })
-          end
-        end
-      })
-    end
+        css = {
+          'stylelint'
+        },
+        php = {
+          'phpcs',
+        },
+        htmldjango = {
+          'djlint', 'curlylint'
+        },
+        json = {
+          'jsonlint',
+        },
+        markdown = {
+          'vale',
+        },
+        sql = {
+          'sqlfluff',
+        },
+        javascript = {
+          'eslint_d',
+        },
+        typescript = {
+          'eslint_d',
+        }
+      }
+    end,
   },
+  {
+    'mhartington/formatter.nvim',
+    config = function()
+      require('formatter').setup({
+        -- Enable or disable logging
+        logging = true,
+        -- Set the log level
+        log_level = vim.log.levels.WARN,
+        filetype = {
+          javascript = {
+            require('formatter.filetypes.javascript').prettier,
+          },
+          javascriptreact = {
+            require('formatter.filetypes.javascript').prettier,
+          },
+          typescript = {
+            require('formatter.filetypes.typescript').prettier,
+          },
+          typescriptreact = {
+            require('formatter.filetypes.typescript').prettier,
+          },
+          python = {
+            require('formatter.filetypes.python').black,
+            require('formatter.filetypes.python').isort,
+          },
+          json = {
+            require('formatter.filetypes.json').prettier,
+          },
+          astro = {
+            require('formatter.filetypes.javascript').prettier,
+          },
+          vue = {
+            require('formatter.filetypes.vue').prettier,
+          },
+          svelte = {
+            require('formatter.filetypes.javascript').prettier,
+          },
+          html = {
+            require('formatter.filetypes.html').prettier,
+          },
+          markdown = {
+            require('formatter.filetypes.markdown').prettier,
+          },
+          php = {
+            require('formatter.filetypes.php').php_cs_fixer,
+          },
+          htmldjango = {
+            function()
+              return {
+                exe = "djlint",
+                args = {
+                  "--reformat",
+                  "-"
+                },
+                stdin = true,
+              }
+            end
+          },
+        },
+      })
+    end,
+  },
+
+  -- null ls
+  -- {
+  --   'jose-elias-alvarez/null-ls.nvim',
+  --   config = function()
+  --     local null_ls = require('null-ls')
+  --     null_ls.setup({
+  --       debug = false,
+  --       sources = {
+  --         -- null_ls.builtins.code_actions.eslint_d,
+  --         null_ls.builtins.code_actions.proselint,
+  --         null_ls.builtins.code_actions.refactoring,
+  --         null_ls.builtins.code_actions.shellcheck,
+  --         null_ls.builtins.formatting.djlint.with {
+  --           filetypes = { "django", "jinja.html", "htmldjango", "djhtml" },
+  --         },
+  --         null_ls.builtins.formatting.prettier,
+  --         null_ls.builtins.formatting.isort,
+  --         null_ls.builtins.formatting.black,
+  --         null_ls.builtins.formatting.json_tool,
+  --         null_ls.builtins.formatting.just,
+  --         null_ls.builtins.formatting.prettier.with {
+  --           filetypes = { "javascript", "typescript", "astro", "javascriptreact", "typescriptreact", },
+  --         },
+  --         null_ls.builtins.formatting.phpcsfixer,
+  --         -- null_ls.builtins.formatting.pint,
+  --         null_ls.builtins.diagnostics.djlint.with {
+  --           filetypes = { "django", "jinja.html", "htmldjango", "djhtml" },
+  --         },
+  --         null_ls.builtins.diagnostics.jsonlint,
+  --         null_ls.builtins.diagnostics.mypy.with {
+  --           command = {
+  --             "python",
+  --             "-m",
+  --             "mypy"
+  --           }
+  --         },
+  --         -- null_ls.builtins.diagnostics.markuplint,
+  --         null_ls.builtins.diagnostics.proselint,
+  --         null_ls.builtins.diagnostics.sqlfluff,
+  --         -- null_ls.builtins.diagnostics.standardjs,
+  --         null_ls.builtins.diagnostics.stylelint,
+  --         -- null_ls.builtins.diagnostics.pylint.with {
+  --         --   diagnostics_postprocess = function(diagnostic)
+  --         --     diagnostic.code = diagnostic.message_id
+  --         --   end,
+  --         -- },
+  --         null_ls.builtins.diagnostics.pyproject_flake8,
+  --         -- null_ls.builtins.diagnostics.vulture,
+  --       },
+  --       on_attach = function(client, bufnr)
+  --         if client.supports_method("textDocument/formatting") then
+  --           vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
+  --             vim.lsp.buf.format()
+  --           end, { desc = 'Format current buffer with LSP' })
+  --         end
+  --       end
+  --     })
+  --   end
+  -- },
 
   -- lilypond
   {
@@ -543,7 +649,7 @@ vim.o.smartindent = true
 
 vim.o.scrolloff = 8
 
-vim.o.colorcolumn = "120"
+vim.o.colorcolumn = "88"
 vim.o.wrap = false
 vim.o.nowrap = true
 vim.o.cursorline = true
@@ -557,6 +663,17 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
   group = highlight_group,
   pattern = '*',
+})
+
+
+-- autoformat from formatter.nvim
+local format_group = vim.api.nvim_create_augroup("FormatAutogroup", { clear = True })
+vim.api.nvim_create_autocmd('BufWritePost', {
+  group = format_group,
+  pattern = '*',
+  callback = function()
+    vim.cmd('FormatWrite')
+  end
 })
 
 -- PLUGIN SETUP
