@@ -375,6 +375,17 @@ in
           "force group" = "users";
           "valid users" = "rick";
         };
+        "media" = {
+          path = "/tank/media";
+          browseable = "yes";
+          "read only" = "no";
+          "guest ok" = "no";
+          "create mask" = "0644";
+          "directory mask" = "0755";
+          "force user" = "jellyfin";
+          "force group" = "jellyfin";
+          "valid users" = "rick";
+        };
       };
 
     };
