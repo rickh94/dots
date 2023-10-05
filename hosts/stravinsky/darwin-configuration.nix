@@ -70,8 +70,8 @@ in
     };
     brews = [
       "macos-trash"
-      "yabai"
-      "skhd"
+      # "yabai"
+      # "skhd"
       "handbrake"
       "libiconv"
       "nss"
@@ -124,6 +124,8 @@ in
       "inkscape"
       "temurin8"
       "opera"
+      "amethyst"
+      "iterm2"
     ];
   };
 
