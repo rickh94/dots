@@ -71,7 +71,7 @@ in
     brews = [
       "macos-trash"
       # "yabai"
-      # "skhd"
+      "skhd"
       "handbrake"
       "libiconv"
       "nss"

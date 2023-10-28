@@ -48,7 +48,7 @@ require('lazy').setup({
         timeout = 20000,
         autowrite = true,
         save_on_cmd = "some",
-        save_on_bufleave = true,
+        save_on_bufleave = false,
         save_on_focuslost = true,
       })
     end
@@ -256,6 +256,12 @@ require('lazy').setup({
       })
     end
   },
+  {
+    'themaxmarchuk/tailwindcss-colors.nvim',
+    config = function()
+      require('tailwindcss-colors').setup()
+    end
+  },
 
   -- go
   {
@@ -379,12 +385,12 @@ require('lazy').setup({
         sql = {
           'sqlfluff',
         },
-        javascript = {
-          'eslint_d',
-        },
-        typescript = {
-          'eslint_d',
-        }
+        -- javascript = {
+        --   'eslint_d',
+        -- },
+        -- typescript = {
+        --   'eslint_d',
+        -- }
       }
     end,
   },
@@ -451,65 +457,6 @@ require('lazy').setup({
     end,
   },
 
-  -- null ls
-  -- {
-  --   'jose-elias-alvarez/null-ls.nvim',
-  --   config = function()
-  --     local null_ls = require('null-ls')
-  --     null_ls.setup({
-  --       debug = false,
-  --       sources = {
-  --         -- null_ls.builtins.code_actions.eslint_d,
-  --         null_ls.builtins.code_actions.proselint,
-  --         null_ls.builtins.code_actions.refactoring,
-  --         null_ls.builtins.code_actions.shellcheck,
-  --         null_ls.builtins.formatting.djlint.with {
-  --           filetypes = { "django", "jinja.html", "htmldjango", "djhtml" },
-  --         },
-  --         null_ls.builtins.formatting.prettier,
-  --         null_ls.builtins.formatting.isort,
-  --         null_ls.builtins.formatting.black,
-  --         null_ls.builtins.formatting.json_tool,
-  --         null_ls.builtins.formatting.just,
-  --         null_ls.builtins.formatting.prettier.with {
-  --           filetypes = { "javascript", "typescript", "astro", "javascriptreact", "typescriptreact", },
-  --         },
-  --         null_ls.builtins.formatting.phpcsfixer,
-  --         -- null_ls.builtins.formatting.pint,
-  --         null_ls.builtins.diagnostics.djlint.with {
-  --           filetypes = { "django", "jinja.html", "htmldjango", "djhtml" },
-  --         },
-  --         null_ls.builtins.diagnostics.jsonlint,
-  --         null_ls.builtins.diagnostics.mypy.with {
-  --           command = {
-  --             "python",
-  --             "-m",
-  --             "mypy"
-  --           }
-  --         },
-  --         -- null_ls.builtins.diagnostics.markuplint,
-  --         null_ls.builtins.diagnostics.proselint,
-  --         null_ls.builtins.diagnostics.sqlfluff,
-  --         -- null_ls.builtins.diagnostics.standardjs,
-  --         null_ls.builtins.diagnostics.stylelint,
-  --         -- null_ls.builtins.diagnostics.pylint.with {
-  --         --   diagnostics_postprocess = function(diagnostic)
-  --         --     diagnostic.code = diagnostic.message_id
-  --         --   end,
-  --         -- },
-  --         null_ls.builtins.diagnostics.pyproject_flake8,
-  --         -- null_ls.builtins.diagnostics.vulture,
-  --       },
-  --       on_attach = function(client, bufnr)
-  --         if client.supports_method("textDocument/formatting") then
-  --           vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
-  --             vim.lsp.buf.format()
-  --           end, { desc = 'Format current buffer with LSP' })
-  --         end
-  --       end
-  --     })
-  --   end
-  -- },
 
   -- lilypond
   {
@@ -1009,45 +956,20 @@ mason_lspconfig.setup({ ensure_installed = vim.tbl_keys(servers), })
 
 mason_lspconfig.setup_handlers({
   function(server_name)
+    local attach_function = on_attach
+    if server_name == "tailwindcss" then
+      attach_function = function(_, bufnr)
+        on_attach(_, bufnr)
+        require('tailwindcss-colors').buf_attach(bufnr)
+      end
+    end
     require('lspconfig')[server_name].setup({
       capabilities = capabilities,
-      on_attach = on_attach,
+      on_attach = attach_function,
       settings = servers[server_name],
     })
   end,
 })
-
-require('lspconfig').tsserver.setup({
-  root_dir = require('lspconfig').util.root_pattern("package.json"),
-  single_file_support = false,
-  cmd = { "bun", "x", "typescript-language-server", "--stdio" }
-
-})
-require('lspconfig').eslint.setup({
-  cmd = { 'bun', 'x', 'eslint-language-server', '--stdio' },
-})
-require('lspconfig').svelte.setup({
-  cmd = { 'bun', 'x', 'svelteserver', '--stdio' },
-})
-require('lspconfig').tailwindcss.setup({
-  cmd = { 'bun', 'x', 'tailwindcss-language-server', '--stdio' },
-})
-require('lspconfig').astro.setup({
-  cmd = { 'bun', 'x', 'astro-ls', '--stdio' },
-})
-require('lspconfig').emmet_ls.setup({
-  cmd = { 'bun', 'x', 'emmet-ls', '--stdio' },
-})
-require('lspconfig').intelephense.setup({
-  cmd = { 'bun', 'x', 'intelephense', '--stdio' },
-})
--- require('lspconfig').pyright.setup({
---   cmd = { 'bun', 'x', 'pyright-langserver', '--stdio' }
--- })
-
--- require('lspconfig').denols.setup({
---   root_dir = require('lspconfig').util.root_pattern("deno.json"),
--- })
 
 
 
