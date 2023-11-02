@@ -126,6 +126,7 @@ in
       "opera"
       "amethyst"
       "iterm2"
+      "wezterm"
     ];
   };
 

@@ -670,10 +670,10 @@ wk.register({
 }, { prefix = '<leader>', mode = 'n' })
 
 wk.register({
-  k = { '<C-w>k', 'Window Up' },
-  j = { '<C-w>j', 'Window Down' },
-  h = { '<C-w>h', 'Window Left' },
-  l = { '<C-w>l', 'Window Right' }
+    k = { '<C-w>k', 'Window Up' },
+    j = { '<C-w>j', 'Window Down' },
+    h = { '<C-w>h', 'Window Left' },
+    l = { '<C-w>l', 'Window Right' },
 }, { prefix = '<leader>', mode = 'n' })
 
 -- BUFFER KEYBINDS
@@ -693,8 +693,10 @@ wk.register({
     w = { function() require('telescope.builtin').grep_string() end, "Search current word" },
     g = { function() require('telescope.builtin').live_grep() end, "Search with grep" },
     d = { function() require('telescope.builtin').diagnostics() end, "Search Diagnostics" },
+    b = { '<cmd>Telescope file_browser<cr>', 'Open Telescope File Browser' },
   },
   t = { '<cmd>TodoTelescope<cr>', 'Search Todos' },
+  f = { f = '<cmd>Format<cr>', 'Format file' },
 }, { prefix = '<leader>', mode = 'n' })
 
 wk.register({
@@ -759,7 +761,6 @@ wk.register({
 
 
 wk.register({
-  f = { b = { '<cmd>Telescope file_browser<cr>', 'Open Telescope File Browser' } },
   -- NVIM TREE KEYBINDS
   e = { '<cmd>NvimTreeToggle<cr>', 'Open/close file tree' },
   o = { '<cmd>NvimTreeFocus<cr>', 'Focus file tree' },
@@ -1089,19 +1090,19 @@ cmp.setup.cmdline(':', {
 })
 
 -- autoformat on save
-local format_on_save_ext = {
-  "go", "rs", "css", "json", "ex", "rb", "vue", "c", "cpp", "java",
-  "nix", "ts", "lua", "astro", "tsx", "py", "html"
-}
-
-for _, v in pairs(format_on_save_ext) do
-  vim.api.nvim_create_autocmd({ "BufWritePre" }, {
-    pattern = "*." .. v,
-    callback = function(_)
-      vim.lsp.buf.format()
-    end
-  })
-end
+-- local format_on_save_ext = {
+--   "go", "rs", "css", "json", "ex", "rb", "vue", "c", "cpp", "java",
+--   "nix", "lua", "astro", "py",
+-- }
+--
+-- for _, v in pairs(format_on_save_ext) do
+--   vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+--     pattern = "*." .. v,
+--     callback = function(_)
+--       vim.lsp.buf.format()
+--     end
+--   })
+-- end
 
 local twotrue = { 2, true }
 
