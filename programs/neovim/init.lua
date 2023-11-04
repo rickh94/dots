@@ -14,31 +14,20 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
-
-  -- autodetect ts and sw
-  -- 'tpope/vim-sleuth',
   {
     'NMAC427/guess-indent.nvim',
     config = function()
       require('guess-indent').setup({})
     end
   },
-
   -- fix behavior of .
   'tpope/vim-repeat',
-
   -- save undo history nicely
   'mbbill/undotree',
-
   -- auto mkdir -p on save
   'jghauser/mkdir.nvim',
-
-  -- leap aroud nicely
-  'ggandor/leap.nvim',
-
-
+  -- rainbow brackets and tags
   'hiphish/rainbow-delimiters.nvim',
-
   -- autosave on pause or leave
   {
     'tmillr/sos.nvim',
@@ -53,11 +42,8 @@ require('lazy').setup({
       })
     end
   },
-
-
   -- shortcuts to toggle comments
   { 'numToStr/Comment.nvim', opts = {} },
-
   -- which key
   {
     'folke/which-key.nvim',
@@ -73,6 +59,7 @@ require('lazy').setup({
       'nvim-lua/plenary.nvim',
     }
   },
+  -- telescope fzf
   {
     'nvim-telescope/telescope-fzf-native.nvim',
     build = 'make',
@@ -80,7 +67,7 @@ require('lazy').setup({
       return vim.fn.executable 'make' == 1
     end
   },
-
+  -- telescope file browser
   {
     'nvim-telescope/telescope-file-browser.nvim',
     dependencies = {
@@ -89,6 +76,37 @@ require('lazy').setup({
       'nvim-lua/plenary.nvim',
     },
   },
+  {
+    'ThePrimeagen/harpoon',
+    config = function()
+      require('harpoon').setup({
+        global_settings = {
+          -- sets the marks upon calling `toggle` on the ui, instead of require `:w`.
+          save_on_toggle = false,
+
+          -- saves the harpoon file upon every change. disabling is unrecommended.
+          save_on_change = true,
+
+          -- sets harpoon to run the command immediately as it's passed to the terminal when calling `sendCommand`.
+          enter_on_sendcmd = false,
+
+          -- closes any tmux windows harpoon that harpoon creates when you close Neovim.
+          tmux_autoclose_windows = false,
+
+          -- filetypes that you want to prevent from adding to the harpoon list menu.
+          excluded_filetypes = { "harpoon" },
+
+          -- set marks specific to each git branch inside git repository
+          mark_branch = false,
+
+          -- enable tabline with harpoon marks
+          tabline = false,
+          tabline_prefix = "   ",
+          tabline_suffix = "   ",
+        }
+      })
+    end
+  },
   -- file tree
   {
     'nvim-tree/nvim-tree.lua',
@@ -96,7 +114,6 @@ require('lazy').setup({
       require('nvim-tree').setup()
     end,
   },
-
   -- treesitter
   {
     'nvim-treesitter/nvim-treesitter',
@@ -108,7 +125,6 @@ require('lazy').setup({
       pcall(require('nvim-treesitter.install').update({ with_sync = true }))
     end,
   },
-
   -- lsp configuration and plugins
   {
     'neovim/nvim-lspconfig',
@@ -116,15 +132,19 @@ require('lazy').setup({
     dependencies = {
       'williamboman/mason.nvim',
       'williamboman/mason-lspconfig.nvim',
-      -- lsp status updates
-      -- { 'j-hui/fidget.nvim', opts = { }, },
-      -- additional lua config for nvim stuff
       'folke/neodev.nvim',
     },
   },
   -- pretty icons for completions
   'onsails/lspkind.nvim',
 
+  -- inlay hint support
+  {
+    'lvimuser/lsp-inlayhints.nvim',
+    config = function()
+      require("lsp-inlayhints").setup()
+    end,
+  },
   -- completion plugins
   {
     'hrsh7th/nvim-cmp',
@@ -135,16 +155,16 @@ require('lazy').setup({
       'hrsh7th/cmp-buffer',
       'hrsh7th/cmp-path',
       'hrsh7th/cmp-cmdline',
-      'lukas-reineke/cmp-rg',
+      -- 'lukas-reineke/cmp-rg',
     },
   },
+  -- snippets
   {
     'L3MON4D3/LuaSnip',
     dependencies = {
       "rafamadriz/friendly-snippets"
     },
   },
-
   -- bracket related plugins
   {
     'echasnovski/mini.pairs',
@@ -153,10 +173,8 @@ require('lazy').setup({
       require('mini.pairs').setup()
     end,
   },
-
-  -- 'psliwka/vim-smoothie',
+  -- surround things with things
   'machakann/vim-sandwich',
-
   -- git signs in gutter
   {
     'lewis6991/gitsigns.nvim',
@@ -170,7 +188,6 @@ require('lazy').setup({
       }
     }
   },
-
   -- pretty statusline
   {
     'nvim-lualine/lualine.nvim',
@@ -182,38 +199,8 @@ require('lazy').setup({
       }
     }
   },
-
-  -- theoretically pretty scrolling
-  {
-    'echasnovski/mini.animate',
-    version = '*',
-    config = function()
-      require('mini.pairs').setup()
-    end,
-  },
-  -- indent blankline and scope
-  -- {
-  --   'lukas-reineke/indent-blankline.nvim',
-  --   opts = {
-  --     char = '┊',
-  --     show_trailing_blankline_indent = false,
-  --   }
-  -- },
-  -- {
-  --   'echasnovski/mini.indentscope',
-  --   version = '*',
-  --   config = function()
-  --     require('mini.indentscope').setup()
-  --   end,
-  -- },
-  'tpope/vim-dadbod',
-
-
-  -- language support plugins
-  -- edgedb
-  -- 'edgedb/edgedb-vim',
+  -- support for justfiles
   'NoahTheDuke/vim-just',
-
   -- rust
   {
     'simrat39/rust-tools.nvim',
@@ -229,6 +216,7 @@ require('lazy').setup({
     end
   },
 
+  -- rust inlay hints
   {
     'simrat39/inlay-hints.nvim',
     priority = 80,
@@ -237,6 +225,7 @@ require('lazy').setup({
     end
   },
 
+  -- rust crates
   {
     'saecki/crates.nvim',
     config = function()
@@ -249,6 +238,7 @@ require('lazy').setup({
     'windwp/nvim-ts-autotag',
     config = function()
       require('nvim-ts-autotag').setup({
+        enable_close_on_slash = true,
         filetypes = {
           'html', 'javascript', 'typescript', 'javascriptreact', 'typescriptreact', 'svelte', 'vue', 'tsx', 'jsx',
           'rescript', 'xml', 'php', 'markdown', 'astro', 'glimmer', 'handlebars', 'hbs', 'twig', 'htmldjango'
@@ -256,6 +246,7 @@ require('lazy').setup({
       })
     end
   },
+  -- color tailwind classes to their actual colors
   {
     'themaxmarchuk/tailwindcss-colors.nvim',
     config = function()
@@ -275,13 +266,10 @@ require('lazy').setup({
     event = { "CmdlineEnter" },
     ft = { "go", "gomod" },
   },
-
-  -- typescript
   {
-    'jose-elias-alvarez/typescript.nvim',
-    config = function()
-      require('typescript').setup({})
-    end,
+    "pmizio/typescript-tools.nvim",
+    dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+    opts = {},
   },
 
   'jwalton512/vim-blade',
@@ -298,30 +286,7 @@ require('lazy').setup({
       vim.keymap.set('i', '<c-x>', function() return vim.fn['codeium#Clear']() end, { expr = true })
     end
   },
-
-  -- copilot
-  -- {
-  --   'zbirenbaum/copilot.lua',
-  --   cmd = 'Copilot',
-  --   event = 'InsertEnter',
-  --   config = function()
-  --     require('copilot').setup({
-  --       suggestion = { enabled = false },
-  --       panel = { enabled = false },
-  --     })
-  --   end,
-  -- },
-  -- {
-  --   'zbirenbaum/copilot-cmp',
-  --   after = { 'copilot.lua' },
-  --   config = function()
-  --     require('copilot_cmp').setup()
-  --   end
-  -- },
-
-
-  -- ui changes
-  -- themes
+  -- the one true theme
   {
     'folke/tokyonight.nvim',
     lazy = false,
@@ -337,10 +302,8 @@ require('lazy').setup({
       })
     end
   },
-
   -- prettier ui elements
   'stevearc/dressing.nvim',
-
   -- highlight todo comments
   {
     'folke/todo-comments.nvim',
@@ -348,7 +311,6 @@ require('lazy').setup({
       require('todo-comments').setup()
     end
   },
-
   -- presist sessions
   {
     'folke/persistence.nvim',
@@ -357,6 +319,7 @@ require('lazy').setup({
     end,
   },
 
+  -- linting
   {
     'mfussenegger/nvim-lint',
     config = function()
@@ -394,6 +357,7 @@ require('lazy').setup({
       }
     end,
   },
+  -- formatting
   {
     'mhartington/formatter.nvim',
     config = function()
@@ -456,8 +420,6 @@ require('lazy').setup({
       })
     end,
   },
-
-
   -- lilypond
   {
     'martineausimon/nvim-lilypond-suite',
@@ -614,12 +576,12 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 
 
 -- autoformat from formatter.nvim
-local format_group = vim.api.nvim_create_augroup("FormatAutogroup", { clear = True })
+local format_group = vim.api.nvim_create_augroup("FormatAutogroup", { clear = true })
 vim.api.nvim_create_autocmd('BufWritePost', {
   group = format_group,
   pattern = '*',
   callback = function()
-    vim.cmd('FormatWrite')
+    vim.cmd('FormatWriteLock')
   end
 })
 
@@ -629,23 +591,19 @@ require('telescope').setup({
     mappings = {
       i = {
         ['<C-u>'] = false,
-        ['<C-d>'] = false,
-      }
-    }
+        ['<c-d>'] = require('telescope.actions').delete_buffer,
+      },
+      n = {
+        ['<c-d>'] = require('telescope.actions').delete_buffer,
+      },
+    },
   },
 })
 pcall(require('telescope').load_extension, 'fzf')
 pcall(require('telescope').load_extension, 'file_browser')
+pcall(require('telescope').load_extension, 'harpoon')
 
 require('rust-tools').inlay_hints.enable()
---
--- require('lspkind').init({
---   symbol_map = {
---     Copilot = ""
---   }
--- })
-
--- vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })
 
 -- KEYMAP
 vim.g.mapleader = ' '
@@ -670,33 +628,44 @@ wk.register({
 }, { prefix = '<leader>', mode = 'n' })
 
 wk.register({
-    k = { '<C-w>k', 'Window Up' },
-    j = { '<C-w>j', 'Window Down' },
-    h = { '<C-w>h', 'Window Left' },
-    l = { '<C-w>l', 'Window Right' },
-}, { prefix = '<leader>', mode = 'n' })
+  ['<C-k>'] = { '<C-w>k', 'Window Up' },
+  ['<C-j>'] = { '<C-w>j', 'Window Down' },
+  ['<C-h>'] = { '<C-w>h', 'Window Left' },
+  ['<C-l>'] = { '<C-w>l', 'Window Right' },
+}, { mode = 'n' })
 
--- BUFFER KEYBINDS
 wk.register({
+  -- close buffer
   b = {
     name = "+Buffer",
     c = { '<cmd>bp<bar>sp<bar>bn<bar>bd<CR>', 'Close current buffer' },
   },
-}, { prefix = '<leader>' })
-
--- SEARCH AND TELESCOPE KEYBINDS
-wk.register({
+  -- SEARCH AND TELESCOPE KEYBINDS
   s = {
     name = "+Search",
     f = { function() require('telescope.builtin').find_files() end, "Search Files" },
-    h = { function() require('telescope.builtin').help_tags() end, "Search Help tags" },
     w = { function() require('telescope.builtin').grep_string() end, "Search current word" },
     g = { function() require('telescope.builtin').live_grep() end, "Search with grep" },
     d = { function() require('telescope.builtin').diagnostics() end, "Search Diagnostics" },
     b = { '<cmd>Telescope file_browser<cr>', 'Open Telescope File Browser' },
+    h = { '<cmd>Telescope harpoon marks<cr>', 'Harpoon Marks' },
+    t = { '<cmd>TodoTelescope<cr>', 'Search Todos' },
   },
-  t = { '<cmd>TodoTelescope<cr>', 'Search Todos' },
-  f = { f = '<cmd>Format<cr>', 'Format file' },
+  f = { f = { '<cmd>Format<cr>', 'Format file' } },
+  -- harpoon keybinds
+  h = {
+    name = "+Harpoon",
+    a = { require("harpoon.mark").add_file, 'Add file to harpoon' },
+    n = { require("harpoon.ui").nav_next, 'Next harpoon file' },
+    p = { require("harpoon.ui").nav_prev, 'Previous harpoon file' },
+  },
+  -- Session keybinds
+  q = {
+    name = "+Session",
+    s = { function() require('persistence').load() end, "Load Session for Directory" },
+    l = { function() require('persistence').load({ last = true }) end, "Load Last Session" },
+    d = { function() require('persistence').top() end, "Don't save session" },
+  },
 }, { prefix = '<leader>', mode = 'n' })
 
 wk.register({
@@ -710,15 +679,6 @@ wk.register({
   end, "Fuzzy search buffer" },
 }, { prefix = '<leader>', mode = 'n' })
 
--- SESSION KEYBINDS
-wk.register({
-  q = {
-    name = "+Session",
-    s = { function() require('persistence').load() end, "Load Session for Directory" },
-    l = { function() require('persistence').load({ last = true }) end, "Load Last Session" },
-    d = { function() require('persistence').top() end, "Don't save session" },
-  }
-}, { mode = 'n', prefix = '<leader>' })
 
 -- DIAGNOSTICS
 wk.register({
@@ -766,6 +726,7 @@ wk.register({
   o = { '<cmd>NvimTreeFocus<cr>', 'Focus file tree' },
   u = { vim.cmd.UndotreeToggle, "Open Undo Tree" },
 }, { mode = 'n', prefix = '<leader>' })
+
 
 
 -- TREESITTER CONFIGURATION
@@ -866,6 +827,20 @@ end
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
+vim.api.nvim_create_augroup("LspAttach_inlayhints", {})
+vim.api.nvim_create_autocmd("LspAttach", {
+  group = "LspAttach_inlayhints",
+  callback = function(args)
+    if not (args.data and args.data.client_id) then
+      return
+    end
+
+    local bufnr = args.buf
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+    require("lsp-inlayhints").on_attach(client, bufnr)
+  end,
+})
+
 -- LSP Server Setup
 local servers = {
   lua_ls = {
@@ -959,8 +934,8 @@ mason_lspconfig.setup_handlers({
   function(server_name)
     local attach_function = on_attach
     if server_name == "tailwindcss" then
-      attach_function = function(_, bufnr)
-        on_attach(_, bufnr)
+      attach_function = function(client, bufnr)
+        on_attach(client, bufnr)
         require('tailwindcss-colors').buf_attach(bufnr)
       end
     end
@@ -972,6 +947,83 @@ mason_lspconfig.setup_handlers({
   end,
 })
 
+require("typescript-tools").setup {
+  on_attach = on_attach,
+  settings = {
+    -- spawn additional tsserver instance to calculate diagnostics on it
+    separate_diagnostic_server = true,
+    -- "change"|"insert_leave" determine when the client asks the server about diagnostic
+    publish_diagnostic_on = "insert_leave",
+    -- array of strings("fix_all"|"add_missing_imports"|"remove_unused"|
+    -- "remove_unused_imports"|"organize_imports") -- or string "all"
+    -- to include all supported code actions
+    -- specify commands exposed as code_actions
+    expose_as_code_action = "all",
+    -- string|nil - specify a custom path to `tsserver.js` file, if this is nil or file under path
+    -- not exists then standard path resolution strategy is applied
+    tsserver_path = nil,
+    -- specify a list of plugins to load by tsserver, e.g., for support `styled-components`
+    -- (see 💅 `styled-components` support section)
+    tsserver_plugins = {},
+    -- this value is passed to: https://nodejs.org/api/cli.html#--max-old-space-sizesize-in-megabytes
+    -- memory limit in megabytes or "auto"(basically no limit)
+    tsserver_max_memory = "auto",
+    -- described below
+    tsserver_format_options = {},
+    tsserver_file_preferences = {
+      includeInlayParameterNameHints = "all",
+      includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+      includeInlayFunctionParameterTypeHints = true,
+      includeInlayVariableTypeHints = true,
+      includeInlayVariableTypeHintsWhenTypeMatchesName = true,
+      includeInlayPropertyDeclarationTypeHints = true,
+      includeInlayFunctionLikeReturnTypeHints = true,
+      includeInlayEnumMemberValueHints = true,
+    },
+    -- locale of all tsserver messages, supported locales you can find here:
+    -- https://github.com/microsoft/typescript/blob/3c221fc086be52b19801f6e8d82596d04607ede6/src/compiler/utilitiespublic.ts#l620
+    tsserver_locale = "en",
+    -- mirror of vscode's `typescript.suggest.completefunctioncalls`
+    complete_function_calls = false,
+    include_completions_with_insert_text = true,
+    -- codelens
+    -- warning: experimental feature also in vscode, because it might hit performance of server.
+    -- possible values: ("off"|"all"|"implementations_only"|"references_only")
+    code_lens = "off",
+    -- by default code lenses are displayed on all referencable values and for some of you it can
+    -- be too much this option reduce count of them by removing member references from lenses
+    disable_member_code_lens = true,
+  },
+}
+
+require('lspconfig').tsserver.setup({
+  settings = {
+    typescript = {
+      inlayHints = {
+        includeInlayParameterNameHints = 'all',
+        includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+        includeInlayFunctionParameterTypeHints = true,
+        includeInlayVariableTypeHints = true,
+        includeInlayVariableTypeHintsWhenTypeMatchesName = true,
+        includeInlayPropertyDeclarationTypeHints = true,
+        includeInlayFunctionLikeReturnTypeHints = true,
+        includeInlayEnumMemberValueHints = true,
+      }
+    },
+    javascript = {
+      inlayHints = {
+        includeInlayParameterNameHints = 'all',
+        includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+        includeInlayFunctionParameterTypeHints = true,
+        includeInlayVariableTypeHints = true,
+        includeInlayVariableTypeHintsWhenTypeMatchesName = true,
+        includeInlayPropertyDeclarationTypeHints = true,
+        includeInlayFunctionLikeReturnTypeHints = true,
+        includeInlayEnumMemberValueHints = true,
+      }
+    }
+  }
+})
 
 
 -- COMPLETION SETUP
@@ -1090,19 +1142,19 @@ cmp.setup.cmdline(':', {
 })
 
 -- autoformat on save
--- local format_on_save_ext = {
---   "go", "rs", "css", "json", "ex", "rb", "vue", "c", "cpp", "java",
---   "nix", "lua", "astro", "py",
--- }
---
--- for _, v in pairs(format_on_save_ext) do
---   vim.api.nvim_create_autocmd({ "BufWritePre" }, {
---     pattern = "*." .. v,
---     callback = function(_)
---       vim.lsp.buf.format()
---     end
---   })
--- end
+local format_on_save_ext = {
+  "go", "rs", "css", "json", "ex", "rb", "vue", "c", "cpp", "java",
+  "nix", "lua", "astro", "py",
+}
+
+for _, v in pairs(format_on_save_ext) do
+  vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+    pattern = "*." .. v,
+    callback = function(_)
+      vim.lsp.buf.format()
+    end
+  })
+end
 
 local twotrue = { 2, true }
 
@@ -1161,35 +1213,6 @@ vim.api.nvim_create_autocmd({ 'FileType' }, {
   end
 })
 
--- local color = {
---   ['lua']    = 'gruvbox',
---   ['bash']   = 'gruvbox',
---   ['nix']    = 'gruvbox',
---   ['rs']     = 'moonfly',
---   ['c']      = 'moonfly',
---   ['go']     = 'newpaper',
---   ['ts']     = 'catppuccin-mocha',
---   ['js']     = 'catppuccin-mocha',
---   ['jsx']    = 'nightfly',
---   ['tsx']    = 'nightfly',
---   ['vue']    = 'onedarker',
---   ['svelte'] = 'onedarker',
---   ['html']   = 'onedarker',
---   ['astro']  = 'onedarker',
---   ['css']    = 'onedarker',
---   ['md']     = 'onedarker',
---   ['njk']    = 'onedarker',
---   ['py']     = 'tokyonight-storm',
---   ['ly']     = 'nightfly'
--- }
---
--- for p, c in pairs(color) do
---   vim.api.nvim_create_autocmd({ 'BufRead', 'BufEnter' }, {
---     pattern = '*.' .. p,
---     command = 'colorscheme ' .. c,
---   })
--- end
-
 vim.cmd.colorscheme('tokyonight-night')
 -- lilypond configuration
 vim.api.nvim_create_autocmd('BufEnter', {
@@ -1197,21 +1220,12 @@ vim.api.nvim_create_autocmd('BufEnter', {
   pattern = { '*.ly', '*.ily', '*.tex' }
 })
 
--- vim.api.nvim_create_autocmd('ColorScheme', {
---   command = "highlight Normal ctermbg=NONE guibg=NONE",
---   pattern = "*",
--- })
 
 
 vim.api.nvim_create_autocmd({ 'BufEnter', 'BufRead' }, {
   command = "lua require('nvls').setup()",
   pattern = { '*.ly', '*.ily', '*.tex' },
 })
-
--- vim.api.nvim_create_autocmd({ 'BufEnter' }, {
---   command = "set smartindent",
---   pattern = { '*.tsx' },
--- })
 
 
 -- vim: se ft=lua sw=2 ts=2 expandtab:
