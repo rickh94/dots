@@ -7,7 +7,7 @@
     # ../../services/skhdrc.nix
     # ../../services/sketchybar.nix
     ../../services/amethyst.nix
-    ../../programs/wezterm.nix
+    ../../programs/wezterm-mac.nix
   ];
 
   home.stateVersion = "22.11";

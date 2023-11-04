@@ -239,6 +239,7 @@ require('lazy').setup({
     config = function()
       require('nvim-ts-autotag').setup({
         enable_close_on_slash = true,
+        enable_close = false,
         filetypes = {
           'html', 'javascript', 'typescript', 'javascriptreact', 'typescriptreact', 'svelte', 'vue', 'tsx', 'jsx',
           'rescript', 'xml', 'php', 'markdown', 'astro', 'glimmer', 'handlebars', 'hbs', 'twig', 'htmldjango'
