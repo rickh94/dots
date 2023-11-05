@@ -127,6 +127,7 @@ in
       "amethyst"
       "iterm2"
       "wezterm"
+      "arc"
     ];
   };
 
