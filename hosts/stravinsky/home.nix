@@ -13,12 +13,6 @@
   home.stateVersion = "22.11";
   nixpkgs.config.allowUnfree = true;
 
-  programs.alacritty.settings.window = {
-    dimensions = {
-      columns = 500;
-      lines = 500;
-    };
-  };
 
   home.file.".local/state/redis/.keep" = {
     enable = true;

@@ -51,6 +51,8 @@ require('lazy').setup({
       require('which-key').setup({})
     end
   },
+  -- vim tmux navigator
+  'christoomey/vim-tmux-navigator',
   -- telescope
   {
     'nvim-telescope/telescope.nvim',
@@ -273,7 +275,8 @@ require('lazy').setup({
     opts = {},
   },
 
-  'jwalton512/vim-blade',
+  -- php blade template support
+  -- 'jwalton512/vim-blade',
 
   -- pathced codeium ai coding assistant
   {
@@ -288,18 +291,71 @@ require('lazy').setup({
     end
   },
   -- the one true theme
+  -- {
+  --   'folke/tokyonight.nvim',
+  --   lazy = false,
+  --   priority = 1000,
+  --   opts = {},
+  --   config = function()
+  --     require('tokyonight').setup({
+  --       transparent = true,
+  --       styles = {
+  --         sidebars = "dark",
+  --         floats = "dark",
+  --       }
+  --     })
+  --   end
+  -- },
   {
-    'folke/tokyonight.nvim',
-    lazy = false,
+    "catppuccin/nvim",
+    name = "catppuccin",
     priority = 1000,
-    opts = {},
     config = function()
-      require('tokyonight').setup({
-        transparent = true,
-        styles = {
-          sidebars = "dark",
-          floats = "dark",
-        }
+      require("catppuccin").setup({
+        flavour = "mocha", -- latte, frappe, macchiato, mocha
+        background = {     -- :h background
+          light = "latte",
+          dark = "mocha",
+        },
+        transparent_background = true, -- disables setting the background color.
+        show_end_of_buffer = false,    -- shows the '~' characters after the end of buffers
+        term_colors = false,           -- sets terminal colors (e.g. `g:terminal_color_0`)
+        dim_inactive = {
+          enabled = true,              -- dims the background color of inactive window
+          shade = "dark",
+          percentage = 0.15,           -- percentage of the shade to apply to the inactive window
+        },
+        no_italic = false,             -- Force no italic
+        no_bold = false,               -- Force no bold
+        no_underline = false,          -- Force no underline
+        styles = {                     -- Handles the styles of general hi groups (see `:h highlight-args`):
+          comments = { "italic" },     -- Change the style of comments
+          conditionals = { "italic" },
+          loops = {},
+          functions = {},
+          keywords = {},
+          strings = {},
+          variables = {},
+          numbers = {},
+          booleans = {},
+          properties = {},
+          types = {},
+          operators = {},
+        },
+        color_overrides = {},
+        custom_highlights = {},
+        integrations = {
+          cmp = true,
+          gitsigns = true,
+          nvimtree = true,
+          treesitter = true,
+          notify = false,
+          mini = {
+            enabled = true,
+            indentscope_color = "",
+          },
+          -- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
+        },
       })
     end
   },
@@ -629,10 +685,11 @@ wk.register({
 }, { prefix = '<leader>', mode = 'n' })
 
 wk.register({
-  ['<C-k>'] = { '<C-w>k', 'Window Up' },
-  ['<C-j>'] = { '<C-w>j', 'Window Down' },
-  ['<C-h>'] = { '<C-w>h', 'Window Left' },
-  ['<C-l>'] = { '<C-w>l', 'Window Right' },
+  ['<C-k>'] = { '<cmd>TmuxNavigateUp<cr>', 'Window Up' },
+  ['<C-j>'] = { '<cmd>TmuxNavigateDown<cr>', 'Window Down' },
+  ['<C-h>'] = { '<cmd>TmuxNavigateLeft<cr>', 'Window Left' },
+  ['<C-l>'] = { '<cmd>TmuxNavigateRight<cr>', 'Window Right' },
+  ['<C-\\>'] = { '<cmd>TmuxNavigatePrevious<cr>', 'Window Right' },
 }, { mode = 'n' })
 
 wk.register({
@@ -816,9 +873,9 @@ local on_attach = function(_, bufnr)
     K = { function() vim.lsp.buf.hover() end, "Hover Documentation" },
   }, { mode = 'n' })
 
-  wk.register({
-    ['<C-k>'] = { function() vim.lsp.buf.signature_help() end, "Signature Documentation" },
-  }, { mode = 'n' })
+  -- wk.register({
+  --   ['<C-k>'] = { function() vim.lsp.buf.signature_help() end, "Signature Documentation" },
+  -- }, { mode = 'n' })
 
   vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
     vim.lsp.buf.format()
@@ -1214,7 +1271,7 @@ vim.api.nvim_create_autocmd({ 'FileType' }, {
   end
 })
 
-vim.cmd.colorscheme('tokyonight-night')
+vim.cmd.colorscheme('catppuccin')
 -- lilypond configuration
 vim.api.nvim_create_autocmd('BufEnter', {
   command = "syntax sync fromstart",
