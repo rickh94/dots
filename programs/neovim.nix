@@ -1,41 +1,31 @@
 { pkgs, inputs, system, ... }:
+let
+  fromGitHub = import ../functions/fromGitHub.nix;
+in
 {
-  xdg.configFile."nvim/init.lua" = {
-    source = ./neovim/init.lua;
-  };
-
-  # xdg.configFile."nvim-astro" = {
-  #   source = builtins.fetchGit {
-  #     url = "https://github.com/astronvim/astronvim";
-  #   };
-  #   recursive = true;
-  #   target = "nvim-astro";
-  # };
-  #
-  # xdg.configFile."nvim-doom" = {
-  #   source = builtins.fetchGit {
-  #     url = "https://github.com/doom-neovim/doom-nvim";
-  #   };
-  #   recursive = true;
-  # };
-  #
-  # xdg.configFile."nvim-nvchad" = {
-  #   source = builtins.fetchGit {
-  #     url = "https://github.com/NvChad/NvChad";
-  #   };
-  #   recursive = true;
-  # };
-  #
-  # xdg.configFile."nvim-lunar" = {
-  #   source = builtins.fetchGit {
-  #     url = "https://github.com/LunarVim/LunarVim";
-  #   };
-  #   recursive = true;
-  # };
-  #
-  #
   programs.neovim = {
     enable = true;
     defaultEditor = true;
+    viAlias = true;
+    vimAlias = true;
+    vimDiffAlias = true;
+    pllugins = with pkgs.vimPlugins; [
+      guess-indent
+      vim-repeat
+      undotree
+      (fromGitHub "HEAD" "hiphish/rainbow-delimiters.nvim")
+      (fromGitHub "HEAD" "tmillr/sos.nvim")
+    ];
+
+    extraLuaConfig = ''
+      require('sos').setup({
+          enabled = true,
+          timeout = 20000,
+          autowrite = true,
+          save_on_cmd = "some",
+          save_on_bufleave = false,
+          save_on_focuslost = true,
+        })
+    '';
   };
 }
