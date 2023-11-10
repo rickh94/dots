@@ -21,7 +21,7 @@ let
     };
     postInstall = ''
       sed -i "_call mkdir(manager_dir, 'p')_ a\
-      let maybe_bin = system(\'readlink `which codeium-lsp`\')
+      let maybe_bin = system(\'readlink \`which codeium-lsp\`\')
         if v:shell_error == 0
           let s:bin = substitute(maybe_bin, '\\n\\+$', \'\', \'\')
         endif
