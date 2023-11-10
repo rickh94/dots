@@ -18,7 +18,7 @@ in
     defaultEditor = true;
     viAlias = true;
     vimAlias = true;
-    vimDiffAlias = true;
+    vimdiffAlias = true;
     plugins = with pkgs.vimPlugins; [
       guess-indent-nvim
       vim-repeat
