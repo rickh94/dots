@@ -12,19 +12,6 @@ let
   # always installs latest version
   plugin = pluginGit "HEAD";
 
-  codeium-patched = pkgs.vimUtils.buildVimPluginFrom2Nix {
-    pname = "codeium.vim";
-    version = "HEAD";
-    src = builtins.fetchGit {
-      url = "https://github.com/Exafunction/codeium.vim";
-      ref = "HEAD";
-    };
-    postInstall =
-      if (codeium-lsp) then
-        ''
-          sed -i "/call mkdir(manager_dir, 'p')/ a\n\tlet s:bin = '${codeium-lsp}/bin/codeium-lsp'" $target/autoload/codeium/server.vim
-        '' else "";
-  };
 in
 {
   programs.neovim = {
@@ -80,7 +67,6 @@ in
       formatter-nvim
       (plugin "martineausimon/nvim-lilypond-suite")
       (plugin "MunifTanjim/nui.nvim")
-      codeium-patched
     ];
 
     extraPackages = with pkgs;[
@@ -94,7 +80,6 @@ in
       lua-language-server
       nodePackages.svelte-language-server
       nodePackages.intelephense
-      codeium-lsp
     ];
 
     extraLuaConfig = /* lua */ ''
@@ -174,10 +159,6 @@ in
       
       require('go').setup()
 
-      vim.keymap.set('i', '<C-g>', function() return vim.fn['codeium#Accept']() end, { expr = true })
-      vim.keymap.set('i', '<c-;>', function() return vim.fn['codeium#CycleCompletions'](1) end, { expr = true })
-      vim.keymap.set('i', '<c-,>', function() return vim.fn['codeium#CycleCompletions'](-1) end, { expr = true })
-      vim.keymap.set('i', '<c-x>', function() return vim.fn['codeium#Clear']() end, { expr = true })
 
       require("catppuccin").setup({
         flavour = "mocha", -- latte, frappe, macchiato, mocha

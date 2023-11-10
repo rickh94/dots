@@ -1,11 +1,10 @@
 { config, pkgs, nixpkgs, lib, ... }:
 {
   imports = [
-    ../../programs/neovim.nix
-    ../../programs/nushell/default.nix
+    ../../programs/neovim
     ../../programs/git.nix
     ../../programs/starship.nix
-    ../../programs/zellij.nix
+    ../../programs/tmux.nix
     ../../programs/bat.nix
     ../../programs/fish.nix
   ];
