@@ -20,7 +20,7 @@ let
       ref = "HEAD";
     };
     postInstall =
-      if (lib.elem "codeium-lsp" inputs) then
+      if (lib.elem "codeium-lsp" (builtins.attrNames inputs)) then
         ''
           sed -i "/call mkdir(manager_dir, 'p')/ a\n\tlet s:bin = '${codeium-lsp}/bin/codeium-lsp'" $target/autoload/codeium/server.vim
         '' else "";
