@@ -1,4 +1,4 @@
-{ pkgs, inputs, system, ... }:
+{ pkgs, inputs, system, lib, ... }:
 let
   pluginGit = ref: repo: pkgs.vimPlugins.buildVimPluginFrom2Nix {
     pname = "${lib.strings.sanitizeDerivationName repo}";
