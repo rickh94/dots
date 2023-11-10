@@ -39,7 +39,7 @@ in
       nvim-treesitter-textobjects
       nvim-lspconfig
       mason-nvim
-      mason-lspconfig
+      mason-lspconfig-nvim
       neodev-nvim
       lspkind-nvim
       lsp-inlayhints-nvim
