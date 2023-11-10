@@ -20,7 +20,7 @@ let
       ref = "HEAD";
     };
     postInstall = ''
-      sed -i "_call mkdir(manager_dir, 'p')_ a\
+      sed -i "/call mkdir(manager_dir, 'p')/ a\
       let maybe_bin = system(\'readlink \`which codeium-lsp\`\')
         if v:shell_error == 0
           let s:bin = substitute(maybe_bin, '\\n\\+$', \'\', \'\')
