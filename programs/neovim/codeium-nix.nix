@@ -9,7 +9,9 @@ let
     };
     postInstall =
       ''
-        sed -i "/call mkdir(manager_dir, 'p')/ a\\n  let s:bin = \"${codeium-lsp}/bin/codeium-lsp\"" $target/autoload/codeium/server.vim
+        sed -i "/call mkdir(manager_dir, 'p')/ a\ 
+        let s:bin = \"${codeium-lsp}/bin/codeium-lsp\"
+        " $target/autoload/codeium/server.vim
       '';
   };
 in
