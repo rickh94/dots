@@ -9,7 +9,7 @@ let
     };
     postInstall =
       ''
-        sed -i "/call mkdir(manager_dir, 'p')/ a\n\tlet s:bin = '${codeium-lsp}/bin/codeium-lsp'" $target/autoload/codeium/server.vim
+        sed -i "/call mkdir(manager_dir, 'p')/ a\\n  let s:bin = \"${codeium-lsp}/bin/codeium-lsp\"" $target/autoload/codeium/server.vim
       '';
   };
 in
@@ -23,11 +23,7 @@ in
       codeium-lsp
     ];
     extraLuaConfig = /* lua */ ''
-
       vim.keymap.set('i', '<C-g>', function() return vim.fn['codeium#Accept']() end, { expr = true })
-      vim.keymap.set('i', '<c-;>', function() return vim.fn['codeium#CycleCompletions'](1) end, { expr = true })
-      vim.keymap.set('i', '<c-,>', function() return vim.fn['codeium#CycleCompletions'](-1) end, { expr = true })
-      vim.keymap.set('i', '<c-x>', function() return vim.fn['codeium#Clear']() end, { expr = true })
     '';
   };
 }

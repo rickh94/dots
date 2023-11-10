@@ -1,4 +1,4 @@
-{ pkgs, inputs, system, lib, codeium-lsp, ... }:
+{ pkgs, inputs, system, lib, ... }:
 let
   pluginGit = ref: repo: pkgs.vimUtils.buildVimPluginFrom2Nix {
     pname = "${lib.strings.sanitizeDerivationName repo}";
