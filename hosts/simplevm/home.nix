@@ -9,7 +9,7 @@
     pkgs.xdotool
     pkgs.feh
     pkgs.xorg.xmodmap
-    pkgs.xorg.setxbkmap
+    pkgs.xorg.setxkbmap
     inputs.codeium.packages.x86_64-linux.codeium-lsp
   ];
 
