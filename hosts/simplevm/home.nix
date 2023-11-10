@@ -1,4 +1,4 @@
-{ config, lib, pkgs, inputs, ... }:
+{ config, lib, pkgs, inputs, codeium-lsp, ... }:
 {
   imports = [
     ../_common/default.nix
@@ -11,7 +11,7 @@
     pkgs.feh
     pkgs.xorg.xmodmap
     pkgs.xorg.setxkbmap
-    inputs.codeium.packages.x86_64-linux.codeium-lsp
+    codeium-lsp
   ];
 
   home.username = "rick";

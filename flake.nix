@@ -238,7 +238,10 @@
             overlays = [ codeium.overlays.x86_64-linux.default ];
           };
           modules = [ ./hosts/simplevm/home.nix ];
-          extraSpecialArgs = { inherit inputs; inherit chosenfonts; inherit devenv; i3mod = "Control"; };
+          extraSpecialArgs = {
+            inherit inputs; inherit chosenfonts; inherit devenv; i3mod = "Control";
+            codeium-lsp = inputs.codeium.packages.x86_64-linux.codeium-lsp;
+          };
         };
 
         nixserver = home-manager.lib.homeManagerConfiguration {
