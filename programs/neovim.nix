@@ -78,7 +78,7 @@ in
       rust-analyzer
       fzf
       lua-language-server
-      nodePackages.svlete-language-server
+      nodePackages.svelte-language-server
       nodePackages.intelephense
     ];
 
