@@ -30,7 +30,7 @@ in
     extraPackages = with pkgs;[
       tree-sitter
       nodePackages.typescript
-      nodePackages.typescript-tools
+      nodePackages.typescript-language-server
       gopls
       nodePackages.pyright
       rust-analyzer
