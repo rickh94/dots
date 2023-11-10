@@ -598,7 +598,6 @@ vim.o.timeoutlen = 300
 vim.o.completeopt = 'menuone,noselect'
 
 vim.o.termguicolors = true
-vim.o.guifont = "VictorMono Nerd Font:11"
 
 
 vim.o.swapfile = false
