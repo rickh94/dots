@@ -80,6 +80,17 @@ in
       lua-language-server
       nodePackages.svelte-language-server
       nodePackages.intelephense
+      nodePackages.vscode-langservers-extracted
+      nodePackages.pyright
+      nodePackages.prettier
+      nodePackages.eslint
+      nodePackages.stylelint
+      nodePackages.jsonlint
+      isort
+      mypy
+      pylint
+      ruff
+      black
     ];
 
     extraLuaConfig = /* lua */ ''
@@ -704,13 +715,22 @@ in
             },
           },
         },
-        clangd = {},
         gopls = {},
         rust_analyzer = {},
-        svelte = {
-        },
-        astro = {
-        },
+        svelte = {},
+        astro = {},
+        eslint = {},
+        black = {},
+        isort = {},
+        jsonlint = {},
+        mypy = {},
+        prettier = {},
+        proselint = {},
+        pylint = {},
+        pyright = {},
+        ruff = {},
+        spellcheck = {},
+        stylelint = {},
         tailwindcss = {
           capabilities = capabilities,
           init_options = {
