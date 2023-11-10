@@ -5,7 +5,6 @@
     ../_common/linux/configuration/boot.nix
     ../_common/linux/configuration/basic.nix
     ../_common/linux/configuration/xconfig-noi3.nix
-    ../_common/linux/configuration/users-rick.nix
   ];
 
   networking.hostName = "nixarm-vm2";
