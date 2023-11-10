@@ -232,6 +232,12 @@
           extraSpecialArgs = { inherit inputs; inherit chosenfonts; inherit devenv; i3mod = "Control"; };
         };
 
+        simplevm = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.x86_64-linux;
+          modules = [ ./hosts/simplevm/home.nix ];
+          extraSpecialArgs = { inherit inputs; inherit chosenfonts; inherit devenv; i3mod = "Control"; };
+        };
+
         nixserver = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.x86_64-linux;
           modules = [ ./hosts/nixserver/home.nix ];
