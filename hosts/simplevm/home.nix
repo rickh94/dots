@@ -12,6 +12,4 @@
     pkgs.xorg.setxbkmap
     inputs.codeium.packages.x86_64-linux.codeium-lsp
   ];
-  programs.rofi.enable = true;
-  programs.user.startServices = true;
 }
