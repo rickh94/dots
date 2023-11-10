@@ -11,6 +11,23 @@ let
 
   # always installs latest version
   plugin = pluginGit "HEAD";
+
+  codeium-patched = pkgs.vimUtils.buildVimPluginFrom2Nix {
+    pname = "codeium.vim";
+    version = "HEAD";
+    src = builtins.fetchGit {
+      url = "https://github.com/Exafunction/codeium.vim";
+      ref = "HEAD";
+    };
+    postInstall = ''
+      sed -i "_call mkdir(manager_dir, 'p')_ a\
+      let maybe_bin = system(\'readlink `which codeium-lsp`\')
+        if v:shell_error == 0
+          let s:bin = substitute(maybe_bin, '\\n\\+$', \'\', \'\')
+        endif
+      " $target/autoload/codeium/server.vim
+    '';
+  };
 in
 {
   programs.neovim = {
@@ -58,7 +75,6 @@ in
       (plugin "themaxmarchuk/tailwindcss-colors.nvim")
       go-nvim
       (plugin "pmizio/typescript-tools.nvim")
-      codeium-vim
       catppuccin-nvim
       dressing-nvim
       todo-comments-nvim
@@ -67,6 +83,7 @@ in
       formatter-nvim
       (plugin "martineausimon/nvim-lilypond-suite")
       (plugin "MunifTanjim/nui.nvim")
+      codeium-patched
     ];
 
     extraPackages = with pkgs;[
