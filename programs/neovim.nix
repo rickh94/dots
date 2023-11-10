@@ -19,10 +19,11 @@ let
       url = "https://github.com/Exafunction/codeium.vim";
       ref = "HEAD";
     };
-    postInstall = lib.mkIf (lib.elem "codeium-lsp" inputs)
-      ''
-        sed -i "/call mkdir(manager_dir, 'p')/ a\n\tlet s:bin = '${codeium-lsp}/bin/codeium-lsp'" $target/autoload/codeium/server.vim
-      '';
+    postInstall =
+      if (lib.elem "codeium-lsp" inputs) then
+        ''
+          sed -i "/call mkdir(manager_dir, 'p')/ a\n\tlet s:bin = '${codeium-lsp}/bin/codeium-lsp'" $target/autoload/codeium/server.vim
+        '' else "";
   };
 in
 {
