@@ -73,7 +73,7 @@ in
       tree-sitter
       nodePackages.typescript
       nodePackages.typescript-language-server
-      nodePackages.gopls
+      gopls
       nodePackages.pyright
       rust-analyzer
       fzf
