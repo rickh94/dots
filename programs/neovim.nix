@@ -10,7 +10,7 @@ in
     vimAlias = true;
     vimDiffAlias = true;
     pllugins = with pkgs.vimPlugins; [
-      guess-indent
+      guess-indent-nvim
       vim-repeat
       undotree
       (fromGitHub "HEAD" "hiphish/rainbow-delimiters.nvim")
