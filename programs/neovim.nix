@@ -122,7 +122,7 @@ in
       })
 
       require('nvim-tree').setup()
-      pcall(require('nvim-treesitter.install').update({ with_sync = true }))
+      -- pcall(require('nvim-treesitter.install').update({ with_sync = true }))
 
       require('lsp-inlayhints').setup()
 
@@ -603,22 +603,6 @@ in
 
       -- TREESITTER CONFIGURATION
       require('nvim-treesitter.configs').setup({
-        ensure_installed = {
-          'c',
-          'go',
-          'lua',
-          'python',
-          'rust',
-          'tsx',
-          'typescript',
-          'vim',
-          'nix',
-          'bash',
-          'svelte',
-          'astro',
-          'php',
-        },
-        auto_install = true,
         highlight = { enable = true },
         indent = { enable = true, },
         incremental_selection = {
