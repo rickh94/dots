@@ -33,7 +33,7 @@
       direnv
       nix-direnv
       redis
-      ngrok
+      # ngrok
       gh
       bacon
       cargo-expand
