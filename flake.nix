@@ -83,6 +83,14 @@
           specialArgs = { inherit nixpkgs; inherit chosenfonts; };
         };
 
+        simplevm = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            ./hosts/simplevm/configuration.nix
+          ];
+          specialArgs = { inherit nixpkgs; inherit chosenfonts; };
+        };
+
         nixserver = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           modules = [
