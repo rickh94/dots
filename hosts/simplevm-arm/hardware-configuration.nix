@@ -11,11 +11,11 @@
 
   fileSystems."/" = {
     device = "/dev/disk/by-label/ROOT";
-    fstype = "ext4";
+    fsType = "ext4";
   };
   fileSystems."/boot" = {
     device = "/dev/disk/by-label/BOOT";
-    fstype = "vfat";
+    fsType = "vfat";
   };
 
   swapDevices = [ ];
