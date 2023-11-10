@@ -21,11 +21,7 @@ let
     };
     postInstall = ''
       sed -i "/call mkdir(manager_dir, 'p')/ a\
-      let maybe_bin = system(\'readlink \`which codeium-lsp\`\')
-        if v:shell_error == 0
-          let s:bin = substitute(maybe_bin, '\\n\\+$', \'\', \'\')
-        endif
-      " $target/autoload/codeium/server.vim
+      let maybe_bin = system(\'readlink \`which codeium-lsp\`\')\nif v:shell_error == 0\nlet s:bin = substitute(maybe_bin, '\\n\\+$', \'\', \'\')\nendif" $target/autoload/codeium/server.vim
     '';
   };
 in
