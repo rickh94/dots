@@ -3,7 +3,7 @@
   imports = [
     ../_common/default.nix
     ../_common/linux/default.nix
-    ../programs/neovim/codeium-nix.nix
+    ../../programs/neovim/codeium-nix.nix
     ../../programs/wezterm-linux.nix
   ];
 
