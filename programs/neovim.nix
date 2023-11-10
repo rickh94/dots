@@ -1,6 +1,16 @@
 { pkgs, inputs, system, ... }:
 let
-  fromGitHub = import ../functions/fromGitHub.nix;
+  pluginGit = ref: repo: vimUtils.buildVimPluginFrom2Nix {
+    pname = "${lib.strings.sanitizeDerivationName repo}";
+    version = ref;
+    src = builtins.fetchGit {
+      url = "https://github.com/${repo}.git";
+      ref = ref;
+    };
+  };
+
+  # always installs latest version
+  plugin = pluginGit "HEAD";
 in
 {
   programs.neovim = {
@@ -13,8 +23,17 @@ in
       guess-indent-nvim
       vim-repeat
       undotree
-      (fromGitHub "HEAD" "hiphish/rainbow-delimiters.nvim")
-      (fromGitHub "HEAD" "tmillr/sos.nvim")
+      (plugin "hiphish/rainbow-delimiters.nvim")
+      (plugin "tmillr/sos.nvim")
+    ];
+
+    extraPackages = with pkgs;[
+      tree-sitter
+      nodePackages.typescript
+      nodePackages.typescript-tools
+      gopls
+      nodePackages.pyright
+      rust-analyzer
     ];
 
     extraLuaConfig = ''
