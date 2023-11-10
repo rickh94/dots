@@ -1,4 +1,4 @@
-{ config, pkgs, lib, chosenFonts, ... }:
+{ config, pkgs, lib, chosenfonts, ... }:
 {
   imports = [
     ./hardware-configuration.nix
