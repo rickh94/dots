@@ -42,6 +42,7 @@
       nodejs
       nodePackages.pnpm
       nodePackages.typescript
+      nodePackages.typescript-language-server
       nodePackages.stylelint
       cargo-watch
       proselint

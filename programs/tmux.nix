@@ -13,6 +13,19 @@ let
   #     sed -e 's:CURRENT_DIR=.*$:CURRENT_DIR=\$\{TMUX_TMPDIR\}:g' -i $target/pomodoro.tmux
   #   '';
   # };
+  tmux-open-nvim = pkgs.tmuxPlugins.mkTmuxPlugin {
+    pluginName = "tmux_open_nvim";
+    version = "1.0";
+    src = pkgs.fetchFromGitHub {
+      owner = "trevarj";
+      repo = "tmux-open-nvim";
+      rev = "41d26de2044095b59b69bfc2bb82f1f7c51f8a84";
+      sha256 = "sha256-QrNzKet9eE8do9F2OPG09+LnHVwg/KIojxpATZsFR8c=";
+    };
+    # postInstall = ''
+    #   sed -e 's:CURRENT_DIR=.*$:CURRENT_DIR=\$\{TMUX_TMPDIR\}:g' -i $target/pomodoro.tmux
+    # '';
+  };
 in
 {
   programs.tmux = {
@@ -39,6 +52,8 @@ in
       #   '';
       # }
       tmuxPlugins.mode-indicator
+      tmuxPlugins.open
+      tmux-open-nvim
       # tmux-pomodoro-plus
     ];
     extraConfig = ''

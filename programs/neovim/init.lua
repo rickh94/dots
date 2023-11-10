@@ -24,8 +24,6 @@ require('lazy').setup({
   'tpope/vim-repeat',
   -- save undo history nicely
   'mbbill/undotree',
-  -- auto mkdir -p on save
-  'jghauser/mkdir.nvim',
   -- rainbow brackets and tags
   'hiphish/rainbow-delimiters.nvim',
   -- autosave on pause or leave
@@ -121,7 +119,7 @@ require('lazy').setup({
     'nvim-treesitter/nvim-treesitter',
     dependencies = {
       'nvim-treesitter/nvim-treesitter-textobjects',
-      'nvim-treesitter/nvim-treesitter-context',
+      -- 'nvim-treesitter/nvim-treesitter-context',
     },
     config = function()
       pcall(require('nvim-treesitter.install').update({ with_sync = true }))
@@ -190,19 +188,15 @@ require('lazy').setup({
       }
     }
   },
-  -- pretty statusline
-  {
-    'nvim-lualine/lualine.nvim',
-    opts = {
-      options = {
-        icons_enabled = false,
-        component_separators = '|',
-        section_separators = '',
-      }
-    }
-  },
+  -- -- pretty statusline
+  -- {
+  --   'nvim-lualine/lualine.nvim',
+  --   config = function()
+  --     require('lualine').setup()
+  --   end
+  -- },
   -- support for justfiles
-  'NoahTheDuke/vim-just',
+  -- 'NoahTheDuke/vim-just',
   -- rust
   {
     'simrat39/rust-tools.nvim',
@@ -911,30 +905,30 @@ local servers = {
     },
   },
   clangd = {},
-  emmet_ls = {
-    capabilities = capabilities,
-    filetypes = {
-      'html',
-      'typescriptreact',
-      'javascriptreact',
-      'css',
-      'sass',
-      'scss',
-      'less',
-      'svelte',
-      'vue',
-      'twig',
-      'astro',
-      'php',
-      'blade',
-    },
-    init_options = {
-      userLanguages = {
-        htmldjango = "html",
-        twig = "html",
-      },
-    }
-  },
+  -- emmet_ls = {
+  --   capabilities = capabilities,
+  --   filetypes = {
+  --     'html',
+  --     'typescriptreact',
+  --     'javascriptreact',
+  --     'css',
+  --     'sass',
+  --     'scss',
+  --     'less',
+  --     'svelte',
+  --     'vue',
+  --     'twig',
+  --     'astro',
+  --     'php',
+  --     'blade',
+  --   },
+  --   init_options = {
+  --     userLanguages = {
+  --       htmldjango = "html",
+  --       twig = "html",
+  --     },
+  --   }
+  -- },
   gopls = {},
   rust_analyzer = {},
   svelte = {
@@ -1054,34 +1048,34 @@ require("typescript-tools").setup {
   },
 }
 
-require('lspconfig').tsserver.setup({
-  settings = {
-    typescript = {
-      inlayHints = {
-        includeInlayParameterNameHints = 'all',
-        includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-        includeInlayFunctionParameterTypeHints = true,
-        includeInlayVariableTypeHints = true,
-        includeInlayVariableTypeHintsWhenTypeMatchesName = true,
-        includeInlayPropertyDeclarationTypeHints = true,
-        includeInlayFunctionLikeReturnTypeHints = true,
-        includeInlayEnumMemberValueHints = true,
-      }
-    },
-    javascript = {
-      inlayHints = {
-        includeInlayParameterNameHints = 'all',
-        includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-        includeInlayFunctionParameterTypeHints = true,
-        includeInlayVariableTypeHints = true,
-        includeInlayVariableTypeHintsWhenTypeMatchesName = true,
-        includeInlayPropertyDeclarationTypeHints = true,
-        includeInlayFunctionLikeReturnTypeHints = true,
-        includeInlayEnumMemberValueHints = true,
-      }
-    }
-  }
-})
+-- require('lspconfig').tsserver.setup({
+--   settings = {
+--     typescript = {
+--       inlayHints = {
+--         includeInlayParameterNameHints = 'all',
+--         includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+--         includeInlayFunctionParameterTypeHints = true,
+--         includeInlayVariableTypeHints = true,
+--         includeInlayVariableTypeHintsWhenTypeMatchesName = true,
+--         includeInlayPropertyDeclarationTypeHints = true,
+--         includeInlayFunctionLikeReturnTypeHints = true,
+--         includeInlayEnumMemberValueHints = true,
+--       }
+--     },
+--     javascript = {
+--       inlayHints = {
+--         includeInlayParameterNameHints = 'all',
+--         includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+--         includeInlayFunctionParameterTypeHints = true,
+--         includeInlayVariableTypeHints = true,
+--         includeInlayVariableTypeHintsWhenTypeMatchesName = true,
+--         includeInlayPropertyDeclarationTypeHints = true,
+--         includeInlayFunctionLikeReturnTypeHints = true,
+--         includeInlayEnumMemberValueHints = true,
+--       }
+--     }
+--   }
+-- })
 
 
 -- COMPLETION SETUP
@@ -1112,30 +1106,6 @@ cmp.setup({
     end
   },
   window = {
-    completion = {
-      border = {
-        "╭",
-        "─",
-        "╮",
-        "│",
-        "╯",
-        "─",
-        "╰",
-        "│"
-      }
-    },
-    documentation = {
-      border = {
-        "╭",
-        "─",
-        "╮",
-        "│",
-        "╯",
-        "─",
-        "╰",
-        "│"
-      }
-    }
   },
   mapping = cmp.mapping.preset.insert({
     ['<C-d>'] = cmp.mapping.scroll_docs(-4),
@@ -1168,17 +1138,13 @@ cmp.setup({
     { name = 'nvim_lsp', max_item_count = 10 },
     { name = 'luasnip',  max_item_count = 3 },
     { name = 'buffer',   max_item_count = 2 },
-    -- { name = 'copilot',  max_item_count = 2 },
     { name = 'rg',       max_item_count = 1 }
   },
   formatting = {
     format = require('lspkind').cmp_format({
-      mode = 'symbol',
+      mode = 'symbol_text',
       maxwidth = 50,
-      ellipsis_char = '...',
-      before = function(_, vim_item)
-        return vim_item
-      end
+      ellipsis_char = '...'
     })
   },
 })
