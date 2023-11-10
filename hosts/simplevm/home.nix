@@ -3,7 +3,7 @@
   imports = [
     ../_common/default.nix
     ../_common/linux/default.nix
-    ../../programs/wezterm.nix
+    ../../programs/wezterm-linux.nix
   ];
 
   home.packages = [
