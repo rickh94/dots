@@ -19,7 +19,7 @@ in
     viAlias = true;
     vimAlias = true;
     vimDiffAlias = true;
-    pllugins = with pkgs.vimPlugins; [
+    plugins = with pkgs.vimPlugins; [
       guess-indent-nvim
       vim-repeat
       undotree
