@@ -139,7 +139,7 @@ in
         save_empty = false, -- don't save if there are no open file buffers 
       })
 
-      require('rainbow-delimiters').setup()
+      require('rainbow-delimiters.setup').setup()
 
       require('nvim-tree').setup()
       -- pcall(require('nvim-treesitter.install').update({ with_sync = true }))
