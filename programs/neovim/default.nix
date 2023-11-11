@@ -132,6 +132,15 @@ in
         }
       })
 
+      require('persistence.nvim').setup( {
+        dir = vim.fn.expand(vim.fn.stdpath("state") .. "/sessions/"), -- directory where session files are saved
+        options = { "buffers", "curdir", "tabpages", "winsize" }, -- sessionoptions used for saving
+        pre_save = nil, -- a function to call before saving the session
+        save_empty = false, -- don't save if there are no open file buffers 
+      })
+
+      require('rainbow-delimiters').setup()
+
       require('nvim-tree').setup()
       -- pcall(require('nvim-treesitter.install').update({ with_sync = true }))
 
@@ -720,17 +729,8 @@ in
         svelte = {},
         astro = {},
         eslint = {},
-        black = {},
-        isort = {},
-        jsonlint = {},
-        mypy = {},
-        prettier = {},
-        proselint = {},
-        pylint = {},
         pyright = {},
-        ruff = {},
         spellcheck = {},
-        stylelint = {},
         tailwindcss = {
           capabilities = capabilities,
           init_options = {
