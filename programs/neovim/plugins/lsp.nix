@@ -1,6 +1,6 @@
-{ pkgs, lib, ... }:
+{ unstablePkgs, lib, ... }:
 let
-  pluginGit = ref: repo: pkgs.vimUtils.buildVimPluginFrom2Nix {
+  pluginGit = ref: repo: unstablePkgs.vimUtils.buildVimPluginFrom2Nix {
     pname = "${lib.strings.sanitizeDerivationName repo}";
     version = ref;
     src = builtins.fetchGit {
@@ -14,7 +14,7 @@ let
 in
 {
   programs.neovim = {
-    plugins = with pkgs.vimPlugins; [
+    plugins = with unstablePkgs.vimPlugins; [
       nvim-lspconfig
       mason-nvim
       mason-lspconfig-nvim
@@ -24,7 +24,7 @@ in
       (plugin "pmizio/typescript-tools.nvim")
     ];
 
-    extraPackages = with pkgs; [
+    extraPackages = with unstablePkgs; [
       gopls
       nodePackages.pyright
       rust-analyzer
@@ -125,6 +125,7 @@ in
             },
           }
         },
+        tsserver = {},
         intelephense = {
           capabilities = capabilities,
           intelephense = {
@@ -189,7 +190,8 @@ in
           expose_as_code_action = "all",
           -- string|nil - specify a custom path to `tsserver.js` file, if this is nil or file under path
           -- not exists then standard path resolution strategy is applied
-          tsserver_path = "${pkgs.nodePackages.typescript-language-server}/lib/node_modules/typescript/lib/tsserver.js",
+          --tsserver_path = "${unstablePkgs.nodePackages.typescript-language-server}/lib/node_modules/typescript/lib/tsserver.js",
+          tsserver_path = nil,
           -- specify a list of plugins to load by tsserver, e.g., for support `styled-components`
           -- (see 💅 `styled-components` support section)
           tsserver_plugins = {},

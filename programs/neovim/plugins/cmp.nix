@@ -1,9 +1,10 @@
-{pkgs, ... }:
+{ unstablePkgs, ... }:
 {
   programs.neovim = {
-    plugins = with pkgs.vimPlugins; [
+    plugins = with unstablePkgs.vimPlugins; [
       nvim-cmp
       cmp-nvim-lsp
+      cmp-cmdline
       luasnip
       cmp_luasnip
       cmp-fuzzy-buffer
@@ -89,14 +90,6 @@
         }
       })
 
-      cmp.setup.cmdline(':', {
-        mapping = cmp.mapping.preset.cmdline(),
-        sources = cmp.config.sources({
-          { name = 'path', max_item_count = 10 }
-        }, {
-          { name = 'cmdline', max_item_count = 10 }
-        })
-      })
 
     '';
 

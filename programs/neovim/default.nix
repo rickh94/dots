@@ -1,4 +1,4 @@
-{ pkgs, inputs, system, lib, ... }:
+{ pkgs, inputs, system, lib, unstablePkgs, ... }:
 {
   programs.neovim = {
     enable = true;

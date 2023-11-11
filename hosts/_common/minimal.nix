@@ -1,4 +1,4 @@
-{ config, pkgs, nixpkgs, lib, ... }:
+{ config, pkgs, nixpkgs, lib, inputs, ... }:
 {
   imports = [
     ../../programs/neovim
@@ -43,7 +43,9 @@
       go
       nodejs
       rustup
-      (python310.withPackages (ps: with ps; [ pip flake8 black requests django ]))
+      (python311.withPackages (ps: with ps; [ pip flake8 black requests django ]))
+      poetry
+      bun
 
       # rust replacements
       difftastic
@@ -51,7 +53,6 @@
       dogdns
       lfs
       starship
-      zellij
       carapace
       fzf
       ripgrep-all
@@ -59,7 +60,6 @@
       bottom
       exa
       fd
-      uutils-coreutils
       du-dust
       bat
     ];

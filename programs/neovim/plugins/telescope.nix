@@ -1,7 +1,7 @@
-{pkgs, ... }:
+{ unstablePkgs, ... }:
 {
   programs.neovim = {
-    plugins = with pkgs.vimPlugins; [
+    plugins = with unstablePkgs.vimPlugins; [
       telescope-nvim
       telescope-fzf-native-nvim
       telescope-file-browser-nvim

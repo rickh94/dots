@@ -1,12 +1,14 @@
-{pkgs, ... }:
+{ unstablePkgs, ... }:
 {
   programs.neovim = {
-    plugins = with pkgs.vimPlugins; [
+    plugins = with unstablePkgs.vimPlugins; [
+      nvim-treesitter
       nvim-treesitter.withAllGrammars
       nvim-treesitter-textobjects
+      nvim-treesitter-refactor
     ];
 
-    extraPackages = with pkgs; [
+    extraPackages = with unstablePkgs; [
       tree-sitter
     ];
 
@@ -14,6 +16,7 @@
       -- TREESITTER CONFIGURATION
       require('nvim-treesitter.configs').setup({
         highlight = { enable = true },
+        ensure_installed = {},
         indent = { enable = true, },
         incremental_selection = {
           enable = true,

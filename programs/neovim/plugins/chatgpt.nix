@@ -2,11 +2,13 @@
 {
   programs.neovim = {
     plugins = with unstablePkgs.vimPlugins; [
-      comment-nvim
+      ChatGPT-nvim
     ];
 
     extraLuaConfig = /* lua */ ''
-      require('Comment').setup()
+      require("chatgpt").setup({
+          api_key_cmd = "pass show openai/nvim"
+      })
     '';
 
   };

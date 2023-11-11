@@ -1,7 +1,7 @@
-{pkgs, ... }:
+{ unstablePkgs, ... }:
 {
   programs.neovim = {
-    plugins = [
+    plugins = with unstablePkgs.vimPlugins; [
       codeium-vim
     ];
     extraLuaConfig = /* lua */ ''

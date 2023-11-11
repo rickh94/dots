@@ -25,5 +25,7 @@
     ./plugins/treesitter.nix
     ./plugins/undotree.nix
     ./plugins/vim-tmux-navigator.nix
+    ./plugins/oil.nix
+    ./plugins/chatgpt.nix
   ];
 }

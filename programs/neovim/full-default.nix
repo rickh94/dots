@@ -2,6 +2,6 @@
 {
   imports = [
     ./full-base.nix
-    ./plugins/codeium.nix
+    ./plugins/codeium-default.nix
   ];
 }

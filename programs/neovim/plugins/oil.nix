@@ -2,14 +2,15 @@
 {
   programs.neovim = {
     plugins = with unstablePkgs.vimPlugins; [
-      undotree
+      oil-nvim
     ];
 
     extraLuaConfig = /* lua */ ''
+      require('oil').setup()
       require('which-key').register({
         -- NVIM TREE KEYBINDS
-        u = { vim.cmd.UndotreeToggle, "Open Undo Tree" },
-      }, { mode = 'n', prefix = '<leader>' })
+        ['-'] = { '<cmd>Oil<cr>', 'Open Parent Directory' },
+      }, { mode = 'n',  })
     '';
 
   };

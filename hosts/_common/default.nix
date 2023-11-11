@@ -40,17 +40,12 @@
       nodejs
       nodePackages.pnpm
       nodePackages.typescript
-      nodePackages.typescript-language-server
-      nodePackages.stylelint
       cargo-watch
       proselint
       backblaze-b2
       poetry
       mypy
       bun
-      phpactor
-      phpPackages.composer
-      phpPackages.php-cs-fixer
       devenv.packages.${pkgs.system}.devenv
       ocamlformat
 

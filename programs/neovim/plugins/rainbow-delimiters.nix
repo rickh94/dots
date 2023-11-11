@@ -1,6 +1,6 @@
-{ pkgs, lib, ... }:
+{ unstablePkgs, lib, ... }:
 let
-  pluginGit = ref: repo: pkgs.vimUtils.buildVimPluginFrom2Nix {
+  pluginGit = ref: repo: unstablePkgs.vimUtils.buildVimPluginFrom2Nix {
     pname = "${lib.strings.sanitizeDerivationName repo}";
     version = ref;
     src = builtins.fetchGit {
@@ -14,7 +14,7 @@ let
 in
 {
   programs.neovim = {
-    plugins = with pkgs.vimPlugins; [
+    plugins = with unstablePkgs.vimPlugins; [
       (plugin "hiphish/rainbow-delimiters.nvim")
     ];
 
