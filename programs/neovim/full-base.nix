@@ -18,7 +18,7 @@
     ./plugins/rainbow-delimiters.nix
     ./plugins/rust.nix
     ./plugins/sandwich.nix
-    ./plgins/sos.nix
+    ./plugins/sos.nix
     ./plugins/tailwindcss-colors.nix
     ./plugins/telescope.nix
     ./plugins/todo-comments.nix
