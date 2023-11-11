@@ -2,6 +2,7 @@
 {
   imports = [
     ./default.nix
+    ../../../programs/wezterm-linux.nix
   ];
   home.packages = with pkgs;
     [

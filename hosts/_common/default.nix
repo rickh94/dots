@@ -3,8 +3,6 @@
   imports = [
     ./minimal.nix
     ../../programs/direnv/default.nix
-    ../../programs/alacritty.nix
-    ../../programs/kitty.nix
     ../../programs/tmux.nix
     ../../programs/atuin.nix
   ];
