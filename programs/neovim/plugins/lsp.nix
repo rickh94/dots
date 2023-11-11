@@ -1,17 +1,4 @@
-{ unstablePkgs, lib, ... }:
-let
-  pluginGit = ref: repo: unstablePkgs.vimUtils.buildVimPluginFrom2Nix {
-    pname = "${lib.strings.sanitizeDerivationName repo}";
-    version = ref;
-    src = builtins.fetchGit {
-      url = "https://github.com/${repo}.git";
-      ref = ref;
-    };
-  };
-
-  # always installs latest version
-  plugin = pluginGit "HEAD";
-in
+{ unstablePkgs, ... }:
 {
   programs.neovim = {
     plugins = with unstablePkgs.vimPlugins; [
@@ -21,7 +8,7 @@ in
       neodev-nvim
       lspkind-nvim
       lsp-inlayhints-nvim
-      (plugin "pmizio/typescript-tools.nvim")
+      typescript-tools-nvim
     ];
 
     extraPackages = with unstablePkgs; [

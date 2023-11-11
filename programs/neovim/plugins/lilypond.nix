@@ -1,22 +1,9 @@
 { unstablePkgs, lib, ... }:
-let
-  pluginGit = ref: repo: unstablePkgs.vimUtils.buildVimPluginFrom2Nix {
-    pname = "${lib.strings.sanitizeDerivationName repo}";
-    version = ref;
-    src = builtins.fetchGit {
-      url = "https://github.com/${repo}.git";
-      ref = ref;
-    };
-  };
-
-  # always installs latest version
-  plugin = pluginGit "HEAD";
-in
 {
   programs.neovim = {
     plugins = with unstablePkgs.vimPlugins; [
-      (plugin "martineausimon/nvim-lilypond-suite")
-      (plugin "MunifTanjim/nui.nvim")
+      nvim-lilypond-suite
+      nui-nvim
     ];
 
     extraLuaConfig = /* lua */ ''
