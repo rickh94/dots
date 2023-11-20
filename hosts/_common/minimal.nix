@@ -1,4 +1,4 @@
-{ config, pkgs, nixpkgs, lib, inputs, ... }:
+{ config, pkgs, nixpkgs, lib, inputs, unstablePkgs, ... }:
 {
   imports = [
     ../../programs/neovim
@@ -45,7 +45,7 @@
       rustup
       (python311.withPackages (ps: with ps; [ pip flake8 black requests django ]))
       poetry
-      bun
+      unstablePkgs.bun
 
       # rust replacements
       difftastic

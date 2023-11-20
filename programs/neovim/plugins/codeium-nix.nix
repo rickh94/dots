@@ -1,6 +1,6 @@
 { unstablePkgs, codeium-lsp, ... }:
 let
-  codeium-patched = unstablePkgs.vimUtils.buildVimPluginFrom2Nix {
+  codeium-patched = unstablePkgs.vimUtils.buildVimPlugin {
     pname = "codeium.vim";
     version = "HEAD";
     src = builtins.fetchGit {

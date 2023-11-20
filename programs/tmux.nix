@@ -1,30 +1,12 @@
 { pkgs, lib, ... }:
 let
-  # tmux-pomodoro-plus = pkgs.tmuxPlugins.mkTmuxPlugin {
-  #   pluginName = "pomodoro";
-  #   version = "1.0";
-  #   src = pkgs.fetchFromGitHub {
-  #     owner = "olimorris";
-  #     repo = "tmux-pomodoro-plus";
-  #     rev = "565d039b3b138e3add82cf67a56d01eeb975cf43";
-  #     sha256 = "sha256-bMPdLCj5emDC1iqKU3VIZpF8tbHqALrCHUHvuf+AuHY=";
-  #   };
-  #   postInstall = ''
-  #     sed -e 's:CURRENT_DIR=.*$:CURRENT_DIR=\$\{TMUX_TMPDIR\}:g' -i $target/pomodoro.tmux
-  #   '';
-  # };
   tmux-open-nvim = pkgs.tmuxPlugins.mkTmuxPlugin {
     pluginName = "tmux_open_nvim";
     version = "1.0";
-    src = pkgs.fetchFromGitHub {
-      owner = "trevarj";
-      repo = "tmux-open-nvim";
-      rev = "41d26de2044095b59b69bfc2bb82f1f7c51f8a84";
-      sha256 = "sha256-QrNzKet9eE8do9F2OPG09+LnHVwg/KIojxpATZsFR8c=";
+    src = builtins.fetchGit {
+      url = "https://github.com/trevarj/tmux-open-nvim";
+      ref = "HEAD";
     };
-    # postInstall = ''
-    #   sed -e 's:CURRENT_DIR=.*$:CURRENT_DIR=\$\{TMUX_TMPDIR\}:g' -i $target/pomodoro.tmux
-    # '';
   };
 in
 {
@@ -36,6 +18,7 @@ in
     mouse = true;
     shell = "${pkgs.fish}/bin/fish";
     baseIndex = 1;
+    tmuxp.enable = true;
     escapeTime = 0;
     plugins = with pkgs; [
       tmuxPlugins.vim-tmux-navigator
@@ -45,18 +28,11 @@ in
       tmuxPlugins.tmux-fzf
       tmuxPlugins.sessionist
       tmuxPlugins.continuum
-      # {
-      #   plugin = tmuxPlugins.cpu;
-      #   extraConfig = ''
-      #     set -g status-right '#{cpu_bg_color} CPU: #{cpu_icon} #{cpu_percentage} | %Y-%m-%d %H:%M #{tmux_mode_indicator}'
-      #   '';
-      # }
       tmuxPlugins.mode-indicator
       tmuxPlugins.open
       tmux-open-nvim
-      # tmux-pomodoro-plus
     ];
-    extraConfig = ''
+    extraConfig = /* bash */ ''
       set-option -sa terminal-overrides ",xterm*:Tc"
 
       # Vim style pane selection
@@ -89,6 +65,9 @@ in
       set-option -g status-position top
       set-option -g default-command "${pkgs.fish}/bin/fish"
 
+      set -g @continuum-restore 'on'
+
+      set -g @suspend_key 'F10'
         
     '';
   };

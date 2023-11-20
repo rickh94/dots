@@ -1,4 +1,4 @@
-{ config, lib, pkgs, chosenfonts, inputs, ... }:
+{ config, lib, pkgs, chosenfonts, inputs, unstablePkgs, ... }:
 {
 
   imports = [
@@ -32,7 +32,7 @@
     pkgs.backblaze-b2
     pkgs.poetry
     pkgs.mypy
-    pkgs.bun
+    unstablePkgs.bun
     pkgs.wireguard-tools
     pkgs.morph
     pkgs.lilypond

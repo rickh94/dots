@@ -1,4 +1,4 @@
-{ config, pkgs, nixpkgs, lib, devenv, ... }:
+{ config, pkgs, nixpkgs, lib, devenv, unstablePkgs, ... }:
 {
   imports = [
     ./minimal.nix
@@ -45,7 +45,7 @@
       backblaze-b2
       poetry
       mypy
-      bun
+      unstablePkgs.bun
       devenv.packages.${pkgs.system}.devenv
       ocamlformat
 

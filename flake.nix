@@ -48,7 +48,11 @@
           modules = [
             ./hosts/beethoven/configuration.nix
           ];
-          specialArgs = { inherit nixpkgs; inherit inputs; inherit chosenfonts; };
+          specialArgs = {
+            inherit nixpkgs; inherit inputs; inherit chosenfonts;
+            unstablePkgs = unstable.legacyPackages.x86_64-linux;
+          };
+
         };
 
         nixvm = nixpkgs.lib.nixosSystem {
@@ -56,7 +60,11 @@
           modules = [
             ./hosts/nixvm/configuration.nix
           ];
-          specialArgs = { inherit nixpkgs; inherit chosenfonts; };
+          specialArgs = {
+            inherit nixpkgs; inherit chosenfonts;
+
+            unstablePkgs = unstable.legacyPackages.x86_64-linux;
+          };
         };
 
         nixx86-vm = nixpkgs.lib.nixosSystem {
@@ -64,7 +72,11 @@
           modules = [
             ./hosts/nixx86-vm/configuration.nix
           ];
-          specialArgs = { inherit nixpkgs; inherit chosenfonts; };
+          specialArgs = {
+            inherit nixpkgs; inherit chosenfonts;
+
+            unstablePkgs = unstable.legacyPackages.x86_64-linux;
+          };
         };
 
         nixarm-vm = nixpkgs.lib.nixosSystem {
@@ -72,7 +84,10 @@
           modules = [
             ./hosts/nixarm-vm/configuration.nix
           ];
-          specialArgs = { inherit nixpkgs; inherit chosenfonts; };
+          specialArgs = {
+            inherit nixpkgs; inherit chosenfonts;
+            unstablePkgs = unstable.legacyPackages.aarch64-linux;
+          };
         };
 
         simplevm-arm = nixpkgs.lib.nixosSystem {
@@ -80,7 +95,10 @@
           modules = [
             ./hosts/simplevm-arm/configuration.nix
           ];
-          specialArgs = { inherit nixpkgs; inherit chosenfonts; };
+          specialArgs = {
+            inherit nixpkgs; inherit chosenfonts;
+            unstablePkgs = unstable.legacyPackages.aarch64-linux;
+          };
         };
 
         simplevm = nixpkgs.lib.nixosSystem {
@@ -88,7 +106,10 @@
           modules = [
             ./hosts/simplevm/configuration.nix
           ];
-          specialArgs = { inherit nixpkgs; inherit chosenfonts; };
+          specialArgs = {
+            inherit nixpkgs; inherit chosenfonts;
+            unstablePkgs = unstable.legacyPackages.x86_64-linux;
+          };
         };
 
         nixserver = nixpkgs.lib.nixosSystem {
@@ -96,15 +117,10 @@
           modules = [
             ./hosts/nixserver/configuration.nix
           ];
-          specialArgs = { inherit nixpkgs; inherit chosenfonts; inherit inputs; };
-        };
-
-        nixmc = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [
-            ./hosts/nixmc/configuration.nix
-          ];
-          specialArgs = { inherit nixpkgs; inherit chosenfonts; inherit inputs; };
+          specialArgs = {
+            inherit nixpkgs; inherit chosenfonts; inherit inputs;
+            unstablePkgs = unstable.legacyPackages.x86_64-linux;
+          };
         };
       };
 
@@ -139,6 +155,10 @@
             home-manager.darwinModules.home-manager
             {
               home-manager.users.rick = import ./hosts/macvm/home.nix;
+              extraSpecialArgs = {
+                inherit devenv;
+                unstablePkgs = unstable.legacyPackages.aarch64-darwin;
+              };
             }
           ];
         };
@@ -151,6 +171,10 @@
             home-manager.darwinModules.home-manager
             {
               home-manager.users.rick = import ./hosts/macvm/home.nix;
+              extraSpecialArgs = {
+                inherit devenv;
+                unstablePkgs = unstable.legacyPackages.x86_64-darwin;
+              };
             }
           ];
         };
@@ -167,7 +191,6 @@
           ];
           extraSpecialArgs = {
             inherit inputs; inherit chosenfonts; inherit devenv; i3mod = "Mod4";
-
             unstablePkgs = unstable.legacyPackages.x86_64-linux;
           };
         };
@@ -196,7 +219,6 @@
           ];
           extraSpecialArgs = {
             inherit inputs; inherit chosenfonts; inherit devenv;
-
             unstablePkgs = unstable.legacyPackages.x86_64-linux;
           };
         };
@@ -223,7 +245,6 @@
           modules = [ ./hosts/nixvm/home.nix ];
           extraSpecialArgs = {
             inherit inputs; inherit chosenfonts; inherit devenv; i3mod = "Control";
-
             unstablePkgs = unstable.legacyPackages.x86_64-linux;
           };
         };
@@ -235,7 +256,6 @@
           modules = [ ./hosts/nixx86-vm/home.nix ];
           extraSpecialArgs = {
             inherit inputs; inherit chosenfonts; inherit devenv; i3mod = "Control";
-
             unstablePkgs = unstable.legacyPackages.x86_64-linux;
           };
         };
@@ -265,11 +285,21 @@
         nixserver = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.x86_64-linux;
           modules = [ ./hosts/nixserver/home.nix ];
+          extraSpecialArgs = {
+            inherit inputs; inherit chosenfonts; inherit devenv; i3mod = "Control";
+            codeium-lsp = inputs.codeium.packages.x86_64-linux.codeium-lsp;
+            unstablePkgs = unstable.legacyPackages.x86_64-linux;
+          };
         };
 
         proxyserver = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.x86_64-linux;
           modules = [ ./hosts/proxy-server/home.nix ];
+          extraSpecialArgs = {
+            inherit inputs; inherit chosenfonts; inherit devenv; i3mod = "Control";
+            codeium-lsp = inputs.codeium.packages.x86_64-linux.codeium-lsp;
+            unstablePkgs = unstable.legacyPackages.x86_64-linux;
+          };
         };
       };
 

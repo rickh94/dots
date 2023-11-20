@@ -1,4 +1,4 @@
-{ config, lib, pkgs, chosenfonts, inputs, ... }:
+{ config, lib, pkgs, chosenfonts, inputs, unstablePkgs, ... }:
 {
 
   imports = [
@@ -23,7 +23,7 @@
     pkgs.proselint
     pkgs.poetry
     pkgs.mypy
-    pkgs.bun
+    unstablePkgs.bun
     pkgs.wireguard-tools
     pkgs.morph
     (pkgs.nerdfonts.override { fonts = chosenfonts; })
