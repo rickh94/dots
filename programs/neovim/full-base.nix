@@ -1,9 +1,4 @@
-{ pkgs
-, inputs
-, system
-, lib
-, ...
-}: {
+{ ... }: {
   imports = [
     ./default.nix
     ./plugins/colorscheme.nix
@@ -22,8 +17,9 @@
     ./plugins/persistence.nix
     ./plugins/rainbow-delimiters.nix
     ./plugins/rust.nix
-    ./plugins/sandwich.nix
-    ./plugins/sos.nix
+    # ./plugins/sandwich.nix
+    ./plugins/surround.nix
+    # ./plugins/sos.nix
     ./plugins/tailwindcss-colors.nix
     ./plugins/telescope.nix
     ./plugins/todo-comments.nix
@@ -34,5 +30,11 @@
     ./plugins/chatgpt.nix
     ./plugins/autopairs.nix
     ./plugins/gotempl.nix
+    ./plugins/nougat.nix
+    ./plugins/spider.nix
+    ./plugins/leap.nix
+    ./plugins/various-textobjs.nix
+    ./plugins/treesj.nix
+    ./plugins/trouble.nix
   ];
 }

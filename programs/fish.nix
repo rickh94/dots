@@ -1,5 +1,4 @@
-{ ... }:
-{
+{ ... }: {
   programs.fish = {
     enable = true;
     shellAliases = {
@@ -14,11 +13,18 @@
       find = "fd";
       mkdir = "mkdir -p";
     };
+    interactiveShellInit =
+      /*
+      fish
+      */
+      ''
+        fish_vi_key_bindings
+      '';
 
     functions = {
       gitignore = "curl -sL https://www.gitignore.io/api/$argv";
-      title = "zellij action rename-tab $argv[1]";
       getlinuxformat = "wget https://raw.githubusercontent.com/torvalds/linux/master/.clang-format";
+      /*
       vm-nvim = ''
         set hash (openssl rand -hex 4)
         echo /tmp/$hash
@@ -40,7 +46,7 @@
         end
         ssh -t -L /tmp/$hash:/tmp/$hash \$\{argv[1]\} "nvim --headless --listen /tmp/$hash"
       '';
+      */
     };
   };
-
 }

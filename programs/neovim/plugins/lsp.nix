@@ -1,4 +1,4 @@
-{unstablePkgs, ...}: {
+{ unstablePkgs, ... }: {
   programs.neovim = {
     plugins = with unstablePkgs.vimPlugins; [
       nvim-lspconfig
@@ -8,6 +8,7 @@
       lspkind-nvim
       lsp-inlayhints-nvim
       typescript-tools-nvim
+      nvim-navic
     ];
 
     extraPackages = with unstablePkgs; [
@@ -56,6 +57,9 @@
         require('mason').setup()
         require('neodev').setup()
 
+        local navic = require("nvim-navic")
+        navic.setup()
+
         -- LSP CONFIGURATION
         local on_attach = function(_, bufnr)
           -- LSP Keybindings
@@ -79,6 +83,10 @@
           wk.register({
             ['<A-k>'] = { function() vim.lsp.buf.signature_help() end, "Signature Documentation" },
           }, { mode = 'n' })
+
+          if client.server_capabilities.documentSymbolProvider then
+              navic.attach(client, bufnr)
+          end
 
           vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
             vim.lsp.buf.format()
@@ -144,17 +152,6 @@
           --     },
           --   },
           -- },
-          tailwindcss = {
-            capabilities = capabilities,
-            init_options = {
-              userLanguages = {
-                htmldjango = "html",
-                twig = "html",
-                php = "html",
-                templ = "html",
-              },
-            }
-          },
           tsserver = {},
           intelephense = {
             capabilities = capabilities,
@@ -184,6 +181,57 @@
             },
           }
         }
+        local tw_filetypes = {
+          "aspnetcorerazor",
+          "astro",
+          "astro-markdown",
+          "blade",
+          "clojure",
+          "django-html",
+          "htmldjango",
+          "edge",
+          "eelixir",
+          "elixir",
+          "ejs",
+          "erb",
+          "eruby",
+          "gohtml",
+          "gohtmltmpl",
+          "haml",
+          "handlebars",
+          "hbs",
+          "html",
+          "html-eex",
+          "heex",
+          "jade",
+          "leaf",
+          "liquid",
+          "markdown",
+          "mdx",
+          "mustache",
+          "njk",
+          "nunjucks",
+          "php",
+          "razor",
+          "slim",
+          "twig",
+          "css",
+          "less",
+          "postcss",
+          "sass",
+          "scss",
+          "stylus",
+          "sugarss",
+          "javascript",
+          "javascriptreact",
+          "reason",
+          "rescript",
+          "typescript",
+          "typescriptreact",
+          "vue",
+          "svelte",
+          "templ",
+        }
 
         local mason_lspconfig = require('mason-lspconfig')
 
@@ -191,23 +239,43 @@
 
         mason_lspconfig.setup_handlers({
           function(server_name)
-            local attach_function = on_attach
-            if server_name == "tailwindcss" then
-              attach_function = function(client, bufnr)
-                on_attach(client, bufnr)
-                require('tailwindcss-colors').buf_attach(bufnr)
-              end
-            end
-            local cmd = nil
             require('lspconfig')[server_name].setup({
               capabilities = capabilities,
-              on_attach = attach_function,
+              on_attach = on_attach,
               settings = servers[server_name],
             })
           end,
         })
-        local tw = require("lspconfig.server_configurations.tailwindcss")
-        vim.list_extend({"htmldjango", "jinja", "gohtml", "templ", "twig", "php" }, tw.default_config.filetypes)
+
+        require('tailwindcss-colors').setup()
+        require('lspconfig').tailwindcss.setup({
+          capabilities = capabilities,
+          on_attach = function(client, bufnr)
+            require('tailwindcss-colors').buf_attach(bufnr)
+            on_attach(client, bufnr)
+          end,
+          settings = {
+            tailwindCSS = {
+              classAttributes = { "class", "className", "class:list", "classList", "ngClass" },
+              lint = {
+                cssConflict = "warning",
+                invalidApply = "error",
+                invalidConfigPath = "error",
+                invalidScreen = "error",
+                invalidTailwindDirective = "error",
+                invalidVariant = "error",
+                recommendedVariantOrder = "warning"
+              },
+              validate = true
+            }
+          },
+          init_options = {
+            userLanguages = {
+              templ = "html"
+            },
+          },
+          filetypes = tw_filetypes,
+        })
 
         require("typescript-tools").setup {
           on_attach = on_attach,

@@ -64,7 +64,6 @@
 
         vim.o.scrolloff = 8
 
-        vim.o.colorcolumn = "88"
         vim.o.wrap = false
         vim.o.nowrap = true
         vim.o.cursorline = true
@@ -90,7 +89,7 @@
 
         wk.register({
           -- close buffer
-          x = { '<cmd>bp<bar>sp<bar>bn<bar>bd<CR>', 'Close current buffer' },
+          X = { '<cmd>bp<bar>sp<bar>bn<bar>bd<CR>', 'Close current buffer' },
           W = { '<cmd>wa<CR>', 'Save all buffers' },
           w = { '<cmd>w<CR>', 'Save current buffer' },
         }, { prefix = '<leader>', mode = 'n' })
@@ -154,6 +153,7 @@
           ['*.ily'] = twotrue,
           ['*.nix'] = twotrue,
           ['*.ml'] = twotrue,
+          ['*.hcl'] = twotrue,
         }
 
         for p, s in pairs(setlocal_frompattern) do
@@ -168,6 +168,11 @@
             command = cmd,
           })
         end
+
+        vim.api.nvim_create_autocmd({ 'BufReadPre', 'BufRead' }, {
+          pattern = '*.sql',
+          command = 'setlocal tabstop=4 shiftwidth=4 expandtab',
+        })
 
         local filetypes = {
           ['njk'] = 'twig',

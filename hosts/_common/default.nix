@@ -1,10 +1,17 @@
-{ config, pkgs, nixpkgs, lib, devenv, unstablePkgs, ... }:
-{
+{ config
+, pkgs
+, nixpkgs
+, lib
+, devenv
+, unstablePkgs
+, ...
+}: {
   imports = [
     ./minimal.nix
     ../../programs/direnv/default.nix
     ../../programs/tmux.nix
     ../../programs/atuin.nix
+    ../../programs/sqlite.nix
   ];
 
   home = {
@@ -15,8 +22,6 @@
       "${config.home.homeDirectory}/.config/composer/vendor/bin"
     ];
 
-
-
     packages = with pkgs; [
       # basics
       alacritty
@@ -25,12 +30,12 @@
       tmux
       killall
 
-
       # dev tools
       gibo
       direnv
       nix-direnv
       redis
+      unstablePkgs.atlas
       # ngrok
       gh
       bacon
@@ -70,10 +75,7 @@
       # random
       montserrat
     ];
-
   };
 
-
   #nixpkgs.config.allowUnfree = true;
-
 }

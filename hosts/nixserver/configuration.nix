@@ -1,24 +1,25 @@
-{ config, pkgs, lib, nixpkgs, ... }:
-
+{ config
+, pkgs
+, lib
+, nixpkgs
+, ...
+}:
 let
   impermanence = builtins.fetchTarball "https://github.com/nix-community/impermanence/archive/master.tar.gz";
 in
 {
-  imports =
-    [
-      ../_common/linux/configuration/boot.nix
-      ../_common/linux/configuration/basic.nix
-      ../_common/linux/configuration/virt.nix
-      ../_common/linux/configuration/users-rick.nix
-      ../_common/rick-passwordless-sudo.nix
-      ./hardware-configuration.nix
-      "${impermanence}/nixos.nix"
-    ];
-
+  imports = [
+    ../_common/linux/configuration/boot.nix
+    ../_common/linux/configuration/basic.nix
+    ../_common/linux/configuration/virt.nix
+    ../_common/linux/configuration/users-rick.nix
+    ../_common/rick-passwordless-sudo.nix
+    ./hardware-configuration.nix
+    "${impermanence}/nixos.nix"
+  ];
 
   users.users.rick.shell = pkgs.zsh;
   programs.zsh.enable = true;
-
 
   networking.hostName = "albanberg";
   networking.hostId = "d4e76b17";
@@ -31,7 +32,6 @@ in
     layout = "us";
     xkbVariant = "";
   };
-
 
   environment.systemPackages = with pkgs; [
     # essentials
@@ -145,32 +145,32 @@ in
       '';
     };
 
-    home-assistant = {
-      enable = true;
-      config = {
-        default_config = { };
-        http = {
-          base_url = "https://home.rickhenry.house";
-          use_x_forwarded_for = true;
-          trusted_proxies = "127.0.0.1";
-        };
-      };
-    };
-
-    mosquitto = {
-      enable = true;
-      persistence = true;
-      listeners = [
-        {
-          port = 1883;
-          users = {
-            blacklamp.hashedPasswordFile = "/persist/passwd/mosquitto/blacklamp";
-            silverlamp.hashedPasswordFile = "/persist/passwd/mosquitto/silverlamp";
-            desklight.hashedPasswordFile = "/persist/passwd/mosquitto/desklight";
-          };
-        }
-      ];
-    };
+    # home-assistant = {
+    #   enable = true;
+    #   config = {
+    #     default_config = { };
+    #     http = {
+    #       base_url = "https://home.rickhenry.house";
+    #       use_x_forwarded_for = true;
+    #       trusted_proxies = "127.0.0.1";
+    #     };
+    #   };
+    # };
+    #
+    # mosquitto = {
+    #   enable = true;
+    #   persistence = true;
+    #   listeners = [
+    #     {
+    #       port = 1883;
+    #       users = {
+    #         blacklamp.hashedPasswordFile = "/persist/passwd/mosquitto/blacklamp";
+    #         silverlamp.hashedPasswordFile = "/persist/passwd/mosquitto/silverlamp";
+    #         desklight.hashedPasswordFile = "/persist/passwd/mosquitto/desklight";
+    #       };
+    #     }
+    #   ];
+    # };
 
     jellyfin.enable = true;
 
@@ -203,7 +203,12 @@ in
       };
     };
 
-    nginx.virtualHosts."localhost".listen = [{ addr = "127.0.0.1"; port = 8080; }];
+    nginx.virtualHosts."localhost".listen = [
+      {
+        addr = "127.0.0.1";
+        port = 8080;
+      }
+    ];
 
     sanoid = {
       enable = true;
@@ -320,7 +325,7 @@ in
         workgroup = WORKGROUP
         server string = albanberg
         netbios name = albanberg
-        security = user 
+        security = user
         #use sendfile = yes
         #max protocol = smb2
         # note: localhost is the ipv6 localhost ::1
@@ -387,7 +392,6 @@ in
           "valid users" = "rick";
         };
       };
-
     };
 
     grafana = {
@@ -399,52 +403,54 @@ in
       };
     };
 
-    prometheus = {
-      enable = true;
-      port = 9001;
-      exporters = {
-        node = {
-          enable = true;
-          enabledCollectors = [ "systemd" ];
-          port = 9002;
-        };
-        zfs = {
-          enable = true;
-          port = 9003;
-        };
-        wireguard = {
-          enable = true;
-          port = 9005;
-        };
-        smartctl = {
-          enable = true;
-          port = 9006;
-        };
-        dnsmasq = {
-          enable = true;
-          port = 9008;
-        };
-      };
-      scrapeConfigs = [
-        {
-          job_name = "albanberg";
-          static_configs = [{
-            targets = [
-              "127.0.0.1:${toString config.services.prometheus.exporters.node.port}"
-              "127.0.0.1:${toString config.services.prometheus.exporters.zfs.port}"
-              "127.0.0.1:${toString config.services.prometheus.exporters.wireguard.port}"
-              "127.0.0.1:${toString config.services.prometheus.exporters.smartctl.port}"
-              "127.0.0.1:${toString config.services.prometheus.exporters.dnsmasq.port}"
-            ];
-          }];
-        }
-      ];
-    };
+    # prometheus = {
+    #   enable = true;
+    #   port = 9001;
+    #   exporters = {
+    #     node = {
+    #       enable = true;
+    #       enabledCollectors = [ "systemd" ];
+    #       port = 9002;
+    #     };
+    #     zfs = {
+    #       enable = true;
+    #       port = 9003;
+    #     };
+    #     wireguard = {
+    #       enable = true;
+    #       port = 9005;
+    #     };
+    #     smartctl = {
+    #       enable = true;
+    #       port = 9006;
+    #     };
+    #     dnsmasq = {
+    #       enable = true;
+    #       port = 9008;
+    #     };
+    #   };
+    #   scrapeConfigs = [
+    #     {
+    #       job_name = "albanberg";
+    #       static_configs = [
+    #         {
+    #           targets = [
+    #             "127.0.0.1:${toString config.services.prometheus.exporters.node.port}"
+    #             "127.0.0.1:${toString config.services.prometheus.exporters.zfs.port}"
+    #             "127.0.0.1:${toString config.services.prometheus.exporters.wireguard.port}"
+    #             "127.0.0.1:${toString config.services.prometheus.exporters.smartctl.port}"
+    #             "127.0.0.1:${toString config.services.prometheus.exporters.dnsmasq.port}"
+    #           ];
+    #         }
+    #       ];
+    #     }
+    #   ];
+    # };
 
-    loki = {
-      enable = true;
-      configFile = ./loki-local-config.yaml;
-    };
+    # loki = {
+    #   enable = true;
+    #   configFile = ./loki-local-config.yaml;
+    # };
 
     vaultwarden = {
       enable = true;
@@ -590,7 +596,6 @@ in
           "backuptank"
           "vroom"
         ];
-
       };
     };
 
@@ -724,8 +729,6 @@ in
     "vroom"
   ];
 
-
-
   # WIPE ROOT CONFIGURATION
   environment.persistence."/persist/impermanence" = {
     directories = [
@@ -748,10 +751,11 @@ in
     ];
   };
 
-  boot.initrd.postDeviceCommands = lib.mkAfter
-    ''
-      zfs rollback -r rpool/local/root@blank
-    '';
+  boot.initrd.postDeviceCommands =
+    lib.mkAfter
+      ''
+        zfs rollback -r rpool/local/root@blank
+      '';
 
   fileSystems."/persist".neededForBoot = true;
   fileSystems."/vroom-impermanence".neededForBoot = true;
@@ -760,4 +764,3 @@ in
 
   nix.settings.sandbox = false;
 }
-

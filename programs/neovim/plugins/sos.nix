@@ -1,24 +1,18 @@
-{
-  unstablePkgs,
-  lib,
-  ...
-}: let
-  pluginGit = ref: repo:
-    unstablePkgs.vimUtils.buildVimPlugin {
-      pname = "${lib.strings.sanitizeDerivationName repo}";
-      version = ref;
-      src = builtins.fetchGit {
-        url = "https://github.com/${repo}.git";
-        ref = ref;
-      };
+{ unstablePkgs, ... }:
+let
+  sos-nvim = unstablePkgs.vimUtils.buildVimPlugin {
+    pname = "sos-nvim";
+    version = "HEAD";
+    src = builtins.fetchGit {
+      url = "https://github.com/tmillr/sos.nvim";
+      ref = "HEAD";
     };
-
-  # always installs latest version
-  plugin = pluginGit "HEAD";
-in {
+  };
+in
+{
   programs.neovim = {
-    plugins = with unstablePkgs.vimPlugins; [
-      (plugin "tmillr/sos.nvim")
+    plugins = [
+      sos-nvim
     ];
 
     extraLuaConfig =

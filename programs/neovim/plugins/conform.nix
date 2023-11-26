@@ -1,4 +1,31 @@
-{ unstablePkgs, ... }: {
+{ unstablePkgs
+, lib
+, ...
+}:
+let
+  templ =
+    unstablePkgs.buildGoModule
+      {
+        pname = "templ";
+        version = "0.2.476";
+        src = unstablePkgs.fetchFromGitHub {
+          owner = "a-h";
+          repo = "templ";
+          rev = "v0.2.476";
+          sha256 = "sha256-lgeVfe+9kUxN4XXL7ANiFxtmupZwDaiRFABJIAclyd8=";
+        };
+
+        vendorHash = "sha256-hbXKWWwrlv0w3SxMgPtDBpluvrbjDRGiJ/9QnRKlwCE=";
+        subPackages = [ "cmd/templ" ];
+
+        meta = with lib; {
+          description = "Templates for go";
+          homepage = "https://templ.guide";
+          license = licenses.mit;
+        };
+      };
+in
+{
   programs.neovim = {
     plugins = with unstablePkgs.vimPlugins; [
       conform-nvim
@@ -18,6 +45,8 @@
       stylelint
       yamlfmt
       gawk
+      sqlfluff
+      templ
     ];
 
     extraLuaConfig =
@@ -36,7 +65,17 @@
             formatters = {
               isort = {
                 prepend_args = { "--profile", "black", },
-              }
+              },
+              templfmt = {
+                stdin = true,
+                command = "${templ}/bin/templ",
+                args = { "fmt" },
+              },
+              -- sqlfluff = {
+              --   stdin = false,
+              --   command ="${unstablePkgs.sqlfluff}/bin/sqlfluff",
+              --   args = { "format", "$FILENAME" },
+              -- },
             },
             formatters_by_ft = {
               nix = { "alejandra", "nixpkgs_fmt" },
@@ -56,7 +95,8 @@
               css = { "prettier", "stylelint" },
               markdown = { "mdformat", },
               toml = { "taplo", },
-              templ = { "rustywind" },
+              templ = { "rustywind", "templfmt" },
+              -- sql = { "sqlfluff" },
               ["*"] = { "trim_whitespace" },
             },
           })
