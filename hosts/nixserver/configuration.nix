@@ -218,21 +218,21 @@ in
           autosnap = true;
           autoprune = true;
         };
-        "tank/media" = {
-          recursive = true;
-          autosnap = true;
-          autoprune = true;
-        };
+        # "tank/media" = {
+        #   recursive = true;
+        #   autosnap = true;
+        #   autoprune = true;
+        # };
         "vroom/impermanence" = {
           recursive = true;
           autosnap = true;
           autoprune = true;
         };
-        "tank/srv/rick" = {
-          recursive = true;
-          autosnap = true;
-          autoprune = true;
-        };
+        # "tank/srv/rick" = {
+        #   recursive = true;
+        #   autosnap = true;
+        #   autoprune = true;
+        # };
         "vroom/vaultwarden" = {
           recursive = true;
           autosnap = true;
@@ -259,20 +259,20 @@ in
         "rpool/safe" = {
           target = "backuptank/host/rpool/safe";
         };
-        "tank/media" = {
-          target = "backuptank/host/tank/media";
-          useCommonArgs = false;
-          extraArgs = [
-            "--compress=none"
-            "--recursive"
-          ];
-        };
-        "tank/srv/rick" = {
-          target = "backuptank/host/tank/srv-rick";
-        };
-        "tank/vw-backups" = {
-          target = "backuptank/host/tank/vw-backups";
-        };
+        # "tank/media" = {
+        #   target = "backuptank/host/tank/media";
+        #   useCommonArgs = false;
+        #   extraArgs = [
+        #     "--compress=none"
+        #     "--recursive"
+        #   ];
+        # };
+        # "tank/srv/rick" = {
+        #   target = "backuptank/host/tank/srv-rick";
+        # };
+        # "tank/vw-backups" = {
+        #   target = "backuptank/host/tank/vw-backups";
+        # };
         "vroom" = {
           target = "backuptank/host/vroom";
           recursive = true;
@@ -286,13 +286,13 @@ in
       passwordFile = "/persist/secrets/restic/password";
       paths = [
         "/home/rick"
-        "/tank/media/music"
-        "/tank/nextcloud"
-        "/tank/vw-backups"
+        # "/tank/media/music"
+        # "/tank/nextcloud"
+        # "/tank/vw-backups"
         "/persist"
         "/vroom-impermanence"
         "/vroom/paperless"
-        "/srv/rick"
+        # "/srv/rick"
         "/srv/git"
       ];
       exclude = [
@@ -336,17 +336,17 @@ in
       '';
 
       shares = {
-        rick = {
-          path = "/srv/rick";
-          browseable = "yes";
-          "read only" = "no";
-          "guest ok" = "no";
-          "create mask" = "0644";
-          "directory mask" = "0755";
-          "force user" = "rick";
-          "force group" = "users";
-          "valid users" = "rick";
-        };
+        # rick = {
+        #   path = "/srv/rick";
+        #   browseable = "yes";
+        #   "read only" = "no";
+        #   "guest ok" = "no";
+        #   "create mask" = "0644";
+        #   "directory mask" = "0755";
+        #   "force user" = "rick";
+        #   "force group" = "users";
+        #   "valid users" = "rick";
+        # };
         "stravinsky-backup" = {
           path = "/srv/arqbackup/stravinsky-mac";
           browseable = "yes";
@@ -380,17 +380,17 @@ in
           "force group" = "users";
           "valid users" = "rick";
         };
-        "media" = {
-          path = "/tank/media";
-          browseable = "yes";
-          "read only" = "no";
-          "guest ok" = "no";
-          "create mask" = "0644";
-          "directory mask" = "0755";
-          "force user" = "jellyfin";
-          "force group" = "jellyfin";
-          "valid users" = "rick";
-        };
+        # "media" = {
+        #   path = "/tank/media";
+        #   browseable = "yes";
+        #   "read only" = "no";
+        #   "guest ok" = "no";
+        #   "create mask" = "0644";
+        #   "directory mask" = "0755";
+        #   "force user" = "jellyfin";
+        #   "force group" = "jellyfin";
+        #   "valid users" = "rick";
+        # };
       };
     };
 
@@ -605,7 +605,6 @@ in
       mountdPort = 4002;
       statdPort = 4000;
       exports = ''
-        /tank/proxmox 10.0.1.0/24(rw,sync,crossmnt,no_subtree_check,all_squash)
         /backuptank/proxmox 10.0.1.0/24(rw,sync,crossmnt,no_subtree_check,all_squash)
       '';
     };
@@ -724,7 +723,6 @@ in
   };
 
   boot.zfs.extraPools = [
-    "tank"
     "backuptank"
     "vroom"
   ];
