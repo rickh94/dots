@@ -4,7 +4,7 @@
   users.users = {
     rick = {
       isNormalUser = true;
-      extraGroups = [ "wheel" "networkmanager" "libvirtd" ]; # Enable ‘sudo’ for the user.
+      extraGroups = [ "wheel" "networkmanager" "libvirtd" "disk" "cdrom" ]; 
       passwordFile = "/persist/passwd/rick";
       uid = 1000;
     };

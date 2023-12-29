@@ -243,6 +243,11 @@ in
           autosnap = true;
           autoprune = true;
         };
+        "vroom/media" = {
+          recursive = true;
+          autosnap = true;
+          autoprune = true;
+        };
         # not backuptank
         # some of vroom
       };
@@ -259,20 +264,6 @@ in
         "rpool/safe" = {
           target = "backuptank/host/rpool/safe";
         };
-        # "tank/media" = {
-        #   target = "backuptank/host/tank/media";
-        #   useCommonArgs = false;
-        #   extraArgs = [
-        #     "--compress=none"
-        #     "--recursive"
-        #   ];
-        # };
-        # "tank/srv/rick" = {
-        #   target = "backuptank/host/tank/srv-rick";
-        # };
-        # "tank/vw-backups" = {
-        #   target = "backuptank/host/tank/vw-backups";
-        # };
         "vroom" = {
           target = "backuptank/host/vroom";
           recursive = true;
@@ -286,13 +277,11 @@ in
       passwordFile = "/persist/secrets/restic/password";
       paths = [
         "/home/rick"
-        # "/tank/media/music"
-        # "/tank/nextcloud"
-        # "/tank/vw-backups"
         "/persist"
         "/vroom-impermanence"
         "/vroom/paperless"
-        # "/srv/rick"
+        "/vroom/media/music"
+        "/backuptank/vw-backups"
         "/srv/git"
       ];
       exclude = [
@@ -371,6 +360,17 @@ in
         };
         "other-backups" = {
           path = "/srv/otherbackups";
+          browseable = "yes";
+          "read only" = "no";
+          "guest ok" = "no";
+          "create mask" = "0644";
+          "directory mask" = "0755";
+          "force user" = "rick";
+          "force group" = "users";
+          "valid users" = "rick";
+        };
+        "rips" = {
+          path = "/vroom/rips";
           browseable = "yes";
           "read only" = "no";
           "guest ok" = "no";
@@ -560,11 +560,7 @@ in
           "/vault.rickhenry.house/10.7.0.100"
           "/prox.rickhenry.house/10.7.0.100"
           "/audio.rickhenry.house/10.7.0.100"
-          "/gitlab.rickhenry.house/10.7.0.100"
-          "/gitea.rickhenry.house/10.7.0.100"
-          "/grafana.rickhenry.house/10.7.0.100"
           "/paper.rickhenry.house/10.7.0.100"
-          "/ptero.rickhenry.house/10.7.0.100"
         ];
       };
     };
@@ -591,7 +587,6 @@ in
       autoScrub = {
         enable = true;
         pools = [
-          "tank"
           "rpool"
           "backuptank"
           "vroom"
@@ -610,15 +605,15 @@ in
     };
   };
 
-  systemd.services.promtail = {
-    description = "Promtail service for loki";
-    wantedBy = [ "multi-user.target" ];
-    serviceConfig = {
-      ExecStart = ''
-        ${pkgs.grafana-loki}/bin/promtail --config.file ${./promtail.yaml}
-      '';
-    };
-  };
+  # systemd.services.promtail = {
+  #   description = "Promtail service for loki";
+  #   wantedBy = [ "multi-user.target" ];
+  #   serviceConfig = {
+  #     ExecStart = ''
+  #       ${pkgs.grafana-loki}/bin/promtail --config.file ${./promtail.yaml}
+  #     '';
+  #   };
+  # };
 
   security.acme = {
     acceptTerms = true;
@@ -761,4 +756,8 @@ in
   # TODO: additional samba shares
 
   nix.settings.sandbox = false;
+
+  services.xrdp.enable = true;
+  services.xrdp.defaultWindowManager = "startxfce4";
+  services.xrdp.openFirewall = true;
 }
