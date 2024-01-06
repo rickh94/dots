@@ -51,7 +51,7 @@ in
       ''
         local core = require("nougat.core")
         local Bar = require("nougat.bar")
-        local bar_util = require("nougat.bar.util")
+        local bar_util = require("nougat")
         local Item = require("nougat.item")
         local sep = require("nougat.separator")
 
@@ -123,7 +123,7 @@ in
         local mode = nut.mode({
           prefix = " ",
           suffix = " ",
-          sep_right = sep.right_lower_triangle_solid(true),
+          sep_right = sep.right_half_circle_solid(true),
           config = {
             highlight = {
               normal = {
@@ -161,7 +161,7 @@ in
           hl = { bg = color.purple, fg = color.bg },
           prefix = "  ",
           suffix = " ",
-          sep_right = sep.right_upper_triangle_solid(true),
+          sep_right = sep.right_half_circle_solid(true),
         }))
         stl:add_item(nut.git.status.create({
           hl = { fg = color.bg },
@@ -169,17 +169,17 @@ in
             nut.git.status.count("added", {
               hl = { bg = color.green },
               prefix = "+",
-              sep_right = sep.right_upper_triangle_solid(true),
+              sep_right = sep.right_half_circle_solid(true),
             }),
             nut.git.status.count("changed", {
               hl = { bg = color.blue },
               prefix = "~",
-              sep_right = sep.right_upper_triangle_solid(true),
+              sep_right = sep.right_half_circle_solid(true),
             }),
             nut.git.status.count("removed", {
               hl = { bg = color.red },
               prefix = "-",
-              sep_right = sep.right_upper_triangle_solid(true),
+              sep_right = sep.right_half_circle_solid(true),
             }),
           },
         }))
@@ -191,7 +191,7 @@ in
         local filestatus = stl:add_item(nut.buf.filestatus({
           hl = { bg = color.bg3 },
           suffix = " ",
-          sep_right = sep.right_lower_triangle_solid(true),
+          sep_right = sep.right_half_circle_solid(true),
           config = {
             modified = "",
             nomodifiable = "",
@@ -202,7 +202,7 @@ in
         stl:add_item(nut.spacer())
         stl:add_item(nut.truncation_point())
         stl:add_item(nut.buf.diagnostic_count({
-          sep_left = sep.left_lower_triangle_solid(true),
+          sep_left = sep.left_half_circle_solid(true),
           prefix = " ",
           suffix = " ",
           config = {
@@ -214,13 +214,13 @@ in
         }))
         stl:add_item(nut.buf.filetype({
           hl = { bg = color.bg1 },
-          sep_left = sep.left_lower_triangle_solid(true),
+          sep_left = sep.left_half_circle_solid(true),
           prefix = " ",
           suffix = " ",
         }))
         stl:add_item(Item({
           hl = { bg = color.bg2, fg = color.blue },
-          sep_left = sep.left_lower_triangle_solid(true),
+          sep_left = sep.left_half_circle_solid(true),
           prefix = "  ",
           content = core.group({
             core.code("l"),
@@ -231,7 +231,7 @@ in
         }))
         stl:add_item(Item({
           hl = { bg = color.blue, fg = color.bg },
-          sep_left = sep.left_lower_triangle_solid(true),
+          sep_left = sep.left_half_circle_solid(true),
           prefix = " ",
           content = core.code("P"),
           suffix = " ",
@@ -260,7 +260,7 @@ in
               nut.tab.tablist.modified({ prefix = " ", config = { text = "●" } }),
               nut.tab.tablist.close({ prefix = " ", config = { text = "󰅖" } }),
             },
-            sep_right = sep.right_lower_triangle_solid(true),
+            sep_right = sep.right_half_circle_solid(true),
           },
           inactive_tab = {
             hl = { bg = color.bg2, fg = color.fg2 },
@@ -272,7 +272,7 @@ in
               nut.tab.tablist.modified({ prefix = " ", config = { text = "●" } }),
               nut.tab.tablist.close({ prefix = " ", config = { text = "󰅖" } }),
             },
-            sep_right = sep.right_lower_triangle_solid(true),
+            sep_right = sep.right_half_circle_solid(true),
           },
         }))
 

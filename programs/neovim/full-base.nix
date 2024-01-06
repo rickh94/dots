@@ -17,8 +17,8 @@
     ./plugins/persistence.nix
     ./plugins/rainbow-delimiters.nix
     ./plugins/rust.nix
-    # ./plugins/sandwich.nix
-    ./plugins/surround.nix
+    ./plugins/sandwich.nix
+    # ./plugins/surround.nix
     # ./plugins/sos.nix
     ./plugins/tailwindcss-colors.nix
     ./plugins/telescope.nix

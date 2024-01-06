@@ -74,6 +74,8 @@
 
       # random
       montserrat
+
+      imagemagick
     ];
   };
 
