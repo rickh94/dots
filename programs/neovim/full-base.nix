@@ -1,7 +1,8 @@
 { ... }: {
   imports = [
     ./default.nix
-    ./plugins/colorscheme.nix
+    # ./plugins/colorscheme.nix
+    ./plugins/cyberdream.nix
     ./plugins/comment.nix
     # ./plugins/format.nix
     ./plugins/conform.nix

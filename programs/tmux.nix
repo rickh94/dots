@@ -1,4 +1,7 @@
-{ pkgs, lib, ... }:
+{ pkgs
+, lib
+, ...
+}:
 let
   tmux-open-nvim = pkgs.tmuxPlugins.mkTmuxPlugin {
     pluginName = "tmux_open_nvim";
@@ -32,45 +35,48 @@ in
       tmuxPlugins.open
       tmux-open-nvim
     ];
-    extraConfig = /* bash */ ''
-      set-option -sa terminal-overrides ",xterm*:Tc"
+    terminal = "tmux-256color";
+    extraConfig =
+      /*
+      bash
+      */
+      ''
+        set-option -sa terminal-overrides ",xterm*:Tc"
 
-      # Vim style pane selection
-      bind h select-pane -L
-      bind j select-pane -D
-      bind k select-pane -U
-      bind l select-pane -R
+        # Vim style pane selection
+        bind h select-pane -L
+        bind j select-pane -D
+        bind k select-pane -U
+        bind l select-pane -R
 
-      # Start windows and panes at 1, not 0
-      set-window-option -g pane-base-index 1
-      set-option -g renumber-windows on
+        # Start windows and panes at 1, not 0
+        set-window-option -g pane-base-index 1
+        set-option -g renumber-windows on
 
-      # Use Alt-arrow keys without prefix key to switch panes
-      bind -n M-Left select-pane -L
-      bind -n M-Right select-pane -R
-      bind -n M-Up select-pane -U
-      bind -n M-Down select-pane -D
+        # Use Alt-arrow keys without prefix key to switch panes
+        bind -n M-Left select-pane -L
+        bind -n M-Right select-pane -R
+        bind -n M-Up select-pane -U
+        bind -n M-Down select-pane -D
 
-      bind-key -T copy-mode-vi v send-keys -X begin-selection
-      bind-key -T copy-mode-vi C-v send-keys -X rectangle-toggle
-      bind-key -T copy-mode-vi y send-keys -X copy-selection-and-cancel
+        bind-key -T copy-mode-vi v send-keys -X begin-selection
+        bind-key -T copy-mode-vi C-v send-keys -X rectangle-toggle
+        bind-key -T copy-mode-vi y send-keys -X copy-selection-and-cancel
 
-      # Split panes more intuitively
-      unbind %
-      bind | split-window -h
+        # Split panes more intuitively
+        unbind %
+        bind | split-window -h
 
-      unbind '"'
-      bind - split-window -v
+        unbind '"'
+        bind - split-window -v
 
-      set-option -g status-position top
-      set-option -g default-command "${pkgs.fish}/bin/fish"
+        set-option -g status-position top
+        set-option -g default-command "${pkgs.fish}/bin/fish"
 
-      set -g @continuum-restore 'on'
+        set -g @continuum-restore 'on'
 
-      set -g @suspend_key 'F10'
-        
-    '';
+        set -g @suspend_key 'F10'
+
+      '';
   };
-
 }
-
