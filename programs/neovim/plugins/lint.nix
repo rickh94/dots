@@ -24,6 +24,7 @@
       write-good
       bandit
       sqlfluff
+      golangci-lint
     ];
 
     extraLuaConfig =

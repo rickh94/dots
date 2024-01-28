@@ -61,7 +61,7 @@
         navic.setup()
 
         -- LSP CONFIGURATION
-        local on_attach = function(_, bufnr)
+        local on_attach = function(client, bufnr)
           -- LSP Keybindings
           wk.register({
             r = { function() vim.lsp.buf.rename() end, "Rename Symbol" },

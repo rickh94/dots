@@ -93,7 +93,6 @@ in
               typescriptreact = { "prettier" },
               html = { "prettier", "rustywind", },
               css = { "prettier", "stylelint" },
-              markdown = { "mdformat", },
               toml = { "taplo", },
               templ = { "rustywind", "templfmt" },
               -- sql = { "sqlfluff" },

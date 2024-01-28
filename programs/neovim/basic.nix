@@ -1,5 +1,9 @@
-{ pkgs, inputs, system, lib, ... }:
-{
+{ pkgs
+, inputs
+, system
+, lib
+, ...
+}: {
   imports = [
     ./default.nix
     ./plugins/colorscheme.nix
@@ -10,7 +14,7 @@
     ./plugins/lint.nix
     ./plugins/lsp.nix
     ./plugins/cmp.nix
-    ./plugins/nvim-tree.nix
+    # ./plugins/nvim-tree.nix
     ./plugins/rainbow-delimiters.nix
     ./plugins/sandwich.nix
     ./plugins/sos.nix

@@ -14,7 +14,7 @@
     ./plugins/lint.nix
     ./plugins/lsp.nix
     ./plugins/cmp.nix
-    ./plugins/nvim-tree.nix
+    # ./plugins/nvim-tree.nix
     ./plugins/persistence.nix
     ./plugins/rainbow-delimiters.nix
     ./plugins/rust.nix
@@ -28,7 +28,7 @@
     ./plugins/undotree.nix
     ./plugins/vim-tmux-navigator.nix
     ./plugins/oil.nix
-    ./plugins/chatgpt.nix
+    # ./plugins/chatgpt.nix
     ./plugins/autopairs.nix
     ./plugins/gotempl.nix
     ./plugins/nougat.nix
