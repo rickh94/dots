@@ -1,7 +1,6 @@
 { config
 , pkgs
 , lib
-, nixpkgs
 , ...
 }:
 let
@@ -130,19 +129,25 @@ in
   users.groups.prometheus.gid = 255;
 
   services = {
-    ddclient = {
+    # ddclient = {
+    #   enable = true;
+    #   use = "web, web=https://cloudflare.com/cdn-cgi/trace";
+    #   protocol = "cloudflare";
+    #   ipv6 = false;
+    #   passwordFile = "/persist/secrets/ddclient";
+    #   domains = [
+    #     "vpn.rickhenry.xyz"
+    #   ];
+    #   extraConfig = ''
+    #     login=rickhenry@rickhenry.dev
+    #   '';
+    # };
+    cloudflare-dyndns = {
       enable = true;
-      use = "web, web=dynamicdns.park-your-domain.com/get-ip";
-      protocol = "namecheap";
-      ipv6 = false;
-      server = "dynamicdns.park-your-domain.com";
-      passwordFile = "/persist/secrets/ddclient";
-      domains = [
-        "vpn"
-      ];
-      extraConfig = ''
-        login=rickhenry.house
-      '';
+      apiTokenFile = "/persist/secrets/cloudflare-dyndns";
+      domains = [ "vpn.rickhenry.xyz" ];
+      ipv4 = true;
+      ipv6 = true;
     };
 
     # home-assistant = {
@@ -182,6 +187,7 @@ in
       config = {
         adminpassFile = "${pkgs.writeText "adminpass" "test123"}";
         extraTrustedDomains = [
+          "next.rickhenry.xyz"
           "next.rickhenry.house"
           "10.7.0.100"
         ];
@@ -456,7 +462,7 @@ in
       enable = true;
       backupDir = "/backuptank/vw-backups";
       config = {
-        DOMAIN = "https://vault.rickhenry.house";
+        DOMAIN = "https://vault.rickhenry.xyz";
         SIGNUPS_ALLOWED = false;
         ROCKET_PORT = 8222;
         ROCKET_LOG = "critical";
@@ -489,11 +495,11 @@ in
     caddy = {
       enable = true;
       virtualHosts = {
-        "jelly.rickhenry.house".extraConfig = ''
+        "jelly.rickhenry.xyz".extraConfig = ''
           reverse_proxy :8096
-          tls /var/lib/acme/rickhenry.house/cert.pem /var/lib/acme/rickhenry.house/key.pem
+          tls /var/lib/acme/rickhenry.xyz/cert.pem /var/lib/acme/rickhenry.xyz/key.pem
         '';
-        "home.rickhenry.house".extraConfig = ''
+        "home.rickhenry.xyz".extraConfig = ''
           reverse_proxy {
             to :8123
             header_up Host {host}
@@ -501,21 +507,21 @@ in
             header_up x-forwarded-for {remote_host}
             header_up X-Forwarded-Proto {scheme}
           }
-          tls /var/lib/acme/rickhenry.house/cert.pem /var/lib/acme/rickhenry.house/key.pem
+          tls /var/lib/acme/rickhenry.xyz/cert.pem /var/lib/acme/rickhenry.xyz/key.pem
         '';
-        "next.rickhenry.house".extraConfig = ''
+        "next.rickhenry.xyz".extraConfig = ''
           reverse_proxy :8080
-          tls /var/lib/acme/rickhenry.house/cert.pem /var/lib/acme/rickhenry.house/key.pem
+          tls /var/lib/acme/rickhenry.xyz/cert.pem /var/lib/acme/rickhenry.xyz/key.pem
         '';
-        "vault.rickhenry.house".extraConfig = ''
+        "vault.rickhenry.xyz".extraConfig = ''
           reverse_proxy :8222
-          tls /var/lib/acme/rickhenry.house/cert.pem /var/lib/acme/rickhenry.house/key.pem
+          tls /var/lib/acme/rickhenry.xyz/cert.pem /var/lib/acme/rickhenry.xyz/key.pem
         '';
-        "audio.rickhenry.house".extraConfig = ''
+        "audio.rickhenry.xyz".extraConfig = ''
           reverse_proxy localhost:13378
-          tls /var/lib/acme/rickhenry.house/cert.pem /var/lib/acme/rickhenry.house/key.pem
+          tls /var/lib/acme/rickhenry.xyz/cert.pem /var/lib/acme/rickhenry.xyz/key.pem
         '';
-        "prox.rickhenry.house".extraConfig = ''
+        "prox.rickhenry.xyz".extraConfig = ''
           reverse_proxy {
             to https://10.0.1.176:8006
             transport http {
@@ -524,27 +530,27 @@ in
               read_buffer 8192
             }
           }
-          tls /var/lib/acme/rickhenry.house/cert.pem /var/lib/acme/rickhenry.house/key.pem
+          tls /var/lib/acme/rickhenry.xyz/cert.pem /var/lib/acme/rickhenry.xyz/key.pem
         '';
-        "gitlab.rickhenry.house".extraConfig = ''
+        "gitlab.rickhenry.xyz".extraConfig = ''
           reverse_proxy http://10.0.1.171:80
-          tls /var/lib/acme/rickhenry.house/cert.pem /var/lib/acme/rickhenry.house/key.pem
+          tls /var/lib/acme/rickhenry.xyz/cert.pem /var/lib/acme/rickhenry.xyz/key.pem
         '';
-        "gitea.rickhenry.house".extraConfig = ''
+        "gitea.rickhenry.xyz".extraConfig = ''
           reverse_proxy http://10.0.1.240:3000
-          tls /var/lib/acme/rickhenry.house/cert.pem /var/lib/acme/rickhenry.house/key.pem
+          tls /var/lib/acme/rickhenry.xyz/cert.pem /var/lib/acme/rickhenry.xyz/key.pem
         '';
-        "grafana.rickhenry.house".extraConfig = ''
+        "grafana.rickhenry.xyz".extraConfig = ''
           reverse_proxy http://localhost:3000
-          tls /var/lib/acme/rickhenry.house/cert.pem /var/lib/acme/rickhenry.house/key.pem
+          tls /var/lib/acme/rickhenry.xyz/cert.pem /var/lib/acme/rickhenry.xyz/key.pem
         '';
-        "paper.rickhenry.house".extraConfig = ''
+        "paper.rickhenry.xyz".extraConfig = ''
           reverse_proxy http://localhost:28981
-          tls /var/lib/acme/rickhenry.house/cert.pem /var/lib/acme/rickhenry.house/key.pem
+          tls /var/lib/acme/rickhenry.xyz/cert.pem /var/lib/acme/rickhenry.xyz/key.pem
         '';
-        "ptero.rickhenry.house".extraConfig = ''
+        "ptero.rickhenry.xyz".extraConfig = ''
           reverse_proxy http://10.0.1.134:80
-          tls /var/lib/acme/rickhenry.house/cert.pem /var/lib/acme/rickhenry.house/key.pem
+          tls /var/lib/acme/rickhenry.xyz/cert.pem /var/lib/acme/rickhenry.xyz/key.pem
         '';
       };
     };
@@ -554,13 +560,13 @@ in
       settings = {
         interface = "wg0";
         address = [
-          "/next.rickhenry.house/10.7.0.100"
-          "/home.rickhenry.house/10.7.0.100"
-          "/jelly.rickhenry.house/10.7.0.100"
-          "/vault.rickhenry.house/10.7.0.100"
-          "/prox.rickhenry.house/10.7.0.100"
-          "/audio.rickhenry.house/10.7.0.100"
-          "/paper.rickhenry.house/10.7.0.100"
+          "/next.rickhenry.xyz/10.7.0.100"
+          "/home.rickhenry.xyz/10.7.0.100"
+          "/jelly.rickhenry.xyz/10.7.0.100"
+          "/vault.rickhenry.xyz/10.7.0.100"
+          "/prox.rickhenry.xyz/10.7.0.100"
+          "/audio.rickhenry.xyz/10.7.0.100"
+          "/paper.rickhenry.xyz/10.7.0.100"
         ];
       };
     };
@@ -624,6 +630,12 @@ in
       credentialsFile = "/persist/secrets/acme/namecheap";
       group = config.services.caddy.group;
     };
+    certs."rickhenry.xyz" = {
+      domain = "*.rickhenry.xyz";
+      dnsProvider = "cloudflare";
+      credentialsFile = "/persist/secrets/acme/cloudflare";
+      group = config.services.caddy.group;
+    };
   };
 
   programs.msmtp = {
@@ -631,8 +643,8 @@ in
     accounts.default = {
       auth = true;
       tls = true;
-      from = "berg@mg.rickhenry.house";
-      user = "berg@mg.rickhenry.house";
+      from = "berg@mg.rickhenry.xyz";
+      user = "berg@mg.rickhenry.xyz";
       passwordeval = "cat /persist/secrets/msmtp";
       host = "smtp.mailgun.org";
     };
