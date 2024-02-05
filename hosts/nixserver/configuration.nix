@@ -504,8 +504,6 @@ in
             to :8123
             header_up Host {host}
             header_up X-Real-IP {remote_host}
-            header_up x-forwarded-for {remote_host}
-            header_up X-Forwarded-Proto {scheme}
           }
           tls /var/lib/acme/rickhenry.xyz/cert.pem /var/lib/acme/rickhenry.xyz/key.pem
         '';
@@ -624,12 +622,6 @@ in
   security.acme = {
     acceptTerms = true;
     defaults.email = "rickhenry@rickhenry.dev";
-    certs."rickhenry.house" = {
-      domain = "*.rickhenry.house";
-      dnsProvider = "namecheap";
-      credentialsFile = "/persist/secrets/acme/namecheap";
-      group = config.services.caddy.group;
-    };
     certs."rickhenry.xyz" = {
       domain = "*.rickhenry.xyz";
       dnsProvider = "cloudflare";
