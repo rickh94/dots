@@ -312,6 +312,41 @@ in
       ];
     };
 
+    restic.backups.e2 = {
+      environmentFile = "/persist/secrets/restic/e2-env";
+      initialize = true;
+      passwordFile = "/persist/secrets/restic/password";
+      paths = [
+        "/home/rick"
+        "/persist"
+        "/vroom-impermanence"
+        "/vroom/paperless"
+        "/vroom/media/music"
+        "/backuptank/vw-backups"
+        "/srv/git"
+      ];
+      exclude = [
+        ".zfs"
+        "/srv/restic"
+        "/srv/arqbackup"
+      ];
+      extraBackupArgs = [
+        "--exclude-if-present .NOBACKUP"
+      ];
+
+      repository = "s3:p4e4.va.idrivee2-58.com/berg-restic/berg";
+      timerConfig = {
+        OnUnitActiveSec = "1d";
+      };
+
+      pruneOpts = [
+        "--keep-daily=7"
+        "--keep-weekly=2"
+        "--keep-monthly=1"
+        "--keep-yearly=0"
+      ];
+    };
+
     samba = {
       openFirewall = true;
       enable = true;
@@ -400,63 +435,6 @@ in
       };
     };
 
-    grafana = {
-      enable = true;
-      settings = {
-        security = {
-          secret_key = "$__file{/persist/secrets/grafana/secret_key}";
-        };
-      };
-    };
-
-    # prometheus = {
-    #   enable = true;
-    #   port = 9001;
-    #   exporters = {
-    #     node = {
-    #       enable = true;
-    #       enabledCollectors = [ "systemd" ];
-    #       port = 9002;
-    #     };
-    #     zfs = {
-    #       enable = true;
-    #       port = 9003;
-    #     };
-    #     wireguard = {
-    #       enable = true;
-    #       port = 9005;
-    #     };
-    #     smartctl = {
-    #       enable = true;
-    #       port = 9006;
-    #     };
-    #     dnsmasq = {
-    #       enable = true;
-    #       port = 9008;
-    #     };
-    #   };
-    #   scrapeConfigs = [
-    #     {
-    #       job_name = "albanberg";
-    #       static_configs = [
-    #         {
-    #           targets = [
-    #             "127.0.0.1:${toString config.services.prometheus.exporters.node.port}"
-    #             "127.0.0.1:${toString config.services.prometheus.exporters.zfs.port}"
-    #             "127.0.0.1:${toString config.services.prometheus.exporters.wireguard.port}"
-    #             "127.0.0.1:${toString config.services.prometheus.exporters.smartctl.port}"
-    #             "127.0.0.1:${toString config.services.prometheus.exporters.dnsmasq.port}"
-    #           ];
-    #         }
-    #       ];
-    #     }
-    #   ];
-    # };
-
-    # loki = {
-    #   enable = true;
-    #   configFile = ./loki-local-config.yaml;
-    # };
 
     vaultwarden = {
       enable = true;
@@ -607,6 +585,7 @@ in
         /backuptank/proxmox 10.0.1.0/24(rw,sync,crossmnt,no_subtree_check,all_squash)
       '';
     };
+
   };
 
   # systemd.services.promtail = {
