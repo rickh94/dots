@@ -178,6 +178,8 @@ in
     # };
 
     jellyfin.enable = true;
+    # jellyseerr.enable = true;
+    # sonarr.enable = true;
 
     nextcloud = {
       enable = true;
@@ -224,21 +226,11 @@ in
           autosnap = true;
           autoprune = true;
         };
-        # "tank/media" = {
-        #   recursive = true;
-        #   autosnap = true;
-        #   autoprune = true;
-        # };
         "vroom/impermanence" = {
           recursive = true;
           autosnap = true;
           autoprune = true;
         };
-        # "tank/srv/rick" = {
-        #   recursive = true;
-        #   autosnap = true;
-        #   autoprune = true;
-        # };
         "vroom/vaultwarden" = {
           recursive = true;
           autosnap = true;
@@ -366,17 +358,17 @@ in
       '';
 
       shares = {
-        # rick = {
-        #   path = "/srv/rick";
-        #   browseable = "yes";
-        #   "read only" = "no";
-        #   "guest ok" = "no";
-        #   "create mask" = "0644";
-        #   "directory mask" = "0755";
-        #   "force user" = "rick";
-        #   "force group" = "users";
-        #   "valid users" = "rick";
-        # };
+        rick = {
+          path = "/srv/rick";
+          browseable = "yes";
+          "read only" = "no";
+          "guest ok" = "no";
+          "create mask" = "0644";
+          "directory mask" = "0755";
+          "force user" = "rick";
+          "force group" = "users";
+          "valid users" = "rick";
+        };
         "stravinsky-backup" = {
           path = "/srv/arqbackup/stravinsky-mac";
           browseable = "yes";
@@ -477,6 +469,14 @@ in
           reverse_proxy :8096
           tls /var/lib/acme/rickhenry.xyz/cert.pem /var/lib/acme/rickhenry.xyz/key.pem
         '';
+        # "seerr.rickhenry.xyz".extraConfig = ''
+        #   reverse_proxy :5055
+        #   tls /var/lib/acme/rickhenry.xyz/cert.pem /var/lib/acme/rickhenry.xyz/key.pem
+        # '';
+        # "sonarr.rickhenry.xyz".extraConfig = ''
+        #   reverse_proxy :8989
+        #   tls /var/lib/acme/rickhenry.xyz/cert.pem /var/lib/acme/rickhenry.xyz/key.pem
+        # '';
         "home.rickhenry.xyz".extraConfig = ''
           reverse_proxy {
             to :8123
@@ -539,6 +539,8 @@ in
           "/next.rickhenry.xyz/10.7.0.100"
           "/home.rickhenry.xyz/10.7.0.100"
           "/jelly.rickhenry.xyz/10.7.0.100"
+          "/seerr.rickhenry.xyz/10.7.0.100"
+          "/sonarr.rickhenry.xyz/10.7.0.100"
           "/vault.rickhenry.xyz/10.7.0.100"
           "/prox.rickhenry.xyz/10.7.0.100"
           "/audio.rickhenry.xyz/10.7.0.100"
