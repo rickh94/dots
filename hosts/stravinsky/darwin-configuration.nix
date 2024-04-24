@@ -1,27 +1,23 @@
-{ pkgs, nix, config, lib, chosenfonts, ... }:
-let
-  me = "rick";
-in
-{
+{ pkgs
+, chosenfonts
+, kmonad
+, ...
+}: {
   imports = [
     ../_common/mac/system-activation.nix
   ];
-  environment.systemPackages = with pkgs; [
-    redis
-    colima
-    docker
-    home-manager
-    neovim
-    zsh
-    alacritty
-    git
-    curl
-    coreutils
-    nushell
-    nodejs
-    python310Full
-    fswatch
-    rubik
+  environment.systemPackages = [
+    pkgs.redis
+    pkgs.colima
+    pkgs.docker
+    pkgs.home-manager
+    pkgs.neovim
+    pkgs.zsh
+    pkgs.alacritty
+    pkgs.git
+    pkgs.curl
+    kmonad.packages.aarch64-darwin.default
+    pkgs.python311Full
   ];
 
   environment.systemPath = [
@@ -46,7 +42,6 @@ in
     };
   };
 
-
   users = {
     users.rick = {
       home = /Users/rick;
@@ -66,7 +61,7 @@ in
     onActivation = {
       autoUpdate = true;
       upgrade = true;
-      cleanup = "zap";
+      cleanup = "none";
     };
     brews = [
       "macos-trash"
@@ -86,12 +81,13 @@ in
       "aom"
       "vercel-cli"
       "docker-credential-helper"
+      "dos2unix"
     ];
     taps = [
       "FelixKratz/formulae"
       "koekeishiya/formulae"
-      "homebrew/cask-versions"
       "homebrew/services"
+      "homebrew/cask-versions"
       "chiselstrike/tap"
       "mongodb/brew"
     ];
@@ -118,9 +114,12 @@ in
       "iterm2"
       "wezterm"
       "arc"
+      "intellij-idea-ce"
+      "libreoffice"
+      "canva"
+      "mp3tag"
     ];
   };
-
 
   home-manager.useUserPackages = true;
   home-manager.useGlobalPkgs = true;
@@ -152,5 +151,4 @@ in
           ' /etc/pam.d/sudo
         fi
   '';
-
 }

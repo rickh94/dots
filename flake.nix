@@ -13,7 +13,9 @@
     nixpkgs = {
       url = "github:nixos/nixpkgs/nixos-23.05";
     };
-    /* nixos-hardware.url = "github:nixos/nixos-hardware/master"; */
+    /*
+      nixos-hardware.url = "github:nixos/nixos-hardware/master";
+    */
     home-manager = {
       url = "github:nix-community/home-manager/release-23.05";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -32,9 +34,23 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    kmonad = {
+      url = "git+https://github.com/kmonad/kmonad?submodules=1&dir=nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = inputs@{ self, nixpkgs, darwin, home-manager, unstable, codeium, devenv }:
+  outputs =
+    inputs @ { self
+    , nixpkgs
+    , darwin
+    , home-manager
+    , unstable
+    , codeium
+    , devenv
+    , kmonad
+    ,
+    }:
     let
       chosenfonts = [ "FiraCode" "Hack" "CascadiaCode" "Hasklig" "Lilex" "VictorMono" "Hermit" ];
     in
@@ -49,10 +65,11 @@
             ./hosts/beethoven/configuration.nix
           ];
           specialArgs = {
-            inherit nixpkgs; inherit inputs; inherit chosenfonts;
+            inherit nixpkgs;
+            inherit inputs;
+            inherit chosenfonts;
             unstablePkgs = unstable.legacyPackages.x86_64-linux;
           };
-
         };
 
         nixvm = nixpkgs.lib.nixosSystem {
@@ -61,7 +78,8 @@
             ./hosts/nixvm/configuration.nix
           ];
           specialArgs = {
-            inherit nixpkgs; inherit chosenfonts;
+            inherit nixpkgs;
+            inherit chosenfonts;
 
             unstablePkgs = unstable.legacyPackages.x86_64-linux;
           };
@@ -73,7 +91,8 @@
             ./hosts/nixx86-vm/configuration.nix
           ];
           specialArgs = {
-            inherit nixpkgs; inherit chosenfonts;
+            inherit nixpkgs;
+            inherit chosenfonts;
 
             unstablePkgs = unstable.legacyPackages.x86_64-linux;
           };
@@ -85,7 +104,8 @@
             ./hosts/nixarm-vm/configuration.nix
           ];
           specialArgs = {
-            inherit nixpkgs; inherit chosenfonts;
+            inherit nixpkgs;
+            inherit chosenfonts;
             unstablePkgs = unstable.legacyPackages.aarch64-linux;
           };
         };
@@ -96,7 +116,8 @@
             ./hosts/simplevm-arm/configuration.nix
           ];
           specialArgs = {
-            inherit nixpkgs; inherit chosenfonts;
+            inherit nixpkgs;
+            inherit chosenfonts;
             unstablePkgs = unstable.legacyPackages.aarch64-linux;
           };
         };
@@ -107,7 +128,8 @@
             ./hosts/simplevm/configuration.nix
           ];
           specialArgs = {
-            inherit nixpkgs; inherit chosenfonts;
+            inherit nixpkgs;
+            inherit chosenfonts;
             unstablePkgs = unstable.legacyPackages.x86_64-linux;
           };
         };
@@ -118,7 +140,9 @@
             ./hosts/nixserver/configuration.nix
           ];
           specialArgs = {
-            inherit nixpkgs; inherit chosenfonts; inherit inputs;
+            inherit nixpkgs;
+            inherit chosenfonts;
+            inherit inputs;
             unstablePkgs = unstable.legacyPackages.x86_64-linux;
           };
         };
@@ -138,14 +162,19 @@
                 users.rick = import ./hosts/stravinsky/home.nix;
                 extraSpecialArgs = {
                   inherit devenv;
+                  inherit kmonad;
                   unstablePkgs = unstable.legacyPackages.aarch64-darwin;
                 };
               };
             }
           ];
-          specialArgs = { inherit chosenfonts; inherit devenv; inherit unstable; };
+          specialArgs = {
+            inherit chosenfonts;
+            inherit devenv;
+            inherit unstable;
+            inherit kmonad;
+          };
         };
-
 
         aarch64minimalvm = darwin.lib.darwinSystem {
           system = "aarch64-darwin";
@@ -190,7 +219,10 @@
             ./hosts/beethoven/home.nix
           ];
           extraSpecialArgs = {
-            inherit inputs; inherit chosenfonts; inherit devenv; i3mod = "Mod4";
+            inherit inputs;
+            inherit chosenfonts;
+            inherit devenv;
+            i3mod = "Mod4";
             unstablePkgs = unstable.legacyPackages.x86_64-linux;
           };
         };
@@ -204,7 +236,10 @@
             ./hosts/chopin/home.nix
           ];
           extraSpecialArgs = {
-            inherit inputs; inherit chosenfonts; inherit devenv; inherit unstable;
+            inherit inputs;
+            inherit chosenfonts;
+            inherit devenv;
+            inherit unstable;
             unstablePkgs = unstable.legacyPackages.x86_64-linux;
           };
         };
@@ -218,7 +253,9 @@
             ./hosts/kali/home.nix
           ];
           extraSpecialArgs = {
-            inherit inputs; inherit chosenfonts; inherit devenv;
+            inherit inputs;
+            inherit chosenfonts;
+            inherit devenv;
             unstablePkgs = unstable.legacyPackages.x86_64-linux;
           };
         };
@@ -232,7 +269,9 @@
             ./hosts/kali/home.nix
           ];
           extraSpecialArgs = {
-            inherit inputs; inherit chosenfonts; inherit devenv;
+            inherit inputs;
+            inherit chosenfonts;
+            inherit devenv;
             unstablePkgs = unstable.legacyPackages.x86_64-linux;
           };
         };
@@ -244,7 +283,10 @@
           };
           modules = [ ./hosts/nixvm/home.nix ];
           extraSpecialArgs = {
-            inherit inputs; inherit chosenfonts; inherit devenv; i3mod = "Control";
+            inherit inputs;
+            inherit chosenfonts;
+            inherit devenv;
+            i3mod = "Control";
             unstablePkgs = unstable.legacyPackages.x86_64-linux;
           };
         };
@@ -255,7 +297,10 @@
           };
           modules = [ ./hosts/nixx86-vm/home.nix ];
           extraSpecialArgs = {
-            inherit inputs; inherit chosenfonts; inherit devenv; i3mod = "Control";
+            inherit inputs;
+            inherit chosenfonts;
+            inherit devenv;
+            i3mod = "Control";
             unstablePkgs = unstable.legacyPackages.x86_64-linux;
           };
         };
@@ -264,7 +309,10 @@
           pkgs = nixpkgs.legacyPackages.aarch64-linux;
           modules = [ ./hosts/nixarm-vm/home.nix ];
           extraSpecialArgs = {
-            inherit inputs; inherit chosenfonts; inherit devenv; i3mod = "Control";
+            inherit inputs;
+            inherit chosenfonts;
+            inherit devenv;
+            i3mod = "Control";
             unstablePkgs = unstable.legacyPackages.x86_64-linux;
           };
         };
@@ -276,7 +324,10 @@
           };
           modules = [ ./hosts/simplevm/home.nix ];
           extraSpecialArgs = {
-            inherit inputs; inherit chosenfonts; inherit devenv; i3mod = "Control";
+            inherit inputs;
+            inherit chosenfonts;
+            inherit devenv;
+            i3mod = "Control";
             codeium-lsp = inputs.codeium.packages.x86_64-linux.codeium-lsp;
             unstablePkgs = unstable.legacyPackages.x86_64-linux;
           };
@@ -286,7 +337,10 @@
           pkgs = nixpkgs.legacyPackages.x86_64-linux;
           modules = [ ./hosts/nixserver/home.nix ];
           extraSpecialArgs = {
-            inherit inputs; inherit chosenfonts; inherit devenv; i3mod = "Control";
+            inherit inputs;
+            inherit chosenfonts;
+            inherit devenv;
+            i3mod = "Control";
             codeium-lsp = inputs.codeium.packages.x86_64-linux.codeium-lsp;
             unstablePkgs = unstable.legacyPackages.x86_64-linux;
           };
@@ -296,12 +350,14 @@
           pkgs = nixpkgs.legacyPackages.x86_64-linux;
           modules = [ ./hosts/proxy-server/home.nix ];
           extraSpecialArgs = {
-            inherit inputs; inherit chosenfonts; inherit devenv; i3mod = "Control";
+            inherit inputs;
+            inherit chosenfonts;
+            inherit devenv;
+            i3mod = "Control";
             codeium-lsp = inputs.codeium.packages.x86_64-linux.codeium-lsp;
             unstablePkgs = unstable.legacyPackages.x86_64-linux;
           };
         };
       };
-
     };
 }

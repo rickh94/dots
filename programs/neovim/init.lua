@@ -393,9 +393,6 @@ require('lazy').setup({
         json = {
           'jsonlint',
         },
-        markdown = {
-          'vale',
-        },
         sql = {
           'sqlfluff',
         },

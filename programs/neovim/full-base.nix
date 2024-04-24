@@ -16,7 +16,7 @@
     ./plugins/cmp.nix
     # ./plugins/nvim-tree.nix
     ./plugins/persistence.nix
-    ./plugins/rainbow-delimiters.nix
+    # ./plugins/rainbow-delimiters.nix
     ./plugins/rust.nix
     ./plugins/sandwich.nix
     # ./plugins/surround.nix

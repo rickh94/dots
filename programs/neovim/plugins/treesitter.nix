@@ -1,4 +1,4 @@
-{unstablePkgs, ...}: {
+{ unstablePkgs, ... }: {
   xdg.configFile."nvim/after/queries/ecma/textobjects.scm".text = ''
     ; extends
     (object
@@ -11,18 +11,7 @@
     plugins = with unstablePkgs.vimPlugins; [
       nvim-treesitter-textobjects
       nvim-treesitter-refactor
-      (nvim-treesitter.withPlugins (_:
-        nvim-treesitter.allGrammars
-        ++ [
-          (unstablePkgs.tree-sitter.buildGrammar {
-            language = "templ";
-            version = "1";
-            src = builtins.fetchGit {
-              url = "https://github.com/vrischmann/tree-sitter-templ";
-              ref = "HEAD";
-            };
-          })
-        ]))
+      nvim-treesitter.withAllGrammars
     ];
 
     extraPackages = with unstablePkgs; [

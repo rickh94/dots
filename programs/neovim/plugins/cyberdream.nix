@@ -27,6 +27,12 @@ in
             italic_comments = true,
             hide_fillchars = true,
             borderless_telescope = true,
+            theme = {
+              highlights = {
+                LineNr = { fg = "#5ea1ff" },
+                CursorLineNr = { fg = "#5ef1ff" },
+              },
+            }
         })
         vim.cmd.colorscheme("cyberdream") -- set the colorscheme
       '';

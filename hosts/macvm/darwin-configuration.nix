@@ -1,5 +1,9 @@
-{ pkgs, nix, config, lib, ... }:
-{
+{ pkgs
+, nix
+, config
+, lib
+, ...
+}: {
   imports = [
     ../_common/mac/system-activation.nix
   ];
@@ -15,6 +19,7 @@
     nushell
     nodejs
     python310Full
+    python311Full
   ];
 
   environment.systemPath = [
@@ -35,7 +40,6 @@
     '';
   };
 
-
   users = {
     users.rick = {
       home = /Users/rick;
@@ -46,7 +50,7 @@
   fonts = {
     fontDir.enable = true;
     fonts = [
-      (pkgs.nerdfonts.override { fonts = [ "FiraCode" "Hack" "CascadiaCode" "VictorMono"]; })
+      (pkgs.nerdfonts.override { fonts = [ "FiraCode" "Hack" "CascadiaCode" "VictorMono" ]; })
     ];
   };
 
@@ -77,6 +81,4 @@
 
   home-manager.useUserPackages = true;
   home-manager.useGlobalPkgs = true;
-
-
 }
