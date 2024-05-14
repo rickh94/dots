@@ -1,5 +1,11 @@
-{ config, pkgs, nixpkgs, lib, inputs, unstablePkgs, ... }:
-{
+{ config
+, pkgs
+, nixpkgs
+, lib
+, inputs
+, unstablePkgs
+, ...
+}: {
   imports = [
     ../../programs/neovim
     ../../programs/git.nix
@@ -58,12 +64,11 @@
       ripgrep-all
       ripgrep
       bottom
-      exa
+      eza
       fd
       du-dust
       bat
     ];
-
   };
 
   programs.bash.enable = true;
@@ -73,5 +78,4 @@
     enable = true;
     enableFishIntegration = true;
   };
-
 }

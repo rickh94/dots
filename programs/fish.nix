@@ -6,7 +6,7 @@
       g = "git";
       diff = "difft";
       du = "dust";
-      ls = "exa";
+      ls = "eza";
       cat = "bat";
       df = "lfs";
       grep = "rg";

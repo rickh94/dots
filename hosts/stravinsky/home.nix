@@ -2,13 +2,11 @@
 , config
 , pkgs
 , nixpkgs
-, kmonad
 , ...
 }: {
   imports = [
     ../_common/desktop.nix
     ../_common/mac/home-activation.nix
-    ../../services/amethyst.nix
     ../../programs/wezterm-mac.nix
     ../../programs/neovim/full-default.nix
   ];
@@ -26,16 +24,6 @@
     pkgs.entr
     pkgs.rubik
     pkgs.emacs
-    kmonad.packages.aarch64-darwin.default
   ];
 
-  /*
-     programs.nushell.extraEnv = ''
-    let-env PATH = ($env.PATH | append "/opt/homebrew/bin")
-    '';
-
-    programs.fish.interactiveShellInit = ''
-    fish_add_path "/opt/homebrew/bin"
-    '';
-  */
 }

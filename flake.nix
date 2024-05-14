@@ -11,13 +11,13 @@
 
   inputs = {
     nixpkgs = {
-      url = "github:nixos/nixpkgs/nixos-23.05";
+      url = "github:nixos/nixpkgs/nixos-23.11";
     };
     /*
       nixos-hardware.url = "github:nixos/nixos-hardware/master";
     */
     home-manager = {
-      url = "github:nix-community/home-manager/release-23.05";
+      url = "github:nix-community/home-manager/release-23.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -34,10 +34,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    kmonad = {
-      url = "git+https://github.com/kmonad/kmonad?submodules=1&dir=nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs =
@@ -48,7 +44,6 @@
     , unstable
     , codeium
     , devenv
-    , kmonad
     ,
     }:
     let
@@ -156,23 +151,21 @@
           pkgs = nixpkgs.legacyPackages.aarch64-darwin;
           modules = [
             ./hosts/stravinsky/darwin-configuration.nix
-            home-manager.darwinModules.home-manager
-            {
-              home-manager = {
-                users.rick = import ./hosts/stravinsky/home.nix;
-                extraSpecialArgs = {
-                  inherit devenv;
-                  inherit kmonad;
-                  unstablePkgs = unstable.legacyPackages.aarch64-darwin;
+              home-manager.darwinModules.home-manager
+              {
+                home-manager = {
+                  users.rick = import ./hosts/stravinsky/home.nix;
+                  extraSpecialArgs = {
+                    inherit devenv;
+                    unstablePkgs = unstable.legacyPackages.aarch64-darwin;
+                  };
                 };
-              };
-            }
+              }
           ];
           specialArgs = {
             inherit chosenfonts;
             inherit devenv;
             inherit unstable;
-            inherit kmonad;
           };
         };
 
