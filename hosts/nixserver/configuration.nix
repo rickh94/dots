@@ -180,6 +180,11 @@ in
     jellyfin.enable = true;
     # jellyseerr.enable = true;
     # sonarr.enable = true;
+    kavita = {
+      enable = true;
+      tokenKeyFile = "/persist/secrets/kavita-token";
+      user = "jellyfin";
+    };
 
     nextcloud = {
       enable = true;
@@ -222,26 +227,57 @@ in
       enable = true;
       datasets = {
         "rpool/safe" = {
+          yearly = 0;
+          monthly = 6;
           recursive = true;
           autosnap = true;
           autoprune = true;
         };
         "vroom/impermanence" = {
+          yearly = 1;
+          monthly = 12;
           recursive = true;
           autosnap = true;
           autoprune = true;
         };
         "vroom/vaultwarden" = {
+          yearly = 0;
+          monthly = 3;
           recursive = true;
           autosnap = true;
           autoprune = true;
         };
         "vroom/paperless" = {
+          yearly = 0;
+          monthly = 3;
           recursive = true;
           autosnap = true;
           autoprune = true;
         };
         "vroom/media" = {
+          yearly = 0;
+          monthly = 3;
+          recursive = true;
+          autosnap = true;
+          autoprune = true;
+        };
+        "vroom/stash" = {
+          yearly = 0;
+          monthly = 1;
+          recursive = true;
+          autosnap = true;
+          autoprune = true;
+        };
+        "vroom/nextcloud" = {
+          yearly = 0;
+          monthly = 3;
+          recursive = true;
+          autosnap = true;
+          autoprune = true;
+        };
+        "vroom/rick" = {
+          yearly = 0;
+          monthly = 6;
           recursive = true;
           autosnap = true;
           autoprune = true;
@@ -256,20 +292,39 @@ in
       interval = "hourly";
       commonArgs = [
         "--compress=zstd-slow"
-        "--recursive"
+        "--no-sync-snap"
       ];
       commands = {
         "rpool/safe" = {
           target = "backuptank/host/rpool/safe";
         };
-        "vroom" = {
-          target = "backuptank/host/vroom";
+        "vroom/media" = {
+          target = "backuptank/host/vroom/media";
           recursive = true;
-          extraArgs = [
-            "--exclude='.*vroom.rips.*'"
-            "--exclude='.*vroom.downloads.*'"
-            "--exclude='.*vroom.*blackhole.*'"
-          ];
+        };
+        "vroom/nextcloud" = {
+          target = "backuptank/host/vroom/nextcloud";
+          recursive = true;
+        };
+        "vroom/rick" = {
+          target = "backuptank/host/vroom/rick";
+          recursive = true;
+        };
+        "vroom/vaultwarden" = {
+          target = "backuptank/host/vroom/vaultwarden";
+          recursive = true;
+        };
+        "vroom/impermanence" = {
+          target = "backuptank/host/vroom/impermanence";
+          recursive = true;
+        };
+        "vroom/paperless" = {
+          target = "backuptank/host/vroom/paperless";
+          recursive = true;
+        };
+        "vroom/stash" = {
+          target = "backuptank/host/vroom/stash";
+          recursive = true;
         };
       };
     };
@@ -474,6 +529,10 @@ in
           reverse_proxy :8096
           tls /var/lib/acme/rickhenry.xyz/cert.pem /var/lib/acme/rickhenry.xyz/key.pem
         '';
+        "stash.rickhenry.xyz".extraConfig = ''
+          reverse_proxy :9999
+          tls /var/lib/acme/rickhenry.xyz/cert.pem /var/lib/acme/rickhenry.xyz/key.pem
+        '';
         "seerr.rickhenry.xyz".extraConfig = ''
           reverse_proxy 10.0.0.178:5055
           tls /var/lib/acme/rickhenry.xyz/cert.pem /var/lib/acme/rickhenry.xyz/key.pem
@@ -484,6 +543,18 @@ in
         '';
         "radarr.rickhenry.xyz".extraConfig = ''
           reverse_proxy 10.0.0.178:7878
+          tls /var/lib/acme/rickhenry.xyz/cert.pem /var/lib/acme/rickhenry.xyz/key.pem
+        '';
+        "readarr.rickhenry.xyz".extraConfig = ''
+          reverse_proxy 10.0.0.178:8787
+          tls /var/lib/acme/rickhenry.xyz/cert.pem /var/lib/acme/rickhenry.xyz/key.pem
+        '';
+        "lidarr.rickhenry.xyz".extraConfig = ''
+          reverse_proxy 10.0.0.178:8686
+          tls /var/lib/acme/rickhenry.xyz/cert.pem /var/lib/acme/rickhenry.xyz/key.pem
+        '';
+        "kavita.rickhenry.xyz".extraConfig = ''
+          reverse_proxy :5000
           tls /var/lib/acme/rickhenry.xyz/cert.pem /var/lib/acme/rickhenry.xyz/key.pem
         '';
         "home.rickhenry.xyz".extraConfig = ''
@@ -547,6 +618,11 @@ in
           "/prox.rickhenry.xyz/10.7.0.100"
           "/audio.rickhenry.xyz/10.7.0.100"
           "/paper.rickhenry.xyz/10.7.0.100"
+          "/stash.rickhenry.xyz/10.7.0.100"
+          "/whisparr.rickhenry.xyz/10.7.0.100"
+          "/readarr.rickhenry.xyz/10.7.0.100"
+          "/kavita.rickhenry.xyz/10.7.0.100"
+          "/lidarr.rickhenry.xyz/10.7.0.100"
         ];
       };
     };
@@ -588,10 +664,10 @@ in
       exports = ''
         /backuptank/proxmox 10.0.1.0/16(rw,sync,crossmnt,no_subtree_check,all_squash)
         /vroom/media 10.0.0.0/16(rw,sync,crossmnt,no_subtree_check,no_root_squash)
-        /vroom/downloads 10.20.0.0/16(rw,sync,crossmnt,no_subtree_check,all_squash,anonuid=996,anongid=996)
-        /vroom/blackhole 10.20.0.0/16(rw,sync,crossmnt,no_subtree_check,all_squash,anonuid=996,anongid=996)
-        /vroom/downloads 10.0.0.0/16(rw,sync,crossmnt,no_subtree_check,all_squash,anonuid=996,anongid=996)
+        /backuptank/downloads 10.0.0.0/16(rw,sync,crossmnt,no_subtree_check,all_squash,anonuid=996,anongid=996)
         /vroom/blackhole 10.0.0.0/16(rw,sync,crossmnt,no_subtree_check,all_squash,anonuid=996,anongid=996)
+        /vroom/stash 10.0.0.0/16(rw,sync,crossmnt,no_subtree_check,all_squash,anonuid=996,anongid=996)
+        /vroom/books 10.0.0.0/16(rw,sync,crossmnt,no_subtree_check,all_squash,anonuid=996,anongid=996)
       '';
     };
 
@@ -648,6 +724,28 @@ in
     ];
   };
 
+  virtualisation.oci-containers.containers."stash" = {
+    autoStart = true;
+    image = "stashapp/stash:latest";
+    ports = [ "9999:9999" ];
+    environment = {
+       STASH_STASH = "/data/";
+       STASH_GENERATED = "/generated/";
+       STASH_METADATA = "/metadata/";
+       STASH_CACHE = "/cache/";
+       STASH_PORT = "9999";
+    };
+    volumes = [
+      "/etc/localtime:/etc/localtime:ro"
+      "/vroom/stash/config:/root/.stash"
+      "/vroom/stash/data:/data"
+      "/vroom/stash/metadata:/metadata"
+      "/vroom/stash/cache:/cache"
+      "/vroom/stash/blobs:/blobs"
+      "/vroom/stash/generated:/generated"
+    ];
+  };
+
   nixpkgs.config.packageOverrides = pkgs: {
     vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
   };
@@ -699,28 +797,28 @@ in
         }
       ];
     };
-    wg1 = {
-      address = [ "10.20.0.100/24" ];
-      mtu = 1410;
-      privateKeyFile = "/persist/secrets/wireguard/privkey2";
-      peers = [
-        {
-            # seedbox
-            publicKey = "UFvFwch3p44/FTPynAOBIhYpQLV66jh+quw0QprFXx0=";
-            allowedIPs = [ "10.20.0.20/32" ];
-            presharedKeyFile = "/persist/secrets/wireguard/seed-psk";
-            endpoint = "165.22.203.219:51821";
-            persistentKeepalive = 25;
-        }
-        {
-            # flyingdutchman
-            publicKey = "+z2Yc31fNyxCm2oYjYzLvcIBGbivFr7uudvp5hCnswk=";
-            allowedIPs = [ "10.20.0.10/32" ];
-            presharedKeyFile = "/persist/secrets/wireguard/dutchman-psk";
-            persistentKeepalive = 25;
-        }
-      ];
-    };
+    # wg1 = {
+    #   address = [ "10.20.0.100/24" ];
+    #   mtu = 1410;
+    #   privateKeyFile = "/persist/secrets/wireguard/privkey2";
+    #   peers = [
+    #     {
+    #         # seedbox
+    #         publicKey = "UFvFwch3p44/FTPynAOBIhYpQLV66jh+quw0QprFXx0=";
+    #         allowedIPs = [ "10.20.0.20/32" ];
+    #         presharedKeyFile = "/persist/secrets/wireguard/seed-psk";
+    #         endpoint = "165.22.203.219:51821";
+    #         persistentKeepalive = 25;
+    #     }
+    #     {
+    #         # flyingdutchman
+    #         publicKey = "+z2Yc31fNyxCm2oYjYzLvcIBGbivFr7uudvp5hCnswk=";
+    #         allowedIPs = [ "10.20.0.10/32" ];
+    #         presharedKeyFile = "/persist/secrets/wireguard/dutchman-psk";
+    #         persistentKeepalive = 25;
+    #     }
+    #   ];
+    # };
   };
 
   networking.firewall = {
