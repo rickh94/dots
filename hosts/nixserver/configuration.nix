@@ -129,19 +129,6 @@ in
   users.groups.prometheus.gid = 255;
 
   services = {
-    # ddclient = {
-    #   enable = true;
-    #   use = "web, web=https://cloudflare.com/cdn-cgi/trace";
-    #   protocol = "cloudflare";
-    #   ipv6 = false;
-    #   passwordFile = "/persist/secrets/ddclient";
-    #   domains = [
-    #     "vpn.rickhenry.xyz"
-    #   ];
-    #   extraConfig = ''
-    #     login=rickhenry@rickhenry.dev
-    #   '';
-    # };
     cloudflare-dyndns = {
       enable = true;
       apiTokenFile = "/persist/secrets/cloudflare-dyndns";
@@ -150,36 +137,8 @@ in
       ipv6 = true;
     };
 
-    # home-assistant = {
-    #   enable = true;
-    #   config = {
-    #     default_config = { };
-    #     http = {
-    #       base_url = "https://home.rickhenry.house";
-    #       use_x_forwarded_for = true;
-    #       trusted_proxies = "127.0.0.1";
-    #     };
-    #   };
-    # };
-    #
-    # mosquitto = {
-    #   enable = true;
-    #   persistence = true;
-    #   listeners = [
-    #     {
-    #       port = 1883;
-    #       users = {
-    #         blacklamp.hashedPasswordFile = "/persist/passwd/mosquitto/blacklamp";
-    #         silverlamp.hashedPasswordFile = "/persist/passwd/mosquitto/silverlamp";
-    #         desklight.hashedPasswordFile = "/persist/passwd/mosquitto/desklight";
-    #       };
-    #     }
-    #   ];
-    # };
 
     jellyfin.enable = true;
-    # jellyseerr.enable = true;
-    # sonarr.enable = true;
     kavita = {
       enable = true;
       tokenKeyFile = "/persist/secrets/kavita-token";
@@ -199,9 +158,6 @@ in
           "10.7.0.100"
         ];
       };
-      # extraApps = with config.services.nextcloud.package.packages.apps; {
-      #   inherit contacts calendar tasks;
-      # };
       appstoreEnable = true;
       extraAppsEnable = true;
       configureRedis = true;
@@ -211,8 +167,8 @@ in
       };
       secretFile = "/etc/nextcloud-secrets.json";
       phpOptions = {
-        upload_max_filesize = "16G";
-        post_max_size = "16G";
+        upload_max_filesize = lib.mkForce "16G";
+        post_max_size = lib.mkForce "16G";
       };
     };
 
@@ -264,6 +220,9 @@ in
         "vroom/stash" = {
           yearly = 0;
           monthly = 1;
+          daily = 1;
+          weekly = 4;
+          hourly = 12;
           recursive = true;
           autosnap = true;
           autoprune = true;
@@ -573,10 +532,6 @@ in
           reverse_proxy :8222
           tls /var/lib/acme/rickhenry.xyz/cert.pem /var/lib/acme/rickhenry.xyz/key.pem
         '';
-        "audio.rickhenry.xyz".extraConfig = ''
-          reverse_proxy localhost:13378
-          tls /var/lib/acme/rickhenry.xyz/cert.pem /var/lib/acme/rickhenry.xyz/key.pem
-        '';
         "prox.rickhenry.xyz".extraConfig = ''
           reverse_proxy {
             to https://10.0.1.176:8006
@@ -616,7 +571,6 @@ in
           "/radarr.rickhenry.xyz/10.7.0.100"
           "/vault.rickhenry.xyz/10.7.0.100"
           "/prox.rickhenry.xyz/10.7.0.100"
-          "/audio.rickhenry.xyz/10.7.0.100"
           "/paper.rickhenry.xyz/10.7.0.100"
           "/stash.rickhenry.xyz/10.7.0.100"
           "/whisparr.rickhenry.xyz/10.7.0.100"
@@ -708,21 +662,6 @@ in
 
   virtualisation.podman.enable = true;
 
-  virtualisation.oci-containers.containers."audiobookshelf" = {
-    autoStart = true;
-    image = "ghcr.io/advplyr/audiobookshelf:latest";
-    environment = {
-      AUDIOBOOKSHELF_UID = "99";
-      AUDIOBOOKSHELF_GID = "100";
-    };
-    ports = [ "13378:80" ];
-    volumes = [
-      "/vroom/audio/Audiobooks:/audiobooks"
-      "/vroom/audio/Podcasts:/podcasts"
-      "/vroom/audio/Containers/Audiobookshelf/config:/config"
-      "/vroom/audio/Containers/Audiobookshelf/audiobooks:/metadata"
-    ];
-  };
 
   virtualisation.oci-containers.containers."stash" = {
     autoStart = true;
