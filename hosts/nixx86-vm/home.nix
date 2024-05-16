@@ -4,11 +4,13 @@
   imports = [
     ../_common/default.nix
     ../_common/linux/default.nix
+    ../../programs/neovim/basic.nix
   ];
   home.username = "rick";
   home.homeDirectory = "/home/rick";
 
   home.packages = [
+    pkgs.glibc
     pkgs.xdotool
     pkgs.feh
     pkgs.xorg.xmodmap
