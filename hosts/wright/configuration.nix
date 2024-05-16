@@ -16,7 +16,7 @@
   ];
 
   networking.hostName = "wright";
-  networking.hostId = "aa31a972";
+  networking.hostId = "aa31a972bb";
   users.users.rick.shell = pkgs.zsh;
 
   environment.systemPackages = with pkgs; [
