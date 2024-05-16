@@ -1,6 +1,7 @@
 { config
 , pkgs
 , lib
+, unstablePkgs
 , ...
 }:
 let
@@ -32,37 +33,42 @@ in
     xkbVariant = "";
   };
 
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = [
     # essentials
-    firefox
-    neovim
-    git
+    pkgs.firefox
+    pkgs.neovim
+    pkgs.git
 
-    alacritty
-    xorg.xinit
-    killall
-    xdotool
-    xorg.xwininfo
+    pkgs.alacritty
+    pkgs.xorg.xinit
+    pkgs.killall
+    pkgs.xdotool
+    pkgs.xorg.xwininfo
 
-    home-manager
+    pkgs.home-manager
 
-    fish
-    wireguard-tools
-    tree
-    curl
+    pkgs.fish
+    pkgs.wireguard-tools
+    pkgs.tree
+    pkgs.curl
 
-    virt-manager
-    virt-viewer
+    pkgs.virt-manager
+    pkgs.virt-viewer
 
-    unzip
-    zip
-    restic
+    pkgs.unzip
+    pkgs.zip
+    pkgs.restic
 
-    openssl
-    grafana-loki
-    makemkv
-    handbrake
-    smartmontools
+    pkgs.openssl
+    pkgs.makemkv
+    pkgs.handbrake
+    pkgs.smartmontools
+    unstablePkgs.jellyfin-ffmpeg 
+    pkgs.intel-media-driver
+    pkgs.vaapiIntel
+    pkgs.vaapiVdpau
+    pkgs.libvdpau-va-gl
+    pkgs.intel-compute-runtime
   ];
 
   users.users.jellyfin = {
@@ -139,6 +145,7 @@ in
 
 
     jellyfin.enable = true;
+    jellyfin.package = unstablePkgs.jellyfin;
     kavita = {
       enable = true;
       tokenKeyFile = "/persist/secrets/kavita-token";
