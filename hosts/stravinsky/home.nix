@@ -25,5 +25,4 @@
     pkgs.rubik
     pkgs.emacs
   ];
-
 }
