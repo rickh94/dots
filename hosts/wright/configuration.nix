@@ -9,10 +9,10 @@
     ../_common/linux/configuration/boot.nix
     ../_common/linux/configuration/basic.nix
     ../_common/linux/configuration/xconfig-noi3.nix
-    # ../_common/linux/configuration/podman.nix
+    ../_common/linux/configuration/podman.nix
     ../_common/linux/configuration/impermanence.nix
     ../_common/linux/configuration/users-rick.nix
-    # ../_common/rick-passwordless-sudo.nix
+    ../_common/rick-passwordless-sudo.nix
   ];
 
   networking.hostName = "wright";
