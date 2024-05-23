@@ -41,4 +41,5 @@
   programs.zsh.enable = true;
 
   environment.pathsToLink = [ "/libexec" ];
+  services.atd.enable = true;
 }
