@@ -224,7 +224,7 @@ in
           autosnap = true;
           autoprune = true;
         };
-        "vroom/stash" = {
+        "rpool/safe/stash" = {
           yearly = 0;
           monthly = 1;
           daily = 1;
@@ -248,6 +248,23 @@ in
           autosnap = true;
           autoprune = true;
         };
+        "backuptank/vw-backups" = {
+          yearly = 0;
+          monthly = 1;
+          recursive = true;
+          autosnap = true;
+          autoprune = true;
+        };
+        "backuptank" = {
+          yearly = 0;
+          monthly = 1;
+          weekly = 1;
+          daily = 1;
+          hourly = 1;
+          recursive = true;
+          autosnap = true;
+          autoprune = true;
+        };
         # not backuptank
         # some of vroom
       };
@@ -263,6 +280,7 @@ in
       commands = {
         "rpool/safe" = {
           target = "backuptank/host/rpool/safe";
+          recursive = true;
         };
         "vroom/media" = {
           target = "backuptank/host/vroom/media";
@@ -288,8 +306,8 @@ in
           target = "backuptank/host/vroom/paperless";
           recursive = true;
         };
-        "vroom/stash" = {
-          target = "backuptank/host/vroom/stash";
+        "backuptank" = {
+          target = "external/backuptank";
           recursive = true;
         };
       };
@@ -627,8 +645,8 @@ in
         /vroom/media 10.0.0.0/16(rw,sync,crossmnt,no_subtree_check,no_root_squash)
         /backuptank/downloads 10.0.0.0/16(rw,sync,crossmnt,no_subtree_check,all_squash,anonuid=996,anongid=996)
         /vroom/blackhole 10.0.0.0/16(rw,sync,crossmnt,no_subtree_check,all_squash,anonuid=996,anongid=996)
-        /vroom/stash 10.0.0.0/16(rw,sync,crossmnt,no_subtree_check,all_squash,anonuid=996,anongid=996)
         /vroom/books 10.0.0.0/16(rw,sync,crossmnt,no_subtree_check,all_squash,anonuid=996,anongid=996)
+        /opt/stash 10.0.0.0/16(rw,sync,crossmnt,no_subtree_check,all_squash,anonuid=996,anongid=996)
       '';
     };
 
@@ -683,12 +701,13 @@ in
     };
     volumes = [
       "/etc/localtime:/etc/localtime:ro"
-      "/vroom/stash/config:/root/.stash"
-      "/vroom/stash/data:/data"
-      "/vroom/stash/metadata:/metadata"
-      "/vroom/stash/cache:/cache"
-      "/vroom/stash/blobs:/blobs"
-      "/vroom/stash/generated:/generated"
+      "/opt/stash/config:/root/.stash"
+      "/opt/stash/data:/data"
+      "/opt/stash/data2:/data2"
+      "/opt/stash/metadata:/metadata"
+      "/opt/stash/cache:/cache"
+      "/opt/stash/blobs:/blobs"
+      "/opt/stash/generated:/generated"
     ];
   };
 
