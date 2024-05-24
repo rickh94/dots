@@ -63,7 +63,7 @@ in
     pkgs.makemkv
     pkgs.handbrake
     pkgs.smartmontools
-    unstablePkgs.jellyfin-ffmpeg 
+    unstablePkgs.jellyfin-ffmpeg
     pkgs.intel-media-driver
     pkgs.vaapiIntel
     pkgs.vaapiVdpau
@@ -142,7 +142,6 @@ in
       ipv4 = true;
       ipv6 = true;
     };
-
 
     jellyfin.enable = true;
     jellyfin.package = unstablePkgs.jellyfin;
@@ -471,7 +470,6 @@ in
       };
     };
 
-
     vaultwarden = {
       enable = true;
       backupDir = "/backuptank/vw-backups";
@@ -649,7 +647,6 @@ in
         /opt/stash 10.0.0.0/16(rw,sync,crossmnt,no_subtree_check,all_squash,anonuid=996,anongid=996)
       '';
     };
-
   };
 
   # systemd.services.promtail = {
@@ -687,17 +684,16 @@ in
 
   virtualisation.podman.enable = true;
 
-
   virtualisation.oci-containers.containers."stash" = {
     autoStart = true;
     image = "stashapp/stash:latest";
     ports = [ "9999:9999" ];
     environment = {
-       STASH_STASH = "/data/";
-       STASH_GENERATED = "/generated/";
-       STASH_METADATA = "/metadata/";
-       STASH_CACHE = "/cache/";
-       STASH_PORT = "9999";
+      STASH_STASH = "/data/";
+      STASH_GENERATED = "/generated/";
+      STASH_METADATA = "/metadata/";
+      STASH_CACHE = "/cache/";
+      STASH_PORT = "9999";
     };
     volumes = [
       "/etc/localtime:/etc/localtime:ro"
@@ -797,6 +793,7 @@ in
   boot.zfs.extraPools = [
     "backuptank"
     "vroom"
+    "external"
   ];
 
   # WIPE ROOT CONFIGURATION
