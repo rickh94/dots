@@ -76,6 +76,7 @@
       montserrat
 
       imagemagick
+      smartmontools
     ];
   };
 

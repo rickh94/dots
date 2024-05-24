@@ -5,18 +5,18 @@
   imports = [
     ../_common/mac/system-activation.nix
   ];
-   environment.systemPackages = [
-     pkgs.redis
-     pkgs.colima
-     pkgs.docker
-     pkgs.home-manager
-     pkgs.neovim
-     pkgs.zsh
-     pkgs.alacritty
-     pkgs.git
-     pkgs.curl
-     pkgs.python311Full
-   ];
+  environment.systemPackages = [
+    pkgs.redis
+    pkgs.colima
+    pkgs.docker
+    pkgs.home-manager
+    pkgs.neovim
+    pkgs.zsh
+    pkgs.alacritty
+    pkgs.git
+    pkgs.curl
+    pkgs.python311Full
+  ];
 
   environment.systemPath = [
     "/opt/homebrew/bin/"
@@ -26,9 +26,9 @@
 
   programs.zsh.enable = true;
   programs.fish.enable = true;
- 
+
   system.stateVersion = 4;
-  
+
   nix = {
     package = pkgs.nix;
     extraOptions = ''
@@ -39,7 +39,7 @@
       user = "rick";
     };
   };
- 
+
   users = {
     users.rick = {
       home = /Users/rick;
@@ -53,7 +53,7 @@
       (pkgs.nerdfonts.override { fonts = chosenfonts; })
     ];
   };
- 
+
   homebrew = {
     enable = true;
     onActivation = {
@@ -117,12 +117,13 @@
       "libreoffice"
       "canva"
       "mp3tag"
+      "openzfs"
     ];
   };
- 
+
   home-manager.useUserPackages = true;
   home-manager.useGlobalPkgs = true;
- 
+
   services.redis = {
     enable = true;
     bind = "127.0.0.1";
@@ -130,14 +131,14 @@
     package = pkgs.redis;
     dataDir = "/Users/rick/.local/state/redis";
   };
- 
+
   services.dnsmasq = {
     enable = true;
     addresses = {
       "localhost" = "127.0.0.1";
     };
   };
- 
+
   system.activationScripts.extraActivation.text = ''
         #!/usr/bin/env bash
         # PAM settings

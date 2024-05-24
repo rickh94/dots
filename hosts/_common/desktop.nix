@@ -8,7 +8,6 @@
     ./default.nix
   ];
   home.packages = with pkgs; [
-    zoom-us
     vscodium
   ];
 

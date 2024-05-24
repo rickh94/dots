@@ -31,7 +31,7 @@
     # ./plugins/chatgpt.nix
     ./plugins/autopairs.nix
     ./plugins/gotempl.nix
-    ./plugins/nougat.nix
+    # ./plugins/nougat.nix
     ./plugins/spider.nix
     ./plugins/leap.nix
     ./plugins/various-textobjs.nix

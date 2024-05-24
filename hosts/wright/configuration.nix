@@ -1,26 +1,28 @@
-{ config, pkgs, lib, chosenfonts, ... }:
-{
+{ config
+, pkgs
+, lib
+, chosenfonts
+, ...
+}: {
   imports = [
     ./hardware-configuration.nix
     ../_common/linux/configuration/boot.nix
     ../_common/linux/configuration/basic.nix
     ../_common/linux/configuration/xconfig-noi3.nix
+    ../_common/linux/configuration/podman.nix
+    ../_common/linux/configuration/impermanence.nix
+    ../_common/linux/configuration/users-rick.nix
+    ../_common/rick-passwordless-sudo.nix
   ];
 
-  networking.hostName = "nixvm2";
-  networking.hostId = "9ce4b702";
-
-  users.users = {
-    rick = {
-      isNormalUser = true;
-      extraGroups = [ "wheel" "networkmanager" "libvirtd" ]; # Enable ‘sudo’ for the user.
-      uid = 1000;
-    };
-  };
+  networking.hostName = "wright";
+  networking.hostId = "aa31a972";
+  users.users.rick.shell = pkgs.zsh;
 
   environment.systemPackages = with pkgs; [
     firefox
     (nerdfonts.override { fonts = chosenfonts; })
+    neovim
     git
     alacritty
     xorg.xinit
@@ -32,7 +34,12 @@
     wireguard-tools
     tree
     curl
+    podman
+    podman-compose
+    zsh
   ];
+  programs.zsh.enable = true;
 
   environment.pathsToLink = [ "/libexec" ];
+  services.atd.enable = true;
 }
