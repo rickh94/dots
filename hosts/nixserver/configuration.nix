@@ -65,10 +65,12 @@ in
     pkgs.smartmontools
     unstablePkgs.jellyfin-ffmpeg
     pkgs.intel-media-driver
+    pkgs.intel-gpu-tools
     pkgs.vaapiIntel
     pkgs.vaapiVdpau
     pkgs.libvdpau-va-gl
     pkgs.intel-compute-runtime
+    pkgs.iperf
   ];
 
   users.users.jellyfin = {
@@ -223,7 +225,24 @@ in
           autosnap = true;
           autoprune = true;
         };
+        "spinny/media" = {
+          yearly = 0;
+          monthly = 3;
+          recursive = true;
+          autosnap = true;
+          autoprune = true;
+        };
         "rpool/safe/stash" = {
+          yearly = 0;
+          monthly = 1;
+          daily = 1;
+          weekly = 4;
+          hourly = 12;
+          recursive = true;
+          autosnap = true;
+          autoprune = true;
+        };
+        "spinny/stash2" = {
           yearly = 0;
           monthly = 1;
           daily = 1;
@@ -285,6 +304,14 @@ in
           target = "backuptank/host/vroom/media";
           recursive = true;
         };
+        "spinny/media" = {
+          target = "backuptank/host/spinny/media";
+          recursive = true;
+        };
+        "spinny/stash2" = {
+          target = "backuptank/host/spinny/stash2";
+          recursive = true;
+        };
         "vroom/nextcloud" = {
           target = "backuptank/host/vroom/nextcloud";
           recursive = true;
@@ -310,6 +337,13 @@ in
           recursive = true;
         };
       };
+    };
+
+    cron = {
+      enable = true;
+      systemCronJobs = [
+        "0 4 * * * root 'zpool trim vroom'"
+      ];
     };
 
     restic.backups.myaccount = {
@@ -467,6 +501,17 @@ in
           "force group" = "jellyfin";
           "valid users" = "rick";
         };
+        "spinny-media" = {
+          path = "/spinny/media";
+          browseable = "yes";
+          "read only" = "no";
+          "guest ok" = "no";
+          "create mask" = "0644";
+          "directory mask" = "0755";
+          "force user" = "jellyfin";
+          "force group" = "jellyfin";
+          "valid users" = "rick";
+        };
       };
     };
 
@@ -531,10 +576,6 @@ in
           reverse_proxy 10.0.0.178:8787
           tls /var/lib/acme/rickhenry.xyz/cert.pem /var/lib/acme/rickhenry.xyz/key.pem
         '';
-        "lidarr.rickhenry.xyz".extraConfig = ''
-          reverse_proxy 10.0.0.178:8686
-          tls /var/lib/acme/rickhenry.xyz/cert.pem /var/lib/acme/rickhenry.xyz/key.pem
-        '';
         "kavita.rickhenry.xyz".extraConfig = ''
           reverse_proxy :5000
           tls /var/lib/acme/rickhenry.xyz/cert.pem /var/lib/acme/rickhenry.xyz/key.pem
@@ -557,21 +598,13 @@ in
         '';
         "prox.rickhenry.xyz".extraConfig = ''
           reverse_proxy {
-            to https://10.0.1.176:8006
+            to https://10.0.0.112:8006
             transport http {
               tls
               tls_insecure_skip_verify
               read_buffer 8192
             }
           }
-          tls /var/lib/acme/rickhenry.xyz/cert.pem /var/lib/acme/rickhenry.xyz/key.pem
-        '';
-        "gitlab.rickhenry.xyz".extraConfig = ''
-          reverse_proxy http://10.0.1.171:80
-          tls /var/lib/acme/rickhenry.xyz/cert.pem /var/lib/acme/rickhenry.xyz/key.pem
-        '';
-        "gitea.rickhenry.xyz".extraConfig = ''
-          reverse_proxy http://10.0.1.240:3000
           tls /var/lib/acme/rickhenry.xyz/cert.pem /var/lib/acme/rickhenry.xyz/key.pem
         '';
         "paper.rickhenry.xyz".extraConfig = ''
@@ -640,11 +673,13 @@ in
       statdPort = 4000;
       exports = ''
         /backuptank/proxmox 10.0.1.0/16(rw,sync,crossmnt,no_subtree_check,all_squash)
-        /vroom/media 10.0.0.0/16(rw,sync,crossmnt,no_subtree_check,no_root_squash)
+        /vroom/media 10.0.0.0/16(rw,sync,crossmnt,no_subtree_check,all_squash,anonuid=996,anongid=996)
+        /spinny/media 10.0.0.0/16(rw,sync,crossmnt,no_subtree_check,all_squash,anonuid=996,anongid=996)
         /backuptank/downloads 10.0.0.0/16(rw,sync,crossmnt,no_subtree_check,all_squash,anonuid=996,anongid=996)
         /vroom/blackhole 10.0.0.0/16(rw,sync,crossmnt,no_subtree_check,all_squash,anonuid=996,anongid=996)
         /vroom/books 10.0.0.0/16(rw,sync,crossmnt,no_subtree_check,all_squash,anonuid=996,anongid=996)
         /opt/stash 10.0.0.0/16(rw,sync,crossmnt,no_subtree_check,all_squash,anonuid=996,anongid=996)
+        /spinny/scratch 10.0.0.0/16(rw,sync,crossmnt,no_subtree_check,all_squash,anonuid=996,anongid=996)
       '';
     };
   };
@@ -794,6 +829,8 @@ in
     "backuptank"
     "vroom"
     "external"
+    "spinny"
+    "stash2"
   ];
 
   # WIPE ROOT CONFIGURATION
