@@ -19,7 +19,6 @@
   };
 
   xdg.enable = true;
-  xsession.enable = true;
 
   home.packages = [
     pkgs.glibc
