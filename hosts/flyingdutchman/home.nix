@@ -14,7 +14,7 @@
 
   programs.bash = {
     bashrcExtra = ''
-      source $HOME/.nix-profile/etc/profile.d/nix.sh
+      source /etc/profile.d/nix-env.sh
     '';
   };
 
