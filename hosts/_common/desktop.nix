@@ -10,6 +10,7 @@
   home.packages = with pkgs; [
     vscodium
   ];
+  programs.bash.enable = true;
 
   home.file."Wallpapers/wallpapers.txt" = {
     enable = true;
