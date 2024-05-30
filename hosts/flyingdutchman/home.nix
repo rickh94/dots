@@ -18,6 +18,18 @@
     '';
   };
 
+  programs.zsh.profileExtra = ''
+    source /etc/profile.d/nix-env.sh
+  '';
+
+  programs.fish.shellInit = ''
+    source /etc/profile.d/nix-env.sh
+  '';
+
+  xsession.profileExtra = ''
+    source /etc/profile.d/nix-env.sh
+  '';
+
   xdg.enable = true;
 
   home.packages = [
