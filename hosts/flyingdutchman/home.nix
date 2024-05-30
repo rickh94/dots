@@ -24,10 +24,6 @@
     '';
   };
 
-  programs.fish.profileExtra = ''
-    source $HOME/.nix-profile/etc/profile.d/nix.sh
-  '';
-
   home.packages = [
     pkgs.glibc
     pkgs.xdotool
