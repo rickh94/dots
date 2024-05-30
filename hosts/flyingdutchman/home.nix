@@ -6,7 +6,7 @@
 }: {
   imports = [
     ../_common/default.nix
-    ../_common/linux/default.nix
+    ../_common/linux/desktop.nix
     ../../programs/neovim/basic.nix
   ];
   home.username = "daveyjones";
