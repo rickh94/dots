@@ -12,6 +12,18 @@
   home.username = "daveyjones";
   home.homeDirectory = "/home/daveyjones";
 
+  programs.bash.profileExtra = ''
+    source $HOME/.nix-profile/etc/profile.d/nix.sh
+  '';
+
+  programs.zsh.profileExtra = ''
+    source $HOME/.nix-profile/etc/profile.d/nix.sh
+  '';
+
+  programs.fish.profileExtra = ''
+    source $HOME/.nix-profile/etc/profile.d/nix.sh
+  '';
+
   home.packages = [
     pkgs.glibc
     pkgs.xdotool
