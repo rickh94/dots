@@ -611,6 +611,10 @@ in
           reverse_proxy http://localhost:28981
           tls /var/lib/acme/rickhenry.xyz/cert.pem /var/lib/acme/rickhenry.xyz/key.pem
         '';
+        "audio.rickhenry.xyz".extraConfig = ''
+          reverse_proxy http://localhost:13378
+          tls /var/lib/acme/rickhenry.xyz/cert.pem /var/lib/acme/rickhenry.xyz/key.pem
+        '';
       };
     };
 
@@ -633,6 +637,7 @@ in
           "/readarr.rickhenry.xyz/10.7.0.100"
           "/kavita.rickhenry.xyz/10.7.0.100"
           "/lidarr.rickhenry.xyz/10.7.0.100"
+          "/audio.rickhenry.xyz/10.7.0.100"
         ];
       };
     };
