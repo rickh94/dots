@@ -152,6 +152,20 @@
           };
         };
 
+        flyingdutchman = home-manager.lib.homeManagerConfiguration {
+          pkgs = import nixpkgs {
+            system = "x86_64-linux";
+          };
+          modules = [ ./hosts/flyingdutchman/home.nix ];
+          extraSpecialArgs = {
+            inherit inputs;
+            inherit chosenfonts;
+            inherit devenv;
+            i3mod = "Control";
+            unstablePkgs = unstable.legacyPackages.x86_64-linux;
+          };
+        };
+
         nixserver = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.x86_64-linux;
           modules = [ ./hosts/nixserver/home.nix ];
