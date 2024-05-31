@@ -37,7 +37,9 @@
     gc = {
       automatic = true;
       user = "rick";
+      options = "--delete-older-than 20d";
     };
+    settings.trusted-users = [ "rick" "root" ];
   };
 
   users = {
@@ -46,7 +48,7 @@
       name = "rick";
     };
   };
-  #
+
   fonts = {
     fontDir.enable = true;
     fonts = [

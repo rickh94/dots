@@ -742,6 +742,21 @@ in
     ];
   };
 
+  virtualisation.oci-containers.containers."audiobookshelf" = {
+    autoStart = true;
+    image = "ghcr.io/advplyr/audiobookshelf:latest";
+    environment = {
+      AUDIOBOOKSHELF_UID = "99";
+      AUDIOBOOKSHELF_GID = "100";
+    };
+    prots = [ "13378:80" ];
+    volumes = [
+      "/spinny/media/audiobooks:/audiobooks"
+      "/vroom/configs/audiobookshelf/config:/config"
+      "/vroom/configs/audiobookshelf/metadata:/metadata"
+    ];
+  };
+
   nixpkgs.config.packageOverrides = pkgs: {
     vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
   };
