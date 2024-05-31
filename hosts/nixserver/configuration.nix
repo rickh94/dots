@@ -749,7 +749,7 @@ in
       AUDIOBOOKSHELF_UID = "99";
       AUDIOBOOKSHELF_GID = "100";
     };
-    prots = [ "13378:80" ];
+    ports = [ "13378:80" ];
     volumes = [
       "/spinny/media/audiobooks:/audiobooks"
       "/vroom/configs/audiobookshelf/config:/config"
