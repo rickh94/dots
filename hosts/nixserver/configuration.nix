@@ -342,7 +342,7 @@ in
     cron = {
       enable = true;
       systemCronJobs = [
-        "0 4 * * * root 'zpool trim vroom'"
+        "0 4 * * * root sh -c 'zpool trim vroom'"
       ];
     };
 
@@ -680,6 +680,7 @@ in
         /vroom/books 10.0.0.0/16(rw,sync,crossmnt,no_subtree_check,all_squash,anonuid=996,anongid=996)
         /opt/stash 10.0.0.0/16(rw,sync,crossmnt,no_subtree_check,all_squash,anonuid=996,anongid=996)
         /spinny/scratch 10.0.0.0/16(rw,sync,crossmnt,no_subtree_check,all_squash,anonuid=996,anongid=996)
+        /srv/rick 10.0.0.0/16(rw,sync,crossmnt,no_subtree_check,all_squash,anonuid=1000,anongid=100)
       '';
     };
   };
