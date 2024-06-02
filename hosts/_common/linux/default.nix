@@ -1,8 +1,14 @@
-{ config, lib, pkgs, inputs, chosenfonts, ... }:
-{
+{ config
+, lib
+, pkgs
+, inputs
+, chosenfonts
+, ...
+}: {
   imports = [
     ./minimal.nix
   ];
+  nix.optimise.automatic = true;
 
   home.packages = with pkgs; [
     # utilities
@@ -24,6 +30,5 @@
 
     # deployment
     morph
-
   ];
 }
