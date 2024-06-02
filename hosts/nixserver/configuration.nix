@@ -145,7 +145,6 @@ in
       domains = [ "vpn.rickhenry.xyz" ];
       ipv4 = true;
       ipv6 = true;
-      user = "root";
     };
 
     jellyfin.enable = true;
