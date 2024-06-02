@@ -1,12 +1,14 @@
-{ config, lib, pkgs, ... }:
-{
+{ config
+, lib
+, pkgs
+, ...
+}: {
   home.packages = with pkgs; [
     # utilities
     firefox
     wireguard-tools
     gcc12
     glibc
-
 
     # virtualization
     podman
@@ -19,6 +21,6 @@
   nix = {
     package = pkgs.nix;
     settings.experimental-features = [ "nix-command" "flakes" ];
+    optimise.automatic = true;
   };
-
 }

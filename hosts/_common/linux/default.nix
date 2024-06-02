@@ -8,7 +8,6 @@
   imports = [
     ./minimal.nix
   ];
-  nix.optimise.automatic = true;
 
   home.packages = with pkgs; [
     # utilities

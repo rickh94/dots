@@ -40,6 +40,7 @@
       options = "--delete-older-than 20d";
     };
     settings.trusted-users = [ "rick" "root" ];
+    optimise.automatic = true;
   };
 
   users = {
