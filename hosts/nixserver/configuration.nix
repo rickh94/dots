@@ -143,6 +143,7 @@ in
       domains = [ "vpn.rickhenry.xyz" ];
       ipv4 = true;
       ipv6 = true;
+      user = "root";
     };
 
     jellyfin.enable = true;
@@ -228,16 +229,6 @@ in
         "spinny/media" = {
           yearly = 0;
           monthly = 3;
-          recursive = true;
-          autosnap = true;
-          autoprune = true;
-        };
-        "rpool/safe/stash" = {
-          yearly = 0;
-          monthly = 1;
-          daily = 1;
-          weekly = 4;
-          hourly = 12;
           recursive = true;
           autosnap = true;
           autoprune = true;
