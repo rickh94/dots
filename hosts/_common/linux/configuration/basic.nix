@@ -1,5 +1,4 @@
-{ ... }:
-{
+{ ... }: {
   networking.networkmanager.enable = true;
   time.timeZone = "America/New_York";
   i18n.defaultLocale = "en_US.UTF-8";
@@ -16,7 +15,8 @@
 
   services.avahi = {
     enable = true;
-    nssmdns = true;
+    nssmdns4 = true;
+    nssmdns6 = true;
     publish = {
       enable = true;
       workstation = true;

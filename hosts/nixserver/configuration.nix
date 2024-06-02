@@ -29,8 +29,10 @@ in
   services.xserver = {
     enable = true;
     desktopManager.xfce.enable = true;
-    layout = "us";
-    xkbVariant = "";
+    xkb = {
+      layout = "us";
+      variant = "";
+    };
   };
 
   environment.systemPackages = [
@@ -156,24 +158,25 @@ in
 
     nextcloud = {
       enable = true;
-      package = pkgs.nextcloud27;
+      package = pkgs.nextcloud28;
       hostName = "localhost";
       https = true;
-      config = {
-        adminpassFile = "${pkgs.writeText "adminpass" "test123"}";
-        extraTrustedDomains = [
+      settings = {
+        trusted_domains = [
           "next.rickhenry.xyz"
           "next.rickhenry.house"
           "10.7.0.100"
         ];
+
+        mail_smtpmode = "sendmail";
+        mail_sendmailmode = "pipe";
+      };
+      config = {
+        adminpassFile = "${pkgs.writeText "adminpass" "test123"}";
       };
       appstoreEnable = true;
       extraAppsEnable = true;
       configureRedis = true;
-      extraOptions = {
-        mail_smtpmode = "sendmail";
-        mail_sendmailmode = "pipe";
-      };
       secretFile = "/etc/nextcloud-secrets.json";
       phpOptions = {
         upload_max_filesize = lib.mkForce "16G";
