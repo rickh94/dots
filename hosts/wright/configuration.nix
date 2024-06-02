@@ -42,4 +42,5 @@
 
   environment.pathsToLink = [ "/libexec" ];
   services.atd.enable = true;
+  nix.optimise.automatic = true;
 }

@@ -1,19 +1,23 @@
-{ config, pkgs, lib, chosenfonts, ... }:
+{ config
+, pkgs
+, lib
+, chosenfonts
+, ...
+}:
 let
   impermanence = builtins.fetchTarball "https://github.com/nix-community/impermanence/archive/master.tar.gz";
 in
 {
-  imports =
-    [
-      ./hardware-configuration.nix
-      ../_common/linux/configuration/boot.nix
-      ../_common/linux/configuration/basic.nix
-      ../_common/linux/configuration/xconfig.nix
-      ../_common/linux/configuration/podman.nix
-      ../_common/linux/configuration/impermanence.nix
-      ../_common/linux/configuration/users-rick.nix
-      "${impermanence}/nixos.nix"
-    ];
+  imports = [
+    ./hardware-configuration.nix
+    ../_common/linux/configuration/boot.nix
+    ../_common/linux/configuration/basic.nix
+    ../_common/linux/configuration/xconfig.nix
+    ../_common/linux/configuration/podman.nix
+    ../_common/linux/configuration/impermanence.nix
+    ../_common/linux/configuration/users-rick.nix
+    "${impermanence}/nixos.nix"
+  ];
 
   networking.hostName = "nixvm";
   networking.hostId = "99a4b700";
@@ -38,6 +42,5 @@ in
   ];
 
   environment.pathsToLink = [ "/libexec" ];
-
+  nix.optimise.automatic = true;
 }
-

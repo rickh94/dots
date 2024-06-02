@@ -885,4 +885,6 @@ in
   services.xrdp.enable = true;
   services.xrdp.defaultWindowManager = "startxfce4";
   services.xrdp.openFirewall = true;
+
+  nix.optimise.automatic = true;
 }

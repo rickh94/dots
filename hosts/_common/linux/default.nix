@@ -30,5 +30,4 @@
     # deployment
     morph
   ];
-  nix.optimise.automatic = true;
 }
