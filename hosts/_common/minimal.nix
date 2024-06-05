@@ -68,6 +68,7 @@
       fd
       du-dust
       bat
+      duf
     ];
   };
 
