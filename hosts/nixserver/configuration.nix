@@ -845,7 +845,6 @@ in
     "vroom"
     "external"
     "spinny"
-    "stash2"
   ];
 
   # WIPE ROOT CONFIGURATION
