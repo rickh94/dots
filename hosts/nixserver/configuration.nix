@@ -73,6 +73,7 @@ in
     pkgs.libvdpau-va-gl
     pkgs.intel-compute-runtime
     pkgs.iperf
+    pkgs.vlc
   ];
 
   users.users.jellyfin = {
