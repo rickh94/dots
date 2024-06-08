@@ -74,6 +74,7 @@ in
     pkgs.intel-compute-runtime
     pkgs.iperf
     pkgs.vlc
+    pkgs.rustdesk
   ];
 
   users.users.jellyfin = {
@@ -196,6 +197,9 @@ in
       datasets = {
         "rpool/safe" = {
           yearly = 0;
+          hourly = 12;
+          daily = 7;
+          weekly = 4;
           monthly = 6;
           recursive = true;
           autosnap = true;
@@ -203,6 +207,9 @@ in
         };
         "vroom/impermanence" = {
           yearly = 1;
+          hourly = 12;
+          daily = 7;
+          weekly = 2;
           monthly = 12;
           recursive = true;
           autosnap = true;
@@ -210,6 +217,9 @@ in
         };
         "vroom/vaultwarden" = {
           yearly = 0;
+          hourly = 12;
+          daily = 7;
+          weekly = 2;
           monthly = 3;
           recursive = true;
           autosnap = true;
@@ -217,6 +227,9 @@ in
         };
         "vroom/paperless" = {
           yearly = 0;
+          hourly = 12;
+          daily = 7;
+          weekly = 2;
           monthly = 3;
           recursive = true;
           autosnap = true;
@@ -224,13 +237,19 @@ in
         };
         "vroom/media" = {
           yearly = 0;
+          daily = 7;
+          weekly = 2;
           monthly = 3;
+          hourly = 24;
           recursive = true;
           autosnap = true;
           autoprune = true;
         };
         "spinny/media" = {
           yearly = 0;
+          hourly = 12;
+          daily = 7;
+          weekly = 2;
           monthly = 3;
           recursive = true;
           autosnap = true;
@@ -248,6 +267,9 @@ in
         };
         "vroom/nextcloud" = {
           yearly = 0;
+          hourly = 12;
+          daily = 7;
+          weekly = 2;
           monthly = 3;
           recursive = true;
           autosnap = true;
@@ -255,6 +277,9 @@ in
         };
         "vroom/rick" = {
           yearly = 0;
+          hourly = 12;
+          daily = 7;
+          weekly = 2;
           monthly = 6;
           recursive = true;
           autosnap = true;
@@ -262,6 +287,9 @@ in
         };
         "backuptank/vw-backups" = {
           yearly = 0;
+          hourly = 12;
+          daily = 7;
+          weekly = 2;
           monthly = 1;
           recursive = true;
           autosnap = true;
@@ -534,14 +562,14 @@ in
       };
     };
 
-    paperless = {
-      enable = true;
-      dataDir = "/vroom/paperless";
-      mediaDir = "/vroom/paperless/media";
-      consumptionDir = "/vroom/paperless/consume";
-      port = 28981;
-      address = "localhost";
-    };
+    # paperless = {
+    #   enable = true;
+    #   dataDir = "/vroom/paperless";
+    #   mediaDir = "/vroom/paperless/media";
+    #   consumptionDir = "/vroom/paperless/consume";
+    #   port = 28981;
+    #   address = "localhost";
+    # };
 
     caddy = {
       enable = true;
@@ -568,6 +596,14 @@ in
         '';
         "readarr.rickhenry.xyz".extraConfig = ''
           reverse_proxy 10.0.0.178:8787
+          tls /var/lib/acme/rickhenry.xyz/cert.pem /var/lib/acme/rickhenry.xyz/key.pem
+        '';
+        "lidarr.rickhenry.xyz".extraConfig = ''
+          reverse_proxy 10.0.0.178:8686
+          tls /var/lib/acme/rickhenry.xyz/cert.pem /var/lib/acme/rickhenry.xyz/key.pem
+        '';
+        "jackett.rickhenry.xyz".extraConfig = ''
+          reverse_proxy 10.0.0.178:9117
           tls /var/lib/acme/rickhenry.xyz/cert.pem /var/lib/acme/rickhenry.xyz/key.pem
         '';
         "kavita.rickhenry.xyz".extraConfig = ''
@@ -681,6 +717,12 @@ in
         /spinny/scratch 10.0.0.0/16(rw,sync,crossmnt,no_subtree_check,all_squash,anonuid=996,anongid=996)
         /srv/rick 10.0.0.0/16(rw,sync,crossmnt,no_subtree_check,all_squash,anonuid=1000,anongid=100)
       '';
+    };
+
+    rustdesk-server = {
+      enable = true;
+      openFirewall = true;
+      relayIP = "127.0.0.1";
     };
   };
 
