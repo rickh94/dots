@@ -14,6 +14,7 @@ in
     ../_common/linux/configuration/virt.nix
     ../_common/linux/configuration/users-rick.nix
     ../_common/rick-passwordless-sudo.nix
+    ../_common/linux/configuration/xconfig-noi3.nix
     ./hardware-configuration.nix
     "${impermanence}/nixos.nix"
   ];
@@ -24,16 +25,6 @@ in
   networking.hostName = "albanberg";
   networking.hostId = "d4e76b17";
   networking.nat.internalInterfaces = [ "wg0" ];
-
-  # Enable the X11 windowing system.
-  services.xserver = {
-    enable = true;
-    desktopManager.xfce.enable = true;
-    xkb = {
-      layout = "us";
-      variant = "";
-    };
-  };
 
   environment.systemPackages = [
     # essentials
@@ -75,6 +66,7 @@ in
     pkgs.iperf
     pkgs.vlc
     pkgs.rustdesk
+    pkgs.xfce.xfce4-whiskermenu-plugin
   ];
 
   users.users.jellyfin = {

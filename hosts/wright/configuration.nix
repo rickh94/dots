@@ -37,6 +37,7 @@
     podman
     podman-compose
     zsh
+    xfce.xfce4-whiskermenu-plugin
   ];
   programs.zsh.enable = true;
 

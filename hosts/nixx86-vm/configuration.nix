@@ -37,6 +37,8 @@
     podman
     podman-compose
     zsh
+    xfce.xfce4-whiskermenu-plugin
+    rustdesk
   ];
   programs.zsh.enable = true;
 
