@@ -121,6 +121,11 @@
       "canva"
       "mp3tag"
       "openzfs"
+      "textual"
+      "mediainfo"
+      "mediahuman-audio-converter"
+      "mediahuman-youtube-downloader"
+      "foobar2000"
     ];
   };
 
