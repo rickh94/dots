@@ -5,7 +5,6 @@
 , ...
 }: {
   imports = [
-    ../_common/default.nix
     ../../programs/neovim/basic.nix
     ../../programs/git.nix
     ../../programs/starship.nix
@@ -84,6 +83,24 @@
       du-dust
       bat
       duf
+
+      # basics
+      ffmpeg
+      kitty
+      tmux
+      killall
+      backblaze-b2
+
+      atuin
+
+      sccache
+      jq
+
+      # random
+      montserrat
+
+      imagemagick
+      smartmontools
     ];
   };
 
