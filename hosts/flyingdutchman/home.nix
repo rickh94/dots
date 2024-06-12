@@ -101,6 +101,7 @@
 
       imagemagick
       smartmontools
+      home-manager
     ];
   };
 
