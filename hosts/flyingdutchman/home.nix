@@ -40,7 +40,7 @@
       "${config.home.homeDirectory}/.cargo/bin"
       "${config.home.homeDirectory}/.local/bin"
       "${config.home.homeDirectory}/.config/composer/vendor/bin"
-      "$config.home.homeDirectory}/.nix-profile/bin"
+      "${config.home.homeDirectory}/.nix-profile/bin"
       "/nix/var/nix/profiles/system/bin"
       "/nix/var/nix/profiles/default/bin"
     ];
