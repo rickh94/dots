@@ -83,6 +83,9 @@
       du-dust
       bat
       duf
+      python3
+      python311Packages.pip
+      pipx
 
       # basics
       ffmpeg
