@@ -25,10 +25,6 @@
     source /etc/profile.d/nix-env.sh
   '';
 
-  programs.fish.shellInit = ''
-    source /etc/profile.d/nix-env.sh
-  '';
-
   xsession.profileExtra = ''
     source /etc/profile.d/nix-env.sh
   '';
@@ -39,10 +35,21 @@
 
   home = {
     stateVersion = "22.11";
+    sessionPath = [
+      "${config.home.homeDirectory}/go/bin"
+      "${config.home.homeDirectory}/.cargo/bin"
+      "${config.home.homeDirectory}/.local/bin"
+      "${config.home.homeDirectory}/.config/composer/vendor/bin"
+      "$config.home.homeDirectory}/.nix-profile/bin"
+      "/nix/var/nix/profiles/system/bin"
+      "/nix/var/nix/profiles/default/bin"
+    ];
     sessionVariables = {
       EDITOR = "nvim";
       MAKEFLAGS = "-j4";
       NIXPKGS_ALLOW_UNFREE = 1;
+      NIX_REMOTE = "daemon";
+      XDG_DATA_DIRS = "$HOME/.nix-profile/share:/nix/var/nix/profiles/default/share:$XDG_DATA_DIRS";
     };
 
     shellAliases = { };

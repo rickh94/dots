@@ -8,7 +8,6 @@
       du = "dust";
       ls = "eza";
       cat = "bat";
-      df = "lfs";
       grep = "rg";
       find = "fd";
       mkdir = "mkdir -p";
