@@ -17,6 +17,13 @@
 
   home = {
     stateVersion = "22.11";
+
+    sessionPath = [
+      "${config.home.homeDirectory}/go/bin"
+      "${config.home.homeDirectory}/.cargo/bin"
+      "${config.home.homeDirectory}/.local/bin"
+      "${config.home.homeDirectory}/.config/composer/vendor/bin"
+    ];
     sessionVariables = {
       EDITOR = "nvim";
       MAKEFLAGS = "-j4";

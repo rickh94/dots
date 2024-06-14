@@ -1,4 +1,4 @@
-{ ... }: {
+{ pkgs, ... }: {
   programs.fish = {
     enable = true;
     shellAliases = {
@@ -8,11 +8,46 @@
       du = "dust";
       ls = "eza";
       cat = "bat";
-      df = "lfs";
       grep = "rg";
       find = "fd";
       mkdir = "mkdir -p";
     };
+
+    plugins = [
+      {
+        name = "done";
+        src = pkgs.fishPlugins.done.src;
+      }
+      {
+        name = "foreign-env";
+        src = pkgs.fishPlugins.foreign-env.src;
+      }
+      {
+        name = "autopair";
+        src = pkgs.fishPlugins.autopair.src;
+      }
+      {
+        name = "fzf.fish";
+        src = pkgs.fishPlugins.fzf-fish.src;
+      }
+    ];
+
+    shellInit = ''
+      # nix
+      if test -e /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+          fenv source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+      end
+
+      # home-manager
+      if test -e /etc/profiles/per-user/$USER/etc/profile.d/hm-session-vars.sh
+          fenv source /etc/profiles/per-user/$USER/etc/profile.d/hm-session-vars.sh
+      end
+      # home-manager
+      if test -e $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh
+          fenv source $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh
+      end
+    '';
+
     interactiveShellInit =
       /*
       fish

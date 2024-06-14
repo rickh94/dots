@@ -99,7 +99,6 @@
       "handbrake"
       "musescore"
       "steam"
-      "gimp"
       "vlc"
       "brave-browser"
       "eloston-chromium"
