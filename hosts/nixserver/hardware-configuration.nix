@@ -12,6 +12,19 @@
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" "sg" ];
   boot.extraModulePackages = [ ];
+  boot.kernel.sysctl = {
+
+# allow TCP with buffers up to 128MB
+    "net.core.rmem_max" = 134217728; 
+    "net.core.wmem_max" = 134217728; 
+# increase TCP autotuning buffer limits.
+    "net.ipv4.tcp_rmem" = "4096 87380 67108864";
+    "net.ipv4.tcp_wmem" = "4096 65536 67108864";
+# recommended for hosts with jumbo frames enabled
+    "net.ipv4.tcp_mtu_probing" = 1;
+# recommended to enable 'fair queueing'
+    "net.core.default_qdisc" = "fq";
+  };
 
   ######## ZFS DATASET LAYOUT FOR ROOT DRIVE #######
   #  name          options          
@@ -34,6 +47,13 @@
     {
       device = "/dev/disk/by-label/BOOT";
       fsType = "vfat";
+    };
+
+  fileSystems."/mnt/linuxisos" =
+    {
+      device = "/dev/disk/by-label/LINUXISOS";
+      fsType = "btrfs";
+      options = ["noatime"];
     };
 
   fileSystems."/nix" =

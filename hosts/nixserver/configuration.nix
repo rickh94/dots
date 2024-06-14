@@ -67,6 +67,7 @@ in
     pkgs.vlc
     pkgs.rustdesk
     pkgs.xfce.xfce4-whiskermenu-plugin
+    pkgs.btrfs-progs
   ];
 
   users.users.jellyfin = {
@@ -598,6 +599,10 @@ in
           reverse_proxy 10.0.0.178:9117
           tls /var/lib/acme/rickhenry.xyz/cert.pem /var/lib/acme/rickhenry.xyz/key.pem
         '';
+        "qb.rickhenry.xyz".extraConfig = ''
+          reverse_proxy 10.0.0.178:8080
+          tls /var/lib/acme/rickhenry.xyz/cert.pem /var/lib/acme/rickhenry.xyz/key.pem
+        '';
         "kavita.rickhenry.xyz".extraConfig = ''
           reverse_proxy :5000
           tls /var/lib/acme/rickhenry.xyz/cert.pem /var/lib/acme/rickhenry.xyz/key.pem
@@ -651,6 +656,8 @@ in
           "/seerr.rickhenry.xyz/10.7.0.100"
           "/sonarr.rickhenry.xyz/10.7.0.100"
           "/radarr.rickhenry.xyz/10.7.0.100"
+          "/jackett.rickhenry.xyz/10.7.0.100"
+          "/qb.rickhenry.xyz/10.7.0.100"
           "/vault.rickhenry.xyz/10.7.0.100"
           "/prox.rickhenry.xyz/10.7.0.100"
           "/paper.rickhenry.xyz/10.7.0.100"
@@ -689,9 +696,16 @@ in
           "rpool"
           "backuptank"
           "vroom"
+          "spinny"
         ];
       };
     };
+    btrfs.autoScrub = {
+      enable = true;
+      interval = "weekly";
+      fileSystems = [ "/mnt/linuxisos" ];
+    };
+
 
     nfs.server = {
       enable = true;
@@ -705,8 +719,8 @@ in
         /backuptank/downloads 10.0.0.0/16(rw,sync,crossmnt,no_subtree_check,all_squash,anonuid=996,anongid=996)
         /vroom/blackhole 10.0.0.0/16(rw,sync,crossmnt,no_subtree_check,all_squash,anonuid=996,anongid=996)
         /vroom/books 10.0.0.0/16(rw,sync,crossmnt,no_subtree_check,all_squash,anonuid=996,anongid=996)
-        /opt/stash 10.0.0.0/16(rw,sync,crossmnt,no_subtree_check,all_squash,anonuid=996,anongid=996)
-        /spinny/scratch 10.0.0.0/16(rw,sync,crossmnt,no_subtree_check,all_squash,anonuid=996,anongid=996)
+        /opt/stash 10.0.0.0/16(rw,sync,crossmnt,no_subtree_check,all_squash,anonuid=996,anongid=100)
+        /mnt/linuxisos/seeds 10.0.0.0/16(rw,sync,crossmnt,no_subtree_check,all_squash,anonuid=996,anongid=100)
         /srv/rick 10.0.0.0/16(rw,sync,crossmnt,no_subtree_check,all_squash,anonuid=1000,anongid=100)
       '';
     };
