@@ -68,6 +68,16 @@ in
     pkgs.rustdesk
     pkgs.xfce.xfce4-whiskermenu-plugin
     pkgs.btrfs-progs
+    pkgs.lame
+    pkgs.flac
+    pkgs.id3v2
+    pkgs.fd
+    pkgs.calibre
+    pkgs.cuetools
+    pkgs.shntool
+    pkgs.wineWowPackages.stable
+    pkgs.vivaldi
+    pkgs.viu
   ];
 
   users.users.jellyfin = {
@@ -144,10 +154,35 @@ in
 
     jellyfin.enable = true;
     jellyfin.package = unstablePkgs.jellyfin;
-    kavita = {
+    # kavita = {
+    #   enable = true;
+    #   tokenKeyFile = "/persist/secrets/kavita-token";
+    #   user = "jellyfin";
+    # };
+
+    calibre-web = {
       enable = true;
-      tokenKeyFile = "/persist/secrets/kavita-token";
       user = "jellyfin";
+      group = "users";
+      options.calibreLibrary = "/vroom/media/calibre/"; 
+      # options.calibreLibrary = "/var/lib/calibre-web"; 
+      options.enableBookUploading = true;
+      options.enableBookConversion = true;
+      listen.port = 8083;
+      listen.ip = "0.0.0.0";
+    };
+
+    navidrome = {
+      enable = true;
+      user = "jellyfin";
+      group = "users";
+      settings = {
+        MusicFolder = "/vroom/media/music";
+        Port = 4533;
+        Address = "0.0.0.0";
+        AutoImporPlaylists = true;
+        EnableTranscodingConfig = true;
+      };
     };
 
     nextcloud = {
@@ -319,14 +354,14 @@ in
           target = "backuptank/host/vroom/media";
           recursive = true;
         };
-        "spinny/media" = {
-          target = "backuptank/host/spinny/media";
-          recursive = true;
-        };
-        "spinny/stash2" = {
-          target = "backuptank/host/spinny/stash2";
-          recursive = true;
-        };
+        # "spinny/media" = {
+        #   target = "backuptank/host/spinny/media";
+        #   recursive = true;
+        # };
+        # "spinny/stash2" = {
+        #   target = "backuptank/host/spinny/stash2";
+        #   recursive = true;
+        # };
         "vroom/nextcloud" = {
           target = "backuptank/host/vroom/nextcloud";
           recursive = true;
@@ -373,6 +408,7 @@ in
         "/vroom/media/music"
         "/backuptank/vw-backups"
         "/srv/git"
+        "/mnt/linuxisos/seeds/upload"
       ];
       exclude = [
         ".zfs"
@@ -408,6 +444,7 @@ in
         "/vroom/media/music"
         "/backuptank/vw-backups"
         "/srv/git"
+        "/mnt/linuxisos/seeds/upload"
       ];
       exclude = [
         ".zfs"
@@ -447,6 +484,10 @@ in
         hosts deny = 0.0.0.0/0
         guest account = nobody
         map to guest = bad user
+        mangled names = no
+        dos charset = UTF-8
+        unix charset = UTF-8
+        display charset = UTF-8
       '';
 
       shares = {
@@ -527,6 +568,17 @@ in
           "force group" = "jellyfin";
           "valid users" = "rick";
         };
+        "linuxisos" = {
+          path = "/mnt/linuxisos";
+          browseable = "yes";
+          "read only" = "no";
+          "guest ok" = "no";
+          "create mask" = "0644";
+          "directory mask" = "0755";
+          "force user" = "rick";
+          "force group" = "users";
+          "valid users" = "rick";
+        };
       };
     };
 
@@ -569,6 +621,18 @@ in
       virtualHosts = {
         "jelly.rickhenry.xyz".extraConfig = ''
           reverse_proxy :8096
+          tls /var/lib/acme/rickhenry.xyz/cert.pem /var/lib/acme/rickhenry.xyz/key.pem
+        '';
+        "navidrome.rickhenry.xyz".extraConfig = ''
+          reverse_proxy :4533
+          tls /var/lib/acme/rickhenry.xyz/cert.pem /var/lib/acme/rickhenry.xyz/key.pem
+        '';
+        "cb.rickhenry.xyz".extraConfig = ''
+          reverse_proxy :8001
+          tls /var/lib/acme/rickhenry.xyz/cert.pem /var/lib/acme/rickhenry.xyz/key.pem
+        '';
+        "calibre.rickhenry.xyz".extraConfig = ''
+          reverse_proxy localhost:8083
           tls /var/lib/acme/rickhenry.xyz/cert.pem /var/lib/acme/rickhenry.xyz/key.pem
         '';
         "stash.rickhenry.xyz".extraConfig = ''
@@ -653,6 +717,9 @@ in
           "/next.rickhenry.xyz/10.7.0.100"
           "/home.rickhenry.xyz/10.7.0.100"
           "/jelly.rickhenry.xyz/10.7.0.100"
+          "/navidrome.rickhenry.xyz/10.7.0.100"
+          "/calibre.rickhenry.xyz/10.7.0.100"
+          "/cb.rickhenry.xyz/10.7.0.100"
           "/seerr.rickhenry.xyz/10.7.0.100"
           "/sonarr.rickhenry.xyz/10.7.0.100"
           "/radarr.rickhenry.xyz/10.7.0.100"
@@ -720,7 +787,8 @@ in
         /vroom/blackhole 10.0.0.0/16(rw,sync,crossmnt,no_subtree_check,all_squash,anonuid=996,anongid=996)
         /vroom/books 10.0.0.0/16(rw,sync,crossmnt,no_subtree_check,all_squash,anonuid=996,anongid=996)
         /opt/stash 10.0.0.0/16(rw,sync,crossmnt,no_subtree_check,all_squash,anonuid=996,anongid=100)
-        /mnt/linuxisos/seeds 10.0.0.0/16(rw,sync,crossmnt,no_subtree_check,all_squash,anonuid=996,anongid=100)
+        /mnt/linuxisos/seeds 10.0.0.0/16(rw,sync,crossmnt,no_subtree_check,all_squash,anonuid=1000,anongid=100)
+        /mnt/linuxisos/extracted 10.0.0.0/16(rw,sync,crossmnt,no_subtree_check,all_squash,anonuid=996,anongid=100)
         /srv/rick 10.0.0.0/16(rw,sync,crossmnt,no_subtree_check,all_squash,anonuid=1000,anongid=100)
       '';
     };
@@ -729,6 +797,47 @@ in
       enable = true;
       openFirewall = true;
       relayIP = "127.0.0.1";
+    };
+ 
+   snapper = {
+      snapshotInterval = "hourly";
+      cleanupInterval = "1d";
+      configs = {
+        uploads = {
+          SUBVOLUME = "/mnt/linuxisos/seeds/upload";
+          TIMELINE_CREATE = true;
+          TIMELINE_CLEANUP = true;
+          TIMELINE_LIMIT_HOURLY = "10";
+          TIMELINE_LIMIT_DAILY = "7";
+          TIMELINE_LIMIT_WEEKLY = "2";
+          TIMELINE_LIMIT_MONTHLY = "0";
+          TIMELINE_LIMIT_YEARLY = "0";
+          BACKGROUND_COMPARISON = "yes";
+          NUMBER_CLEANUP = "no";
+          NUMBER_MIN_AGE = "1800";
+          NUMBER_LIMIT = "50";
+          NUMBER_LIMIT_IMPORTANT = "10";
+          EMPTY_PRE_POST_CLEANUP = "yes";
+          EMPTY_PRE_POST_MIN_AGE = "1800";
+        };
+        seeds = {
+          SUBVOLUME = "/mnt/linuxisos/seeds";
+          TIMELINE_CREATE = true;
+          TIMELINE_CLEANUP = true;
+          TIMELINE_LIMIT_HOURLY = "24";
+          TIMELINE_LIMIT_DAILY = "2";
+          TIMELINE_LIMIT_WEEKLY = "0";
+          TIMELINE_LIMIT_MONTHLY = "0";
+          TIMELINE_LIMIT_YEARLY = "0";
+          BACKGROUND_COMPARISON = "yes";
+          NUMBER_CLEANUP = "no";
+          NUMBER_MIN_AGE = "1800";
+          NUMBER_LIMIT = "50";
+          NUMBER_LIMIT_IMPORTANT = "10";
+          EMPTY_PRE_POST_CLEANUP = "yes";
+          EMPTY_PRE_POST_MIN_AGE = "1800";
+        };
+      };
     };
   };
 
@@ -882,7 +991,7 @@ in
 
   networking.firewall = {
     enable = true;
-    allowedTCPPorts = [ 22 53 8123 8096 8222 5357 80 443 111 2049 4000 4001 4002 20048 ];
+    allowedTCPPorts = [ 22 53 8123 8096 8222 5357 80 443 111 2049 4000 4001 4002 5201 20048 8083 8001 ];
     allowedUDPPorts = [ 53 5353 51820 5357 111 2049 4000 4001 4002 20048 ];
     extraCommands = ''iptables -t raw -A OUTPUT -p udp -m udp --dport 137 -j CT --helper netbios-ns'';
     allowPing = true;

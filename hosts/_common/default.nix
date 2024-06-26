@@ -77,6 +77,7 @@
 
       imagemagick
       smartmontools
+      viu
     ];
   };
 

@@ -14,6 +14,7 @@
     podman
     virt-manager
     virt-viewer
+    rename
   ];
 
   programs.home-manager.enable = true;
