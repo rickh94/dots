@@ -83,6 +83,7 @@
       "vercel-cli"
       "docker-credential-helper"
       "dos2unix"
+      "mpv"
     ];
     taps = [
       "FelixKratz/formulae"
@@ -125,6 +126,8 @@
       "mediahuman-audio-converter"
       "mediahuman-youtube-downloader"
       "foobar2000"
+      "jellyfin-media-player"
+      "iina"
     ];
   };
 

@@ -38,6 +38,7 @@
     podman-compose
     zsh
     xfce.xfce4-whiskermenu-plugin
+    vivaldi
   ];
   programs.zsh.enable = true;
 

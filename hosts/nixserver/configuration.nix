@@ -78,6 +78,7 @@ in
     pkgs.wineWowPackages.stable
     pkgs.vivaldi
     pkgs.viu
+    pkgs.mediainfo
   ];
 
   users.users.jellyfin = {
@@ -164,8 +165,8 @@ in
       enable = true;
       user = "jellyfin";
       group = "users";
-      options.calibreLibrary = "/vroom/media/calibre/"; 
-      # options.calibreLibrary = "/var/lib/calibre-web"; 
+      options.calibreLibrary = "/vroom/media/calibre/";
+      # options.calibreLibrary = "/var/lib/calibre-web";
       options.enableBookUploading = true;
       options.enableBookConversion = true;
       listen.port = 8083;
@@ -773,7 +774,6 @@ in
       fileSystems = [ "/mnt/linuxisos" ];
     };
 
-
     nfs.server = {
       enable = true;
       lockdPort = 4001;
@@ -798,8 +798,8 @@ in
       openFirewall = true;
       relayIP = "127.0.0.1";
     };
- 
-   snapper = {
+
+    snapper = {
       snapshotInterval = "hourly";
       cleanupInterval = "1d";
       configs = {
