@@ -181,7 +181,7 @@ in
         MusicFolder = "/vroom/media/music";
         Port = 4533;
         Address = "0.0.0.0";
-        AutoImporPlaylists = true;
+        AutoImporPlaylists = false;
         EnableTranscodingConfig = true;
       };
     };
