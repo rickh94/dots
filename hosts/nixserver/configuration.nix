@@ -79,6 +79,7 @@ in
     pkgs.vivaldi
     pkgs.viu
     pkgs.mediainfo
+    pkgs.sox
   ];
 
   users.users.jellyfin = {
@@ -145,6 +146,11 @@ in
   users.groups.prometheus.gid = 255;
 
   services = {
+    atuin = {
+      enable = true;
+      database.createLocally = true;
+      openRegistration = false;
+    };
     cloudflare-dyndns = {
       enable = true;
       apiTokenFile = "/persist/secrets/cloudflare-dyndns";
@@ -314,6 +320,16 @@ in
           autosnap = true;
           autoprune = true;
         };
+        "spinny/rick" = {
+          yearly = 0;
+          hourly = 12;
+          daily = 7;
+          weekly = 2;
+          monthly = 6;
+          recursive = true;
+          autosnap = true;
+          autoprune = true;
+        };
         "backuptank/vw-backups" = {
           yearly = 0;
           hourly = 12;
@@ -369,6 +385,10 @@ in
         };
         "vroom/rick" = {
           target = "backuptank/host/vroom/rick";
+          recursive = true;
+        };
+        "spinny/rick" = {
+          target = "backuptank/host/spinny/rick";
           recursive = true;
         };
         "vroom/vaultwarden" = {
@@ -707,6 +727,10 @@ in
           reverse_proxy http://localhost:13378
           tls /var/lib/acme/rickhenry.xyz/cert.pem /var/lib/acme/rickhenry.xyz/key.pem
         '';
+        "atuin.rickhenry.xyz".extraConfig = ''
+          reverse_proxy http://localhost:8888
+          tls /var/lib/acme/rickhenry.xyz/cert.pem /var/lib/acme/rickhenry.xyz/key.pem
+        '';
       };
     };
 
@@ -735,6 +759,7 @@ in
           "/kavita.rickhenry.xyz/10.7.0.100"
           "/lidarr.rickhenry.xyz/10.7.0.100"
           "/audio.rickhenry.xyz/10.7.0.100"
+          "/atuin.rickhenry.xyz/10.7.0.100"
         ];
       };
     };
@@ -803,30 +828,30 @@ in
       snapshotInterval = "hourly";
       cleanupInterval = "1d";
       configs = {
-        uploads = {
-          SUBVOLUME = "/mnt/linuxisos/seeds/upload";
-          TIMELINE_CREATE = true;
-          TIMELINE_CLEANUP = true;
-          TIMELINE_LIMIT_HOURLY = "10";
-          TIMELINE_LIMIT_DAILY = "7";
-          TIMELINE_LIMIT_WEEKLY = "2";
-          TIMELINE_LIMIT_MONTHLY = "0";
-          TIMELINE_LIMIT_YEARLY = "0";
-          BACKGROUND_COMPARISON = "yes";
-          NUMBER_CLEANUP = "no";
-          NUMBER_MIN_AGE = "1800";
-          NUMBER_LIMIT = "50";
-          NUMBER_LIMIT_IMPORTANT = "10";
-          EMPTY_PRE_POST_CLEANUP = "yes";
-          EMPTY_PRE_POST_MIN_AGE = "1800";
-        };
+        # uploads = {
+        #   SUBVOLUME = "/mnt/linuxisos/seeds/upload";
+        #   TIMELINE_CREATE = true;
+        #   TIMELINE_CLEANUP = true;
+        #   TIMELINE_LIMIT_HOURLY = "10";
+        #   TIMELINE_LIMIT_DAILY = "7";
+        #   TIMELINE_LIMIT_WEEKLY = "2";
+        #   TIMELINE_LIMIT_MONTHLY = "0";
+        #   TIMELINE_LIMIT_YEARLY = "0";
+        #   BACKGROUND_COMPARISON = "yes";
+        #   NUMBER_CLEANUP = "no";
+        #   NUMBER_MIN_AGE = "1800";
+        #   NUMBER_LIMIT = "50";
+        #   NUMBER_LIMIT_IMPORTANT = "10";
+        #   EMPTY_PRE_POST_CLEANUP = "yes";
+        #   EMPTY_PRE_POST_MIN_AGE = "1800";
+        # };
         seeds = {
           SUBVOLUME = "/mnt/linuxisos/seeds";
           TIMELINE_CREATE = true;
           TIMELINE_CLEANUP = true;
           TIMELINE_LIMIT_HOURLY = "24";
           TIMELINE_LIMIT_DAILY = "2";
-          TIMELINE_LIMIT_WEEKLY = "0";
+          TIMELINE_LIMIT_WEEKLY = "1";
           TIMELINE_LIMIT_MONTHLY = "0";
           TIMELINE_LIMIT_YEARLY = "0";
           BACKGROUND_COMPARISON = "yes";

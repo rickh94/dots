@@ -6,6 +6,7 @@
     ../_common/linux/minimal.nix
     ../../programs/neovim/basic.nix
     ../../programs/direnv/default.nix
+    ../../programs/atuin.nix
   ];
   home.username = "rick";
   home.homeDirectory = "/home/rick";
@@ -20,4 +21,5 @@
     MUS = "/vroom/media/music";
     SEED = "/mnt/linuxisos/seeds";
   };
+
 }
