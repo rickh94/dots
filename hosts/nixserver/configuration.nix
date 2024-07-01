@@ -80,6 +80,8 @@ in
     pkgs.viu
     pkgs.mediainfo
     pkgs.sox
+    pkgs.gptfdisk
+    pkgs.mktorrent
   ];
 
   users.users.jellyfin = {
@@ -414,6 +416,7 @@ in
       enable = true;
       systemCronJobs = [
         "0 4 * * * root sh -c 'zpool trim vroom'"
+        "0 5 * * * root sh -c 'rsync -aAX /mnt/linuxisos/seeds/upload /backuptank/host/linuxisos/upload"
       ];
     };
 
@@ -850,7 +853,7 @@ in
           TIMELINE_CREATE = true;
           TIMELINE_CLEANUP = true;
           TIMELINE_LIMIT_HOURLY = "24";
-          TIMELINE_LIMIT_DAILY = "2";
+          TIMELINE_LIMIT_DAILY = "1";
           TIMELINE_LIMIT_WEEKLY = "1";
           TIMELINE_LIMIT_MONTHLY = "0";
           TIMELINE_LIMIT_YEARLY = "0";
@@ -1016,7 +1019,7 @@ in
 
   networking.firewall = {
     enable = true;
-    allowedTCPPorts = [ 22 53 8123 8096 8222 5357 80 443 111 2049 4000 4001 4002 5201 20048 8083 8001 ];
+    allowedTCPPorts = [ 22 53 8123 8096 8222 5357 80 443 111 2049 4000 4001 4002 5201 20048 8083 8001 55110 ];
     allowedUDPPorts = [ 53 5353 51820 5357 111 2049 4000 4001 4002 20048 ];
     extraCommands = ''iptables -t raw -A OUTPUT -p udp -m udp --dport 137 -j CT --helper netbios-ns'';
     allowPing = true;
