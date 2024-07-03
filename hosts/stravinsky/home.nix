@@ -24,5 +24,6 @@
     pkgs.entr
     pkgs.rubik
     pkgs.emacs
+    pkgs.python311Packages.pipx
   ];
 }
