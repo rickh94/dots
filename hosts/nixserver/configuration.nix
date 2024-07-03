@@ -82,6 +82,7 @@ in
     pkgs.sox
     pkgs.gptfdisk
     pkgs.mktorrent
+    pkgs.rdfind
   ];
 
   users.users.jellyfin = {
@@ -408,6 +409,9 @@ in
         "backuptank" = {
           target = "external/backuptank";
           recursive = true;
+          extraArgs = [
+          "--delete-target-snapshots"
+          ];
         };
       };
     };

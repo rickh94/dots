@@ -29,7 +29,6 @@
       nodePackages.eslint
       nodePackages.stylelint
       nodePackages.jsonlint
-      nodePackages.pyright
       python311Packages.jedi
       python311Packages.rope
       python311Packages.pyflakes

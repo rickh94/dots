@@ -56,7 +56,7 @@
       go
       nodejs
       rustup
-      (python311.withPackages (ps: with ps; [ pip flake8 black requests django ]))
+      (python311.withPackages (ps: with ps; [ pip flake8 black requests pipx ]))
       poetry
       unstablePkgs.bun
 
