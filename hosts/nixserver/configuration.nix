@@ -1024,7 +1024,7 @@ in
 
   networking.firewall = {
     enable = true;
-    allowedTCPPorts = [ 22 53 8123 8096 8222 5357 80 443 111 2049 4000 4001 4002 5201 20048 8083 8001 55110 ];
+    allowedTCPPorts = [ 22 53 8123 8096 8222 5357 80 443 111 2049 4000 4001 4002 5201 20048 8083 8001 55110 5000 ];
     allowedUDPPorts = [ 53 5353 51820 5357 111 2049 4000 4001 4002 20048 ];
     extraCommands = ''iptables -t raw -A OUTPUT -p udp -m udp --dport 137 -j CT --helper netbios-ns'';
     allowPing = true;
