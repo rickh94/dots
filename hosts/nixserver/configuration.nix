@@ -410,7 +410,7 @@ in
           target = "external/backuptank";
           recursive = true;
           extraArgs = [
-          "--delete-target-snapshots"
+            "--delete-target-snapshots"
           ];
         };
       };
@@ -516,6 +516,7 @@ in
         dos charset = UTF-8
         unix charset = UTF-8
         display charset = UTF-8
+        veto files = /._*/.DS_Store/
       '';
 
       shares = {
