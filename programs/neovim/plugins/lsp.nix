@@ -126,8 +126,6 @@
           astro = {},
           eslint = {},
           pyright = {},
-          nil_ls = {
-          },
           -- pylsp = {
           --   plugins = {
           --     pyflakes = { enabled = false },
