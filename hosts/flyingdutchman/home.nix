@@ -67,7 +67,6 @@
       htop
       zstd
       pass
-      bash
       zsh
       pv
       netcat
@@ -101,7 +100,7 @@
       killall
       backblaze-b2
 
-      atuin
+      # atuin
 
       sccache
       jq

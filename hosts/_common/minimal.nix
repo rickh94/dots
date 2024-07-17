@@ -45,7 +45,6 @@
       htop
       zstd
       pass
-      bash
       zsh
       pv
       netcat
@@ -56,7 +55,7 @@
       go
       nodejs
       rustup
-      (python311.withPackages (ps: with ps; [ pip flake8 black requests pipx ]))
+      (python311.withPackages (ps: with ps; [ pip flake8 black ]))
       poetry
       unstablePkgs.bun
 

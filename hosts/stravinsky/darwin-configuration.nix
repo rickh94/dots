@@ -127,6 +127,7 @@
       "foobar2000"
       "jellyfin-media-player"
       "iina"
+      "zoom"
     ];
   };
 
