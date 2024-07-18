@@ -8,6 +8,7 @@
     ../_common/linux/minimal.nix
     ../../programs/neovim/basic.nix
     ../../programs/direnv/default.nix
+    ../../programs/hishtory.nix
     # ../../programs/atuin.nix
   ];
   home.username = "rick";
