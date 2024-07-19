@@ -128,6 +128,7 @@
       "jellyfin-media-player"
       "iina"
       "zoom"
+      "maccy"
     ];
   };
 
