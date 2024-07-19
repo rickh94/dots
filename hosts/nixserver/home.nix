@@ -24,4 +24,14 @@
     MUS = "/vroom/media/music";
     SEED = "/mnt/linuxisos/seeds";
   };
+
+  home.packages = [
+    pkgs.fswatch
+    pkgs.entr
+    pkgs.rubik
+    pkgs.emacs
+    pkgs.python311Packages.pipx
+    pkgs.jpegoptim
+    pkgs.oxipng
+  ];
 }
