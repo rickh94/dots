@@ -23,7 +23,6 @@
     pkgs.ntfsprogs
     pkgs.prismlauncher
     pkgs.nvtopPackages.nvidia
-    pkgs.nvtopPackages.nvtop
   ];
 
   programs.rofi.enable = true;
