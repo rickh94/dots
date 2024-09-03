@@ -22,7 +22,7 @@
     pkgs.steam
     pkgs.ntfsprogs
     pkgs.prismlauncher
-    pkgs.nvtopPackages.nvtop-nvidia
+    pkgs.nvtopPackages.nvidia
     pkgs.nvtopPackages.nvtop
   ];
 
