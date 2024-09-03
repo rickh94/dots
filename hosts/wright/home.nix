@@ -23,6 +23,10 @@
     pkgs.ntfsprogs
     pkgs.prismlauncher
     pkgs.nvtopPackages.nvidia
+    pkgs.temurin-jre-bin-8
+    pkgs.temurin-jre-bin-20
+    pkgs.temurin-jre-bin-17
+    pkgs.temurin-jre-bin-11
   ];
 
   programs.rofi.enable = true;
