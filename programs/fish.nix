@@ -54,11 +54,11 @@
       */
       ''
         fish_vi_key_bindings
-        if test -e $HOME/.hishtory/config.fish
-          fzf_configure_bindings --history=
-          source $HOME/.hishtory/config.fish
-          bind -M insert \cr __hishtory_on_control_r
-        end
+        # if test -e $HOME/.hishtory/config.fish
+        #   fzf_configure_bindings --history=
+        #   source $HOME/.hishtory/config.fish
+        #   bind -M insert \cr __hishtory_on_control_r
+        # end
       '';
 
     functions = {
