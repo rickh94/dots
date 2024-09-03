@@ -39,6 +39,7 @@
     zsh
     xfce.xfce4-whiskermenu-plugin
     vivaldi
+    ntfsprogs
   ];
   programs.zsh.enable = true;
 
