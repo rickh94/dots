@@ -23,9 +23,6 @@
     pkgs.ntfsprogs
     pkgs.prismlauncher
     pkgs.nvtopPackages.nvidia
-    pkgs.zulu8
-    pkgs.zulu17
-    pkgs.zulu21
   ];
 
   programs.rofi.enable = true;
