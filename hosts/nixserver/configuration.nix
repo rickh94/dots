@@ -6,6 +6,7 @@
 }:
 let
   impermanence = builtins.fetchTarball "https://github.com/nix-community/impermanence/archive/master.tar.gz";
+  secrets = import ./secrets.nix { };
 in
 {
   imports = [
@@ -83,6 +84,7 @@ in
     pkgs.gptfdisk
     pkgs.mktorrent
     pkgs.rdfind
+    pkgs.puddletag
   ];
 
   users.users.jellyfin = {
@@ -192,6 +194,11 @@ in
         Address = "0.0.0.0";
         AutoImportPlaylists = false;
         EnableTranscodingConfig = true;
+        "LastFM.Enabled" = true;
+        "LastFM.ApiKey" = secrets.navidrome.lastfm.apikey;
+        "LastFM.Secret" = secrets.navidrome.lastfm.secret;
+        "Spotify.ID" = secrets.navidrome.spotify.clientid;
+        "Spotify.Secret" = secrets.navidrome.spotify.clientsecret;
       };
     };
 

@@ -15,6 +15,7 @@
     virt-manager
     virt-viewer
     rename
+    trash-cli
   ];
 
   programs.home-manager.enable = true;
