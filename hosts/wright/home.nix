@@ -19,6 +19,10 @@
     pkgs.feh
     pkgs.xorg.xmodmap
     inputs.codeium.packages.x86_64-linux.codeium-lsp
+    pkgs.steam
+    pkgs.ntfsprogs
+    pkgs.prismlauncher
+    pkgs.nvtopPackages.nvidia
   ];
 
   programs.rofi.enable = true;

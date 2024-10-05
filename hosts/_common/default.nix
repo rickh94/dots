@@ -11,7 +11,7 @@
     ../../programs/direnv/default.nix
     ../../programs/tmux.nix
     # ../../programs/atuin.nix
-    ../../programs/hishtory.nix
+    # ../../programs/hishtory.nix
     ../../programs/sqlite.nix
   ];
 
