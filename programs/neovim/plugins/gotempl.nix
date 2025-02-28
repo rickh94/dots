@@ -1,7 +1,4 @@
-{ unstablePkgs
-, codeium-lsp
-, ...
-}:
+{ unstablePkgs, ... }:
 let
   tree-sitter-templ = unstablePkgs.vimUtils.buildVimPlugin {
     pname = "tree-sitter-templ";

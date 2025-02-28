@@ -32,7 +32,6 @@ in
     ];
 
     extraPackages = with unstablePkgs; [
-      alejandra
       black
       djlint
       isort
@@ -89,10 +88,11 @@ in
               yaml = { "yamlfmt", },
               javascript = { "prettier", "rustywind" },
               typescript = { "prettier", "rustywind" },
+              markdown = { "prettier", "rustywind" },
               javascriptreact = { "prettier" },
               typescriptreact = { "prettier" },
               html = { "prettier", "rustywind", },
-              css = { "prettier", "stylelint" },
+              css = { "prettier" },
               toml = { "taplo", },
               templ = { "rustywind", "templfmt" },
               -- sql = { "sqlfluff" },
@@ -100,9 +100,10 @@ in
             },
           })
 
-          require('which-key').register({
-            f = { '<cmd>Format<cr>', 'Format' }
-          }, { prefix = '<leader>', mode = 'n' })
+          require('which-key').add({
+            mode = 'n',
+            {'<leader>f', '<cmd>Format<cr>', desc = 'format'}
+          })
       '';
   };
 }

@@ -39,7 +39,7 @@
       unstablePkgs.atlas
       # ngrok
       gh
-      bacon
+      unstablePkgs.bacon
       cargo-expand
       microserver
       git-lfs
@@ -49,7 +49,7 @@
       cargo-watch
       proselint
       backblaze-b2
-      poetry
+      # unstablePkgs.poetry
       mypy
       unstablePkgs.bun
       devenv.packages.${pkgs.system}.devenv
@@ -80,6 +80,10 @@
       imagemagick
       smartmontools
       viu
+
+      # audio
+      flac
+      sox
     ];
   };
 

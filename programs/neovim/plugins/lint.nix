@@ -1,17 +1,13 @@
-{ unstablePkgs
-, lib
-, pkgs
-, config
-, ...
-}: {
+{ unstablePkgs, lib, ... }:
+{
   programs.neovim = {
-    plugins = with unstablePkgs.vimPlugins; [
-      nvim-lint
-    ];
+    plugins = with unstablePkgs.vimPlugins;
+      [
+        nvim-lint
+      ];
 
     extraPackages = with unstablePkgs; [
       mypy
-      ruff
       stylelint
       php83Packages.php-cs-fixer
       nodePackages.jsonlint
@@ -28,14 +24,14 @@
     extraLuaConfig =
       /*
       lua
-      */
+        */
       ''
         require('lint').linters_by_ft = {
           css = {
             'stylelint'
           },
           htmldjango = {
-            'djlint', 'curlylint',
+            'djlint', 'codespell'
           },
           json = {
             'jsonlint',
@@ -43,9 +39,15 @@
           sql = {
             'sqlfluff',
           },
-          ['*'] = {
-            'codespell', 'alex', 'proselint', 'write-good'
-          }
+          html = {
+            'codespell', 'proselint'
+          },
+          markdown = {
+            'codespell', 'proselint'
+          },
+          txt = {
+            'codespell', 'proselint'
+          },
         }
 
         vim.api.nvim_create_autocmd({ "BufWritePost" }, {

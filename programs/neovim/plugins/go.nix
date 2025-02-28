@@ -13,7 +13,7 @@ in
   programs.neovim = {
     plugins = with unstablePkgs.vimPlugins; [
       go-nvim
-      guihua
+      # guihua
     ];
 
     extraLuaConfig =
