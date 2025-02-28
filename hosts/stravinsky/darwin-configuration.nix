@@ -52,6 +52,7 @@
 
   fonts = {
     packages = [
+      pkgs.libre-baskerville
       (pkgs.nerdfonts.override { fonts = chosenfonts; })
     ];
   };
@@ -65,7 +66,6 @@
     };
     brews = [
       "macos-trash"
-      "handbrake"
       "libiconv"
       "nss"
       "lilypond"
@@ -83,6 +83,10 @@
       "docker-credential-helper"
       "dos2unix"
       "mpv"
+      "litestream"
+      "poetry"
+      "avr-binutils"
+      "avrdude"
     ];
     taps = [
       "FelixKratz/formulae"
@@ -92,8 +96,14 @@
       "chiselstrike/tap"
       "mongodb/brew"
       "libsql/sqld"
+      "benbjohnson/litestream"
+      "osx-cross/avr"
     ];
     casks = [
+      "proton-mail"
+      "steam"
+      "protonvpn"
+      "proton-drive"
       "sf-symbols"
       "firefox"
       "handbrake"
@@ -111,7 +121,6 @@
       "inkscape"
       "temurin8"
       "opera"
-      "amethyst"
       "iterm2"
       "wezterm"
       "arc"
@@ -129,6 +138,8 @@
       "iina"
       "zoom"
       "maccy"
+      "discord"
+      "zen-browser"
     ];
   };
 

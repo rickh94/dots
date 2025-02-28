@@ -142,10 +142,10 @@
             },
           },
         })
-        require('which-key').register({
-          -- NVIM TREE KEYBINDS
-          ['-'] = { '<cmd>Oil<cr>', 'Open Parent Directory' },
-        }, { mode = 'n',  })
+        require('which-key').add({
+          mode = 'n',
+          {'-', '<cmd>Oil<cr>', desc = 'Open Parent Directory' }
+        })
       '';
   };
 }

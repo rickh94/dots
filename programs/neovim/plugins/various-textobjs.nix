@@ -20,7 +20,7 @@ in
       lua
       */
       ''
-        require("various-textobjs").setup({ useDefaultKeymaps = true })
+        require("various-textobjs").setup({ keymaps = { useDefaults = true }})
       '';
   };
 }

@@ -65,8 +65,11 @@
         vim.o.scrolloff = 8
 
         vim.o.wrap = false
-        vim.o.nowrap = true
         vim.o.cursorline = true
+
+        vim.diagnostic.Opts = {
+	  update_in_insert = true
+	}
 
 
         -- highlight on yank
@@ -87,52 +90,55 @@
 
         local wk = require('which-key')
 
-        wk.register({
+        wk.add({
+        {
           -- close buffer
-          X = { '<cmd>bp<bar>sp<bar>bn<bar>bd<CR>', 'Close current buffer' },
-          W = { '<cmd>wa<CR>', 'Save all buffers' },
-          w = { '<cmd>w<CR>', 'Save current buffer' },
-        }, { prefix = '<leader>', mode = 'n' })
-
+          mode = 'n',
+          { '<leader>X', '<cmd>bp<bar>sp<bar>bn<bar>bd<CR>', desc = 'Close current buffer' },
+          {'<leader>W', '<cmd>wa<CR>', desc = 'Save all buffers' },
+          {'<leader>w', '<cmd>w<CR>', desc = 'Save current buffer' },
+        },
 
         -- DIAGNOSTICS
-        wk.register({
-          ['['] = {
-            d = { vim.diagnostic.goto_prev, "Previous diagnostic" },
-          },
-          [']'] = {
-            d = { vim.diagnostic.goto_next, "Next diagnostic" },
-          },
-          ['<leader>'] = {
-            d = { function() vim.diagnostic.open_float() end, "Open Diagnostic" },
-          },
-        }, { mode = 'n' })
+        {
+          mode = 'n',
+          group = 'diagnostics',
+          {'[d', vim.diagnostic.goto_prev, desc = "Previous diagnostic" },
+          {']d', vim.diagnostic.goto_next, desc = "Next diagnostic" },
+          {'<leader>d',  function() vim.diagnostic.open_float() end, desc = "Open Diagnostic" },
+        },
 
         -- REBINDS
-        wk.register({
-          ['<C-d>'] = { '<C-d>zz', "Half page jump with cursor in center" },
-          ['<C-u>'] = { '<C-u>zz', "Half page jump with cursor in center" },
-          n = { 'nzzzv', "Next search result with cursor in middle" },
-          N = { 'Nzzzv', "Previous search result with cursor in middle" },
-        }, { mode = 'n' })
+        {
+          mode = 'n',
+          { '<C-d>', '<C-d>zz', desc = "Half page jump down with cursor in center" },
+          { '<C-u>', '<C-u>zz', desc = "Half page jump up with cursor in center" },
+          { 'n', 'nzzzv', desc = "Next search result with cursor in middle" },
+          { 'N', 'Nzzzv', desc = "Previous search result with cursor in middle" },
+        },
 
-        wk.register({
-          p = { '"_dP', "Paste over selection without losing current register" }
-        }, { mode = 'x', prefix = '<leader>' })
+        {
+          mode = 'x',
+          { '<leaver>p', '"_dP', desc = "Paste over selection without losing current register" }
+        },
 
-        wk.register({
-          y = { '"+y', "Yank into system keyboard" },
-          Y = { '"+Y', "Yank line into system keyboard" },
-          P = { '"+p', "Paste from system keyboard" },
-        }, { mode = { 'n', 'v' }, prefix = '<leader>' })
+        {
+          mode = {'n', 'v'},
+          { '<leader>y', '"+y', desc = "Yank into system keyboard" },
+          { '<leader>Y', '"+Y', desc = "Yank line into system keyboard" },
+          { '<leader>P', '"+p', desc = "Paste from system keyboard" },
+        },
 
         -- VISUAL MODE KEYBINDS
-        wk.register({
-          ['>'] = { '>gv', 'Indent without deselecting' },
-          ['<'] = { '<gv', 'Unindent without deselecting' },
-          J = { ":m '>+1<cr>gv=gv", "Drag lines in visual mode" },
-          K = { ":m '<-2<cr>gv=gv", "Drag lines in visual mode" },
-        }, { mode = 'v' })
+        {
+          mode = 'v',
+          group = 'visual mode',
+          { '>', '>gv', desc = 'Indent without deselecting' },
+          { '<', '<gv', desc = 'Unindent without deselecting' },
+          { 'J', ":m '>+1<cr>gv=gv", desc = "Drag lines in visual mode" },
+          { 'K', ":m '<-2<cr>gv=gv", desc = "Drag lines in visual mode" },
+        },
+        })
 
         -- some filetype defaults
         local twotrue = { 2, true }
@@ -149,6 +155,7 @@
           ['*.astro'] = twotrue,
           ['*.py'] = { 4, true },
           ['*.c'] = { 8, false },
+          ['*.ino'] = { 8, false },
           ['*.ly'] = { 2, false },
           ['*.ily'] = twotrue,
           ['*.nix'] = twotrue,

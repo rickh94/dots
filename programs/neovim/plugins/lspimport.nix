@@ -1,4 +1,4 @@
-{ unstablePkgs, codeium-lsp, ... }:
+{ unstablePkgs, ... }:
 let
   lspimport = unstablePkgs.vimUtils.buildVimPlugin {
     pname = "lspimport";
@@ -10,16 +10,18 @@ let
   };
 in
 {
-
   programs.neovim = {
     plugins = [
       lspimport
     ];
     extraPackages = [
     ];
-    extraLuaConfig = /* lua */ ''
-      --      vim.keymap.set('n', '<leader>a', require('lspimport').import, { noremap = true })
-    '';
+    extraLuaConfig =
+      /*
+      lua
+      */
+      ''
+        vim.keymap.set('n', '<leader>i', require('lspimport').import, { noremap = true })
+      '';
   };
 }
-

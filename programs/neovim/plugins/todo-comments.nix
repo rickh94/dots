@@ -1,20 +1,19 @@
-{ unstablePkgs, ... }:
-{
+{ unstablePkgs, ... }: {
   programs.neovim = {
     plugins = with unstablePkgs.vimPlugins; [
       todo-comments-nvim
     ];
 
-    extraLuaConfig = /* lua */ ''
-      require('todo-comments').setup()
-      require('which-key').register({
-        -- SEARCH AND TELESCOPE KEYBINDS
-        s = {
-          name = "+Search",
-          t = { '<cmd>TodoTelescope<cr>', 'Search Todos' },
-        },
-      }, { prefix = '<leader>', mode = 'n' })
-    '';
-
+    extraLuaConfig =
+      /*
+      lua
+      */
+      ''
+        require('todo-comments').setup()
+        require('which-key').add({
+          mode = 'n',
+          { '<leader>st', '<cmd>TodoTelescope<cr>', desc = "Search Todos"}
+        })
+      '';
   };
 }

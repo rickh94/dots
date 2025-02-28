@@ -1,18 +1,7 @@
-{ unstablePkgs, ... }:
-let
-  cyberdream-nvim = unstablePkgs.vimUtils.buildVimPlugin {
-    pname = "cyberdream-nvim";
-    version = "HEAD";
-    src = builtins.fetchGit {
-      url = "https://github.com/scottmckendry/cyberdream.nvim";
-      ref = "HEAD";
-    };
-  };
-in
-{
+{ pkgs, ... }: {
   programs.neovim = {
     plugins = [
-      cyberdream-nvim
+      pkgs.vimPlugins.cyberdream-nvim
     ];
     extraPackages = [
     ];
@@ -26,12 +15,10 @@ in
             transparent = true,
             italic_comments = true,
             hide_fillchars = true,
-            borderless_telescope = true,
-            theme = {
-              highlights = {
-                LineNr = { fg = "#5ea1ff" },
-                CursorLineNr = { fg = "#5ef1ff" },
-              },
+            borderless_pickers = false,
+            highlights = {
+              LineNr = { fg = "#5ea1ff" },
+              CursorLineNr = { fg = "#5ef1ff" },
             }
         })
         vim.cmd.colorscheme("cyberdream") -- set the colorscheme

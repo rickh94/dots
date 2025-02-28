@@ -10,7 +10,6 @@
     ./plugins/comment.nix
     ./plugins/format.nix
     ./plugins/guess-indent.nix
-    ./plugins/harpoon.nix
     ./plugins/lint.nix
     ./plugins/lsp.nix
     ./plugins/cmp.nix
