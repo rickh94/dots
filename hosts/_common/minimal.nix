@@ -56,7 +56,7 @@
       nodejs
       rustup
       (python311.withPackages (ps: with ps; [ pip flake8 black ]))
-      poetry
+      unstablePkgs.poetry
       unstablePkgs.bun
 
       # rust replacements

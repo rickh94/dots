@@ -25,6 +25,7 @@ in
     ];
 
     extraPackages = with unstablePkgs; [
+      unstablePkgs.openscad-lsp
       gopls
       # rust-analyzer
       nodePackages.typescript
@@ -42,18 +43,18 @@ in
       nodePackages.eslint
       nodePackages.stylelint
       nodePackages.jsonlint
-      python311Packages.jedi
-      python311Packages.rope
-      python311Packages.pyflakes
-      python311Packages.pycodestyle
-      python311Packages.mccabe
-      python311Packages.python-lsp-server
-      python311Packages.pylsp-rope
-      python311Packages.pylsp-mypy
-      python311Packages.python-lsp-black
-      python311Packages.pyls-isort
-      python311Packages.pyls-flake8
-      python311Packages.python-lsp-ruff
+      # python312Packages.jedi
+      # python312Packages.rope
+      # python312Packages.pyflakes
+      # python312Packages.pycodestyle
+      # python312Packages.mccabe
+      # python312Packages.python-lsp-server
+      # python312Packages.pylsp-rope
+      # python312Packages.pylsp-mypy
+      # python312Packages.python-lsp-black
+      # python312Packages.pyls-isort
+      # python312Packages.pyls-flake8
+      # python312Packages.python-lsp-ruff
       coreutils-full
       wget
       gnutar
@@ -182,7 +183,33 @@ in
           --     enable = false,
           --   },
           -- },
-          ts_ls = {},
+          ts_ls = {
+            typescript = {
+              inlayHints = {
+                includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all'
+                includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+                includeInlayVariableTypeHints = true,
+                includeInlayFunctionParameterTypeHints = true,
+                includeInlayVariableTypeHintsWhenTypeMatchesName = true,
+                includeInlayPropertyDeclarationTypeHints = true,
+                includeInlayFunctionLikeReturnTypeHints = true,
+                includeInlayEnumMemberValueHints = true,
+              },
+            },
+            javascript = {
+              inlayHints = {
+                includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all'
+                includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+                includeInlayVariableTypeHints = true,
+
+                includeInlayFunctionParameterTypeHints = true,
+                includeInlayVariableTypeHintsWhenTypeMatchesName = true,
+                includeInlayPropertyDeclarationTypeHints = true,
+                includeInlayFunctionLikeReturnTypeHints = true,
+                includeInlayEnumMemberValueHints = true,
+              },
+            },
+          },
           intelephense = {
             capabilities = capabilities,
             intelephense = {
@@ -276,6 +303,11 @@ in
             })
           end,
         })
+        require('lspconfig').openscad_lsp.setup({
+          cmd =  { "${unstablePkgs.openscad-lsp}/bin/openscad-lsp", "--stdio" },
+          on_attach = on_attach,
+          capabilities = capabilities,
+        })
 
         -- require('tailwindcss-colors').setup()
         require('lspconfig').tailwindcss.setup({
@@ -302,13 +334,13 @@ in
           },
           filetypes = tw_filetypes,
         })
-        require('lspconfig').bacon_ls.setup({
-          init_options = {
-            updateOnSave = true,
-            updateOnSaveWaitMillis = 1000,
-            updateOnChange = false,
-          },
-        })
+        -- require('lspconfig').bacon_ls.setup({
+        --   init_options = {
+        --     updateOnSave = true,
+        --     updateOnSaveWaitMillis = 1000,
+        --     updateOnChange = false,
+        --   },
+        -- })
 
         -- require("typescript-tools").setup {
         --   on_attach = on_attach,

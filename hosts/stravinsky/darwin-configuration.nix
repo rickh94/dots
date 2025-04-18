@@ -15,7 +15,7 @@
     pkgs.alacritty
     pkgs.git
     pkgs.curl
-    pkgs.python311Full
+    pkgs.python312Full
   ];
 
   environment.systemPath = [
@@ -65,7 +65,6 @@
       cleanup = "none";
     };
     brews = [
-      "macos-trash"
       "libiconv"
       "nss"
       "lilypond"
@@ -119,7 +118,7 @@
       "karabiner-elements"
       "nextcloud"
       "inkscape"
-      "temurin8"
+      # "temurin8"
       "opera"
       "iterm2"
       "wezterm"
@@ -140,19 +139,21 @@
       "maccy"
       "discord"
       "zen-browser"
+      "orcaslicer"
+      "freecad"
     ];
   };
 
   home-manager.useUserPackages = true;
   home-manager.useGlobalPkgs = true;
 
-  services.redis = {
-    enable = true;
-    bind = "127.0.0.1";
-    port = 6379;
-    package = pkgs.redis;
-    dataDir = "/Users/rick/.local/state/redis";
-  };
+  # services.redis = {
+  #   enable = true;
+  #   bind = "127.0.0.1";
+  #   port = 6379;
+  #   package = pkgs.redis;
+  #   dataDir = "/Users/rick/.local/state/redis";
+  # };
 
   services.dnsmasq = {
     enable = true;

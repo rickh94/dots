@@ -90,7 +90,7 @@
       bat
       duf
       python3
-      python311Packages.pip
+      python312Packages.pip
       pipx
 
       # basics

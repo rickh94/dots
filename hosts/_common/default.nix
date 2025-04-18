@@ -10,10 +10,11 @@
     ./minimal.nix
     ../../programs/direnv/default.nix
     ../../programs/tmux.nix
-    # ../../programs/atuin.nix
+    ../../programs/atuin.nix
     # ../../programs/hishtory.nix
     ../../programs/sqlite.nix
   ];
+  programs.thefuck.enable = true;
 
   home = {
     sessionPath = [
@@ -59,14 +60,17 @@
       elixir
       php
       ocaml
+      pypy3
 
       # music
       audacity
 
       # rust replacements
       tokei
-      # atuin
+      atuin
       # hishtory
+      dfrs
+      procs
 
       # communication
 
@@ -84,6 +88,7 @@
       # audio
       flac
       sox
+      # unstablePkgs.openscad-unstable
     ];
   };
 

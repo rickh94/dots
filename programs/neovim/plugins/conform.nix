@@ -39,7 +39,7 @@ in
       nodePackages.prettier
       rustywind
       taplo
-      python311Packages.mdformat
+      python312Packages.mdformat
       nixpkgs-fmt
       stylelint
       yamlfmt

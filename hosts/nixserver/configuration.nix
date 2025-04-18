@@ -746,6 +746,10 @@ in
           reverse_proxy http://localhost:8888
           tls /var/lib/acme/rickhenry.xyz/cert.pem /var/lib/acme/rickhenry.xyz/key.pem
         '';
+        "printer.rickhenry.xyz".extraConfig = ''
+          reverse_proxy http://10.0.0.159
+          tls /var/lib/acme/rickhenry.xyz/cert.pem /var/lib/acme/rickhenry.xyz/key.pem
+        '';
       };
     };
 
