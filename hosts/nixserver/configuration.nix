@@ -66,7 +66,6 @@ in
     pkgs.intel-compute-runtime
     pkgs.iperf
     pkgs.vlc
-    pkgs.rustdesk
     pkgs.xfce.xfce4-whiskermenu-plugin
     pkgs.btrfs-progs
     pkgs.lame
@@ -204,7 +203,7 @@ in
 
     nextcloud = {
       enable = true;
-      package = pkgs.nextcloud29;
+      package = pkgs.nextcloud30;
       hostName = "localhost";
       https = true;
       settings = {
@@ -413,13 +412,13 @@ in
           target = "backuptank/host/vroom/paperless";
           recursive = true;
         };
-        "backuptank" = {
-          target = "external/backuptank";
-          recursive = true;
-          extraArgs = [
-            "--delete-target-snapshots"
-          ];
-        };
+        # "backuptank" = {
+        #   target = "external/backuptank";
+        #   recursive = true;
+        #   extraArgs = [
+        #     "--delete-target-snapshots"
+        #   ];
+        # };
       };
     };
 
@@ -506,27 +505,21 @@ in
     samba = {
       openFirewall = true;
       enable = true;
-      securityType = "user";
-      extraConfig = ''
-        workgroup = WORKGROUP
-        server string = albanberg
-        netbios name = albanberg
-        security = user
-        #use sendfile = yes
-        #max protocol = smb2
-        # note: localhost is the ipv6 localhost ::1
-        hosts allow = 10.0.1. 10.7.0. 127.0.0.1 localhost
-        hosts deny = 0.0.0.0/0
-        guest account = nobody
-        map to guest = bad user
-        mangled names = no
-        dos charset = UTF-8
-        unix charset = UTF-8
-        display charset = UTF-8
-        veto files = /._*/.DS_Store/
-      '';
-
-      shares = {
+      settings = {
+        global = {
+          security = "user";
+          workgroup = "WORKGROUP";
+          "server string" = "albanberg";
+          "hosts allow" = "10.0.1. 10.7.0. 127.0.0.1 localhost";
+          "hosts deny" = "0.0.0.0/0";
+          "guest account" = "nobody";
+          "map to guest" = "bad user";
+          "mangled names" = "no";
+          "dos charset" = "UTF-8";
+          "unix charset" = "UTF-8";
+          "display charset" = "UTF-8";
+          "veto files" = "/._*/.DS_Store/";
+        };
         rick = {
           path = "/srv/rick";
           browseable = "yes";
@@ -616,6 +609,7 @@ in
           "valid users" = "rick";
         };
       };
+
     };
 
     vaultwarden = {
@@ -746,9 +740,11 @@ in
           reverse_proxy http://localhost:8888
           tls /var/lib/acme/rickhenry.xyz/cert.pem /var/lib/acme/rickhenry.xyz/key.pem
         '';
-        "printer.rickhenry.xyz".extraConfig = ''
-          reverse_proxy http://10.0.0.159
-          tls /var/lib/acme/rickhenry.xyz/cert.pem /var/lib/acme/rickhenry.xyz/key.pem
+        "http://printer.rickhenry.xyz".extraConfig = ''
+          reverse_proxy / 10.0.0.159 {
+            transparent
+            websocket
+          }
         '';
       };
     };
@@ -779,6 +775,7 @@ in
           "/lidarr.rickhenry.xyz/10.7.0.100"
           "/audio.rickhenry.xyz/10.7.0.100"
           "/atuin.rickhenry.xyz/10.7.0.100"
+          "/printer.rickhenry.xyz/10.7.0.100"
         ];
       };
     };
@@ -837,11 +834,6 @@ in
       '';
     };
 
-    rustdesk-server = {
-      enable = true;
-      openFirewall = true;
-      relayIP = "127.0.0.1";
-    };
 
     snapper = {
       snapshotInterval = "hourly";
@@ -961,7 +953,7 @@ in
   nixpkgs.config.packageOverrides = pkgs: {
     vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
   };
-  hardware.opengl = {
+  hardware.graphics = {
     enable = true;
     extraPackages = with pkgs; [
       intel-media-driver
@@ -1044,7 +1036,7 @@ in
   boot.zfs.extraPools = [
     "backuptank"
     "vroom"
-    "external"
+    # "external"
     "spinny"
   ];
 

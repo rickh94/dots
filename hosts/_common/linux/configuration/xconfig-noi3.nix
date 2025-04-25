@@ -1,8 +1,8 @@
 { pkgs, ... }: {
+  services.displayManager.defaultSession = "xfce";
   services.xserver = {
     enable = true;
     displayManager = {
-      defaultSession = "xfce";
       lightdm = {
         enable = true;
         greeters.slick.enable = true;
