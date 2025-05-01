@@ -40,6 +40,7 @@
     xfce.xfce4-whiskermenu-plugin
     vivaldi
     ntfsprogs
+    bottles
   ];
   programs.zsh.enable = true;
 

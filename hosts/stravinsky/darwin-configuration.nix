@@ -84,8 +84,8 @@
       "mpv"
       "litestream"
       "poetry"
-      "avr-binutils"
-      "avrdude"
+      #     "avr-binutils"
+      #"avrdude"
     ];
     taps = [
       "FelixKratz/formulae"

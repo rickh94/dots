@@ -6,7 +6,7 @@
 }: {
   imports = [
     ../_common/desktop.nix
-    ../_common/linux/default.nix
+    ../_common/linux/desktop.nix
     ../../programs/neovim/full-default.nix
   ];
   home.stateVersion = "22.11";
@@ -18,7 +18,6 @@
     pkgs.xdotool
     pkgs.feh
     pkgs.xorg.xmodmap
-    inputs.codeium.packages.x86_64-linux.codeium-lsp
     pkgs.steam
     pkgs.ntfsprogs
     pkgs.prismlauncher
@@ -27,4 +26,8 @@
 
   programs.rofi.enable = true;
   systemd.user.startServices = true;
+  xfce4-keyboard-shortcuts = {
+    "commands/custom/&lt;Super&gt;space" =
+      "${pkgs.rofi}/bin/rofi -show run";
+  };
 }
