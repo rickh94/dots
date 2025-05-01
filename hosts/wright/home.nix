@@ -26,7 +26,7 @@
 
   programs.rofi.enable = true;
   systemd.user.startServices = true;
-  xfce4-keyboard-shortcuts = {
+  xfconf.xfce4-keyboard-shortcuts = {
     "commands/custom/&lt;Super&gt;space" =
       "${pkgs.rofi}/bin/rofi -show run";
   };
