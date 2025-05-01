@@ -26,8 +26,10 @@
 
   programs.rofi.enable = true;
   systemd.user.startServices = true;
-  xfconf.settings.xfce4-keyboard-shortcuts = {
-    "commands/custom/&lt;Super&gt;space" =
-      "${pkgs.rofi}/bin/rofi -show run";
-  };
+  # xfconf.settings.xfce4-keyboard-shortcuts = {
+  #   "commands/custom/&lt;Super&gt;space" =
+  #     "${pkgs.rofi}/bin/rofi -show run";
+  #   "commands/custom/&lt;Super" =
+  #     "xfce-popup-whiskermenu";
+  # };
 }
