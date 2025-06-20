@@ -294,15 +294,15 @@ in
 
         mason_lspconfig.setup({ ensure_installed = vim.tbl_keys(servers), })
 
-        mason_lspconfig.setup_handlers({
-          function(server_name)
-            require('lspconfig')[server_name].setup({
-              capabilities = capabilities,
-              on_attach = on_attach,
-              settings = servers[server_name],
-            })
-          end,
-        })
+        for i = 1, #servers do
+          local server_name = servers[i]
+          require('lspconfig')[server_name].setup({
+            capabilities = capabilities,
+            on_attach = on_attach,
+            settings = servers[server_name],
+          })
+        end
+
         require('lspconfig').openscad_lsp.setup({
           cmd =  { "${unstablePkgs.openscad-lsp}/bin/openscad-lsp", "--stdio" },
           on_attach = on_attach,

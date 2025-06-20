@@ -36,6 +36,8 @@
       nodejs
       nodePackages.pnpm
       nodePackages.typescript
+      nodePackages.ts-node
+      nodePackages.tsx
       cargo-watch
       proselint
       backblaze-b2
@@ -50,7 +52,7 @@
       elixir
       php
       ocaml
-      pypy3
+      #pypy3
 
       # music
       audacity
