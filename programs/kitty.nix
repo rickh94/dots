@@ -2,11 +2,11 @@
 {
   programs.kitty = {
     enable = true;
-    font = {
-      package = pkgs.nerdfonts;
-      name = "VictorMono Nerd Font Mono";
-      size = 13.0;
-    };
+    # font = {
+    #   package = pkgs.nerdfonts;
+    #   name = "VictorMono Nerd Font Mono";
+    #   size = 13.0;
+    # };
     settings = {
       shell = "${pkgs.fish}/bin/fish";
       cursor_shape = "beam";

@@ -15,7 +15,6 @@
     firefox
     handbrake
     wireguard-tools
-    nerdfonts
     xclip
 
     # cloud stuff
