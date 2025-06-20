@@ -37,7 +37,7 @@
       nodePackages.pnpm
       nodePackages.typescript
       nodePackages.ts-node
-      nodePackages.tsx
+      unstablePkgs.tsx
       cargo-watch
       proselint
       backblaze-b2
