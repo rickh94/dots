@@ -21,7 +21,6 @@
 
   environment.systemPackages = with pkgs; [
     firefox
-    (nerdfonts.override { fonts = chosenfonts; })
     neovim
     git
     alacritty

@@ -14,8 +14,8 @@
     tigervnc
     firefox
     handbrake
-    (nerdfonts.override { fonts = chosenfonts; })
     wireguard-tools
+    nerdfonts
     xclip
 
     # cloud stuff
