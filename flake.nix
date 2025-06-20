@@ -11,18 +11,18 @@
 
   inputs = {
     nixpkgs = {
-      url = "github:nixos/nixpkgs/nixos-24.11";
+      url = "github:nixos/nixpkgs/nixos-unstable";
     };
     /*
       nixos-hardware.url = "github:nixos/nixos-hardware/master";
     */
     home-manager = {
-      url = "github:nix-community/home-manager/release-24.11";
+      url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     darwin = {
-      url = "github:lnl7/nix-darwin/nix-darwin-24.11";
+      url = "github:lnl7/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -114,7 +114,6 @@
             }
           ];
           specialArgs = {
-            inherit chosenfonts;
             inherit devenv;
             inherit unstable;
           };

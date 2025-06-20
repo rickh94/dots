@@ -1,8 +1,5 @@
 { config
 , pkgs
-, nixpkgs
-, lib
-, inputs
 , unstablePkgs
 , ...
 }: {
@@ -30,13 +27,10 @@
       NIXPKGS_ALLOW_UNFREE = 1;
     };
 
-    shellAliases = { };
-
     packages = with pkgs; [
       # basics
       wget
       tree
-      # neovim
       zoxide
       fish
       mosh
@@ -50,22 +44,20 @@
       netcat
       git-crypt
       gnupg
-
-      # languages
+      #
+      # # languages
       go
       nodejs
       rustup
-      (python311.withPackages (ps: with ps; [ pip flake8 black ]))
+      (python312.withPackages (ps: with ps; [ pip flake8 black ]))
       unstablePkgs.poetry
       unstablePkgs.bun
-
+      #
       # rust replacements
       difftastic
       tealdeer
       dogdns
-      lfs
       starship
-      carapace
       fzf
       ripgrep-all
       ripgrep
@@ -74,7 +66,11 @@
       fd
       du-dust
       bat
-      duf
+      xh
+      fselect
+      evil-helix
+      rusty-man
+      mprocs
     ];
   };
 

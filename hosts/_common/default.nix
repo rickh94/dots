@@ -1,7 +1,5 @@
 { config
 , pkgs
-, nixpkgs
-, lib
 , devenv
 , unstablePkgs
 , ...
@@ -11,19 +9,10 @@
     ../../programs/direnv/default.nix
     ../../programs/tmux.nix
     ../../programs/atuin.nix
-    # ../../programs/hishtory.nix
     ../../programs/sqlite.nix
   ];
-  programs.thefuck.enable = true;
 
   home = {
-    sessionPath = [
-      "${config.home.homeDirectory}/go/bin"
-      "${config.home.homeDirectory}/.cargo/bin"
-      "${config.home.homeDirectory}/.local/bin"
-      "${config.home.homeDirectory}/.config/composer/vendor/bin"
-    ];
-
     packages = with pkgs; [
       # basics
       alacritty
@@ -55,6 +44,7 @@
       unstablePkgs.bun
       devenv.packages.${pkgs.system}.devenv
       ocamlformat
+      nodePackages.ts-node
 
       # languages
       elixir

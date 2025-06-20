@@ -1,10 +1,6 @@
 { pkgs
-, chosenfonts
 , ...
 }: {
-  imports = [
-    ../_common/mac/system-activation.nix
-  ];
   environment.systemPackages = [
     pkgs.redis
     pkgs.colima
@@ -22,12 +18,12 @@
     "/opt/homebrew/bin/"
   ];
 
-  services.nix-daemon.enable = true;
 
   programs.zsh.enable = true;
   programs.fish.enable = true;
 
   system.stateVersion = 4;
+  system.primaryUser = "rick";
 
   nix = {
     package = pkgs.nix;
@@ -36,7 +32,6 @@
     '';
     gc = {
       automatic = true;
-      user = "rick";
       options = "--delete-older-than 20d";
     };
     settings.trusted-users = [ "rick" "root" ];
@@ -50,12 +45,12 @@
     };
   };
 
-  fonts = {
-    packages = [
-      pkgs.libre-baskerville
-      (pkgs.nerdfonts.override { fonts = chosenfonts; })
-    ];
-  };
+  # fonts = {
+  #   packages = [
+  #     pkgs.libre-baskerville
+  #     (pkgs.nerdfonts.override { fonts = chosenfonts; })
+  #   ];
+  # };
 
   homebrew = {
     enable = true;
@@ -99,6 +94,7 @@
       "osx-cross/avr"
     ];
     casks = [
+      "alt-tab"
       "proton-mail"
       "steam"
       "protonvpn"
@@ -141,11 +137,12 @@
       "zen-browser"
       "orcaslicer"
       "freecad"
+      "tor-browser"
     ];
   };
 
   home-manager.useUserPackages = true;
-  home-manager.useGlobalPkgs = true;
+  home-manager.useGlobalPkgs = false;
 
   # services.redis = {
   #   enable = true;
@@ -156,7 +153,7 @@
   # };
 
   services.dnsmasq = {
-    enable = true;
+    enable = false;
     addresses = {
       "localhost" = "127.0.0.1";
     };

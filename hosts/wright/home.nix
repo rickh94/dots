@@ -2,6 +2,7 @@
 , lib
 , pkgs
 , inputs
+, unstablePkgs
 , ...
 }: {
   imports = [
@@ -22,6 +23,9 @@
     pkgs.ntfsprogs
     pkgs.prismlauncher
     pkgs.nvtopPackages.nvidia
+    pkgs.rclone
+    pkgs.freecad
+    unstablePkgs.openscad-unstable
   ];
 
   programs.rofi.enable = true;
