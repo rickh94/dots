@@ -33,6 +33,17 @@ in
       cursorline = true;
     };
 
+    keymaps = [
+      { action = "<Nop>"; key = "<Space>"; options = { silent = true; }; mode = [ "n" "v" ]; }
+      # save
+      { action = "<cmd>w<cr>"; key = "<leader>w"; mode = [ "n" ]; }
+      #diagnostics
+      {
+        action = helpers.utils.mkRaw "vim.diagnostic.goto_prev";
+        key = "]d";
+        mode = [ "n" ];
+      }
+    ];
     colorschemes.catppuccin = {
       enable = true;
       settings = {
