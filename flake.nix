@@ -127,7 +127,6 @@
                 users.rick = import ./hosts/stravinsky/home.nix;
                 extraSpecialArgs = {
                   inherit devenv;
-                  inherit nixvim;
                   unstablePkgs = unstable.legacyPackages.aarch64-darwin;
                 };
               };
@@ -175,11 +174,15 @@
           pkgs = import nixpkgs {
             system = "x86_64-linux";
           };
-          modules = [ ./hosts/nix-minimal/home.nix ];
+          modules = [
+            ./hosts/nix-minimal/home.nix
+            nixvim.nixosModules.default
+          ];
           extraSpecialArgs = {
             inherit inputs;
             inherit chosenfonts;
             inherit devenv;
+            inherit nixvim;
             unstablePkgs = unstable.legacyPackages.x86_64-linux;
           };
         };
