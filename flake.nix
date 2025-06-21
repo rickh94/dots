@@ -176,7 +176,7 @@
           };
           modules = [
             ./hosts/nix-minimal/home.nix
-            nixvim.nixosModules.nixvim
+            nixvim.homeManagerModules.nixvim
           ];
           extraSpecialArgs = {
             inherit inputs;
