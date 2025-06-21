@@ -30,6 +30,13 @@
       url = "github:jcdickinson/codeium.nvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixvim = {
+      url = "github:nix-community/nixvim/nixos-25.05";
+      # If you are not running an unstable channel of nixpkgs, select the corresponding branch of nixvim.
+      # url = "github:nix-community/nixvim/nixos-23.05";
+
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     # nix-gaming.url = "github:fufexan/nix-gaming";
   };
 
@@ -41,6 +48,7 @@
     , unstable
     , codeium
     , devenv
+    , nixvim
     ,
     }:
     let
@@ -85,6 +93,7 @@
           specialArgs = {
             inherit nixpkgs;
             inherit chosenfonts;
+            inherit nixvim;
 
             unstablePkgs = unstable.legacyPackages.x86_64-linux;
           };
