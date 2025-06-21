@@ -2,10 +2,10 @@
 let
   nvim-lsp-endhints = unstablePkgs.vimUtils.buildVimPlugin {
     pname = "nvim-lsp-endhints";
-    version = "HEAD";
+    version = "1.0.0";
     src = builtins.fetchGit {
       url = "https://github.com/chrisgrieser/nvim-lsp-endhints";
-      ref = "HEAD";
+      ref = "main";
     };
   };
 in
