@@ -2,10 +2,10 @@
 {
   programs.nixvim = {
     enable = true;
-    # globals = {
-    #   mapleader = " ";
-    #   maplocalleader = " ";
-    # };
+    globals = {
+      mapleader = " ";
+      maplocalleader = " ";
+    };
     # config = {
     #   opts = {
     #     hlsearch = false;
