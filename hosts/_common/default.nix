@@ -44,7 +44,6 @@
       # unstablePkgs.poetry
       mypy
       unstablePkgs.bun
-      devenv.packages.${pkgs.system}.devenv
       ocamlformat
       nodePackages.ts-node
 

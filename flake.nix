@@ -127,6 +127,7 @@
                 users.rick = import ./hosts/stravinsky/home.nix;
                 extraSpecialArgs = {
                   inherit devenv;
+                  inherit nixvim;
                   unstablePkgs = unstable.legacyPackages.aarch64-darwin;
                 };
               };
