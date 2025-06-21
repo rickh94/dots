@@ -83,7 +83,7 @@ in
       { action = "<gv"; key = "<"; mode = [ "v" ]; }
     ];
 
-    autocmd = [
+    autoCmd = [
 
       {
         command = "echo 'Entering a C or C++ file'";
