@@ -23,7 +23,9 @@
       termguicolors = true;
       swapfile = false;
       backup = false;
-      undodir = "vim.fn.stdpath('state') .. '/undodir'";
+      undodir = ''
+        vim.fn.stdpath('state') .. '/undodir'
+      '';
       smartindent = true;
       scrolloff = 8;
       wrap = false;
