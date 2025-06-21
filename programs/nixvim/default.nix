@@ -4,7 +4,7 @@
     enable = true;
     colorschemes.catppuccin = {
       enable = true;
-      flavor = "macchiato";
+      flavour = "macchiato";
     };
 
     plugins = {
