@@ -1,4 +1,4 @@
-{ nixvim, lib, ... }:
+{ nixvim, lib, pkgs, ... }:
 {
   programs.nixvim = {
     enable = true;
@@ -23,7 +23,7 @@
       termguicolors = true;
       swapfile = false;
       backup = false;
-      undodir = lib.nixvim.utils.mkRaw "vim.fn.stdpath('state').. '/undodir'";
+      undodir = pkgs.lib.nixvim.utils.mkRaw "vim.fn.stdpath('state').. '/undodir'";
       smartindent = true;
       scrolloff = 8;
       wrap = false;
