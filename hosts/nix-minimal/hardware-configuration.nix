@@ -39,7 +39,7 @@
 
   fileSystems."/boot" = {
     device = "/dev/disk/by-label/BOOT";
-    fsType = "vfag";
+    fsType = "vfat";
     options = [ "fmask=022" "dmask=022" ];
   };
 
