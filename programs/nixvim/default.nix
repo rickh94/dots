@@ -117,10 +117,12 @@ in
         command = setlocal_cmd a.tabstop a.expandtab;
       })
       setlocal_frompattern
-    ++ builtins.map (a: {
-      pattern = a.pattern;
-      command = "set filetype = ${a.ft}";
-    });
+    ++ builtins.map
+      (a: {
+        pattern = a.pattern;
+        command = "set filetype = ${a.ft}";
+      })
+      filetypes;
 
     colorschemes.catppuccin = {
       enable = true;

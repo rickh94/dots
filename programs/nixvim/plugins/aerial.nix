@@ -1,6 +1,6 @@
 { ...
 }: {
-  programs.nixvim.plugins.aerial = {
+  programs.nixvim.plugins.cmp = {
     enabled = true;
   };
 
