@@ -5,6 +5,8 @@ in
 {
   programs.ghostty = {
     enable = true;
-    extraConfig = ghost.text;
+  };
+  xdg.configFile."ghostty/config" = {
+    text = ghost.text;
   };
 }
