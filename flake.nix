@@ -89,6 +89,7 @@
           system = "x86_64-linux";
           modules = [
             ./hosts/nix-minimal/configuration.nix
+            nixvim.nixosModules.nixvim
           ];
           specialArgs = {
             inherit nixpkgs;
