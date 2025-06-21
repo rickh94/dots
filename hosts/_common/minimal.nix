@@ -4,7 +4,7 @@
 , ...
 }: {
   imports = [
-    ../../programs/neovim
+    #../../programs/neovim
     ../../programs/git.nix
     ../../programs/starship.nix
     ../../programs/tmux.nix
