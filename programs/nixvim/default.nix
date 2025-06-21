@@ -2,7 +2,7 @@
 let
   helpers = config.lib.nixvim;
   setlocal_frompattern = [
-    { pattern = [ "*.py" ]; ts = 4; expandtab = true; }
+    { pattern = [ "*.py" ]; ts = "4"; expandtab = true; }
     # "*.c" = { ts = 8; expandtab = false; };
     # "*.ino" = { ts = 8; expandtab = false; };
     # "*.ly" = { ts = 2; expandtab = false; };
