@@ -13,9 +13,6 @@
     nixpkgs = {
       url = "github:nixos/nixpkgs/nixos-25.05";
     };
-    /*
-      nixos-hardware.url = "github:nixos/nixos-hardware/master";
-    */
     home-manager = {
       url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -71,6 +68,19 @@
           system = "x86_64-linux";
           modules = [
             ./hosts/nixx86-vm/configuration.nix
+          ];
+          specialArgs = {
+            inherit nixpkgs;
+            inherit chosenfonts;
+
+            unstablePkgs = unstable.legacyPackages.x86_64-linux;
+          };
+        };
+
+        nix-minimal-x86 = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            ./hosts/nix-minimal/configuration.nix
           ];
           specialArgs = {
             inherit nixpkgs;
@@ -147,7 +157,19 @@
             inherit inputs;
             inherit chosenfonts;
             inherit devenv;
-            i3mod = "Control";
+            unstablePkgs = unstable.legacyPackages.x86_64-linux;
+          };
+        };
+
+        nix-minimal-x86 = home-manager.lib.homeManagerConfiguration {
+          pkgs = import nixpkgs {
+            system = "x86_64-linux";
+          };
+          modules = [ ./hosts/nix-minimal/home.nix ];
+          extraSpecialArgs = {
+            inherit inputs;
+            inherit chosenfonts;
+            inherit devenv;
             unstablePkgs = unstable.legacyPackages.x86_64-linux;
           };
         };
