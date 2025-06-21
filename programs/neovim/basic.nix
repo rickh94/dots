@@ -14,7 +14,6 @@
     ./plugins/guess-indent.nix
     # ./plugins/lilypond.nix
     ./plugins/lint.nix
-    ./plugins/lspimport.nix
     ./plugins/lsp.nix
     ./plugins/cmp.nix
     ./plugins/persistence.nix

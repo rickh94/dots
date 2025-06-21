@@ -1,19 +1,8 @@
 { unstablePkgs, ... }:
-# let
-#   crates-nvim = unstablePkgs.vimUtils.buildVimPlugin {
-#     pname = "crates-nvim";
-#     version = "HEAD";
-#     src = builtins.fetchGit {
-#       url = "https://github.com/saecki/crates.nvim";
-#       ref = "refs/tags/stable";
-#     };
-#   };
-# in
 {
   programs.neovim = {
     plugins = [
       unstablePkgs.vimPlugins.rustaceanvim
-      # unstablePkgs.vimPlugins.crates-nvim
     ];
 
     extraLuaConfig =

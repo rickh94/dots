@@ -5,6 +5,7 @@
     ../_common/desktop.nix
     ../_common/mac/home-activation.nix
     ../../programs/wezterm-mac.nix
+    ../../programs/ghostty-mac.nix
     ../../programs/neovim/full-default.nix
   ];
 

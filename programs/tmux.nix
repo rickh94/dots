@@ -3,14 +3,6 @@
 , ...
 }:
 let
-  tmux-open-nvim = pkgs.tmuxPlugins.mkTmuxPlugin {
-    pluginName = "tmux_open_nvim";
-    version = "1.0";
-    src = builtins.fetchGit {
-      url = "https://github.com/trevarj/tmux-open-nvim";
-      ref = "HEAD";
-    };
-  };
 in
 {
   programs.tmux = {
@@ -33,7 +25,7 @@ in
       tmuxPlugins.continuum
       tmuxPlugins.mode-indicator
       tmuxPlugins.open
-      tmux-open-nvim
+      #tmux-open-nvim
     ];
     terminal = "tmux-256color";
     extraConfig =

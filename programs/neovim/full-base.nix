@@ -9,7 +9,6 @@
     ./plugins/guess-indent.nix
     ./plugins/lilypond.nix
     ./plugins/lint.nix
-    ./plugins/lspimport.nix
     ./plugins/lsp.nix
     ./plugins/cmp.nix
     ./plugins/persistence.nix
@@ -27,7 +26,7 @@
     ./plugins/oil.nix
     # ./plugins/chatgpt.nix
     ./plugins/autopairs.nix
-    ./plugins/gotempl.nix
+    #./plugins/gotempl.nix
     # ./plugins/nougat.nix
     ./plugins/spider.nix
     ./plugins/various-textobjs.nix

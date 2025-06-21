@@ -138,6 +138,7 @@
       "orcaslicer"
       "freecad"
       "tor-browser"
+      "ghostty"
     ];
   };
 
