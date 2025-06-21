@@ -3,7 +3,6 @@
 }: {
   imports = [
     ./hardware-configuration.nix
-    ../_common/linux/configuration/boot.nix
     ../_common/linux/configuration/basic.nix
     ../_common/linux/configuration/xconfig-noi3.nix
     ../_common/rick-passwordless-sudo.nix
@@ -13,6 +12,11 @@
   networking.hostId = "99a4b733";
   users.users.rick.shell = pkgs.zsh;
   boot.kernelPackages = pkgs.linuxPackages_latest;
+
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+  boot.tmp.tmpfsSize = "8G";
+  boot.kernelParams = [ "nohibernate" ];
 
   users.mutableUsers = true;
   users.users = {
