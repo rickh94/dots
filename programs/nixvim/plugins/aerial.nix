@@ -1,10 +1,10 @@
 { ...
 }: {
-  plugins.aerial = {
+  programs.nixvim.plugins.aerial = {
     enabled = true;
   };
 
-  keymaps = [
+  programs.nixvim.keymaps = [
     {
       action = "<cmd>AerialToggle!<cr>";
       key = "<leader>A";
