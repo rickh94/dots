@@ -12,6 +12,7 @@
   networking.hostName = "nix-minimal";
   networking.hostId = "99a4b733";
   users.users.rick.shell = pkgs.zsh;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   users.mutableUsers = true;
   users.users = {
@@ -40,6 +41,7 @@
     podman-compose
     zsh
     xfce.xfce4-whiskermenu-plugin
+    plymouth
   ];
   programs.zsh.enable = true;
 
