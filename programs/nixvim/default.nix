@@ -2,7 +2,7 @@
 let
   helpers = config.lib.nixvim;
   setlocal_frompattern = [
-    { pattern = [ "*.py" ]; ts = "4"; expandtab = true; }
+    { pattern = [ "*.py" ]; tabstop = "4"; expandtab = true; }
     # "*.c" = { ts = 8; expandtab = false; };
     # "*.ino" = { ts = 8; expandtab = false; };
     # "*.ly" = { ts = 2; expandtab = false; };
@@ -95,20 +95,18 @@ in
           end'';
         };
         event = [
-          "BufEnter"
-          "BufWinEnter"
+          "FileType"
         ];
         pattern = [
-          "*.c"
-          "*.h"
+          "markdown"
         ];
       }
 
     ] ++ builtins.map
       (a: {
-        pattern = a.p;
+        pattern = a.pattern;
         event = [ "BufReadPre" "BufRead" ];
-        command = setlocal_cmd a.ts a.expandtab;
+        command = setlocal_cmd a.tabstop a.expandtab;
       })
       setlocal_frompattern;
 
