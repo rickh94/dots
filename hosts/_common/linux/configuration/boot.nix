@@ -6,5 +6,4 @@
   boot.zfs.devNodes = "/dev/disk/by-id";
   boot.tmp.tmpfsSize = "8G";
   boot.kernelParams = [ "nohibernate" ];
-  boot.kernelPackages = pkgs.linuxPackages_latest;
 }
