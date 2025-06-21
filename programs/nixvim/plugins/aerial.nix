@@ -1,7 +1,7 @@
 { ...
 }: {
-  programs.nixvim.plugins.cmp = {
-    enabled = true;
+  programs.nixvim.plugins.aerial = {
+    enable = true;
   };
 
   programs.nixvim.keymaps = [
