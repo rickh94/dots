@@ -1,4 +1,7 @@
-{ nixvim, lib, pkgs, ... }:
+{ config, ... }:
+let
+  helpers = config.lib.nixvim;
+in
 {
   programs.nixvim = {
     enable = true;
@@ -23,7 +26,7 @@
       termguicolors = true;
       swapfile = false;
       backup = false;
-      undodir = pkgs.lib.nixvim.utils.mkRaw "vim.fn.stdpath('state').. '/undodir'";
+      undodir = helpers.utils.mkRaw "vim.fn.stdpath('state').. '/undodir'";
       smartindent = true;
       scrolloff = 8;
       wrap = false;
