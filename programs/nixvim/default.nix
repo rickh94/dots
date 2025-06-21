@@ -9,7 +9,7 @@ let
     # "*.sql" = { ts = 4; expandtab = true; };
   ];
 
-  setlocal_cmd = ts: et: ''setlocal tabstop = ${ts} shiftwidth = ${ts} '' ++ (if et then "expandtab" else "noexpandtab");
+  setlocal_cmd = ts: et: ''setlocal tabstop = ${ts} shiftwidth = ${ts} '' + (if et then "expandtab" else "noexpandtab");
 in
 {
   programs.nixvim = {
@@ -86,7 +86,14 @@ in
     autoCmd = [
 
       {
-        command = "echo 'Entering a C or C++ file'";
+        callback = {
+          __raw = ''function()
+            vim.opt_local.linebreak = true
+            vim.opt_local.textwidth = 88
+            vim.opt_local.spell = true
+            vim.opt_local.spelllang = 'en_us'
+          end'';
+        };
         event = [
           "BufEnter"
           "BufWinEnter"
