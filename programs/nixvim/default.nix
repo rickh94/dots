@@ -2,16 +2,24 @@
 let
   helpers = config.lib.nixvim;
   setlocal_frompattern = [
-    { pattern = [ "*.py" ]; tabstop = "4"; expandtab = true; }
-    # "*.c" = { ts = 8; expandtab = false; };
-    # "*.ino" = { ts = 8; expandtab = false; };
-    # "*.ly" = { ts = 2; expandtab = false; };
-    # "*.sql" = { ts = 4; expandtab = true; };
+    { pattern = [ "*.py" "*.sql" ]; tabstop = "4"; expandtab = true; }
+    { pattern = [ "*.c" "*.ino" ]; tabstop = "8"; expandtab = false; }
+    { pattern = [ "*.ly" ]; tabstop = "2"; expandtab = false; }
+    { pattern = [ "*.sql" ]; tabstop = "4"; expandtab = true; }
   ];
 
   setlocal_cmd = ts: et: ''setlocal tabstop = ${ts} shiftwidth = ${ts} '' + (if et then "expandtab" else "noexpandtab");
+
+  filetypes = [
+    { pattern = [ "*.njk" ]; ft = "twig"; }
+    { pattern = [ "*.pss" ]; ft = "css"; }
+    { pattern = [ "*.astro" ]; ft = "astro"; }
+  ];
 in
 {
+  imports = [
+    ./plugins/aerial.nix
+  ];
   programs.nixvim = {
     enable = true;
     globals = {
@@ -108,7 +116,11 @@ in
         event = [ "BufReadPre" "BufRead" ];
         command = setlocal_cmd a.tabstop a.expandtab;
       })
-      setlocal_frompattern;
+      setlocal_frompattern
+    ++ builtins.map (a: {
+      pattern = a.pattern;
+      command = "set filetype = ${a.ft}";
+    });
 
     colorschemes.catppuccin = {
       enable = true;
@@ -116,12 +128,5 @@ in
         flavour = "macchiato";
       };
     };
-
-    plugins = {
-      lualine.enable = true;
-    };
   };
 }
-
-
-
