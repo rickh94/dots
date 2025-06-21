@@ -6,7 +6,7 @@
       mapleader = " ";
       maplocalleader = " ";
     };
-    options.hlsearch = false;
+    globalOpts.hlsearch = false;
     # config = {
     #   opts = {
     #     hlsearch = false;
