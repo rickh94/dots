@@ -97,7 +97,7 @@ in
         ];
       }
 
-    ] // builtins.map
+    ] ++ builtins.map
       (a: {
         pattern = a.p;
         event = [ "BufReadPre" "BufRead" ];
