@@ -1,13 +1,13 @@
 { unstablePkgs, pkgs, ... }:
 let
-  # nvim-lsp-endhints = unstablePkgs.vimUtils.buildVimPlugin {
-  #   pname = "nvim-lsp-endhints";
-  #   version = "HEAD";
-  #   src = builtins.fetchGit {
-  #     url = "https://github.com/chrisgrieser/nvim-lsp-endhints";
-  #     ref = "HEAD";
-  #   };
-  # };
+  nvim-lsp-endhints = unstablePkgs.vimUtils.buildVimPlugin {
+    pname = "nvim-lsp-endhints";
+    version = "HEAD";
+    src = builtins.fetchGit {
+      url = "https://github.com/chrisgrieser/nvim-lsp-endhints";
+      ref = "HEAD";
+    };
+  };
 in
 {
   programs.neovim = {
@@ -20,7 +20,7 @@ in
       # lsp-inlayhints-nvim
       # typescript-tools-nvim
       nvim-navic
-      #nvim-lsp-endhints
+      nvim-lsp-endhints
       lsp_signature-nvim
     ];
 
