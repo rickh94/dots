@@ -4,8 +4,8 @@
   imports = [
     ../_common/default.nix
     ../_common/linux/default.nix
-    ../../programs/neovim/basic.nix
     ../../programs/ghostty-linux.nix
+    ../../programs/nixvim
   ];
   home.username = "rick";
   home.homeDirectory = "/home/rick";

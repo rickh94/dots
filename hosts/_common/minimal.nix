@@ -4,7 +4,7 @@
 , ...
 }: {
   imports = [
-    ../../programs/neovim
+    #../../programs/neovim
     ../../programs/git.nix
     ../../programs/starship.nix
     ../../programs/tmux.nix
@@ -49,7 +49,7 @@
       go
       nodejs
       rustup
-      (python312.withPackages (ps: with ps; [ pip flake8 black ]))
+      (python312.withPackages (ps: with ps; [ pip ]))
       unstablePkgs.poetry
       unstablePkgs.bun
       #

@@ -1,10 +1,13 @@
 { pkgs
+, devenv
 , ...
 }: {
   imports = [
     ./default.nix
   ];
   home.packages = with pkgs; [
+
+    devenv.packages.${pkgs.system}.devenv
     vscodium
   ];
   programs.bash.enable = true;

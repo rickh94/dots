@@ -26,10 +26,10 @@
       uid = 1000;
     };
   };
+  programs.nixvim.enable = true;
 
   environment.systemPackages = with pkgs; [
     firefox
-    neovim
     git
     alacritty
     xorg.xinit

@@ -42,9 +42,8 @@
       proselint
       backblaze-b2
       # unstablePkgs.poetry
-      mypy
+      unstablePkgs.mypy
       unstablePkgs.bun
-      devenv.packages.${pkgs.system}.devenv
       ocamlformat
       nodePackages.ts-node
 
