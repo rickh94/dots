@@ -1,15 +1,17 @@
 { config
 , lib
 , pkgs
+, nixvim
 , ...
 }: {
   imports = [
+    nixvim.homeManagerModules.nixvim
     ../_common/minimal.nix
     ../_common/linux/minimal.nix
-    ../../programs/neovim/basic.nix
+    ../../programs/nixvim
     ../../programs/direnv/default.nix
-    ../../programs/hishtory.nix
-    # ../../programs/atuin.nix
+    #    ../../programs/hishtory.nix
+    ../../programs/atuin.nix
   ];
   home.username = "rick";
   home.homeDirectory = "/home/rick";
