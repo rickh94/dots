@@ -4,6 +4,7 @@
   nixConfig = {
     experimental-features = [ "nix-command" "flakes" ];
     allowUnfree = true;
+    trusted-users = [ "rick" ];
     substituters = [
       "https://cache.nixos.org"
     ];
@@ -62,6 +63,7 @@
     , devenv
     , nixvim
     , bacon_ls
+    ,
     }:
     let
       chosenfonts = [ "FiraCode" "Hack" "CascadiaCode" "Hasklig" "Lilex" "VictorMono" "Hermit" ];
@@ -224,8 +226,9 @@
             inherit inputs;
             inherit chosenfonts;
             inherit devenv;
+            inherit nixvim;
+            inherit bacon_ls;
             i3mod = "Control";
-            codeium-lsp = inputs.codeium.packages.x86_64-linux.codeium-lsp;
             unstablePkgs = unstable.legacyPackages.x86_64-linux;
           };
         };
