@@ -218,6 +218,7 @@ in
       };
       config = {
         adminpassFile = "${pkgs.writeText "adminpass" "test123"}";
+        dbtype = "sqlite";
       };
       appstoreEnable = true;
       extraAppsEnable = true;
