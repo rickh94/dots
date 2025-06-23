@@ -2,7 +2,8 @@
 , ...
 }:
 let
-  bacon-text = (import ../../programs/bacon-config.nix).text;
+  bacon-config = (import ../../programs/bacon-config.nix {});
+  bacon-text = bacon-config.text;
 in
 {
   imports = [
