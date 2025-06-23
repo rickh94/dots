@@ -610,7 +610,6 @@ in
           "valid users" = "rick";
         };
       };
-
     };
 
     vaultwarden = {
@@ -741,12 +740,6 @@ in
           reverse_proxy http://localhost:8888
           tls /var/lib/acme/rickhenry.xyz/cert.pem /var/lib/acme/rickhenry.xyz/key.pem
         '';
-        "http://printer.rickhenry.xyz".extraConfig = ''
-          reverse_proxy / 10.0.0.159 {
-            transparent
-            websocket
-          }
-        '';
       };
     };
 
@@ -822,8 +815,8 @@ in
       mountdPort = 4002;
       statdPort = 4000;
       exports = ''
-        /backuptank/proxmox 10.0.1.0/16(rw,sync,crossmnt,no_subtree_check,all_squash)
-        /vroom/media 10.0.0.0/16(rw,sync,crossmnt,no_subtree_check,all_squash,anonuid=996,anongid=996)
+          /backuptank/proxmox 10.0.1.0/16(rw,sync,crossmnt,no_subtree_check,all_squash)
+          /vroom/media 10.0.0.0/16(rw,sync,crossmnt,no_subtree_check,all_squash,anonuid = 996,anongid=996)
         /spinny/media 10.0.0.0/16(rw,sync,crossmnt,no_subtree_check,all_squash,anonuid=996,anongid=996)
         /backuptank/downloads 10.0.0.0/16(rw,sync,crossmnt,no_subtree_check,all_squash,anonuid=996,anongid=996)
         /vroom/blackhole 10.0.0.0/16(rw,sync,crossmnt,no_subtree_check,all_squash,anonuid=996,anongid=996)
@@ -834,7 +827,6 @@ in
         /srv/rick 10.0.0.0/16(rw,sync,crossmnt,no_subtree_check,all_squash,anonuid=1000,anongid=100)
       '';
     };
-
 
     snapper = {
       snapshotInterval = "hourly";
