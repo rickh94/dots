@@ -1,17 +1,19 @@
 { pkgs
+, nixvim
 , ...
 }:
 let
-  bacon-config = (import ../../programs/bacon-config.nix {});
+  bacon-config = (import ../../programs/bacon-config.nix { });
   bacon-text = bacon-config.text;
 in
 {
   imports = [
+    nixvim.homeManagerModules.nixvim
     ../_common/desktop.nix
     ../_common/mac/home-activation.nix
     ../../programs/wezterm-mac.nix
     ../../programs/ghostty-mac.nix
-    ../../programs/neovim/full-default.nix
+    ../../programs/nixvim
   ];
 
   home.stateVersion = "22.11";

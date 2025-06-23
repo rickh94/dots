@@ -1,6 +1,4 @@
-{ config
-, pkgs
-, devenv
+{ pkgs
 , unstablePkgs
 , ...
 }: {
