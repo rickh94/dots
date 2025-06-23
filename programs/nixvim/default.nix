@@ -21,6 +21,7 @@ in
     ./lsp.nix
     ./plugins/treesitter.nix
     ./plugins/aerial.nix
+    ./plugins/arrow.nix
     ./plugins/blink-cmp.nix
     ./plugins/conform.nix
     ./plugins/indent-blankline.nix
@@ -42,13 +43,30 @@ in
       comment.enable = true;
       guess-indent.enable = true;
       navic.enable = true;
-      auto-session.enable = true;
+      auto-session = {
+        enable = true;
+        settings = {
+          auto_create = true;
+          auto_save = true;
+          auto_restore = true;
+        };
+      };
+      fidget.enable = true;
       rainbow-delimiters.enable = true;
       crates.enable = true;
       sandwich.enable = true;
       tmux-navigator.enable = true;
       web-devicons.enable = true;
-
+      smear-cursor.enable = true;
+      neoscroll.enable = true;
+      precognition.enable = true;
+      fastaction.enable = true;
+      hardtime.enable = true;
+      package-info.enable = true;
+      endwise.enable = true;
+      auto-save.enable = true;
+      gitsigns.enable = true;
+      committia.enable = true;
     };
 
     clipboard.register = "unnamedplus";
@@ -76,6 +94,7 @@ in
       scrolloff = 3;
       wrap = false;
       cursorline = true;
+      sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions";
     };
 
     keymaps = [

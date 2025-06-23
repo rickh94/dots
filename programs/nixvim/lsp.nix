@@ -1,13 +1,16 @@
-{ pkgs, ... }:
+{ pkgs, unstablePkgs, ... }:
 {
+  home.packages = with unstablePkgs; [
+    golangci-lint
+  ];
   programs.nixvim = {
-    extraPlugins = with pkgs.vimPlugins; [
+    extraPlugins = with unstablePkgs.vimPlugins; [
       lsp_signature-nvim
       lspkind-nvim
       (pkgs.vimUtils.buildVimPlugin {
         pname = "lsp-endhints";
         version = "2025-06-21";
-        src = pkgs.fetchFromGitHub {
+        src = unstablePkgs.fetchFromGitHub {
           owner = "chrisgrieser";
           repo = "nvim-lsp-endhints";
           rev = "7917c7af1ec345ca9b33e8dbcd3723fc15d023c0";
@@ -25,12 +28,13 @@
     '';
 
 
-    # plugins.lspconfig = {
-    #   enable = true;
-    # };
+    plugins.lsp = {
+      enable = true;
+    };
 
     lsp = {
       onAttach = /* lua */ ''
+        vim.keymap.set("n", "<leader>a", function() require('fastaction').code_action() end)
         vim.keymap.set("n", "<leader>r", function() vim.lsp.buf.rename() end)
         vim.keymap.set("n", "<leader>z", function() vim.lsp.buf.code_action() end)
         vim.keymap.set("n", "<leader>D", function() vim.lsp.buf.type_definition() end)

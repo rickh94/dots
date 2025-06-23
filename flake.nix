@@ -30,10 +30,10 @@
       url = "github:jcdickinson/codeium.nvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    bacon_ls.url = "github:crisidev/bacon-ls";
     nixvim = {
       url = "github:nix-community/nixvim/nixos-25.05";
-      # If you are not running an unstable channel of nixpkgs, select the corresponding branch of nixvim.
-      # url = "github:nix-community/nixvim/nixos-23.05";
 
       inputs.nixpkgs.follows = "nixpkgs";
     };
@@ -49,7 +49,7 @@
     , codeium
     , devenv
     , nixvim
-    ,
+    , bacon_ls
     }:
     let
       chosenfonts = [ "FiraCode" "Hack" "CascadiaCode" "Hasklig" "Lilex" "VictorMono" "Hermit" ];
@@ -184,6 +184,7 @@
             inherit chosenfonts;
             inherit devenv;
             inherit nixvim;
+            inherit bacon_ls;
             unstablePkgs = unstable.legacyPackages.x86_64-linux;
           };
         };

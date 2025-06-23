@@ -1,10 +1,11 @@
-{ config
-, lib
-, pkgs
-, inputs
-, chosenfonts
+{ pkgs
 , ...
-}: {
+}:
+let
+  bacon-config = (import ../../../programs/bacon-config.nix { });
+  bacon-text = bacon-config.text;
+in
+{
   imports = [
     ./minimal.nix
   ];
@@ -30,4 +31,6 @@
     morph
     viu
   ];
+
+  xdg.configFile."bacon/prefs.toml".text = bacon-text;
 }
