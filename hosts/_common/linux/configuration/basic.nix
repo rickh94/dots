@@ -56,7 +56,5 @@
     max-free = ${toString (1024 * 1024 * 1024)}
   '';
 
-  nixpkgs.config.allowUnfree = true;
-
   services.zfs.trim.enable = true;
 }
