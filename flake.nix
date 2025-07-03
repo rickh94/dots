@@ -175,6 +175,8 @@
           extraSpecialArgs = {
             inherit inputs;
             inherit devenv;
+            inherit nixvim;
+            inherit bacon_ls;
             unstablePkgs = unstable.legacyPackages.x86_64-linux;
           };
         };

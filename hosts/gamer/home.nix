@@ -20,6 +20,7 @@
     rclone
     freecad
     openscad-unstable
+    bs-manager
   ];
 
   systemd.user.startServices = true;
