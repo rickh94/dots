@@ -1,9 +1,10 @@
 { pkgs
 , nixvim
+, devenv
 , ...
 }:
 let
-  bacon-config = (import ../../programs/bacon-config.nix { });
+  bacon-config = import ../../programs/bacon-config.nix { };
   bacon-text = bacon-config.text;
 in
 {
@@ -32,5 +33,6 @@ in
     pkgs.rubik
     pkgs.emacs
     pkgs.python312Packages.pipx
+    devenv.packages.${pkgs.system}.devenv
   ];
 }

@@ -124,6 +124,7 @@
   services.wivrn = {
     enable = true;
     config.enable = true;
+    openFirewall = true;
 
     config.json = {
       scale = 0.5;
@@ -150,9 +151,6 @@
     };
     packages = [
       "flathub:app.zen_browser.zen"
-      "flathub-beta:app/org.kde.kdenlive/x86_64/stable"
-      ":${./foobar.flatpak}"
-      "flathub:/root/testflatpak.flatpakref"
     ];
   };
 
