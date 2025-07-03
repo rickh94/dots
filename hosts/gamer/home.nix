@@ -21,5 +21,7 @@
     bs-manager
   ];
 
+  programs.home-manager.enable = true;
+
   systemd.user.startServices = true;
 }

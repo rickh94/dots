@@ -12,6 +12,10 @@
   ];
   boot.kernelPackages = pkgs.linuxPackages_xanmod;
 
+  boot.extraModprobeConfig = ''
+    options nvidia_modeset vblank_sem_control=0
+  '';
+
   networking.hostName = "nixgamer";
   networking.hostId = "a531a972";
   users.users.rick.shell = pkgs.zsh;
