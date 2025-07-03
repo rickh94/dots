@@ -1,4 +1,7 @@
-{ unstablePkgs, pkgs, ... }:
+{ unstablePkgs
+, pkgs
+, ...
+}:
 let
   nvim-lsp-endhints = unstablePkgs.vimUtils.buildVimPlugin {
     pname = "nvim-lsp-endhints";
@@ -405,15 +408,3 @@ in
       '';
   };
 }
-
-
-
-
-
-
-
-
-
-
-
-

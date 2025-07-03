@@ -1,7 +1,10 @@
-{ pkgs, unstablePkgs, ... }:
-{
+{ pkgs
+, unstablePkgs
+, ...
+}: {
   home.packages = with unstablePkgs; [
     golangci-lint
+    watchman
   ];
   programs.nixvim = {
     extraPlugins = with unstablePkgs.vimPlugins; [
@@ -21,43 +24,57 @@
 
     plugins.navic.enable = true;
 
-    extraConfigLua = /* lua */ ''
-      require('lsp-endhints').setup()
-      require('lsp_signature').setup()
-      require('lspkind').setup()
-    '';
-
+    extraConfigLua =
+      /*
+      lua
+      */
+      ''
+        require('lsp-endhints').setup()
+        require('lsp_signature').setup()
+        require('lspkind').setup()
+      '';
 
     plugins.lsp = {
       enable = true;
+      servers.sorbet = {
+        enable = true;
+        package = null;
+        cmd = [ "bundle" "exec" "srb" "tc" "--lsp" ];
+      };
     };
 
     lsp = {
-      onAttach = /* lua */ ''
-        vim.keymap.set("n", "<leader>a", function() require('fastaction').code_action() end)
-        vim.keymap.set("n", "<leader>r", function() vim.lsp.buf.rename() end)
-        vim.keymap.set("n", "<leader>z", function() vim.lsp.buf.code_action() end)
-        vim.keymap.set("n", "<leader>D", function() vim.lsp.buf.type_definition() end)
-        vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end)
-        vim.keymap.set("n", "gr", function() require("telescope.builtin").lsp_references() end)
-        vim.keymap.set("n", "gI", function() vim.lsp.buf.implementation() end)
-        vim.keymap.set("n", "gD", function() vim.lsp.buf.declaration() end)
-        vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end)
-        vim.keymap.set("n", "<A-k>", function() vim.lsp.buf.signature_help() end)
+      onAttach =
+        /*
+        lua
+        */
+        ''
+          vim.keymap.set("n", "<leader>a", function() require('fastaction').code_action() end)
+          vim.keymap.set("n", "<leader>r", function() vim.lsp.buf.rename() end)
+          vim.keymap.set("n", "<leader>z", function() vim.lsp.buf.code_action() end)
+          vim.keymap.set("n", "<leader>D", function() vim.lsp.buf.type_definition() end)
+          vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end)
+          vim.keymap.set("n", "gr", function() require("telescope.builtin").lsp_references() end)
+          vim.keymap.set("n", "gI", function() vim.lsp.buf.implementation() end)
+          vim.keymap.set("n", "gD", function() vim.lsp.buf.declaration() end)
+          vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end)
+          vim.keymap.set("n", "<A-k>", function() vim.lsp.buf.signature_help() end)
 
-        if client.server_capabilities.documentSymbolProvider then
-          require('nvim-navic').attach(client, bufnr)
-        end
+          if client.server_capabilities.documentSymbolProvider then
+            require('nvim-navic').attach(client, bufnr)
+          end
 
-        vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_) vim.lsp.buf.format() end, {})
-      '';
+          vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_) vim.lsp.buf.format() end, {})
+        '';
       servers = {
+        tailwindcss = {
+          enable = true;
+        };
         arduino_language_server.enable = true;
         astro.enable = true;
         clangd.enable = true;
         docker_compose_language_service.enable = true;
         dockerls.enable = true;
-        elixirls.enable = true;
         eslint.enable = true;
         fish_lsp.enable = true;
         golangci_lint_ls.enable = true;
@@ -109,6 +126,11 @@
           };
         };
         zls.enable = true;
+        ocamllsp.enable = true;
+        hls.enable = true;
+        solargraph.enable = true;
+        rubocop.enable = true;
+        erlangls.enable = true;
       };
     };
   };

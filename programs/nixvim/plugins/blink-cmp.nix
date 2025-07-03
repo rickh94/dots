@@ -1,22 +1,34 @@
-{ ...
-}: {
+{ ... }: {
   programs.nixvim.plugins = {
     luasnip.enable = true;
     blink-cmp = {
       enable = true;
       settings.sources.default = [
+        "lsp"
         "ripgrep"
         "path"
         "buffer"
-        "lsp"
+        "snippets"
       ];
-      settings.keymap.preset = "enter";
+      settings.keymap = {
+        preset = "enter";
+        "<Tab>" = [
+          "snippet_forward"
+          "select_next"
+          "fallback"
+        ];
+        "<S-Tab>" = [
+          "snippet_backward"
+          "select_prev"
+          "fallback"
+        ];
+      };
       settings.sources.providers = {
         ripgrep = {
           async = true;
           module = "blink-ripgrep";
           name = "Ripgrep";
-          score_offset = 100;
+          score_offset = 0;
           opts = {
             prefix_min_len = 3;
             context_size = 5;
@@ -35,5 +47,4 @@
     };
     blink-ripgrep.enable = true;
   };
-
 }

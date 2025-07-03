@@ -1,6 +1,4 @@
-{ pkgs
-, ...
-}: {
+{ pkgs, ... }: {
   environment.systemPackages = [
     pkgs.redis
     pkgs.colima
@@ -17,7 +15,6 @@
   environment.systemPath = [
     "/opt/homebrew/bin/"
   ];
-
 
   programs.zsh.enable = true;
   programs.fish.enable = true;
@@ -73,7 +70,6 @@
       "turso"
       "flyctl"
       "aom"
-      "vercel-cli"
       "docker-credential-helper"
       "dos2unix"
       "mpv"

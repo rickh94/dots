@@ -20,11 +20,14 @@
       "${config.home.homeDirectory}/.cargo/bin"
       "${config.home.homeDirectory}/.local/bin"
       "${config.home.homeDirectory}/.config/composer/vendor/bin"
+      "${config.home.homeDirectory}/.gem/ruby/3.3.0/bin"
     ];
     sessionVariables = {
       EDITOR = "nvim";
       MAKEFLAGS = "-j4";
       NIXPKGS_ALLOW_UNFREE = 1;
+      GEM_HOME = "${config.home.homeDirectory}/.gems";
+      GEM_PATH = "${config.home.homeDirectory}/.gems";
     };
 
     packages = with pkgs; [
@@ -50,6 +53,9 @@
       nodejs
       rustup
       (python312.withPackages (ps: with ps; [ pip ]))
+      ruby
+      elixir
+      erlang
       unstablePkgs.poetry
       unstablePkgs.bun
       #
