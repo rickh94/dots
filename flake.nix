@@ -61,6 +61,7 @@
     , nixvim
     , bacon_ls
     , impermanence
+    , nix-gaming
     ,
     }:
     let
