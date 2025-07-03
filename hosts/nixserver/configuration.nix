@@ -815,8 +815,8 @@ in
       mountdPort = 4002;
       statdPort = 4000;
       exports = ''
-          /backuptank/proxmox 10.0.1.0/16(rw,sync,crossmnt,no_subtree_check,all_squash)
-          /vroom/media 10.0.0.0/16(rw,sync,crossmnt,no_subtree_check,all_squash,anonuid = 996,anongid=996)
+        /backuptank/proxmox 10.0.1.0/16(rw,sync,crossmnt,no_subtree_check,all_squash)
+        /vroom/media 10.0.0.0/16(rw,sync,crossmnt,no_subtree_check,all_squash,anonuid=996,anongid=996)
         /spinny/media 10.0.0.0/16(rw,sync,crossmnt,no_subtree_check,all_squash,anonuid=996,anongid=996)
         /backuptank/downloads 10.0.0.0/16(rw,sync,crossmnt,no_subtree_check,all_squash,anonuid=996,anongid=996)
         /vroom/blackhole 10.0.0.0/16(rw,sync,crossmnt,no_subtree_check,all_squash,anonuid=996,anongid=996)
@@ -1063,6 +1063,11 @@ in
 
   fileSystems."/persist".neededForBoot = true;
   fileSystems."/vroom-impermanence".neededForBoot = true;
+
+  fileSystems."/export/vroom-media" = {
+    device = "/vroom/media";
+    options = [ "bind" ];
+  };
 
   # TODO: additional samba shares
 
