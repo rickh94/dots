@@ -79,7 +79,7 @@
             config.allowUnfree = true;
           };
           modules = [
-            nix-gaming.nixosModules.pipewireLowLatence
+            nix-gaming.nixosModules.pipewireLowLatency
             nix-gaming.nixosModules.platformOptimizations
             nix-gaming.nixosModules.ntsync
             impermanence.nixosModules.impermanence
