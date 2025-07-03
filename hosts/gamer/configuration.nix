@@ -10,7 +10,7 @@
     ../_common/linux/configuration/impermanence.nix
     ../_common/linux/configuration/users-rick.nix
   ];
-  boot.kernelPackages = pkgs.linux_xanmod;
+  boot.kernelPackages = pkgs.linuxPackages_xanmod;
 
   networking.hostName = "nixgamer";
   networking.hostId = "a531a972";
