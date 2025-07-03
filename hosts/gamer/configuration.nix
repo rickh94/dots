@@ -125,7 +125,7 @@
     enable = true;
     config.enable = true;
 
-    "config.json" = {
+    config.json = {
       scale = 0.5;
       bitrate = 100000000;
       encoders = [
