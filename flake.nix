@@ -78,8 +78,8 @@
           };
           modules = [
             nix-gaming.nixosModules.pipewireLowLatency
-            nix-gaming.nixosModules.platformOptimizations
-            nix-gaming.nixosModules.ntsync
+            #nix-gaming.nixosModules.platformOptimizations
+            #            nix-gaming.nixosModules.ntsync
             impermanence.nixosModules.impermanence
             ./hosts/gamer/configuration.nix
           ];
