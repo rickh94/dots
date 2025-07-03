@@ -3,6 +3,7 @@
     directories = [
       "/etc/nixos"
       "/var/lib/containers/storage"
+      "/var/lib/nixos"
     ];
     files = [
       "/etc/ssh/ssh_host_rsa_key"
