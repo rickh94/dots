@@ -3,6 +3,12 @@
   time.timeZone = "America/New_York";
   i18n.defaultLocale = "en_US.UTF-8";
 
+  console = {
+    font = "Lat2-Terminus16";
+    keyMap = "us";
+    useXkbConfig = true;
+  };
+
   security.rtkit.enable = true;
 
   # sound.enable = true;
@@ -11,6 +17,7 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
+    lowLatency.enable = true;
   };
 
   services.avahi = {
@@ -34,7 +41,7 @@
   };
 
   # don't change
-  system.stateVersion = "22.11"; # Did you read the comment?
+  #system.stateVersion = "22.11"; # Did you read the comment?
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   nix.settings.auto-optimise-store = true;

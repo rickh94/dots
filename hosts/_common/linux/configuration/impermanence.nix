@@ -26,7 +26,4 @@ in
   '';
 
   fileSystems."/persist".neededForBoot = true;
-
-
-
 }

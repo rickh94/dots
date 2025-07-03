@@ -1,6 +1,4 @@
-{ pkgs
-, ...
-}: {
+{ pkgs, ... }: {
   imports = [
     ./hardware-configuration.nix
     ../_common/linux/configuration/basic.nix
@@ -52,4 +50,5 @@
   environment.pathsToLink = [ "/libexec" ];
 
   nix.optimise.automatic = true;
+  system.stateVersion = "25.05";
 }

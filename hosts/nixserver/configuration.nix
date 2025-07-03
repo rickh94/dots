@@ -1078,4 +1078,5 @@ in
   services.xrdp.openFirewall = true;
 
   nix.optimise.automatic = true;
+  system.stateVersion = "22.11";
 }

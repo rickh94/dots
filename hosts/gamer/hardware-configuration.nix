@@ -1,6 +1,5 @@
 { config
 , lib
-, pkgs
 , modulesPath
 , ...
 }: {
@@ -11,7 +10,9 @@
   boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "uas" "usbhid" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-amd" ];
-  boot.extraModulePackages = [ ];
+  boot.extraModulePackages = with config.boot.kernelPackages; [
+    zenpower
+  ];
 
   ######## ZFS DATASET LAYOUT FOR ROOT DRIVE #######
   #  name          options
@@ -22,7 +23,7 @@
   #  rpool/safe       compression=on  mounpoint=none    # snapshots/backups
   #  rpool/safe/persist compression=on mountpoint=legacy
   #  rpool/safe/home    compression=on  mountpoint=legacy
-  # DON'T FORGET TO SNAPSHOT
+  # DON'T FORGET TO SNAPSHOT blank
 
   fileSystems."/" = {
     device = "rpool/local/root";
@@ -51,6 +52,9 @@
   };
 
   swapDevices = [
+    {
+      device = "/dev/disk/by-label/SWAP";
+    }
   ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
@@ -62,5 +66,4 @@
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
-  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.beta;
 }

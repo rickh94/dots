@@ -1,5 +1,4 @@
-{ ... }:
-{
+{ ... }: {
   users.mutableUsers = false;
   users.users = {
     rick = {

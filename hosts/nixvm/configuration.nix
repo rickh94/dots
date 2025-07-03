@@ -41,4 +41,5 @@ in
 
   environment.pathsToLink = [ "/libexec" ];
   nix.optimise.automatic = true;
+  system.stateVersion = "22.11";
 }

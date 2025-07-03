@@ -1,6 +1,9 @@
-{ config, lib, pkgs, inputs, ... }:
-{
-
+{ config
+, lib
+, pkgs
+, inputs
+, ...
+}: {
   imports = [
     ../../services/i3.nix
     ../_common/default.nix
@@ -20,11 +23,8 @@
     pkgs.xss-lock
     pkgs.xorg.xmodmap
     pkgs.xorg.setxkbmap
-    inputs.codeium.packages.x86_64-linux.codeium-lsp
   ];
-
 
   programs.rofi.enable = true;
   systemd.user.startServices = true;
-
 }

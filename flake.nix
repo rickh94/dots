@@ -39,10 +39,6 @@
     devenv.url = "github:cachix/devenv/latest";
 
     unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-    codeium = {
-      url = "github:jcdickinson/codeium.nvim";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
 
     bacon_ls.url = "github:crisidev/bacon-ls";
     nixvim = {
@@ -50,7 +46,9 @@
 
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-gaming.url = "github:fufexan/nix-gaming";
     # nix-gaming.url = "github:fufexan/nix-gaming";
+    impermanence.url = "github:nix-community/impermanence";
   };
 
   outputs =
@@ -59,10 +57,10 @@
     , darwin
     , home-manager
     , unstable
-    , codeium
     , devenv
     , nixvim
     , bacon_ls
+    , impermanence
     ,
     }:
     let
@@ -73,13 +71,17 @@
 
       # NIXOS HOST
       nixosConfigurations = {
-        wright = nixpkgs.lib.nixosSystem {
+        gamer = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
+          pkgs = import unstable {
+            system = "x86_64-linux";
+            config.allowUnfree = true;
+          };
           modules = [
-            ./hosts/wright/configuration.nix
+            impermanence.nixosModules.impermanence
+            ./hosts/gamer/configuration.nix
           ];
           specialArgs = {
-            inherit nixpkgs;
             inherit inputs;
             inherit chosenfonts;
             unstablePkgs = unstable.legacyPackages.x86_64-linux;
@@ -157,19 +159,19 @@
       };
 
       homeConfigurations = {
-        wright = home-manager.lib.homeManagerConfiguration {
-          pkgs = import nixpkgs {
+        gamer = home-manager.lib.homeManagerConfiguration {
+          pkgs = import unstable {
             system = "x86_64-linux";
-            overlays = [ codeium.overlays.x86_64-linux.default ];
+            config.allowUnfree = true;
+            overlays = [ ];
           };
           modules = [
-            ./hosts/wright/home.nix
+            ./hosts/gamer/home.nix
+            nixvim.homeManagerModules.nixvim
           ];
           extraSpecialArgs = {
             inherit inputs;
-            inherit chosenfonts;
             inherit devenv;
-            i3mod = "Mod4";
             unstablePkgs = unstable.legacyPackages.x86_64-linux;
           };
         };
