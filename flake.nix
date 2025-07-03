@@ -69,6 +69,7 @@
     in
     {
       nixpkgs.config.allowUnfree = true;
+      unstable.config.allowUnfree = true;
 
       # NIXOS HOST
       nixosConfigurations = {
@@ -76,7 +77,6 @@
           system = "x86_64-linux";
           pkgs = import unstable {
             system = "x86_64-linux";
-            config.allowUnfree = true;
           };
           modules = [
             nix-gaming.nixosModules.pipewireLowLatency
