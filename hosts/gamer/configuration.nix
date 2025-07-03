@@ -28,7 +28,7 @@
     firefox
     neovim
     git
-    alacritty
+    ghostty
     killall
     wireguard-tools
     tree
@@ -142,7 +142,19 @@
     };
   };
 
-  services.flatpak.enable = true;
+  services.flatpak = {
+    enable = true;
+    remotes = {
+      "flathub" = "https://dl.flathub.org/repo/flathub.flatpakrepo";
+      "flathub-beta" = "https://dl.flathub.org/beta-repo/flathub-beta.flatpakrepo";
+    };
+    packages = [
+      "flathub:app.zen_browser.zen"
+      "flathub-beta:app/org.kde.kdenlive/x86_64/stable"
+      ":${./foobar.flatpak}"
+      "flathub:/root/testflatpak.flatpakref"
+    ];
+  };
 
   services.sanoid = {
     enable = true;

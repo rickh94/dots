@@ -48,6 +48,7 @@
     };
     nix-gaming.url = "github:fufexan/nix-gaming";
     impermanence.url = "github:nix-community/impermanence";
+    flatpaks.url = "github:in-a-dil-emma/declarative-flatpak/stable-v3";
   };
 
   outputs =
@@ -61,6 +62,7 @@
     , bacon_ls
     , impermanence
     , nix-gaming
+    , flatpaks
     ,
     }:
     let
@@ -81,6 +83,7 @@
             nix-gaming.nixosModules.platformOptimizations
             nix-gaming.nixosModules.ntsync
             impermanence.nixosModules.impermanence
+            flatpaks.nixosModule
           ];
           specialArgs = {
             inherit inputs;
@@ -160,7 +163,7 @@
 
       homeConfigurations = {
         gamer = home-manager.lib.homeManagerConfiguration {
-          pkgs = import unstable {
+          pkgs = import nixpkgs {
             system = "x86_64-linux";
             config.allowUnfree = true;
             overlays = [ ];
