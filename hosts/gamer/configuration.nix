@@ -141,7 +141,7 @@
 
   services.flatpak.enable = true;
 
-  sanoid = {
+  services.sanoid = {
     enable = true;
     datasets = {
       "rpool/safe" = {
