@@ -68,15 +68,13 @@
       chosenfonts = [ "FiraCode" "Hack" "CascadiaCode" "Hasklig" "Lilex" "VictorMono" "Hermit" ];
     in
     {
-      nixpkgs.config.allowUnfree = true;
-      unstable.config.allowUnfree = true;
-
       # NIXOS HOST
       nixosConfigurations = {
         gamer = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           pkgs = import unstable {
             system = "x86_64-linux";
+            config.allowUnfree = true;
           };
           modules = [
             nix-gaming.nixosModules.pipewireLowLatency
