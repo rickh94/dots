@@ -209,22 +209,6 @@
         "type": "github"
       }
     },
-    "flatpaks": {
-      "locked": {
-        "lastModified": 1751376711,
-        "narHash": "sha256-/H7ZAGuVePVCLmV0hOk3vvgZ45JGN/17B5C3Op6DJNQ=",
-        "owner": "in-a-dil-emma",
-        "repo": "declarative-flatpak",
-        "rev": "d464c22ab8e176910a6f66291fa9133802d3246a",
-        "type": "github"
-      },
-      "original": {
-        "owner": "in-a-dil-emma",
-        "ref": "stable-v3",
-        "repo": "declarative-flatpak",
-        "type": "github"
-      }
-    },
     "git-hooks": {
       "inputs": {
         "flake-compat": [
@@ -384,6 +368,22 @@
         "owner": "cachix",
         "ref": "devenv-2.30",
         "repo": "nix",
+        "type": "github"
+      }
+    },
+    "nix-flatpak": {
+      "locked": {
+        "lastModified": 1739444422,
+        "narHash": "sha256-iAVVHi7X3kWORftY+LVbRiStRnQEob2TULWyjMS6dWg=",
+        "owner": "gmodena",
+        "repo": "nix-flatpak",
+        "rev": "5e54c3ca05a7c7d968ae1ddeabe01d2a9bc1e177",
+        "type": "github"
+      },
+      "original": {
+        "owner": "gmodena",
+        "ref": "latest",
+        "repo": "nix-flatpak",
         "type": "github"
       }
     },
@@ -569,9 +569,9 @@
         "bacon_ls": "bacon_ls",
         "darwin": "darwin",
         "devenv": "devenv",
-        "flatpaks": "flatpaks",
         "home-manager": "home-manager",
         "impermanence": "impermanence",
+        "nix-flatpak": "nix-flatpak",
         "nix-gaming": "nix-gaming",
         "nixpkgs": "nixpkgs_6",
         "nixvim": "nixvim",
