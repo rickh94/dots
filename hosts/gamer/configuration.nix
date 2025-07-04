@@ -191,7 +191,7 @@
           publicKey = "t9S4OAhiK5ZMmNdYsLEBj/fas9DyG5B61v1c59VBpQw=";
           endpoint = "vpn.rickhenry.xyz:51820";
           allowedIPs = [ "10.7.0.100/32" ];
-          presharedKeyfile = "/persist/secrets/wireguard/berg-psk";
+          presharedKeyFile = "/persist/secrets/wireguard/berg-psk";
           persistentKeepalive = 25;
         }
       ];
