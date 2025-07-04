@@ -135,6 +135,7 @@
       "freecad"
       "tor-browser"
       "ghostty"
+      "audacity"
     ];
   };
 

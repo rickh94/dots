@@ -14,6 +14,7 @@
 
   boot.extraModprobeConfig = ''
     options nvidia_modeset vblank_sem_control=0
+    options v4l2loopback devices=1 video_nr=1 card_label="OBS Cam" exclusive_caps=1
   '';
 
   networking.hostName = "nixgamer";
@@ -55,8 +56,6 @@
     wayland-utils # Wayland utilities
     wl-clipboard # Command-line copy/paste utilities for Wayland
 
-    wayvnc
-
     # gaming
     wine
     winetricks
@@ -66,6 +65,7 @@
 
     rar
     unrar
+    ffmpeg-full
   ];
 
   environment.plasma6.excludePackages = with pkgs.kdePackages; [
@@ -197,4 +197,6 @@
     enable = true;
     interval = "weekly";
   };
+
+  security.polkit.enable = true;
 }

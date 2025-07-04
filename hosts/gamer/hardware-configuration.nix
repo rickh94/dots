@@ -12,6 +12,7 @@
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = with config.boot.kernelPackages; [
     zenpower
+    v4l2loopback
   ];
 
   ######## ZFS DATASET LAYOUT FOR ROOT DRIVE #######
