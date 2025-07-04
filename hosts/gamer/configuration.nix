@@ -149,8 +149,15 @@
 
   services.flatpak = {
     enable = true;
+    update.auto = {
+      enable = true;
+      onCalendar = "weekly";
+    };
     packages = [
-      "app.zen_browser.zen"
+      {
+        appId = "app.zen_browser.zen";
+        commit = "stable";
+      }
       "org.prismlauncher.PrismLauncher"
     ];
   };
