@@ -54,6 +54,7 @@
       inputs.home-manager.follows = "home-manager";
     };
     flatpaks.url = "github:in-a-dil-emma/declarative-flatpak/stable-v3";
+    wivrn.url = "github:wivrn/wivrn/release";
   };
 
   outputs =
@@ -69,6 +70,7 @@
     , nix-gaming
     , flatpaks
     , plasma-manager
+    , wivrn
     ,
     }:
     let
@@ -94,6 +96,7 @@
           specialArgs = {
             inherit inputs;
             unstablePkgs = unstable.legacyPackages.x86_64-linux;
+            inherit wivrn;
           };
         };
 

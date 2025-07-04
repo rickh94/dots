@@ -1,5 +1,6 @@
 { config
 , pkgs
+, wivrn
 , ...
 }: {
   imports = [
@@ -128,6 +129,7 @@
   services.wivrn = {
     enable = true;
     config.enable = true;
+    package = wivrn.packages.${pkgs.system}.default;
     # openFirewall = true;
 
     # config.json = {
