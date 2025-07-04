@@ -121,11 +121,14 @@
 
         nixserver = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
+          pkgs = import nixpkgs {
+            system = "x86_64-linux";
+            config.allowUnfree = true;
+          };
           modules = [
             ./hosts/nixserver/configuration.nix
           ];
           specialArgs = {
-            inherit nixpkgs;
             inherit chosenfonts;
             inherit inputs;
             unstablePkgs = unstable.legacyPackages.x86_64-linux;
