@@ -154,7 +154,7 @@
       "flathub-beta" = "https://dl.flathub.org/beta-repo/flathub-beta.flatpakrepo";
     };
     packages = [
-      "flathub:app.zen_browser.zen"
+      "flathub:app.zen_browser.zen//stable"
     ];
   };
 
