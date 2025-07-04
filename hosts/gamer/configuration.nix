@@ -179,7 +179,7 @@
 
   services.avahi.publish.userServices = true;
   services.avahi.publish.enable = true;
-  services.avahi.ipv6.enable = true;
+  services.avahi.ipv6 = true;
 
   networking.firewall = {
     enable = false;
