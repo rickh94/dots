@@ -4,6 +4,7 @@
     ../../programs/nixvim
     ../../programs/ghostty-linux.nix
     ../_common/minimal.nix
+    ../_common/linux/configuration/plasma.nix
   ];
   home.stateVersion = "22.11";
   home.username = "rick";
