@@ -254,4 +254,6 @@
         };
       };
     };
+
+  networking.hosts = [];
 }

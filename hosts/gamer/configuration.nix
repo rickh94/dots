@@ -197,6 +197,9 @@
   #     ];
   #   };
   # };
+  networking.hosts = {
+    "next.rickhenry.xyz" = [ "10.0.1.100" ];
+  };
 
   networking.firewall = {
     enable = false;
