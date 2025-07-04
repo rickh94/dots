@@ -175,28 +175,28 @@
   };
   system.stateVersion = "25.05";
 
-  networking.wg-quick.interfaces = {
-    wg0 = {
-      address = [ "10.7.0.105/24" ];
-      listenPort = 51820;
-      mtu = 1410;
-      privateKeyFile = "/persist/secrets/wireguard/privkey";
-      dns = [
-        "10.7.0.100"
-        "1.1.1.1"
-      ];
-      peers = [
-        {
-          # albanberg
-          publicKey = "t9S4OAhiK5ZMmNdYsLEBj/fas9DyG5B61v1c59VBpQw=";
-          endpoint = "10.0.1.100:51820";
-          allowedIPs = [ "10.7.0.100/32" ];
-          presharedKeyFile = "/persist/secrets/wireguard/berg-psk";
-          persistentKeepalive = 25;
-        }
-      ];
-    };
-  };
+  # networking.wg-quick.interfaces = {
+  #   wg0 = {
+  #     address = [ "10.7.0.105/24" ];
+  #     listenPort = 51820;
+  #     mtu = 1410;
+  #     privateKeyFile = "/persist/secrets/wireguard/privkey";
+  #     # dns = [
+  #     #   "10.7.0.100"
+  #     #   "127.0.0.1"
+  #     # ];
+  #     peers = [
+  #       {
+  #         # albanberg
+  #         publicKey = "t9S4OAhiK5ZMmNdYsLEBj/fas9DyG5B61v1c59VBpQw=";
+  #         endpoint = "10.0.1.100:51820";
+  #         allowedIPs = [ "10.7.0.100/32" ];
+  #         presharedKeyFile = "/persist/secrets/wireguard/berg-psk";
+  #         persistentKeepalive = 25;
+  #       }
+  #     ];
+  #   };
+  # };
 
   networking.firewall = {
     enable = false;
