@@ -49,6 +49,11 @@
     nix-gaming.url = "github:fufexan/nix-gaming";
     impermanence.url = "github:nix-community/impermanence";
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
+    plasma-manager = {
+      url = "github:nix-community/plasma-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
   };
 
   outputs =
@@ -63,6 +68,7 @@
     , impermanence
     , nix-gaming
     , nix-flatpak
+    , plasma-manager
     ,
     }:
     let
@@ -177,6 +183,7 @@
           modules = [
             ./hosts/gamer/home.nix
             nixvim.homeManagerModules.nixvim
+            plasma-manager.homeManagerModules.plasma-manager
           ];
           extraSpecialArgs = {
             inherit inputs;

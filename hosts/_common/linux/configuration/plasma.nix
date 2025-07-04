@@ -1,0 +1,5 @@
+{ ... }: {
+  plasma = {
+    enable = true;
+  };
+}

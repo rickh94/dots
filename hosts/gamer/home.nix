@@ -13,7 +13,6 @@
     glibc
     feh
     steam
-    prismlauncher
     nvtopPackages.nvidia
     rclone
     freecad
@@ -25,4 +24,24 @@
   programs.home-manager.enable = true;
 
   systemd.user.startServices = true;
+
+  xdg.configFile."wivrn/config.json" = {
+    text = ''
+      {
+        "bitrate": 100000000,
+        "debug-gui": false,
+        "encoders": [
+          {
+            "codec": "h264",
+            "encoder": "nvenc",
+            "height": 1.0,
+            "offset_x": 0.0,
+            "offset_y": 0.0,
+            "width": 1.0
+          }
+        ],
+        "use-steamvr-lh": false
+      }
+    '';
+  };
 }

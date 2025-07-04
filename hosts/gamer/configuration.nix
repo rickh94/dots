@@ -151,6 +151,7 @@
     enable = true;
     packages = [
       "app.zen_browser.zen"
+      "org.prismlauncher.PrismLauncher"
     ];
   };
 
