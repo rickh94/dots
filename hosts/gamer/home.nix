@@ -19,6 +19,7 @@
     freecad
     openscad-unstable
     bs-manager
+    bitwarden-desktop
   ];
 
   programs.home-manager.enable = true;

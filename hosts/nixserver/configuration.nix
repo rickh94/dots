@@ -992,6 +992,13 @@ in
           presharedKeyFile = "/persist/secrets/wireguard/wright-psk";
           persistentKeepalive = 25;
         }
+        {
+          # nixgamer
+          publicKey = "3GlccYveqtG6kTlTIsMIyphY4fHqiyQ+hukd6rUqakk=";
+          allowedIPs = [ "10.7.0.105/32" ];
+          presharedKeyFile = "/persist/secrets/wireguard/gamer-psk";
+          persistentKeepalive = 25;
+        }
       ];
     };
     # wg1 = {
@@ -1063,11 +1070,6 @@ in
 
   fileSystems."/persist".neededForBoot = true;
   fileSystems."/vroom-impermanence".neededForBoot = true;
-
-  fileSystems."/export/vroom-media" = {
-    device = "/vroom/media";
-    options = [ "bind" ];
-  };
 
   # TODO: additional samba shares
 

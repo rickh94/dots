@@ -174,4 +174,41 @@
     };
   };
   system.stateVersion = "25.05";
+
+  networking.wg-quick.interfaces = {
+    wg0 = {
+      address = [ "10.7.0.105/24" ];
+      listenPort = 51820;
+      mtu = 1410;
+      privateKeyFile = "/persist/secrets/wireguard/privkey";
+      dns = [
+        "10.7.0.100"
+        "1.1.1.1"
+      ];
+      peers = [
+        {
+          # albanberg
+          publicKey = "t9S4OAhiK5ZMmNdYsLEBj/fas9DyG5B61v1c59VBpQw=";
+          endpoint = "vpn.rickhenry.xyz:51820";
+          allowedIPs = [ "10.7.0.100/32" ];
+          presharedKeyfile = "/persist/secrets/wireguard/berg-psk";
+          persistentKeepalive = 25;
+        }
+      ];
+    };
+  };
+
+  networking.firewall = {
+    enable = true;
+    allowPing = true;
+    allowedTCPPorts = [ 22 53 8123 8096 8222 5357 80 443 111 2049 4000 4001 4002 5201 20048 8083 8001 55110 5000 ];
+    allowedUDPPorts = [ 53 5353 51820 5357 111 2049 4000 4001 4002 20048 ];
+  };
+
+  services.zfs.autoSnapshot.enable = false;
+  services.zfs.autoScrub.enable = true;
+  services.zfs.trim = {
+    enable = true;
+    interval = "weekly";
+  };
 }
