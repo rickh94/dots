@@ -506,6 +506,8 @@ in
     samba = {
       openFirewall = true;
       enable = true;
+      nmbd.enable = true;
+      winbindd.enable = false;
       settings = {
         global = {
           security = "user";
@@ -1077,4 +1079,7 @@ in
 
   nix.optimise.automatic = true;
   system.stateVersion = "22.11";
+
+  services.avahi.publish.userServices = true;
+  services.avahi.publish.enable = true;
 }
