@@ -55,11 +55,17 @@
     wayland-utils # Wayland utilities
     wl-clipboard # Command-line copy/paste utilities for Wayland
 
+    wayvnc
+
     # gaming
     wine
     winetricks
+    lutris
 
     distrobox
+
+    rar
+    unrar
   ];
 
   environment.plasma6.excludePackages = with pkgs.kdePackages; [
