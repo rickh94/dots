@@ -177,6 +177,10 @@
   #   };
   # };
 
+  services.avahi.publish.userServices = true;
+  services.avahi.publish.enable = true;
+  services.avahi.ipv6.enable = true;
+
   networking.firewall = {
     enable = false;
   };
