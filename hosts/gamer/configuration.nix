@@ -128,37 +128,33 @@
   services.wivrn = {
     enable = true;
     config.enable = true;
-    openFirewall = true;
+    # openFirewall = true;
 
-    config.json = {
-      scale = 0.5;
-      bitrate = 100000000;
-      encoders = [
-        {
-          encoder = "nvenc";
-          codec = "h264";
-          width = 1.0;
-          height = 1.0;
-          offset_x = 0.0;
-          offset_y = 0.0;
-        }
-      ];
-      application = [ pkgs.wlx-overlay-s ];
-    };
+    # config.json = {
+    #   scale = 0.5;
+    #   bitrate = 100000000;
+    #   encoders = [
+    #     {
+    #       encoder = "nvenc";
+    #       codec = "h264";
+    #       width = 1.0;
+    #       height = 1.0;
+    #       offset_x = 0.0;
+    #       offset_y = 0.0;
+    #     }
+    #   ];
+    #   application = [ pkgs.wlx-overlay-s ];
+    # };
   };
 
   services.flatpak = {
     enable = true;
-    update.auto = {
-      enable = true;
-      onCalendar = "weekly";
+    remotes = {
+      "flathub" = "https://dl.flathub.org/repo/flathub.flatpakrepo";
     };
     packages = [
-      {
-        appId = "app.zen_browser.zen";
-        commit = "stable";
-      }
-      "org.prismlauncher.PrismLauncher"
+      "flathub:app/app.zen_browser.zen//stable"
+      "flathub:app/org.prismlauncher.PrismLauncher//stable"
     ];
   };
 
@@ -204,9 +200,6 @@
 
   networking.firewall = {
     enable = false;
-    allowPing = true;
-    allowedTCPPorts = [ 22 53 8123 8096 8222 5357 80 443 111 2049 4000 4001 4002 5201 20048 8083 8001 55110 5000 ];
-    allowedUDPPorts = [ 53 5353 51820 5357 111 2049 4000 4001 4002 20048 ];
   };
 
   services.zfs.autoSnapshot.enable = false;

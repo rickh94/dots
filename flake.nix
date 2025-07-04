@@ -48,12 +48,12 @@
     };
     nix-gaming.url = "github:fufexan/nix-gaming";
     impermanence.url = "github:nix-community/impermanence";
-    nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
     plasma-manager = {
       url = "github:nix-community/plasma-manager";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
+    flatpaks.url = "github:in-a-dil-emma/declarative-flatpak/stable-v3";
   };
 
   outputs =
@@ -67,7 +67,7 @@
     , bacon_ls
     , impermanence
     , nix-gaming
-    , nix-flatpak
+    , flatpaks
     , plasma-manager
     ,
     }:
@@ -89,7 +89,7 @@
             nix-gaming.nixosModules.platformOptimizations
             nix-gaming.nixosModules.ntsync
             impermanence.nixosModules.impermanence
-            nix-flatpak.nixosModules.nix-flatpak
+            flatpaks.nixosModule
           ];
           specialArgs = {
             inherit inputs;
