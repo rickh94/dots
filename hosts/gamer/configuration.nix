@@ -1,6 +1,5 @@
 { config
 , pkgs
-, wivrn
 , ...
 }: {
   imports = [
@@ -126,29 +125,6 @@
 
   services.pipewire.lowLatency.enable = true;
 
-  services.wivrn = {
-    enable = true;
-    config.enable = true;
-    package = wivrn.packages.${pkgs.system}.default;
-    # openFirewall = true;
-
-    # config.json = {
-    #   scale = 0.5;
-    #   bitrate = 100000000;
-    #   encoders = [
-    #     {
-    #       encoder = "nvenc";
-    #       codec = "h264";
-    #       width = 1.0;
-    #       height = 1.0;
-    #       offset_x = 0.0;
-    #       offset_y = 0.0;
-    #     }
-    #   ];
-    #   application = [ pkgs.wlx-overlay-s ];
-    # };
-  };
-
   services.flatpak = {
     enable = true;
     remotes = {
@@ -157,6 +133,7 @@
     packages = [
       "flathub:app/app.zen_browser.zen//stable"
       "flathub:app/org.prismlauncher.PrismLauncher//stable"
+      "flathub:app/io.github.wivrn.wivrn//stable"
     ];
   };
 
@@ -199,9 +176,6 @@
   #     ];
   #   };
   # };
-  networking.hosts = {
-    "next.rickhenry.xyz" = [ "10.0.1.100" ];
-  };
 
   networking.firewall = {
     enable = false;

@@ -761,15 +761,11 @@ in
           "/qb.rickhenry.xyz/10.7.0.100"
           "/vault.rickhenry.xyz/10.7.0.100"
           "/prox.rickhenry.xyz/10.7.0.100"
-          "/paper.rickhenry.xyz/10.7.0.100"
           "/stash.rickhenry.xyz/10.7.0.100"
           "/whisparr.rickhenry.xyz/10.7.0.100"
           "/readarr.rickhenry.xyz/10.7.0.100"
           "/kavita.rickhenry.xyz/10.7.0.100"
           "/lidarr.rickhenry.xyz/10.7.0.100"
-          "/audio.rickhenry.xyz/10.7.0.100"
-          "/atuin.rickhenry.xyz/10.7.0.100"
-          "/printer.rickhenry.xyz/10.7.0.100"
         ];
       };
     };
