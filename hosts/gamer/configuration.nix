@@ -66,6 +66,8 @@
     rar
     unrar
     ffmpeg-full
+    discord
+    mumble
   ];
 
   environment.plasma6.excludePackages = with pkgs.kdePackages; [
@@ -140,6 +142,7 @@
       "flathub:app/app.zen_browser.zen//stable"
       "flathub:app/org.prismlauncher.PrismLauncher//stable"
       "flathub:app/io.github.wivrn.wivrn//stable"
+      "flathub:app/com.obsproject.Studio//stable"
     ];
   };
 

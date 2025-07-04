@@ -5,6 +5,7 @@
     experimental-features = [ "nix-command" "flakes" ];
     allowUnfree = true;
     trusted-users = [ "rick" ];
+    download-buffer-size = 2147483648;
     substituters = [
       "https://cache.nixos.org"
     ];
