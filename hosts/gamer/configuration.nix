@@ -70,8 +70,6 @@
     ffmpeg-full
     discord
     mumble
-
-    wlx-overlay-x
   ];
 
   environment.plasma6.excludePackages = with pkgs.kdePackages; [

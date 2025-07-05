@@ -85,6 +85,9 @@
           pkgs = import unstable {
             system = "x86_64-linux";
             config.allowUnfree = true;
+            overlays = [
+              nixpkgs-xr.overlays.default
+            ];
           };
           modules = [
             ./hosts/gamer/configuration.nix
