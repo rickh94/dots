@@ -13,8 +13,7 @@
   home = {
     packages = with pkgs; [
       # basics
-      alacritty
-      ffmpeg
+      ffmpeg-full
       kitty
       tmux
       killall
