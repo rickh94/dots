@@ -120,7 +120,7 @@
     nvidiaSettings = true;
 
     # Optionally, you may need to select the appropriate driver version for your specific GPU.
-    package = config.boot.kernelPackages.nvidia_x11_beta;
+    package = config.boot.kernelPackages.nvidia_x11;
   };
 
   programs.steam = {
