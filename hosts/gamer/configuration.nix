@@ -120,7 +120,7 @@
     nvidiaSettings = true;
 
     # Optionally, you may need to select the appropriate driver version for your specific GPU.
-    package = config.boot.kernelPackages.nvidia_x11;
+    package = config.boot.kernelPackages.nvidia_x11_beta;
   };
 
   programs.steam = {
@@ -143,7 +143,7 @@
     packages = [
       "flathub:app/app.zen_browser.zen//stable"
       "flathub:app/org.prismlauncher.PrismLauncher//stable"
-      "flathub:app/io.github.wivrn.wivrn//stable"
+      #"flathub:app/io.github.wivrn.wivrn//stable"
       "flathub:app/com.obsproject.Studio//stable"
     ];
   };
