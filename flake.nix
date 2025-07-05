@@ -93,7 +93,7 @@
             nix-gaming.nixosModules.ntsync
             impermanence.nixosModules.impermanence
             flatpaks.nixosModule
-            nixpkgs-xr.nixosModule.nixpkgs-xr
+            nixpkgs-xr.nixosModules.nixpkgs-xr
           ];
           specialArgs = {
             inherit inputs;
