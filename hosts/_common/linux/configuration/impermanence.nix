@@ -5,6 +5,7 @@
       "/var/lib/containers/storage"
       "/var/lib/nixos"
       "/var/lib/flatpak"
+      "/var/db/sudo"
     ];
     files = [
       "/etc/ssh/ssh_host_rsa_key"
