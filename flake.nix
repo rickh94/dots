@@ -55,6 +55,7 @@
       inputs.home-manager.follows = "home-manager";
     };
     flatpaks.url = "github:in-a-dil-emma/declarative-flatpak/stable-v3";
+    nixpkgs-xr.url = "github:nix-community/nixpkgs-xr";
   };
 
   outputs =
@@ -70,6 +71,7 @@
     , nix-gaming
     , flatpaks
     , plasma-manager
+    , nixpkgs-xr
     ,
     }:
     let
@@ -91,6 +93,7 @@
             nix-gaming.nixosModules.ntsync
             impermanence.nixosModules.impermanence
             flatpaks.nixosModule
+            nixpkgs-xr.nixosModule.nixpkgs-xr
           ];
           specialArgs = {
             inherit inputs;
@@ -179,7 +182,9 @@
           pkgs = import nixpkgs {
             system = "x86_64-linux";
             config.allowUnfree = true;
-            overlays = [ ];
+            overlays = [
+              nixpkgs-xr.overlays.default
+            ];
           };
           modules = [
             ./hosts/gamer/home.nix
