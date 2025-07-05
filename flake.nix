@@ -82,7 +82,7 @@
       nixosConfigurations = {
         gamer = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
-          pkgs = import nixpkgs {
+          pkgs = import unstable {
             system = "x86_64-linux";
             config.allowUnfree = true;
           };
@@ -179,7 +179,7 @@
 
       homeConfigurations = {
         gamer = home-manager.lib.homeManagerConfiguration {
-          pkgs = import nixpkgs {
+          pkgs = import unstable {
             system = "x86_64-linux";
             config.allowUnfree = true;
             overlays = [
