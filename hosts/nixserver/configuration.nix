@@ -149,13 +149,25 @@ in
   users.groups.prometheus.gid = 255;
 
   users.users.btrbk = {
-    isSystemUser = true;
+    isNormalUser = true;
     group = "btrbk";
     openssh.authorizedKeys.keys = [
-      ''command="${pkgs.btrbk}/share/btrbk/scripts/ssh_filter_btrbk.sh -l --source --delete", restrict ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN3ckIS3h5uhcDy9f7PNuqRiH8HWtYXuX+DfJBfRaOKt''
+      ''command="${pkgs.btrbk}/share/btrbk/scripts/ssh_filter_btrbk.sh --sudo -l -i -t --source --delete",restrict ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN3ckIS3h5uhcDy9f7PNuqRiH8HWtYXuX+DfJBfRaOKt''
     ];
   };
   users.groups.btrbk = { };
+
+  security.sudo.extraRules = [
+    {
+      users = [ "btrbk" ];
+      commands = [
+        {
+          command = "/run/current-system/sw/bin/btrfs";
+          options = [ "NOPASSWD" ];
+        }
+      ];
+    }
+  ];
 
   services = {
     atuin = {
