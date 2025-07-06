@@ -144,6 +144,7 @@
           };
           modules = [
             ./hosts/nixserver/configuration.nix
+            impermanence.nixosModules.impermanence
           ];
           specialArgs = {
             inherit chosenfonts;

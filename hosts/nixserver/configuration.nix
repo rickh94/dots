@@ -5,7 +5,6 @@
 , ...
 }:
 let
-  impermanence = builtins.fetchTarball "https://github.com/nix-community/impermanence/archive/master.tar.gz";
   secrets = import ./secrets.nix { };
 in
 {
@@ -17,7 +16,6 @@ in
     ../_common/rick-passwordless-sudo.nix
     ../_common/linux/configuration/xconfig-noi3.nix
     ./hardware-configuration.nix
-    "${impermanence}/nixos.nix"
   ];
 
   users.users.rick.shell = pkgs.zsh;
@@ -152,13 +150,12 @@ in
 
   users.users.btrbk = {
     isSystemUser = true;
-    uid = 988;
-    group = "prometheus";
+    group = "btrbk";
     openssh.authorizedKeys.keys = [
-
+      ''command="${pkgs.btrbk}/share/btrbk/scripts/ssh_filter_btrbk.sh -l --source --delete", restrict ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN3ckIS3h5uhcDy9f7PNuqRiH8HWtYXuX+DfJBfRaOKt''
     ];
   };
-  users.groups.btrbk.gid = 988;
+  users.groups.btrbk = { };
 
   services = {
     atuin = {
