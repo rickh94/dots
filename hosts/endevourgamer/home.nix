@@ -1,7 +1,7 @@
 { pkgs, ... }: {
   imports = [
     ../../programs/nixvim
-    ../../programs/ghostty-linux.nix
+    ../../programs/ghostty-mac.nix
     ../_common/minimal.nix
     ../../programs/direnv/default.nix
     ../../programs/tmux.nix
