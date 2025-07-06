@@ -28,7 +28,7 @@
   '';
 
   programs.fish.shellInit = ''
-    source /etc/profile.d/nix-daemon.sh
+    source /etc/profile.d/nix-daemon.fish
   '';
 
   xsession.profileExtra = ''
