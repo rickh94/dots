@@ -13,7 +13,6 @@
 
   home.packages = with pkgs; [
     feh
-    home-manager
   ];
 
   programs.home-manager.enable = true;
