@@ -41,7 +41,7 @@
 
     unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    bacon_ls.url = "github:crisidev/bacon-ls";
+    #bacon_ls.url = "github:crisidev/bacon-ls";
     nixvim = {
       url = "github:nix-community/nixvim/nixos-25.05";
 
@@ -66,7 +66,6 @@
     , unstable
     , devenv
     , nixvim
-    , bacon_ls
     , impermanence
     , nix-gaming
     , flatpaks
@@ -169,7 +168,6 @@
                 extraSpecialArgs = {
                   inherit devenv;
                   inherit nixvim;
-                  inherit bacon_ls;
                   unstablePkgs = unstable.legacyPackages.aarch64-darwin;
                 };
               };
@@ -201,7 +199,6 @@
             inherit inputs;
             inherit devenv;
             inherit nixvim;
-            inherit bacon_ls;
             unstablePkgs = unstable.legacyPackages.x86_64-linux;
           };
         };
@@ -224,7 +221,6 @@
             inherit inputs;
             #    inherit devenv;
             inherit nixvim;
-            inherit bacon_ls;
             unstablePkgs = unstable.legacyPackages.x86_64-linux;
           };
         };
@@ -255,7 +251,6 @@
             inherit chosenfonts;
             inherit devenv;
             inherit nixvim;
-            inherit bacon_ls;
             unstablePkgs = unstable.legacyPackages.x86_64-linux;
           };
         };
@@ -282,7 +277,6 @@
             inherit chosenfonts;
             inherit devenv;
             inherit nixvim;
-            inherit bacon_ls;
             i3mod = "Control";
             unstablePkgs = unstable.legacyPackages.x86_64-linux;
           };
