@@ -206,6 +206,29 @@
           };
         };
 
+        endeavourgamer = home-manager.lib.homeManagerConfiguration {
+          pkgs = import nixpkgs {
+            system = "x86_64-linux";
+            config.allowUnfree = true;
+            #config.cudaSupport = true;
+            overlays = [
+              nixpkgs-xr.overlays.default
+            ];
+          };
+          modules = [
+            ./hosts/endevourgamer/home.nix
+            nixvim.homeManagerModules.nixvim
+            #plasma-manager.homeManagerModules.plasma-manager
+          ];
+          extraSpecialArgs = {
+            inherit inputs;
+            #    inherit devenv;
+            inherit nixvim;
+            inherit bacon_ls;
+            unstablePkgs = unstable.legacyPackages.x86_64-linux;
+          };
+        };
+
         nixx86-vm = home-manager.lib.homeManagerConfiguration {
           pkgs = import nixpkgs {
             system = "x86_64-linux";
