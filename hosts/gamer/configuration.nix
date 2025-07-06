@@ -71,6 +71,7 @@
     discord
     mumble
     nvidia-vaapi-driver
+    usbutils
   ];
 
   environment.plasma6.excludePackages = with pkgs.kdePackages; [
@@ -107,7 +108,7 @@
     # Experimental and only works on modern Nvidia GPUs (Turing or newer).
     powerManagement.finegrained = false;
 
-    open = true;
+    open = false;
 
     # Enable the Nvidia settings menu,
     # accessible via `nvidia-settings`.

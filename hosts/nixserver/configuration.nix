@@ -84,6 +84,7 @@ in
     pkgs.mktorrent
     pkgs.rdfind
     pkgs.puddletag
+    pkgs.btrbk
   ];
 
   users.users.jellyfin = {
@@ -148,6 +149,16 @@ in
     group = "prometheus";
   };
   users.groups.prometheus.gid = 255;
+
+  users.users.btrbk = {
+    isSystemUser = true;
+    uid = 988;
+    group = "prometheus";
+    openssh.authorizedKeys.keys = [
+
+    ];
+  };
+  users.groups.btrbk.gid = 988;
 
   services = {
     atuin = {
@@ -350,16 +361,16 @@ in
           autosnap = true;
           autoprune = true;
         };
-        "backuptank" = {
-          yearly = 0;
-          monthly = 1;
-          weekly = 1;
-          daily = 1;
-          hourly = 1;
-          recursive = true;
-          autosnap = true;
-          autoprune = true;
-        };
+        # "backuptank" = {
+        #   yearly = 0;
+        #   monthly = 1;
+        #   weekly = 1;
+        #   daily = 1;
+        #   hourly = 1;
+        #   recursive = true;
+        #   autosnap = true;
+        #   autoprune = true;
+        # };
         # not backuptank
         # some of vroom
       };

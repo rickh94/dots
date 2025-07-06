@@ -186,6 +186,7 @@
           pkgs = import nixpkgs {
             system = "x86_64-linux";
             config.allowUnfree = true;
+            config.cudaSupport = true;
             overlays = [
               nixpkgs-xr.overlays.default
             ];
