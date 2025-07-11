@@ -74,12 +74,6 @@
     fsType = "zfs";
   };
 
-  fileSystems."/gaming-backup" = {
-    device = "/dev/zvol/backuptank/gaming";
-    fsType = "btrfs";
-    options = [ "noatime" "compression=off" ];
-  };
-
   swapDevices = [
     { label = "SWAP"; }
   ];

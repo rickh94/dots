@@ -148,26 +148,14 @@ in
   };
   users.groups.prometheus.gid = 255;
 
-  users.users.btrbk = {
+  users.users.eosgamer = {
     isNormalUser = true;
-    group = "btrbk";
+    group = "eosgamer";
     openssh.authorizedKeys.keys = [
-      ''command="${pkgs.btrbk}/share/btrbk/scripts/ssh_filter_btrbk.sh --sudo -l -i -t --source --delete",restrict ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN3ckIS3h5uhcDy9f7PNuqRiH8HWtYXuX+DfJBfRaOKt''
+      ''ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINpWhZ91MzkqwfAEvbbZZqGmQR18skM3jw82ztAlXQpp root@eosgamer''
     ];
   };
-  users.groups.btrbk = { };
-
-  security.sudo.extraRules = [
-    {
-      users = [ "btrbk" ];
-      commands = [
-        {
-          command = "/run/current-system/sw/bin/btrfs";
-          options = [ "NOPASSWD" ];
-        }
-      ];
-    }
-  ];
+  users.groups.eosgamer = { };
 
   services = {
     atuin = {

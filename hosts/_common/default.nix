@@ -72,6 +72,7 @@
       imagemagick
       smartmontools
       viu
+      (python313.withPackages (ps: with ps; [ pip ]))
 
       # audio
       flac

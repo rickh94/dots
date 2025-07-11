@@ -9,7 +9,7 @@
     pkgs.alacritty
     pkgs.git
     pkgs.curl
-    pkgs.python312Full
+    pkgs.python313Full
   ];
 
   environment.systemPath = [
@@ -136,6 +136,7 @@
       "tor-browser"
       "ghostty"
       "audacity"
+      "alfred"
     ];
   };
 

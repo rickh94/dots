@@ -32,7 +32,7 @@ in
     pkgs.entr
     pkgs.rubik
     pkgs.emacs
-    pkgs.python312Packages.pipx
+    pkgs.python313Packages.pipx
     devenv.packages.${pkgs.system}.devenv
   ];
 }

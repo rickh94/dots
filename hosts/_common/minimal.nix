@@ -52,7 +52,6 @@
       go
       nodejs
       rustup
-      (python312.withPackages (ps: with ps; [ pip ]))
       ruby
       elixir
       erlang
