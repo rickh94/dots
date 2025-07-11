@@ -82,7 +82,7 @@ in
     pkgs.mktorrent
     pkgs.rdfind
     pkgs.puddletag
-    pkgs.btrbk
+    pkgs.mbuffer
   ];
 
   users.users.jellyfin = {
