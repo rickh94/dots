@@ -203,7 +203,7 @@
           };
         };
 
-        endeavourgamer = home-manager.lib.homeManagerConfiguration {
+        eosgamer = home-manager.lib.homeManagerConfiguration {
           pkgs = import nixpkgs {
             system = "x86_64-linux";
             config.allowUnfree = true;
@@ -213,7 +213,7 @@
             ];
           };
           modules = [
-            ./hosts/endevourgamer/home.nix
+            ./hosts/eosgamer/home.nix
             nixvim.homeManagerModules.nixvim
             #plasma-manager.homeManagerModules.plasma-manager
           ];
