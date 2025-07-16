@@ -207,13 +207,27 @@
           pkgs = import nixpkgs {
             system = "x86_64-linux";
             config.allowUnfree = true;
-            #config.cudaSupport = true;
-            overlays = [
-              nixpkgs-xr.overlays.default
-            ];
           };
           modules = [
             ./hosts/eosgamer/home.nix
+            nixvim.homeManagerModules.nixvim
+          ];
+          extraSpecialArgs = {
+            inherit inputs;
+            #    inherit devenv;
+            inherit nixvim;
+            unstablePkgs = unstable.legacyPackages.x86_64-linux;
+          };
+        };
+
+        silverblue = home-manager.lib.homeManagerConfiguration {
+          pkgs = import nixpkgs {
+            system = "x86_64-linux";
+            config.allowUnfree = true;
+            #config.cudaSupport = true;
+          };
+          modules = [
+            ./hosts/silverblue/home.nix
             nixvim.homeManagerModules.nixvim
             #plasma-manager.homeManagerModules.plasma-manager
           ];
