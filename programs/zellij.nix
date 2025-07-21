@@ -1,59 +1,92 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   programs.zellij.enable = true;
 
   xdg.configFile."zellij/config.kdl" = {
     text = ''
       default_shell "${pkgs.fish}/bin/fish"
-      theme "molokai-dark"
-      on_force_close "quit"
-      keybinds {
-          unbind "Ctrl g"
-          normal {
-            unbind "Ctrl o"
-          }
+
+      theme "catppuccin-macchiato"
+      load_plugins {
+        https://github.com/fresh2dev/zellij-autolock/releases/download/0.2.2/zellij-autolock.wasm
       }
+      keybinds {
+          shared_except "locked" {
+              bind "Ctrl h" {
+                  MessagePlugin "https://github.com/hiasr/vim-zellij-navigator/releases/download/0.3.0/vim-zellij-navigator.wasm" {
+                      name "move_focus_or_tab";
+                      payload "left";
 
-      themes {
-          molokai-dark {
-              fg 248 248 240
-              bg 27 29 30
-              black 0 0 0
-              red 255 0 0
-              green 0 140 0
-              yellow 255 255 0
-              blue 102 217 239
-              magenta 174 129 255
-              cyan 0 255 255
-              white 255 255 255
-              orange 253 151 31
-          }
+                      // Plugin Configuration
+                      move_mod "ctrl"; // Optional, should be added on every move command if changed.
+                      use_arrow_keys "false"; // Optional, uses arrow keys instead of hjkl. Should be added to every command where you want to use it.
+                  };
+              }
 
-          catppuccin-mocha {
-            bg "#585b70" // Surface2
-            fg "#cdd6f4"
-            red "#f38ba8"
-            green "#a6e3a1"
-            blue "#89b4fa"
-            yellow "#f9e2af"
-            magenta "#f5c2e7" // Pink
-            orange "#fab387" // Peach
-            cyan "#89dceb" // Sky
-            black "#181825" // Mantle
-            white "#cdd6f4"
-          }
-          tokyo-night-dark {
-              fg 169 177 214
-              bg 26 27 38
-              black 56 62 90
-              red 249 51 87
-              green 158 206 106
-              yellow 224 175 104
-              blue 122 162 247
-              magenta 187 154 247
-              cyan 42 195 222
-              white 192 202 245
-              orange 255 158 100
+              bind "Ctrl j" {
+                  MessagePlugin "https://github.com/hiasr/vim-zellij-navigator/releases/download/0.3.0/vim-zellij-navigator.wasm" {
+                      name "move_focus";
+                      payload "down";
+
+                      move_mod "ctrl";
+                      use_arrow_keys "false";
+                  };
+              }
+
+              bind "Ctrl k" {
+                  MessagePlugin "https://github.com/hiasr/vim-zellij-navigator/releases/download/0.3.0/vim-zellij-navigator.wasm" {
+                      name "move_focus";
+                      payload "up";
+
+                      move_mod "ctrl";
+                      use_arrow_keys "false";
+                  };
+              }
+
+              bind "Ctrl l" {
+                  MessagePlugin "https://github.com/hiasr/vim-zellij-navigator/releases/download/0.3.0/vim-zellij-navigator.wasm" {
+                      name "move_focus_or_tab";
+                      payload "right";
+
+                      move_mod "ctrl"; // Optional, should be added on every command if you want to use it
+                      use_arrow_keys "false";
+                  };
+              }
+
+              bind "Alt h" {
+                  MessagePlugin "https://github.com/hiasr/vim-zellij-navigator/releases/download/0.3.0/vim-zellij-navigator.wasm" {
+                      name "resize";
+                      payload "left";
+
+                      resize_mod "alt";
+                  };
+              }
+
+              bind "Alt j" {
+                  MessagePlugin "https://github.com/hiasr/vim-zellij-navigator/releases/download/0.3.0/vim-zellij-navigator.wasm" {
+                      name "resize";
+                      payload "down";
+
+                      resize_mod "alt";
+                  };
+              }
+
+              bind "Alt k" {
+                  MessagePlugin "https://github.com/hiasr/vim-zellij-navigator/releases/download/0.3.0/vim-zellij-navigator.wasm" {
+                      name "resize";
+                      payload "up";
+
+                      resize_mod "alt";
+                  };
+              }
+
+              bind "Alt l" {
+                  MessagePlugin "https://github.com/hiasr/vim-zellij-navigator/releases/download/0.3.0/vim-zellij-navigator.wasm" {
+                      name "resize";
+                      payload "right";
+
+                      resize_mod "alt";
+                  };
+              }
           }
       }
     '';

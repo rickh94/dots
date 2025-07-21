@@ -1,9 +1,12 @@
-{ config
-, pkgs
-, unstablePkgs
-, ...
+{
+  config,
+  pkgs,
+  unstablePkgs,
+  ...
 }: {
   imports = [
+    ../../programs/zellij.nix
+    ../../programs/helix.nix
     #../../programs/neovim
     ../../programs/git.nix
     ../../programs/starship.nix
@@ -33,7 +36,6 @@
     packages = with pkgs; [
       # basics
       wget
-      tree
       zoxide
       fish
       mosh
@@ -73,9 +75,6 @@
       bat
       xh
       fselect
-      evil-helix
-      rusty-man
-      mprocs
     ];
   };
 

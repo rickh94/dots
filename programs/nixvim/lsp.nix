@@ -1,6 +1,7 @@
-{ pkgs
-, unstablePkgs
-, ...
+{
+  pkgs,
+  unstablePkgs,
+  ...
 }: {
   home.packages = with unstablePkgs; [
     golangci-lint
@@ -22,7 +23,7 @@
       })
     ];
 
-    plugins.navic.enable = true;
+    # plugins.navic.enable = true;
 
     extraConfigLua =
       /*
@@ -39,7 +40,7 @@
       servers.sorbet = {
         enable = true;
         package = null;
-        cmd = [ "bundle" "exec" "srb" "tc" "--lsp" ];
+        cmd = ["bundle" "exec" "srb" "tc" "--lsp"];
       };
     };
 
@@ -60,9 +61,9 @@
           vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end)
           vim.keymap.set("n", "<A-k>", function() vim.lsp.buf.signature_help() end)
 
-          if client.server_capabilities.documentSymbolProvider then
-            require('nvim-navic').attach(client, bufnr)
-          end
+          -- if client.server_capabilities.documentSymbolProvider then
+          --   require('nvim-navic').attach(client, bufnr)
+          -- end
 
           vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_) vim.lsp.buf.format() end, {})
         '';
@@ -75,9 +76,9 @@
         clangd.enable = true;
         docker_compose_language_service.enable = true;
         dockerls.enable = true;
-        eslint.enable = true;
+        # eslint.enable = true;
         fish_lsp.enable = true;
-        golangci_lint_ls.enable = true;
+        # golangci_lint_ls.enable = true;
         gopls.enable = true;
         html.enable = true;
         htmx.enable = true;
@@ -87,9 +88,9 @@
           enable = true;
           settings = {
             Lua = {
-              workspace = { checkThirdParty = false; };
-              telemetry = { enable = false; };
-              diagnostics = { globals = [ "vim" ]; };
+              workspace = {checkThirdParty = false;};
+              telemetry = {enable = false;};
+              diagnostics = {globals = ["vim"];};
             };
           };
         };

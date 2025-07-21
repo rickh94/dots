@@ -12,7 +12,6 @@
     rustywind
     taplo
     python312Packages.mdformat
-    nixpkgs-fmt
     stylelint
     yamlfmt
     gawk
@@ -34,7 +33,7 @@
         };
       };
       formatters_by_ft = {
-        nix = [ "alejandra" "nixpkgs_fmt" ];
+        nix = [ "alejandra" ];
         python = [ "black" "isort" ];
         htmldjango = [ "djlint" "rustywind" ];
         jinja = [ "djlint" "rustywind" ];

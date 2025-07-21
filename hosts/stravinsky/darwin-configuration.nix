@@ -124,8 +124,6 @@
       "mediainfo"
       "mediahuman-audio-converter"
       "mediahuman-youtube-downloader"
-      "foobar2000"
-      "jellyfin-media-player"
       "iina"
       "zoom"
       "maccy"
@@ -137,6 +135,7 @@
       "ghostty"
       "audacity"
       "alfred"
+      "lapce"
     ];
   };
 

@@ -1,24 +1,23 @@
-{ config, ... }:
-let
+{config, ...}: let
   helpers = config.lib.nixvim;
   setlocal_frompattern = [
     {
-      pattern = [ "*.py" "*.sql" ];
+      pattern = ["*.py" "*.sql"];
       tabstop = "4";
       expandtab = true;
     }
     {
-      pattern = [ "*.c" "*.ino" ];
+      pattern = ["*.c" "*.ino"];
       tabstop = "8";
       expandtab = false;
     }
     {
-      pattern = [ "*.ly" ];
+      pattern = ["*.ly"];
       tabstop = "2";
       expandtab = false;
     }
     {
-      pattern = [ "*.sql" ];
+      pattern = ["*.sql"];
       tabstop = "4";
       expandtab = true;
     }
@@ -34,24 +33,23 @@ let
 
   filetypes = [
     {
-      pattern = [ "*.njk" ];
+      pattern = ["*.njk"];
       ft = "twig";
     }
     {
-      pattern = [ "*.pss" ];
+      pattern = ["*.pss"];
       ft = "css";
     }
     {
-      pattern = [ "*.astro" ];
+      pattern = ["*.astro"];
       ft = "astro";
     }
   ];
-in
-{
+in {
   imports = [
     ./lsp.nix
     ./plugins/treesitter.nix
-    ./plugins/aerial.nix
+    # ./plugins/aerial.nix
     ./plugins/arrow.nix
     ./plugins/cmp.nix
     ./plugins/conform.nix
@@ -73,8 +71,9 @@ in
     plugins = {
       nvim-autopairs.enable = true;
       comment.enable = true;
-      guess-indent.enable = true;
-      navic.enable = true;
+      smart-splits.enable = true;
+      # guess-indent.enable = true;
+      # navic.enable = true;
       auto-session = {
         enable = true;
         settings = {
@@ -134,100 +133,130 @@ in
       {
         action = "<Nop>";
         key = "<Space>";
-        options = { silent = true; };
-        mode = [ "n" "v" ];
+        options = {silent = true;};
+        mode = ["n" "v"];
       }
 
       # save
       {
         action = "<cmd>w<cr>";
         key = "<leader>w";
-        mode = [ "n" ];
+        mode = ["n"];
       }
 
       # diagnostics
       {
-        action = helpers.utils.mkRaw "vim.diagnostic.goto_prev";
+        action = helpers.utils.mkRaw "vim.diagnostic.goto_next";
         key = "]d";
-        mode = [ "n" ];
+        mode = ["n"];
       }
       {
-        action = helpers.utils.mkRaw "vim.diagnostic.goto_next";
+        action = helpers.utils.mkRaw "vim.diagnostic.goto_prev";
         key = "[d";
-        mode = [ "n" ];
+        mode = ["n"];
       }
       {
         action = helpers.utils.mkRaw "vim.diagnostic.open_float";
         key = "<leader>d";
-        mode = [ "n" ];
+        mode = ["n"];
       }
 
       # rebinds
       {
         action = "<C-d>zz";
         key = "<C-d>";
-        mode = [ "n" ];
+        mode = ["n"];
       }
       {
         action = "<C-u>zz";
         key = "<C-u>";
-        mode = [ "n" ];
+        mode = ["n"];
       }
       {
         action = "nzzzv";
         key = "n";
-        mode = [ "n" ];
+        mode = ["n"];
       }
       {
         action = "Nzzzv";
         key = "N";
-        mode = [ "n" ];
+        mode = ["n"];
       }
 
       # paste over selection without losing register
       {
         action = ''"_dP'';
         key = "<leader>p";
-        mode = [ "x" ];
+        mode = ["x"];
       }
 
       # system copy paste
       {
         action = ''"+y'';
         key = "<leader>y";
-        mode = [ "n" "v" ];
+        mode = ["n" "v"];
       }
       {
         action = ''"+Y'';
         key = "<leader>Y";
-        mode = [ "n" "v" ];
+        mode = ["n" "v"];
       }
       {
         action = ''"+p'';
         key = "<leader>P";
-        mode = [ "n" "v" ];
+        mode = ["n" "v"];
       }
 
       # visual mode keybinds
       {
         action = ">gv";
         key = ">";
-        mode = [ "v" ];
+        mode = ["v"];
       }
       {
         action = "<gv";
         key = "<";
-        mode = [ "v" ];
+        mode = ["v"];
       }
       {
         key = "J";
         action = ":m '>+1<cr>gv=gv";
-        mode = [ "v" ];
+        mode = ["v"];
       }
       {
         key = "K";
         action = ":m '<-2<cr>gv=gv";
-        mode = [ "v" ];
+        mode = ["v"];
+      }
+      {
+        key = "<leaver>ns";
+        action = helpers.utils.mkRaw "require('package-info').show";
+        mode = ["n"];
+      }
+      {
+        key = "<leaver>nc";
+        action = helpers.utils.mkRaw "require('package-info').hide";
+        mode = ["n"];
+      }
+      {
+        key = "<leaver>nu";
+        action = helpers.utils.mkRaw "require('package-info').update";
+        mode = ["n"];
+      }
+      {
+        key = "<leaver>nd";
+        action = helpers.utils.mkRaw "require('package-info').delete";
+        mode = ["n"];
+      }
+      {
+        key = "<leaver>np";
+        action = helpers.utils.mkRaw "require('package-info').change_version";
+        mode = ["n"];
+      }
+      {
+        key = "<leaver>ni";
+        action = helpers.utils.mkRaw "require('package-info').install";
+        mode = ["n"];
       }
     ];
 
@@ -251,19 +280,19 @@ in
         }
       ]
       ++ builtins.map
-        (a: {
-          pattern = a.pattern;
-          event = [ "BufReadPre" "BufRead" ];
-          command = setlocal_cmd a.tabstop a.expandtab;
-        })
-        setlocal_frompattern
+      (a: {
+        pattern = a.pattern;
+        event = ["BufReadPre" "BufRead"];
+        command = setlocal_cmd a.tabstop a.expandtab;
+      })
+      setlocal_frompattern
       ++ builtins.map
-        (a: {
-          pattern = a.pattern;
-          event = [ "BufWritePre" "BufRead" ];
-          command = "set filetype=${a.ft}";
-        })
-        filetypes;
+      (a: {
+        pattern = a.pattern;
+        event = ["BufWritePre" "BufRead"];
+        command = "set filetype=${a.ft}";
+      })
+      filetypes;
 
     colorschemes.catppuccin = {
       enable = true;

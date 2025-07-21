@@ -16,15 +16,16 @@
                 vim.keymap.set("n", "<leader>r", function() vim.lsp.buf.rename() end)
                 vim.keymap.set("n", "<leader>z", function() vim.lsp.buf.code_action() end)
                 vim.keymap.set("n", "<leader>D", function() vim.lsp.buf.type_definition() end)
+                vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float)
                 vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end)
                 vim.keymap.set("n", "gr", function() require("telescope.builtin").lsp_references() end)
                 vim.keymap.set("n", "gI", function() vim.lsp.buf.implementation() end)
                 vim.keymap.set("n", "gD", function() vim.lsp.buf.declaration() end)
                 vim.keymap.set("n", "<A-k>", function() vim.lsp.buf.signature_help() end)
 
-                if client.server_capabilities.documentSymbolProvider then
-                  require('nvim-navic').attach(client, bufnr)
-                end
+                -- if client.server_capabilities.documentSymbolProvider then
+                --   require('nvim-navic').attach(client, bufnr)
+                -- end
 
                 vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_) vim.lsp.buf.format() end, {})
               end

@@ -53,7 +53,7 @@
       fish
       */
       ''
-        fish_vi_key_bindings
+
         # if test -e $HOME/.hishtory/config.fish
         #   fzf_configure_bindings --history=
         #   source $HOME/.hishtory/config.fish

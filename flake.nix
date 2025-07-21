@@ -164,6 +164,7 @@
             home-manager.darwinModules.home-manager
             {
               home-manager = {
+                backupFileExtension = "bak";
                 users.rick = import ./hosts/stravinsky/home.nix;
                 extraSpecialArgs = {
                   inherit devenv;
