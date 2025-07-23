@@ -2,7 +2,10 @@
   description = "NixOs and home-manager configuration for mac";
 
   nixConfig = {
-    experimental-features = [ "nix-command" "flakes" ];
+    experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
     allowUnfree = true;
     trusted-users = [ "rick" ];
     download-buffer-size = 2147483648;
@@ -59,22 +62,30 @@
   };
 
   outputs =
-    inputs @ { self
-    , nixpkgs
-    , darwin
-    , home-manager
-    , unstable
-    , devenv
-    , nixvim
-    , impermanence
-    , nix-gaming
-    , flatpaks
-    , plasma-manager
-    , nixpkgs-xr
-    ,
+    inputs@{
+      self,
+      nixpkgs,
+      darwin,
+      home-manager,
+      unstable,
+      devenv,
+      nixvim,
+      impermanence,
+      nix-gaming,
+      flatpaks,
+      plasma-manager,
+      nixpkgs-xr,
     }:
     let
-      chosenfonts = [ "FiraCode" "Hack" "CascadiaCode" "Hasklig" "Lilex" "VictorMono" "Hermit" ];
+      chosenfonts = [
+        "FiraCode"
+        "Hack"
+        "CascadiaCode"
+        "Hasklig"
+        "Lilex"
+        "VictorMono"
+        "Hermit"
+      ];
     in
     {
       # NIXOS HOST

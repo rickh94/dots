@@ -1,8 +1,9 @@
-{ config
-, pkgs
-, lib
-, unstablePkgs
-, ...
+{
+  config,
+  pkgs,
+  lib,
+  unstablePkgs,
+  ...
 }:
 let
   secrets = import ./secrets.nix { };
@@ -83,6 +84,7 @@ in
     pkgs.rdfind
     pkgs.puddletag
     pkgs.mbuffer
+    pkgs.podman-compose
   ];
 
   users.users.jellyfin = {
@@ -158,11 +160,6 @@ in
   users.groups.eosgamer = { };
 
   services = {
-    atuin = {
-      enable = true;
-      database.createLocally = true;
-      openRegistration = false;
-    };
     cloudflare-dyndns = {
       enable = true;
       apiTokenFile = "/persist/secrets/cloudflare-dyndns";
@@ -1033,8 +1030,41 @@ in
 
   networking.firewall = {
     enable = true;
-    allowedTCPPorts = [ 22 53 8123 8096 8222 5357 80 443 111 2049 4000 4001 4002 5201 20048 8083 8001 55110 5000 ];
-    allowedUDPPorts = [ 53 5353 51820 5357 111 2049 4000 4001 4002 20048 ];
+    allowedTCPPorts = [
+      22
+      53
+      8123
+      8096
+      8222
+      5357
+      80
+      443
+      111
+      2049
+      4000
+      4001
+      4002
+      5201
+      20048
+      8083
+      8001
+      55110
+      5000
+      4747
+    ];
+    allowedUDPPorts = [
+      53
+      5353
+      51820
+      5357
+      111
+      2049
+      4000
+      4001
+      4002
+      20048
+      4747
+    ];
     extraCommands = ''iptables -t raw -A OUTPUT -p udp -m udp --dport 137 -j CT --helper netbios-ns'';
     allowPing = true;
   };
@@ -1068,11 +1098,9 @@ in
     ];
   };
 
-  boot.initrd.postDeviceCommands =
-    lib.mkAfter
-      ''
-        zfs rollback -r rpool/local/root@blank
-      '';
+  boot.initrd.postDeviceCommands = lib.mkAfter ''
+    zfs rollback -r rpool/local/root@blank
+  '';
 
   fileSystems."/persist".neededForBoot = true;
   fileSystems."/vroom-impermanence".neededForBoot = true;
@@ -1090,4 +1118,29 @@ in
 
   services.avahi.publish.userServices = true;
   services.avahi.publish.enable = true;
+
+  services.gonic = {
+    enable = true;
+    settings = {
+      listen-addr = "0.0.0.0:4747";
+      music-path = [
+        "/vroom/media/music"
+      ];
+      podcast-path = "/vroom/media/podcasts";
+      playlists-path = "/var/lib/gonic/playlists";
+    };
+  };
+
+  services.polaris = {
+    enable = true;
+    openFirewall = true;
+    settings = {
+      mount_dirs = [
+        {
+          name = "vroom";
+          source = "/vroom/media/music";
+        }
+      ];
+    };
+  };
 }
