@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   imports = [
     ../../programs/nixvim
     ../../programs/ghostty-mac.nix
@@ -6,6 +6,7 @@
     ../../programs/direnv/default.nix
     ../../programs/tmux.nix
     ../../programs/atuin.nix
+    ../../programs/wezterm-linux.nix
   ];
   home.stateVersion = "22.11";
   home.username = "rick";

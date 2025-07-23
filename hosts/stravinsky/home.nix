@@ -1,13 +1,12 @@
-{ pkgs
-, nixvim
-, devenv
-, ...
-}:
-let
-  bacon-config = import ../../programs/bacon-config.nix { };
-  bacon-text = bacon-config.text;
-in
 {
+  pkgs,
+  nixvim,
+  devenv,
+  ...
+}: let
+  bacon-config = import ../../programs/bacon-config.nix {};
+  bacon-text = bacon-config.text;
+in {
   imports = [
     nixvim.homeManagerModules.nixvim
     ../_common/desktop.nix

@@ -1,8 +1,9 @@
-{ config
-, lib
-, pkgs
-, nixvim
-, ...
+{
+  config,
+  lib,
+  pkgs,
+  nixvim,
+  ...
 }: {
   imports = [
     nixvim.homeManagerModules.nixvim
@@ -16,8 +17,7 @@
   home.username = "rick";
   home.homeDirectory = "/home/rick";
   home.sessionVariables = {
-    EDITOR = "nvim";
-    MAKEFLAGS = "-j4";
+    EDITOR = "hx";
     NIXPKGS_ALLOW_UNFREE = 1;
     NIX_REMOTE = "daemon";
     XDG_DATA_DIRS = "$HOME/.nix-profile/share:/nix/var/nix/profiles/default/share:$XDG_DATA_DIRS";

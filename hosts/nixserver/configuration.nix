@@ -375,7 +375,7 @@ in
 
     syncoid = {
       enable = true;
-      interval = "hourly";
+      interval = "*-*-* 00/3:18:00";
       commonArgs = [
         "--compress=zstd-slow"
         "--no-sync-snap"
@@ -417,10 +417,10 @@ in
           target = "backuptank/host/vroom/impermanence";
           recursive = true;
         };
-        "vroom/paperless" = {
-          target = "backuptank/host/vroom/paperless";
-          recursive = true;
-        };
+        # "vroom/paperless" = {
+        #   target = "backuptank/host/vroom/paperless";
+        #   recursive = true;
+        # };
         # "backuptank" = {
         #   target = "external/backuptank";
         #   recursive = true;
