@@ -153,8 +153,12 @@
             config.packageOverrides = pkgs: {
               vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
             };
+            overlays = [
+              copyparty.overlays.default
+            ];
           };
           modules = [
+            copyparty.nixosModules.default
             ./hosts/nixserver/configuration.nix
             impermanence.nixosModules.impermanence
           ];

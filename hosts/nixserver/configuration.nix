@@ -85,6 +85,7 @@ in
     pkgs.puddletag
     pkgs.mbuffer
     pkgs.podman-compose
+    pkgs.copyparty
   ];
 
   users.users.jellyfin = {
@@ -1051,6 +1052,10 @@ in
       55110
       5000
       4747
+      3921
+      3923
+      3945
+      3990
     ];
     allowedUDPPorts = [
       53
@@ -1064,6 +1069,10 @@ in
       4002
       20048
       4747
+      69
+      1990
+      3969
+      5353
     ];
     extraCommands = ''iptables -t raw -A OUTPUT -p udp -m udp --dport 137 -j CT --helper netbios-ns'';
     allowPing = true;
@@ -1141,6 +1150,29 @@ in
           source = "/vroom/media/music";
         }
       ];
+    };
+  };
+
+  services.copyparty = {
+    enable = true;
+    settings = {
+      i = "0.0.0.0";
+      p = [3210 3211];
+    };
+
+    accounts = {
+      rick = {
+        passwordFile = "/persist/secrets/copyparty/rick";
+      };
+    };
+
+    volumes = {
+      "/rick" = {
+        path = "/srv/rick";
+        access = {
+          rwa = [ "rick" ];
+        };
+      };
     };
   };
 }
