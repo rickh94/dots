@@ -86,6 +86,7 @@ in
     pkgs.mbuffer
     pkgs.podman-compose
     pkgs.copyparty
+    pkgs.python3
   ];
 
   users.users.jellyfin = {
@@ -540,8 +541,8 @@ in
           "force group" = "users";
           "valid users" = "rick";
         };
-        "stravinsky-backup" = {
-          path = "/srv/arqbackup/stravinsky-mac";
+        wright-backup = {
+          path = "/srv/wright-backup1";
           browseable = "yes";
           "read only" = "no";
           "guest ok" = "no";
@@ -551,8 +552,8 @@ in
           "force group" = "users";
           "valid users" = "rick";
         };
-        "wright-backup" = {
-          path = "/srv/arqbackup/wright";
+        "stravinsky-backup" = {
+          path = "/srv/arqbackup/stravinsky-mac";
           browseable = "yes";
           "read only" = "no";
           "guest ok" = "no";
