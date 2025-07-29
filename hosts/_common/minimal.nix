@@ -24,6 +24,7 @@
       "${config.home.homeDirectory}/.local/bin"
       "${config.home.homeDirectory}/.config/composer/vendor/bin"
       "${config.home.homeDirectory}/.gem/ruby/3.3.0/bin"
+      "${config.home.homeDirectory}/.zide/bin"
     ];
     sessionVariables = {
       EDITOR = "hx";
@@ -74,6 +75,9 @@
       bat
       xh
       fselect
+      lua
+      lazygit
+      lldb
     ];
   };
 

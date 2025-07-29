@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   environment.systemPackages = [
     pkgs.redis
     pkgs.colima
@@ -31,7 +32,10 @@
       automatic = true;
       options = "--delete-older-than 20d";
     };
-    settings.trusted-users = [ "rick" "root" ];
+    settings.trusted-users = [
+      "rick"
+      "root"
+    ];
     optimise.automatic = true;
   };
 
@@ -74,7 +78,10 @@
       "dos2unix"
       "mpv"
       "litestream"
-      "poetry"
+      # {
+      #   name = "supersonic-app/supersonic/supersonic";
+      #   args = [ "no-quarantine" ];
+      # }
       #     "avr-binutils"
       #"avrdude"
     ];
@@ -88,6 +95,7 @@
       "libsql/sqld"
       "benbjohnson/litestream"
       "osx-cross/avr"
+      "supersonic-app/supersonic"
     ];
     casks = [
       "alt-tab"

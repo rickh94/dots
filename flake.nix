@@ -59,6 +59,7 @@
     };
     flatpaks.url = "github:in-a-dil-emma/declarative-flatpak/stable-v3";
     nixpkgs-xr.url = "github:nix-community/nixpkgs-xr";
+    copyparty.url = "github:9001/copyparty";
   };
 
   outputs =
@@ -75,6 +76,7 @@
       flatpaks,
       plasma-manager,
       nixpkgs-xr,
+      copyparty,
     }:
     let
       chosenfonts = [
