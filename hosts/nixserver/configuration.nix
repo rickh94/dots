@@ -1057,6 +1057,8 @@ in
       3923
       3945
       3990
+      3210
+      3211
     ];
     allowedUDPPorts = [
       53
@@ -1158,7 +1160,6 @@ in
     enable = true;
     settings = {
       i = "0.0.0.0";
-      p = [3210 3211];
     };
 
     accounts = {
