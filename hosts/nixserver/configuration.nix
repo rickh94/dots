@@ -20,6 +20,9 @@ in
   ];
 
   users.users.rick.shell = pkgs.zsh;
+  # programs.fish.enable = true;
+
+  users.users.rick.extraGroups = [ "wheel" "networkmanager" "libvirtd" "disk" "cdrom" "docker" "copyparty" ];
   programs.zsh.enable = true;
 
   networking.hostName = "albanberg";
@@ -96,12 +99,12 @@ in
   };
   users.groups.jellyfin.gid = 996;
 
-  users.users.paperless = {
-    isSystemUser = true;
-    uid = 315;
-    group = "paperless";
-  };
-  users.groups.paperless.gid = 315;
+  # users.users.paperless = {
+  #   isSystemUser = true;
+  #   uid = 315;
+  #   group = "paperless";
+  # };
+  # users.groups.paperless.gid = 315;
 
   users.users.vaultwarden = {
     isSystemUser = true;
@@ -110,12 +113,12 @@ in
   };
   users.groups.vaultwarden.gid = 986;
 
-  users.users.grafana = {
-    isSystemUser = true;
-    uid = 196;
-    group = "grafana";
-  };
-  users.groups.grafana.gid = 985;
+  # users.users.grafana = {
+  #   isSystemUser = true;
+  #   uid = 196;
+  #   group = "grafana";
+  # };
+  # users.groups.grafana.gid = 985;
 
   users.users.nextcloud = {
     isSystemUser = true;
@@ -152,14 +155,25 @@ in
   };
   users.groups.prometheus.gid = 255;
 
-  users.users.eosgamer = {
-    isNormalUser = true;
-    group = "eosgamer";
-    openssh.authorizedKeys.keys = [
-      ''ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINpWhZ91MzkqwfAEvbbZZqGmQR18skM3jw82ztAlXQpp root@eosgamer''
+  # users.users.eosgamer = {
+  #   isNormalUser = true;
+  #   group = "eosgamer";
+  #   openssh.authorizedKeys.keys = [
+  #     ''ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINpWhZ91MzkqwfAEvbbZZqGmQR18skM3jw82ztAlXQpp root@eosgamer''
+  #   ];
+  # };
+  # users.groups.eosgamer = { };
+
+  users.users.copyparty = {
+    isSystemUser = true;
+    extraGroups = [
+      "caddy"
+      "jellyfin"
+      "users"
     ];
   };
-  users.groups.eosgamer = { };
+
+  users.users.caddy.extraGroups = [ "copyparty" ];
 
   services = {
     cloudflare-dyndns = {
@@ -348,6 +362,26 @@ in
           autoprune = true;
         };
         "backuptank/vw-backups" = {
+          yearly = 0;
+          hourly = 12;
+          daily = 7;
+          weekly = 2;
+          monthly = 1;
+          recursive = true;
+          autosnap = true;
+          autoprune = true;
+        };
+        "backuptank/beethoven2" = {
+          yearly = 0;
+          hourly = 12;
+          daily = 7;
+          weekly = 2;
+          monthly = 1;
+          recursive = true;
+          autosnap = true;
+          autoprune = true;
+        };
+        "spinny/shared" = {
           yearly = 0;
           hourly = 12;
           daily = 7;
@@ -666,10 +700,6 @@ in
           reverse_proxy :4533
           tls /var/lib/acme/rickhenry.xyz/cert.pem /var/lib/acme/rickhenry.xyz/key.pem
         '';
-        "cb.rickhenry.xyz".extraConfig = ''
-          reverse_proxy :8001
-          tls /var/lib/acme/rickhenry.xyz/cert.pem /var/lib/acme/rickhenry.xyz/key.pem
-        '';
         "calibre.rickhenry.xyz".extraConfig = ''
           reverse_proxy localhost:8083
           tls /var/lib/acme/rickhenry.xyz/cert.pem /var/lib/acme/rickhenry.xyz/key.pem
@@ -678,20 +708,12 @@ in
           reverse_proxy :9999
           tls /var/lib/acme/rickhenry.xyz/cert.pem /var/lib/acme/rickhenry.xyz/key.pem
         '';
-        "seerr.rickhenry.xyz".extraConfig = ''
-          reverse_proxy 10.0.0.178:5055
-          tls /var/lib/acme/rickhenry.xyz/cert.pem /var/lib/acme/rickhenry.xyz/key.pem
-        '';
         "sonarr.rickhenry.xyz".extraConfig = ''
           reverse_proxy 10.0.0.178:8989
           tls /var/lib/acme/rickhenry.xyz/cert.pem /var/lib/acme/rickhenry.xyz/key.pem
         '';
         "radarr.rickhenry.xyz".extraConfig = ''
           reverse_proxy 10.0.0.178:7878
-          tls /var/lib/acme/rickhenry.xyz/cert.pem /var/lib/acme/rickhenry.xyz/key.pem
-        '';
-        "readarr.rickhenry.xyz".extraConfig = ''
-          reverse_proxy 10.0.0.178:8787
           tls /var/lib/acme/rickhenry.xyz/cert.pem /var/lib/acme/rickhenry.xyz/key.pem
         '';
         "lidarr.rickhenry.xyz".extraConfig = ''
@@ -704,18 +726,6 @@ in
         '';
         "qb.rickhenry.xyz".extraConfig = ''
           reverse_proxy 10.0.0.178:8080
-          tls /var/lib/acme/rickhenry.xyz/cert.pem /var/lib/acme/rickhenry.xyz/key.pem
-        '';
-        "kavita.rickhenry.xyz".extraConfig = ''
-          reverse_proxy :5000
-          tls /var/lib/acme/rickhenry.xyz/cert.pem /var/lib/acme/rickhenry.xyz/key.pem
-        '';
-        "home.rickhenry.xyz".extraConfig = ''
-          reverse_proxy {
-            to :8123
-            header_up Host {host}
-            header_up X-Real-IP {remote_host}
-          }
           tls /var/lib/acme/rickhenry.xyz/cert.pem /var/lib/acme/rickhenry.xyz/key.pem
         '';
         "next.rickhenry.xyz".extraConfig = ''
@@ -737,16 +747,12 @@ in
           }
           tls /var/lib/acme/rickhenry.xyz/cert.pem /var/lib/acme/rickhenry.xyz/key.pem
         '';
-        "paper.rickhenry.xyz".extraConfig = ''
-          reverse_proxy http://localhost:28981
+        "party.rickhenry.xyz".extraConfig = ''
+          reverse_proxy unix///dev/shm/party.sock
           tls /var/lib/acme/rickhenry.xyz/cert.pem /var/lib/acme/rickhenry.xyz/key.pem
         '';
-        "audio.rickhenry.xyz".extraConfig = ''
-          reverse_proxy http://localhost:13378
-          tls /var/lib/acme/rickhenry.xyz/cert.pem /var/lib/acme/rickhenry.xyz/key.pem
-        '';
-        "atuin.rickhenry.xyz".extraConfig = ''
-          reverse_proxy http://localhost:8888
+        "gonic.rickhenry.xyz".extraConfig = ''
+          reverse_proxy :4747
           tls /var/lib/acme/rickhenry.xyz/cert.pem /var/lib/acme/rickhenry.xyz/key.pem
         '';
       };
@@ -758,12 +764,8 @@ in
         interface = "wg0";
         address = [
           "/next.rickhenry.xyz/10.7.0.100"
-          "/home.rickhenry.xyz/10.7.0.100"
           "/jelly.rickhenry.xyz/10.7.0.100"
           "/navidrome.rickhenry.xyz/10.7.0.100"
-          "/calibre.rickhenry.xyz/10.7.0.100"
-          "/cb.rickhenry.xyz/10.7.0.100"
-          "/seerr.rickhenry.xyz/10.7.0.100"
           "/sonarr.rickhenry.xyz/10.7.0.100"
           "/radarr.rickhenry.xyz/10.7.0.100"
           "/jackett.rickhenry.xyz/10.7.0.100"
@@ -772,9 +774,8 @@ in
           "/prox.rickhenry.xyz/10.7.0.100"
           "/stash.rickhenry.xyz/10.7.0.100"
           "/whisparr.rickhenry.xyz/10.7.0.100"
-          "/readarr.rickhenry.xyz/10.7.0.100"
-          "/kavita.rickhenry.xyz/10.7.0.100"
-          "/lidarr.rickhenry.xyz/10.7.0.100"
+          "/party.rickhenry.xyz/10.7.0.100"
+          "/gonic.rickhenry.xyz/10.7.0.100"
         ];
       };
     };
@@ -1159,7 +1160,11 @@ in
   services.copyparty = {
     enable = true;
     settings = {
-      i = "0.0.0.0";
+      i = [
+        "10.0.1.100"
+        "unix:770:caddy:/dev/shm/party.sock"
+      ];
+      hist = "/var/lib/copyparty/hist";
     };
 
     accounts = {
@@ -1168,11 +1173,55 @@ in
       };
     };
 
+
     volumes = {
+      "/" = {
+        path = "/srv/shr";
+        flags = {
+          daw = true;
+          e2d = true;
+        };
+        access = {
+          rwadmg = [ "rick"];
+        };
+      };
       "/rick" = {
         path = "/srv/rick";
+        flags = {
+          daw = true;
+          e2d = true;
+        };
         access = {
-          rwa = [ "rick" ];
+          rwadmg = [ "rick" ];
+        };
+      };
+
+      "/music" = {
+        path = "/vroom/media/music";
+        access = {
+          rwadmg = [ "rick" ];
+        };
+      };
+
+      "/media" = {
+        path = "/spinny/media";
+        access = {
+          rwadmg = [ "rick" ];
+        };
+      };
+
+      "/backup" = {
+        path = "/srv/backup";
+        access = {
+          rwadmg = [ "rick" ];
+        };
+      };
+
+      "/shared" = {
+        path = "/srv/shared";
+        access = {
+          rwadmg = [ "rick" ];
+          rwg = "*";
         };
       };
     };
