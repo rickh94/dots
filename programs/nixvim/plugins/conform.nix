@@ -8,7 +8,6 @@
     black
     djlint
     isort
-    nodePackages.prettier
     rustywind
     taplo
     python312Packages.mdformat

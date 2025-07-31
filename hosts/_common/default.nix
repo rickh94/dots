@@ -6,7 +6,6 @@
     ./minimal.nix
     ../../programs/direnv/default.nix
     ../../programs/tmux.nix
-    ../../programs/atuin.nix
     ../../programs/sqlite.nix
   ];
 
@@ -55,8 +54,6 @@
 
       # rust replacements
       tokei
-      atuin
-      # hishtory
       dfrs
       procs
 

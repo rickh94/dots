@@ -11,6 +11,7 @@
     ../_common/linux/minimal.nix
     ../../programs/nixvim
     ../../programs/direnv/default.nix
+    ../../programs/atuin.nix
     #    ../../programs/hishtory.nix
     ../../programs/atuin.nix
   ];
