@@ -17,6 +17,7 @@ in
     ../_common/rick-passwordless-sudo.nix
     ../_common/linux/configuration/xconfig-noi3.nix
     ./hardware-configuration.nix
+    ./copyparty.nix
   ];
 
   users.users.rick.shell = pkgs.zsh;
@@ -164,14 +165,6 @@ in
   # };
   # users.groups.eosgamer = { };
 
-  users.users.copyparty = {
-    isSystemUser = true;
-    extraGroups = [
-      "caddy"
-      "jellyfin"
-      "users"
-    ];
-  };
 
   users.users.caddy.extraGroups = [ "copyparty" ];
 
@@ -181,7 +174,7 @@ in
       apiTokenFile = "/persist/secrets/cloudflare-dyndns";
       domains = [ "vpn.rickhenry.xyz" ];
       ipv4 = true;
-      ipv6 = true;
+      ipv6 = false;
     };
 
     jellyfin.enable = true;
@@ -1005,6 +998,20 @@ in
           presharedKeyFile = "/persist/secrets/wireguard/gamer-psk";
           persistentKeepalive = 25;
         }
+        {
+          # bach
+          publicKey = "nEmLcjCfWKdoUHHnd+AJb3+9f+68rs4SrfPpJYbIAmc=";
+          allowedIPs = [ "10.7.0.121/32"];
+          presharedKeyFile = "/persist/secrets/wireguard/bach-psk";
+          persistentKeepalive = 25;
+        }
+        {
+          # tchaikovsky
+          publicKey = "qiIQUbEbVYGBLdajp0LuiQRw/FQ1qKxESH6wgEqHZHg=";
+          allowedIPs = [ "10.7.0.25/32" ];
+          presharedKeyFile = "/persist/secrets/wireguard/tchaikovsky-psk";
+          persistentKeepalive = 25;
+        }
       ];
     };
     # wg1 = {
@@ -1157,73 +1164,5 @@ in
     };
   };
 
-  services.copyparty = {
-    enable = true;
-    settings = {
-      i = [
-        "10.0.1.100"
-        "unix:770:caddy:/dev/shm/party.sock"
-      ];
-      hist = "/var/lib/copyparty/hist";
-    };
 
-    accounts = {
-      rick = {
-        passwordFile = "/persist/secrets/copyparty/rick";
-      };
-    };
-
-
-    volumes = {
-      "/" = {
-        path = "/srv/shr";
-        flags = {
-          daw = true;
-          e2d = true;
-        };
-        access = {
-          rwadmg = [ "rick"];
-        };
-      };
-      "/rick" = {
-        path = "/srv/rick";
-        flags = {
-          daw = true;
-          e2d = true;
-        };
-        access = {
-          rwadmg = [ "rick" ];
-        };
-      };
-
-      "/music" = {
-        path = "/vroom/media/music";
-        access = {
-          rwadmg = [ "rick" ];
-        };
-      };
-
-      "/media" = {
-        path = "/spinny/media";
-        access = {
-          rwadmg = [ "rick" ];
-        };
-      };
-
-      "/backup" = {
-        path = "/srv/backup";
-        access = {
-          rwadmg = [ "rick" ];
-        };
-      };
-
-      "/shared" = {
-        path = "/srv/shared";
-        access = {
-          rwadmg = [ "rick" ];
-          rwg = "*";
-        };
-      };
-    };
-  };
 }

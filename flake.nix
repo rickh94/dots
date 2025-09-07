@@ -145,7 +145,7 @@
           };
         };
 
-        nixserver = nixpkgs.lib.nixosSystem {
+        albanberg = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           pkgs = import nixpkgs {
             system = "x86_64-linux";
@@ -301,7 +301,7 @@
           };
         };
 
-        nixserver = home-manager.lib.homeManagerConfiguration {
+        albanberg = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.x86_64-linux;
           modules = [ ./hosts/nixserver/home.nix ];
           extraSpecialArgs = {
