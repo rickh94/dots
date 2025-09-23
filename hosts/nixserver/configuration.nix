@@ -465,41 +465,41 @@ in
       ];
     };
 
-    restic.backups.myaccount = {
-      environmentFile = "/persist/secrets/restic/env";
-      initialize = true;
-      passwordFile = "/persist/secrets/restic/password";
-      paths = [
-        "/home/rick"
-        "/persist"
-        "/vroom-impermanence"
-        "/vroom/paperless"
-        "/vroom/media/music"
-        "/backuptank/vw-backups"
-        "/srv/git"
-        "/mnt/linuxisos/seeds/upload"
-      ];
-      exclude = [
-        ".zfs"
-        "/srv/restic"
-        "/srv/arqbackup"
-      ];
-      extraBackupArgs = [
-        "--exclude-if-present .NOBACKUP"
-      ];
+    # restic.backups.myaccount = {
+    #   environmentFile = "/persist/secrets/restic/env";
+    #   initialize = true;
+    #   passwordFile = "/persist/secrets/restic/password";
+    #   paths = [
+    #     "/home/rick"
+    #     "/persist"
+    #     "/vroom-impermanence"
+    #     "/vroom/paperless"
+    #     "/vroom/media/music"
+    #     "/backuptank/vw-backups"
+    #     "/srv/git"
+    #     "/mnt/linuxisos/seeds/upload"
+    #   ];
+    #   exclude = [
+    #     ".zfs"
+    #     "/srv/restic"
+    #     "/srv/arqbackup"
+    #   ];
+    #   extraBackupArgs = [
+    #     "--exclude-if-present .NOBACKUP"
+    #   ];
 
-      repository = "b2:chopin-backup";
-      timerConfig = {
-        OnUnitActiveSec = "1d";
-      };
+    #   repository = "b2:chopin-backup";
+    #   timerConfig = {
+    #     OnUnitActiveSec = "1d";
+    #   };
 
-      pruneOpts = [
-        "--keep-daily=7"
-        "--keep-weekly=2"
-        "--keep-monthly=1"
-        "--keep-yearly=0"
-      ];
-    };
+    #   pruneOpts = [
+    #     "--keep-daily=7"
+    #     "--keep-weekly=2"
+    #     "--keep-monthly=1"
+    #     "--keep-yearly=0"
+    #   ];
+    # };
 
     restic.backups.e2 = {
       environmentFile = "/persist/secrets/restic/e2-env";
@@ -509,11 +509,12 @@ in
         "/home/rick"
         "/persist"
         "/vroom-impermanence"
-        "/vroom/paperless"
         "/vroom/media/music"
         "/backuptank/vw-backups"
         "/srv/git"
-        "/mnt/linuxisos/seeds/upload"
+        "/srv/rick"
+        "/srv/shared"
+        "/srv/shr"
       ];
       exclude = [
         ".zfs"
@@ -748,6 +749,10 @@ in
           reverse_proxy :4747
           tls /var/lib/acme/rickhenry.xyz/cert.pem /var/lib/acme/rickhenry.xyz/key.pem
         '';
+        "mstream.rickhenry.xyz".extraConfig = ''
+          reverse_proxy :3000
+          tls /var/lib/acme/rickhenry.xyz/cert.pem /var/lib/acme/rickhenry.xyz/key.pem
+        '';
       };
     };
 
@@ -769,6 +774,7 @@ in
           "/whisparr.rickhenry.xyz/10.7.0.100"
           "/party.rickhenry.xyz/10.7.0.100"
           "/gonic.rickhenry.xyz/10.7.0.100"
+          "/mstream.rickhenry.xyz/10.7.0.100"
         ];
       };
     };
@@ -924,6 +930,22 @@ in
       "/opt/stash/cache:/cache"
       "/opt/stash/blobs:/blobs"
       "/opt/stash/generated:/generated"
+    ];
+  };
+
+
+  virtualisation.oci-containers.containers."mstream" = {
+    autoStart = true;
+    image = "lscr.io/linuxserver/mstream:latest";
+    ports = [ "3000:3000" ];
+    environment = {
+      PUID = "996";
+      PGID = "996";
+      TZ = "America/New_York";
+    };
+    volumes = [
+      "/vroom/media/music:/music"
+      "/var/lib/mstream/config:/config"
     ];
   };
 

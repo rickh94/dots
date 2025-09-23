@@ -29,6 +29,9 @@
       bach = {
         passwordFile = "/persist/secrets/copyparty/bach";
       };
+      pds = {
+        passwordFile = "/persist/secrets/copyparty/pds";
+      };
     };
 
 
@@ -93,6 +96,13 @@
         path = "/srv/backup/stravinsky";
         access = {
           "rwadmg." = [ "rick" ];
+        };
+      };
+
+      "/backup/pds" = {
+        path = "/srv/backup/pds";
+        access = {
+          "rwadmg." = [ "pds"  "rick"];
         };
       };
 
