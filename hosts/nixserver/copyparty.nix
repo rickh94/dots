@@ -32,6 +32,9 @@
       pds = {
         passwordFile = "/persist/secrets/copyparty/pds";
       };
+      coolify = {
+        passwordFile = "/persist/secrets/copyparty/coolify";
+      };
     };
 
 
@@ -71,6 +74,20 @@
         };
       };
 
+      "/books" = {
+        path = "/vroom/books";
+        access = {
+          "rwadmg." = [ "rick" ];
+        };
+      };
+
+      "/bookstash" = {
+        path = "/spinny/bookstash";
+        access = {
+          "rwadmg." = [ "rick" ];
+        };
+      };
+
       "/backup" = {
         path = "/srv/backup";
         access = {
@@ -103,6 +120,12 @@
         path = "/srv/backup/pds";
         access = {
           "rwadmg." = [ "pds"  "rick"];
+        };
+      };
+      "/backup/coolify" = {
+        path = "/srv/backup/coolify";
+        access = {
+          "rwadmg." = [ "coolify"  "rick"];
         };
       };
 

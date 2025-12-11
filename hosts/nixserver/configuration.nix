@@ -91,6 +91,9 @@ in
     pkgs.podman-compose
     pkgs.copyparty
     pkgs.python3
+    pkgs.imagemagick
+    pkgs.zoxide
+    pkgs.ghostscript
   ];
 
   users.users.jellyfin = {
@@ -166,6 +169,13 @@ in
   # users.groups.eosgamer = { };
 
 
+  users.users.copyparty = {
+    isSystemUser = true;
+    uid = 979;
+    group = "copyparty";
+  };
+  users.groups.copyparty.gid = 974;
+
   users.users.caddy.extraGroups = [ "copyparty" ];
 
   services = {
@@ -179,17 +189,17 @@ in
 
     jellyfin.enable = true;
     jellyfin.package = unstablePkgs.jellyfin;
-    # kavita = {
-    #   enable = true;
-    #   tokenKeyFile = "/persist/secrets/kavita-token";
-    #   user = "jellyfin";
-    # };
+    kavita = {
+      enable = true;
+      tokenKeyFile = "/persist/secrets/kavita-token";
+      user = "jellyfin";
+    };
 
     calibre-web = {
-      enable = true;
+      enable = false;
       user = "jellyfin";
       group = "users";
-      options.calibreLibrary = "/vroom/media/calibre/";
+      options.calibreLibrary = "/spinny/bookstash/";
       # options.calibreLibrary = "/var/lib/calibre-web";
       options.enableBookUploading = true;
       options.enableBookConversion = true;
@@ -509,7 +519,6 @@ in
         "/home/rick"
         "/persist"
         "/vroom-impermanence"
-        "/vroom/media/music"
         "/backuptank/vw-backups"
         "/srv/git"
         "/srv/rick"
@@ -694,8 +703,8 @@ in
           reverse_proxy :4533
           tls /var/lib/acme/rickhenry.xyz/cert.pem /var/lib/acme/rickhenry.xyz/key.pem
         '';
-        "calibre.rickhenry.xyz".extraConfig = ''
-          reverse_proxy localhost:8083
+        "bookstash.rickhenry.xyz".extraConfig = ''
+          reverse_proxy localhost:5000
           tls /var/lib/acme/rickhenry.xyz/cert.pem /var/lib/acme/rickhenry.xyz/key.pem
         '';
         "stash.rickhenry.xyz".extraConfig = ''
@@ -753,6 +762,14 @@ in
           reverse_proxy :3000
           tls /var/lib/acme/rickhenry.xyz/cert.pem /var/lib/acme/rickhenry.xyz/key.pem
         '';
+        "coolify.rickhenry.xyz".extraConfig = ''
+          reverse_proxy 10.0.0.130:8000
+          tls /var/lib/acme/rickhenry.xyz/cert.pem /var/lib/acme/rickhenry.xyz/key.pem
+        '';
+        # "baserow.rickhenry.xyz".extraConfig = ''
+        #   reverse_proxy 10.0.0.130:8083
+        #   tls /var/lib/acme/rickhenry.xyz/cert.pem /var/lib/acme/rickhenry.xyz/key.pem
+        # '';
       };
     };
 
@@ -775,6 +792,10 @@ in
           "/party.rickhenry.xyz/10.7.0.100"
           "/gonic.rickhenry.xyz/10.7.0.100"
           "/mstream.rickhenry.xyz/10.7.0.100"
+          "/coolify.rickhenry.xyz/10.7.0.100"
+          "/nocodb.rickhenry.xyz/10.7.0.100"
+          "/bookstash.rickhenry.xyz/10.7.0.100"
+          # "/baserow.rickhenry.xyz/10.7.0.100"
         ];
       };
     };
@@ -1029,7 +1050,7 @@ in
         }
         {
           # tchaikovsky
-          publicKey = "qiIQUbEbVYGBLdajp0LuiQRw/FQ1qKxESH6wgEqHZHg=";
+          publicKey = "KsHktyDwbdHt/1pSvvFhBwzTfBiTOoWpjouKQ3crUEU=";
           allowedIPs = [ "10.7.0.25/32" ];
           presharedKeyFile = "/persist/secrets/wireguard/tchaikovsky-psk";
           persistentKeepalive = 25;
@@ -1089,6 +1110,8 @@ in
       3990
       3210
       3211
+      8384
+      22000
     ];
     allowedUDPPorts = [
       53
@@ -1106,6 +1129,8 @@ in
       1990
       3969
       5353
+      22000
+      21027
     ];
     extraCommands = ''iptables -t raw -A OUTPUT -p udp -m udp --dport 137 -j CT --helper netbios-ns'';
     allowPing = true;
@@ -1186,5 +1211,13 @@ in
     };
   };
 
+  services.syncthing = {
+    enable = true;
+    user = "copyparty";
+    group = "copyparty";
+    dataDir = "/srv/syncthing";
+    configDir = "/srv/config/syncthing";
+    guiAddress = "0.0.0.0:8384";
+  };
 
 }
