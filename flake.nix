@@ -28,7 +28,8 @@
 
   inputs = {
     nixpkgs = {
-      url = "github:NixOS/nixpkgs/nixos-25.11";
+      url = "github:NixOS/nixpkgs/nixos-26.05";
+
     };
     home-manager = {
       url = "github:nix-community/home-manager/release-25.11";
@@ -57,8 +58,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
-    flatpaks.url = "github:in-a-dil-emma/declarative-flatpak/stable-v3";
-    nixpkgs-xr.url = "github:nix-community/nixpkgs-xr";
     copyparty.url = "github:9001/copyparty";
   };
 
@@ -73,9 +72,7 @@
       nixvim,
       impermanence,
       nix-gaming,
-      flatpaks,
       plasma-manager,
-      nixpkgs-xr,
       copyparty,
     }:
     let
@@ -92,30 +89,6 @@
     {
       # NIXOS HOST
       nixosConfigurations = {
-        gamer = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          pkgs = import nixpkgs {
-            system = "x86_64-linux";
-            config.allowUnfree = true;
-            config.cudaSupport = true;
-            overlays = [
-              nixpkgs-xr.overlays.default
-            ];
-          };
-          modules = [
-            ./hosts/gamer/configuration.nix
-            nix-gaming.nixosModules.pipewireLowLatency
-            nix-gaming.nixosModules.platformOptimizations
-            nix-gaming.nixosModules.ntsync
-            impermanence.nixosModules.impermanence
-            flatpaks.nixosModule
-            nixpkgs-xr.nixosModules.nixpkgs-xr
-          ];
-          specialArgs = {
-            inherit inputs;
-            unstablePkgs = unstable.legacyPackages.x86_64-linux;
-          };
-        };
 
         nixx86-vm = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
@@ -151,8 +124,11 @@
             system = "x86_64-linux";
             config.allowUnfree = true;
             config.packageOverrides = pkgs: {
-              vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
+              intel-vaapi-driver = pkgs.intel-vaapi-driver.override { enableHybridCodec = true; };
             };
+            config.permittedInsecurePackages = [
+              "python3.13-beets-2.5.1"
+            ];
             overlays = [
               copyparty.overlays.default
             ];
@@ -199,27 +175,6 @@
       };
 
       homeConfigurations = {
-        gamer = home-manager.lib.homeManagerConfiguration {
-          pkgs = import nixpkgs {
-            system = "x86_64-linux";
-            config.allowUnfree = true;
-            config.cudaSupport = true;
-            overlays = [
-              nixpkgs-xr.overlays.default
-            ];
-          };
-          modules = [
-            ./hosts/gamer/home.nix
-            nixvim.homeManagerModules.nixvim
-            plasma-manager.homeManagerModules.plasma-manager
-          ];
-          extraSpecialArgs = {
-            inherit inputs;
-            inherit devenv;
-            inherit nixvim;
-            unstablePkgs = unstable.legacyPackages.x86_64-linux;
-          };
-        };
 
         eosgamer = home-manager.lib.homeManagerConfiguration {
           pkgs = import nixpkgs {

@@ -36,5 +36,6 @@
     pkgs.python312Packages.pipx
     pkgs.jpegoptim
     pkgs.oxipng
+    pkgs.beets
   ];
 }

@@ -15,6 +15,7 @@
       i = [
         "10.0.1.100"
         "unix:770:caddy:/dev/shm/party.sock"
+        "127.0.0.1"
       ];
       hist = "/var/lib/copyparty/hist";
     };
@@ -34,6 +35,9 @@
       };
       coolify = {
         passwordFile = "/persist/secrets/copyparty/coolify";
+      };
+       daveyjones = {
+        passwordFile = "/persist/secrets/copyparty/daveyjones";
       };
     };
 
@@ -67,6 +71,13 @@
         };
       };
 
+      "/stash" = {
+        path = "/opt/stash";
+        access = {
+          "rwadmg." = [ "rick" ];
+        };
+      };
+
       "/media" = {
         path = "/spinny/media";
         access = {
@@ -77,7 +88,8 @@
       "/books" = {
         path = "/vroom/books";
         access = {
-          "rwadmg." = [ "rick" ];
+          "A" = [ "rick" ];
+          "rwmd" = [ "daveyjones"];
         };
       };
 
@@ -85,6 +97,7 @@
         path = "/spinny/bookstash";
         access = {
           "rwadmg." = [ "rick" ];
+          "rwmd" = [ "daveyjones"];
         };
       };
 
@@ -122,6 +135,7 @@
           "rwadmg." = [ "pds"  "rick"];
         };
       };
+
       "/backup/coolify" = {
         path = "/srv/backup/coolify";
         access = {

@@ -23,7 +23,15 @@ in
   users.users.rick.shell = pkgs.zsh;
   # programs.fish.enable = true;
 
-  users.users.rick.extraGroups = [ "wheel" "networkmanager" "libvirtd" "disk" "cdrom" "docker" "copyparty" ];
+  users.users.rick.extraGroups = [
+    "wheel"
+    "networkmanager"
+    "libvirtd"
+    "disk"
+    "cdrom"
+    "docker"
+    "copyparty"
+  ];
   programs.zsh.enable = true;
 
   networking.hostName = "albanberg";
@@ -57,14 +65,13 @@ in
     pkgs.restic
 
     pkgs.openssl
-    pkgs.makemkv
     pkgs.handbrake
     pkgs.smartmontools
     unstablePkgs.jellyfin-ffmpeg
     pkgs.intel-media-driver
     pkgs.intel-gpu-tools
-    pkgs.vaapiIntel
-    pkgs.vaapiVdpau
+    pkgs.intel-vaapi-driver
+    pkgs.libva-vdpau-driver
     pkgs.libvdpau-va-gl
     pkgs.intel-compute-runtime
     pkgs.iperf
@@ -78,7 +85,7 @@ in
     pkgs.calibre
     pkgs.cuetools
     pkgs.shntool
-    pkgs.wineWowPackages.stable
+    # pkgs.wineWowPackages.stable
     pkgs.vivaldi
     pkgs.viu
     pkgs.mediainfo
@@ -94,6 +101,9 @@ in
     pkgs.imagemagick
     pkgs.zoxide
     pkgs.ghostscript
+    pkgs.beets
+    # pkgs.flatpak
+    pkgs.makemkv
   ];
 
   users.users.jellyfin = {
@@ -168,7 +178,6 @@ in
   # };
   # users.groups.eosgamer = { };
 
-
   users.users.copyparty = {
     isSystemUser = true;
     uid = 979;
@@ -222,44 +231,38 @@ in
         "LastFM.Secret" = secrets.navidrome.lastfm.secret;
         "Spotify.ID" = secrets.navidrome.spotify.clientid;
         "Spotify.Secret" = secrets.navidrome.spotify.clientsecret;
+        "Scanner.ArtistJoiner" = " . ";
       };
     };
 
-    nextcloud = {
-      enable = true;
-      package = pkgs.nextcloud31;
-      hostName = "localhost";
-      https = true;
-      settings = {
-        trusted_domains = [
-          "next.rickhenry.xyz"
-          "next.rickhenry.house"
-          "10.7.0.100"
-        ];
+    # nextcloud = {
+    #   enable = true;
+    #   package = pkgs.nextcloud31;
+    #   hostName = "localhost";
+    #   https = true;
+    #   settings = {
+    #     trusted_domains = [
+    #       "next.rickhenry.xyz"
+    #       "next.rickhenry.house"
+    #       "10.7.0.100"
+    #     ];
 
-        mail_smtpmode = "sendmail";
-        mail_sendmailmode = "pipe";
-      };
-      config = {
-        adminpassFile = "${pkgs.writeText "adminpass" "test123"}";
-        dbtype = "sqlite";
-      };
-      appstoreEnable = true;
-      extraAppsEnable = true;
-      configureRedis = true;
-      secretFile = "/etc/nextcloud-secrets.json";
-      phpOptions = {
-        upload_max_filesize = lib.mkForce "16G";
-        post_max_size = lib.mkForce "16G";
-      };
-    };
-
-    nginx.virtualHosts."localhost".listen = [
-      {
-        addr = "127.0.0.1";
-        port = 8080;
-      }
-    ];
+    #     mail_smtpmode = "sendmail";
+    #     mail_sendmailmode = "pipe";
+    #   };
+    #   config = {
+    #     adminpassFile = "${pkgs.writeText "adminpass" "test123"}";
+    #     dbtype = "sqlite";
+    #   };
+    #   appstoreEnable = true;
+    #   extraAppsEnable = true;
+    #   configureRedis = true;
+    #   secretFile = "/etc/nextcloud-secrets.json";
+    #   phpOptions = {
+    #     upload_max_filesize = lib.mkForce "16G";
+    #     post_max_size = lib.mkForce "16G";
+    #   };
+    # };
 
     sanoid = {
       enable = true;
@@ -374,16 +377,6 @@ in
           autosnap = true;
           autoprune = true;
         };
-        "backuptank/beethoven2" = {
-          yearly = 0;
-          hourly = 12;
-          daily = 7;
-          weekly = 2;
-          monthly = 1;
-          recursive = true;
-          autosnap = true;
-          autoprune = true;
-        };
         "spinny/shared" = {
           yearly = 0;
           hourly = 12;
@@ -394,18 +387,16 @@ in
           autosnap = true;
           autoprune = true;
         };
-        # "backuptank" = {
-        #   yearly = 0;
-        #   monthly = 1;
-        #   weekly = 1;
-        #   daily = 1;
-        #   hourly = 1;
-        #   recursive = true;
-        #   autosnap = true;
-        #   autoprune = true;
-        # };
-        # not backuptank
-        # some of vroom
+        "backuptank/copyparty" = {
+          yearly = 0;
+          hourly = 12;
+          daily = 7;
+          weekly = 4;
+          monthly = 6;
+          recursive = true;
+          autosnap = true;
+          autoprune = true;
+        };
       };
     };
 
@@ -529,12 +520,22 @@ in
         ".zfs"
         "/srv/restic"
         "/srv/arqbackup"
+        "/srv/rick/big/BEETHOVEN DG EDITION 2020"
+        "/srv/rick/big/imported.or.uploaded"
+        "/srv/rick/big/converted.by.mediahuman"
+        "/srv/rick/big/wright-backup"
+        "/srv/rick/big/bach-migrate"
+        "/srv/rick/big/opus-music"
+        "/srv/rick/big/pixel-music"
+        "/srv/rick/big/test-music"
+        "/srv/rick/big/disk.images"
+        "/srv/rick/big/converted.by.mediahuman"
       ];
       extraBackupArgs = [
         "--exclude-if-present .NOBACKUP"
       ];
 
-      repository = "s3:p4e4.va.idrivee2-58.com/berg-restic/berg";
+      repository = "s3:s3.us-west-4.idrivee2.com/berg/restic";
       timerConfig = {
         OnUnitActiveSec = "1d";
       };
@@ -662,7 +663,7 @@ in
       enable = true;
       backupDir = "/backuptank/vw-backups";
       config = {
-        DOMAIN = "https://vault.rickhenry.xyz";
+        DOMAIN = "https://vaultwarden.mammut-porgy.ts.net";
         SIGNUPS_ALLOWED = false;
         ROCKET_PORT = 8222;
         ROCKET_LOG = "critical";
@@ -712,27 +713,19 @@ in
           tls /var/lib/acme/rickhenry.xyz/cert.pem /var/lib/acme/rickhenry.xyz/key.pem
         '';
         "sonarr.rickhenry.xyz".extraConfig = ''
-          reverse_proxy 10.0.0.178:8989
+          reverse_proxy 10.0.0.179:8989
           tls /var/lib/acme/rickhenry.xyz/cert.pem /var/lib/acme/rickhenry.xyz/key.pem
         '';
         "radarr.rickhenry.xyz".extraConfig = ''
-          reverse_proxy 10.0.0.178:7878
-          tls /var/lib/acme/rickhenry.xyz/cert.pem /var/lib/acme/rickhenry.xyz/key.pem
-        '';
-        "lidarr.rickhenry.xyz".extraConfig = ''
-          reverse_proxy 10.0.0.178:8686
+          reverse_proxy 10.0.0.179:7878
           tls /var/lib/acme/rickhenry.xyz/cert.pem /var/lib/acme/rickhenry.xyz/key.pem
         '';
         "jackett.rickhenry.xyz".extraConfig = ''
-          reverse_proxy 10.0.0.178:9117
+          reverse_proxy 10.0.0.179:9117
           tls /var/lib/acme/rickhenry.xyz/cert.pem /var/lib/acme/rickhenry.xyz/key.pem
         '';
         "qb.rickhenry.xyz".extraConfig = ''
-          reverse_proxy 10.0.0.178:8080
-          tls /var/lib/acme/rickhenry.xyz/cert.pem /var/lib/acme/rickhenry.xyz/key.pem
-        '';
-        "next.rickhenry.xyz".extraConfig = ''
-          reverse_proxy :8080
+          reverse_proxy 10.0.0.179:8080
           tls /var/lib/acme/rickhenry.xyz/cert.pem /var/lib/acme/rickhenry.xyz/key.pem
         '';
         "vault.rickhenry.xyz".extraConfig = ''
@@ -754,16 +747,16 @@ in
           reverse_proxy unix///dev/shm/party.sock
           tls /var/lib/acme/rickhenry.xyz/cert.pem /var/lib/acme/rickhenry.xyz/key.pem
         '';
-        "gonic.rickhenry.xyz".extraConfig = ''
-          reverse_proxy :4747
-          tls /var/lib/acme/rickhenry.xyz/cert.pem /var/lib/acme/rickhenry.xyz/key.pem
-        '';
-        "mstream.rickhenry.xyz".extraConfig = ''
-          reverse_proxy :3000
-          tls /var/lib/acme/rickhenry.xyz/cert.pem /var/lib/acme/rickhenry.xyz/key.pem
-        '';
         "coolify.rickhenry.xyz".extraConfig = ''
           reverse_proxy 10.0.0.130:8000
+          tls /var/lib/acme/rickhenry.xyz/cert.pem /var/lib/acme/rickhenry.xyz/key.pem
+        '';
+        "piwigo.rickhenry.xyz".extraConfig = ''
+          reverse_proxy 10.0.0.130:8085
+          tls /var/lib/acme/rickhenry.xyz/cert.pem /var/lib/acme/rickhenry.xyz/key.pem
+        '';
+        "berg.rickhenry.xyz".extraConfig = ''
+          reverse_proxy :9090
           tls /var/lib/acme/rickhenry.xyz/cert.pem /var/lib/acme/rickhenry.xyz/key.pem
         '';
         # "baserow.rickhenry.xyz".extraConfig = ''
@@ -783,6 +776,7 @@ in
           "/navidrome.rickhenry.xyz/10.7.0.100"
           "/sonarr.rickhenry.xyz/10.7.0.100"
           "/radarr.rickhenry.xyz/10.7.0.100"
+          "/mm.rickhenry.xyz/10.7.0.100"
           "/jackett.rickhenry.xyz/10.7.0.100"
           "/qb.rickhenry.xyz/10.7.0.100"
           "/vault.rickhenry.xyz/10.7.0.100"
@@ -795,6 +789,7 @@ in
           "/coolify.rickhenry.xyz/10.7.0.100"
           "/nocodb.rickhenry.xyz/10.7.0.100"
           "/bookstash.rickhenry.xyz/10.7.0.100"
+          "/berg.rickhenry.xyz/10.7.0.100"
           # "/baserow.rickhenry.xyz/10.7.0.100"
         ];
       };
@@ -885,7 +880,7 @@ in
           TIMELINE_LIMIT_MONTHLY = "0";
           TIMELINE_LIMIT_YEARLY = "0";
           BACKGROUND_COMPARISON = "yes";
-          NUMBER_CLEANUP = "no";
+          NUMBER_CLEANUP = "yes";
           NUMBER_MIN_AGE = "1800";
           NUMBER_LIMIT = "50";
           NUMBER_LIMIT_IMPORTANT = "10";
@@ -912,7 +907,7 @@ in
     certs."rickhenry.xyz" = {
       domain = "*.rickhenry.xyz";
       dnsProvider = "cloudflare";
-      credentialsFile = "/persist/secrets/acme/cloudflare";
+      environmentFile = "/persist/secrets/acme/cloudflare";
       group = config.services.caddy.group;
     };
   };
@@ -954,46 +949,45 @@ in
     ];
   };
 
+  # virtualisation.oci-containers.containers."mstream" = {
+  #   autoStart = true;
+  #   image = "lscr.io/linuxserver/mstream:latest";
+  #   ports = [ "3000:3000" ];
+  #   environment = {
+  #     PUID = "996";
+  #     PGID = "996";
+  #     TZ = "America/New_York";
+  #   };
+  #   volumes = [
+  #     "/vroom/media/music:/music"
+  #     "/var/lib/mstream/config:/config"
+  #   ];
+  # };
 
-  virtualisation.oci-containers.containers."mstream" = {
-    autoStart = true;
-    image = "lscr.io/linuxserver/mstream:latest";
-    ports = [ "3000:3000" ];
-    environment = {
-      PUID = "996";
-      PGID = "996";
-      TZ = "America/New_York";
-    };
-    volumes = [
-      "/vroom/media/music:/music"
-      "/var/lib/mstream/config:/config"
-    ];
-  };
-
-  virtualisation.oci-containers.containers."audiobookshelf" = {
-    autoStart = true;
-    image = "ghcr.io/advplyr/audiobookshelf:latest";
-    environment = {
-      AUDIOBOOKSHELF_UID = "99";
-      AUDIOBOOKSHELF_GID = "100";
-    };
-    ports = [ "13378:80" ];
-    volumes = [
-      "/spinny/media/audiobooks:/audiobooks"
-      "/vroom/configs/audiobookshelf/config:/config"
-      "/vroom/configs/audiobookshelf/metadata:/metadata"
-    ];
-  };
+  # virtualisation.oci-containers.containers."audiobookshelf" = {
+  #   autoStart = true;
+  #   image = "ghcr.io/advplyr/audiobookshelf:latest";
+  #   environment = {
+  #     AUDIOBOOKSHELF_UID = "99";
+  #     AUDIOBOOKSHELF_GID = "100";
+  #   };
+  #   ports = [ "13378:80" ];
+  #   volumes = [
+  #     "/spinny/media/audiobooks:/audiobooks"
+  #     "/vroom/configs/audiobookshelf/config:/config"
+  #     "/vroom/configs/audiobookshelf/metadata:/metadata"
+  #   ];
+  # };
 
   # nixpkgs.config.packageOverrides = pkgs: {
-  #   vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
+  #   intel-vaapi-driver = pkgs.intel-vaapi-driver.override { enableHybridCodec = true; };
   # };
   hardware.graphics = {
     enable = true;
     extraPackages = with pkgs; [
       intel-media-driver
-      vaapiIntel
-      vaapiVdpau
+      intel-vaapi-driver
+      libva-vdpau-driver
       libvdpau-va-gl
       intel-compute-runtime
     ];
@@ -1044,7 +1038,7 @@ in
         {
           # bach
           publicKey = "nEmLcjCfWKdoUHHnd+AJb3+9f+68rs4SrfPpJYbIAmc=";
-          allowedIPs = [ "10.7.0.121/32"];
+          allowedIPs = [ "10.7.0.121/32" ];
           presharedKeyFile = "/persist/secrets/wireguard/bach-psk";
           persistentKeepalive = 25;
         }
@@ -1112,6 +1106,11 @@ in
       3211
       8384
       22000
+      8337 # beets web
+      2869
+      5001
+      8200
+      5002
     ];
     allowedUDPPorts = [
       53
@@ -1131,9 +1130,12 @@ in
       5353
       22000
       21027
+      1900
+      config.services.tailscale.port
     ];
     extraCommands = ''iptables -t raw -A OUTPUT -p udp -m udp --dport 137 -j CT --helper netbios-ns'';
     allowPing = true;
+    trustedInterfaces = [ "tailscale0" ];
   };
 
   boot.zfs.extraPools = [
@@ -1165,9 +1167,9 @@ in
     ];
   };
 
-  boot.initrd.postDeviceCommands = lib.mkAfter ''
-    zfs rollback -r rpool/local/root@blank
-  '';
+  # boot.initrd.postDeviceCommands = lib.mkAfter ''
+  #   zfs rollback -r rpool/local/root@blank
+  # '';
 
   fileSystems."/persist".neededForBoot = true;
   fileSystems."/vroom-impermanence".neededForBoot = true;
@@ -1186,30 +1188,30 @@ in
   services.avahi.publish.userServices = true;
   services.avahi.publish.enable = true;
 
-  services.gonic = {
-    enable = true;
-    settings = {
-      listen-addr = "0.0.0.0:4747";
-      music-path = [
-        "/vroom/media/music"
-      ];
-      podcast-path = "/vroom/media/podcasts";
-      playlists-path = "/var/lib/gonic/playlists";
-    };
-  };
+  # services.gonic = {
+  #   enable = true;
+  #   settings = {
+  #     listen-addr = "0.0.0.0:4747";
+  #     music-path = [
+  #       "/vroom/media/music"
+  #     ];
+  #     podcast-path = "/vroom/media/podcasts";
+  #     playlists-path = "/var/lib/gonic/playlists";
+  #   };
+  # };
 
-  services.polaris = {
-    enable = true;
-    openFirewall = true;
-    settings = {
-      mount_dirs = [
-        {
-          name = "vroom";
-          source = "/vroom/media/music";
-        }
-      ];
-    };
-  };
+  # services.polaris = {
+  #   enable = true;
+  #   openFirewall = true;
+  #   settings = {
+  #     mount_dirs = [
+  #       {
+  #         name = "vroom";
+  #         source = "/vroom/media/music";
+  #       }
+  #     ];
+  #   };
+  # };
 
   services.syncthing = {
     enable = true;
@@ -1219,5 +1221,23 @@ in
     configDir = "/srv/config/syncthing";
     guiAddress = "0.0.0.0:8384";
   };
+
+  services.cockpit = {
+    enable = true;
+    openFirewall = true;
+    settings.WebService = {
+      AllowUnencrypted = true;
+      ProtocolHeader = "X-Forwarded-Proto";
+    };
+    allowed-origins = [
+      "http://10.0.1.100"
+      "http://localhost"
+      "https://berg.rickhenry.xyz"
+      "https://berg-cockpit.mammut-porgy.ts.net"
+    ];
+  };
+
+  services.tailscale.enable = true;
+  services.tailscale.useRoutingFeatures = "server";
 
 }
